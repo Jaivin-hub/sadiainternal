@@ -1,0 +1,56 @@
+@use '../../src/scss/custom.scss' as *;
+
+
+/* ICON-ANIMATION START */
+.Icons.animate {
+	animation: 4s ease-out infinite swing;
+  transform-origin: right bottom;
+}
+
+@keyframes swing {
+	0%,
+	100% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(20deg);
+	}
+}
+/* ICON-ANIMATION END */
+
+/**
+ * ----------------------------------------
+ * animation rotate-center
+ * ----------------------------------------
+ */
+
+ .rotate-center {
+	-webkit-animation: rotate-center 25.6s linear infinite ;
+	        animation: rotate-center 25.6s linear infinite ;
+}
+
+
+ @-webkit-keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+
+
+/* CIRCLE-ANIAMTION END */

@@ -1,13 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/js/index.js',
+  entry: {
+    main: './src/js/index.js',     // Main entry point
+    slickslider: './src/js/slickslider.js', // Custom slick slider script
+  },
   output: {
-    filename: 'bundle.js',
+    filename: 'assets/js/[name].bundle.js',  // Dynamic output filenames for multiple entry points
     path: path.resolve(__dirname, 'dist'),
-    clean: true, // Clean dist folder on each build
+    clean: true,  // Clean the output directory before each build
   },
   module: {
     rules: [
@@ -24,46 +28,10 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/i,
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
+          MiniCssExtractPlugin.loader,  // Extracts CSS to separate file
+          'css-loader',  // Translates CSS into CommonJS
+          'sass-loader', // Compiles Sass to CSS
         ],
-      },
-      // For logos images
-      {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        include: path.resolve(__dirname, 'src/assets/images/logos'),
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/images/logos/[name][ext]', // Place in logos folder
-        },
-      },
-      // For banner images
-      {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        include: path.resolve(__dirname, 'src/assets/images/banner'),
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/images/banner/[name][ext]', // Place in banner folder
-        },
-      },
-      // For fav icons
-      {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        include: path.resolve(__dirname, 'src/assets/images/fav'),
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/images/fav/[name][ext]', // Place in fav folder
-        },
-      },
-      // For recipe images
-      {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        include: path.resolve(__dirname, 'src/assets/images/recipes'),
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/images/recipes/[name][ext]', // Place in recipes folder
-        },
       },
     ],
   },
@@ -75,17 +43,23 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: 'src/pages/home.hbs',
-      inject: 'body',
+      inject: 'body', // Inject scripts at the end of the body
       filename: 'home.html',
     }),
     new MiniCssExtractPlugin({
       filename: 'css/style.css',
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: './src/assets/images', to: './assets/images', noErrorOnMissing: true },
+        { from: './src/assets/fonts', to: './assets/fonts', noErrorOnMissing: true },
+      ],
+    }),
   ],
   devServer: {
     static: path.join(__dirname, 'dist'),
     port: 8080,
-    historyApiFallback: true,
+    historyApiFallback: true,  // Allows routing to work with history API in single-page apps
   },
   mode: 'development',
 };

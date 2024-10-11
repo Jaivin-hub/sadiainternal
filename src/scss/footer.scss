@@ -1,0 +1,94 @@
+
+@use '../../src/scss/custom.scss' as *;
+
+
+
+footer {
+    background: #171716;
+    color: #fff;
+    padding: 88px 0 120px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    ul{
+        li{
+            list-style: none;
+        }
+    }
+    .ftrLogoWrap{
+        padding-bottom: 120px;
+    }
+    .footer-end{
+        margin-top: 48px;
+    }
+    .footer-copyright{
+        color: #5E5E5E;
+        font-size: 14px;
+        a{
+            color: #5E5E5E;
+            text-decoration: none;
+        }
+    }
+    .ftr_links {
+        font-size: 14px;
+        display: flex;
+        li{
+            margin-right: 40px;
+            &:last-child{
+                margin-right: 0;
+            }
+            a{
+                color: #5E5E5E;
+                text-decoration: none;
+            }
+        }
+        
+    }
+    .footer-socials{
+        a{
+
+        }
+    }
+    
+    .footer-grid-title{
+        color: $grey-color;
+        font-size: 70px;
+        font-family: $title-font;
+    }
+
+    .ftrLinks ul{
+        color: $grey-color;
+        font-size: 16px;
+        line-height: 20px;
+        padding: 0;
+        margin: 0;
+        li{
+            list-style: none;
+            margin-bottom: 24px;
+            a{
+                color: $grey-color;
+                text-decoration: none; 
+            }
+        }
+        
+    }
+    nav {
+        ul {
+            margin-top: 10px;
+
+            li {
+                display: inline;
+                margin-right: 20px;
+
+                a {
+                    color: #fff;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}

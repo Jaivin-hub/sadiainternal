@@ -1,7 +1,7 @@
 <div class="container">
     <section class="your-favorite">
         <!-- Row with 3 sections -->
-        <div class="favorite-row">
+        {{!-- <div class="favorite-row">
             <!-- Left Text -->
             <div class="favorite-text">
                 <h3>What is your favorite?</h3>
@@ -27,10 +27,10 @@
                 quia. Quo neque error repudiandae fuga?</p>
                 <button class="btn btn-custom">View Products</button>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Small card slider -->
-        <div class="favorite-slider">
+        {{!-- <div class="favorite-slider">
             <div class="scrollable-cards">
                 <div class="card">
                     <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+1" alt="Small Image 1">
@@ -69,6 +69,101 @@
                 </div>
                 <!-- Repeat small cards as needed -->
             </div>
-        </div>
+        </div> --}}
     </section>
+
+
+<div class="slider-wrapper your-favorite">
+  <div class="row">
+    <!-- Slider for images -->
+    <div class="col-md-6">
+      <div class="image-slider">
+        <div class="slide">
+          <img  src="/assets/images/others/breaded_L.png" alt="Image 1">
+        </div>
+        {{!-- <div class="slide">
+          <img  src="/assets/images/others/whole_L.png" alt="Image 2">
+        </div> --}}
+        {{!-- <div class="slide">
+          <img src="/assets/images/others/breaded.png" alt="Image 3">
+        </div>
+        <div class="slide">
+          <img  src="/assets/images/others/breaded.png" alt="Image 4">
+        </div> --}}
+      </div>
+    </div>
+    
+    <!-- Slider for content (show/hide) -->
+    <div class="content-section  col-md-6">
+      <div class="content-item" data-slide="0">
+        <ul>
+          <li>
+            100% <br/>CHICKEN BREAST
+          </li>
+          <li>
+            10 + <br/>PRODUCTS
+          </li>
+          <li>
+            5 + <br/>RECIPES
+          </li>
+        </ul>
+        <h3>BREADED CHICKEN</h3>
+        <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+        <a href="#">VIEW PRODUCTS</a>
+      </div>
+      {{!-- <div class="content-item" data-slide="1">
+        <h3>WHOLE CHICKEN
+          & CHICKEN PARTS</h3>
+        <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+        <a href="#">VIEW PRODUCTS</a>
+      </div> --}}
+      {{!-- <div class="content-item" data-slide="2">
+        <h3>Content for Image 3</h3>
+        <p>This is the description for image 3.</p>
+      </div> --}}
+      {{!-- <div class="content-item" data-slide="3">
+        <h3>WHOLE CHICKEN
+          & CHICKEN PARTS</h3>
+        <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+        <a href="#">VIEW PRODUCTS</a>
+      </div> --}}
+    </div>
+  </div>
+
+  <!-- Thumbnail navigation -->
+  <div class="thumbnail-slider">
+    <div class="thumbnail" data-slide="0">
+      <div class="imgSpc">
+        <div class="imgThumb"><img src="/assets/images/others/breaded.png" alt="Thumbnail 1"></div>
+      </div>
+      <p>BREADED CHICKEN</p>
+    </div>
+    <div class="thumbnail" data-slide="1">
+      <div class="imgSpc">
+        <div class="imgThumb"><img src="/assets/images/others/whole.png" alt="Thumbnail 2"></div>
+      </div>
+      <p>WHOLE CHICKEN & CHICKEN PARTS</p>
+    </div>
+    <div class="thumbnail" data-slide="2">
+      <div class="imgSpc">
+        <div class="imgThumb"><img  src="/assets/images/others/patties.png" alt="Thumbnail 3"></div>
+      </div>
+      <p>Patties, Franks & Shawerma</p>
+    </div>
+    <div class="thumbnail" data-slide="3">
+      <div class="imgSpc">
+        <div class="imgThumb"><img src="/assets/images/others/fries.png" alt="Thumbnail 2"></div>
+      </div>
+      <p>WHOLE CHICKEN & CHICKEN PARTS</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 </div>

@@ -1,0 +1,229 @@
+@use '../../src/scss/custom.scss' as *;
+
+header {
+	padding: 0;
+	margin: 0;
+	.navbar-nav {
+		&.navRights{
+			li.nav-item {
+				margin: 0 10px;
+			}
+		} 
+
+	}
+	
+    .navbar {
+		&.bg-primary{
+			background-color: $white-color !important;
+			padding: 0;
+			margin: 0;
+			min-height: 86px;
+			align-items: center;
+			display: flex;
+		}
+		.navbar-nav {
+			align-items: center;
+		}
+		li.nav-item{
+			margin: 0 24px;
+			padding: 0;
+			&.country{
+				.moreSpc{
+					border-top: 1px solid #ddd;
+					text-align: center;
+					margin: 55px 0 0 0;
+					.moreBtn {
+						font-size: 14px;
+						line-height: 20px;
+						text-decoration: none;
+						text-align: center;
+						display: block;
+						color: $black-color;
+						margin: 20px 0 0;
+						display: inline-block;
+					}
+				}
+				
+				.nav-link.dropdown-toggle::after{
+					display: none;
+				}
+				.navBox{
+					border: 1px solid transparent;
+					min-height: 124px;
+					&.active{
+						background-color: transparent;
+						color: $black-color;
+						border: 1px solid #DB3E44 !important;
+					}
+					&:hover{
+						background-color: #EBEBEB;
+						color: $black-color;
+						border: 1px solid #EBEBEB;
+						h6{
+							color: $black-color;
+						}
+					}
+				}
+			}
+		}
+		
+		.nav-link{
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 22px;
+			color: $secondary-color;
+			padding: 15px 0 !important;
+			margin: 0;
+			display: inline-flex;
+    		align-items: center;
+			&.dropdown-toggle::after{
+				background-image: url(../assets/images/icons/drop-down.svg);
+				border: 0;
+				width: 11px;
+				height: 22px;
+				background-size: auto;
+				background-repeat: no-repeat;
+				margin: 0 0 0 10px;
+				background-position: center center;
+			}
+			
+		}
+        .megamenu {
+			border-radius: 0;
+        	border: 0;
+			background: transparent;
+			padding-top: 40px;
+			.menuBg{
+				background-color: $greyL-color;
+				padding: 48px 120px;
+				min-height: 300px;
+			}
+			.navBox{
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				text-decoration: none;
+				border-radius: 8px;
+				color: $black-color;
+				min-height: 159px;
+				transition: all ease 0.5s;
+				&:hover {
+					background-color: $primary-color;
+					color: $white-color;
+					img{
+						filter: grayscale(0) brightness(1) contrast(1) opacity(1) !important;
+					}
+					h6 {
+						color: $white-color;
+					}
+				}
+				img{
+					max-width: 64px;
+					max-height: 64px;
+				}
+				h6{
+					text-align: center;
+					font-family: $title-font;
+					font-size: 27px;
+					font-style: normal;
+					font-weight: 700;
+					line-height: 27px; 
+					letter-spacing: 0.5px;
+					margin: 10px 0 0;
+					padding: 0;
+					text-transform: uppercase;
+					// color: $black-color;
+					transition: all ease 0.3s;
+				}
+			}
+			.menuTitle{
+				h3{
+					color: #EBEBEB;
+					font-family: $title-font;
+					font-size: 80px;
+					font-style: normal;
+					font-weight: 700;
+					line-height: 80px;
+					text-transform: uppercase;
+				}
+			} 
+        }
+    }
+
+}
+
+
+@media all and (min-width: 992px) {
+	.navbar {
+		.has-megamenu {
+			position: static !important;
+			top: 100%;
+		}
+		.megamenu {
+			left: 0;
+			right: 0;
+			width: 100%;
+			top: 0%;
+			margin-top: 50px;
+		}
+	}
+	.navbar-nav {
+		.dropdown {
+			&:hover {
+				.dropdown-menu {
+					display: block;
+					background-color: transparent !important;
+					border-radius: 0;
+        			border: 0;
+				}
+			}
+		}
+	}
+}
+@media (max-width: 991px) {
+	.navbar.fixed-top {
+		.navbar-collapse {
+			overflow-y: auto;
+			max-height: 90vh;
+			margin-top: 10px;
+		}
+	}
+	.navbar.sticky-top {
+		.navbar-collapse {
+			overflow-y: auto;
+			max-height: 90vh;
+			margin-top: 10px;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+.search-bar-container {
+	position: relative;
+	// width: 200px;
+	transition: width 0.4s ease;
+	&.active {
+		width: 300px;
+	}
+	button.btn {
+		border: 0;
+		background: transparent;
+	}
+}
+.search-bar {
+	width: 100%;
+	transition: width 0.4s ease;
+	&:focus {
+		outline: none;
+		width: 100%;
+	}
+}
