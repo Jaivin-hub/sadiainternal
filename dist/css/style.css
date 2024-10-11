@@ -12334,53 +12334,7 @@ footer nav ul li a:hover {
   padding: 60px 0;
   background-color: #f8f9fa;
 }
-.whats-on-sadia h2 {
-  font-size: 36px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-.whats-on-sadia .scrollable-cards {
-  display: flex;
-  overflow-x: auto;
-  padding: 20px;
-  gap: 20px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.whats-on-sadia .scrollable-cards .card {
-  flex: 0 0 auto;
-  width: 350px;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: none;
-  scroll-snap-align: start;
-}
-.whats-on-sadia .scrollable-cards .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-.whats-on-sadia .scrollable-cards .card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-.whats-on-sadia .scrollable-cards .card .card-body {
-  padding: 15px;
-  background-color: #fff;
-  border-radius: 10px;
-  text-align: center;
-}
-.whats-on-sadia .scrollable-cards::-webkit-scrollbar {
-  display: none;
-}
-.whats-on-sadia .scrollable-cards::-webkit-scrollbar-thumb {
-  background-color: #412610;
-  border-radius: 4px;
-}
-.whats-on-sadia .scrollable-cards::-webkit-scrollbar-track {
-  background: #f1e9d6;
-}
+
 
 /* Your favorite section styles */
 .your-favorite {

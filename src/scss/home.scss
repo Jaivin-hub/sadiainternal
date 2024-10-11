@@ -5,6 +5,15 @@
     max-width: 1440px;
 }
 
+.mainTitle{
+    font-family: $title-font;
+    font-size: 61px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    line-height: 61px;
+    text-align: center;
+}
+
 
 .image-slider {
 	.slide {
@@ -130,7 +139,7 @@
         left: 70px;
         h5{
             font-size: 80px;
-            font-weight: 600;
+            font-weight: 500;
             line-height: 80px;
             margin: 0 0 30px;
             padding: 0;
@@ -280,11 +289,11 @@
     padding: 60px 0;
     background-color: #f8f9fa;
 
-    h2 {
-        font-size: 36px;
-        margin-bottom: 30px;
-        text-align: center;
-    }
+    // h2 {
+    //     font-size: 36px;
+    //     margin-bottom: 30px;
+    //     text-align: center;
+    // }
 
     .scrollable-cards {
         display: flex;
