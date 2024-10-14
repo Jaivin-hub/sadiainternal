@@ -1,35 +1,43 @@
-<section class="find-us">
+<section class="find-us secSpace">
     <div class="container">
-         <div class="titleWrap text-center">
-            <h2 class="mainTitle">FIND US</h2>
-    <div class="row">
-        <!-- First column: Map image -->
-        <div class="col-md-6">
-            <img src="/assets/images/others/Map.png" alt="Map">
+
+        <div class="titleWrap text-center">
+            <h2 class="mainTitle">FIND<span class="animateIc"><img class="Icons animate" src="/assets/images/icons/location.svg" alt="icon" /></span> US</h2>
+        </div>
+        <div class="row">
+            <!-- First column: Map image -->
+            <div class="col-md-6 mapWrap">
+                <div class="mapFrame">
+
+                    <img class="img-fluid" src="/assets/images/others/Map.png" alt="Map">
+
+                </div>
+            </div>
+            
+            <!-- Second column: Description, dropdown, and button -->
+            <div class="col-md-6">
+                <div class="mapBox">
+                    <h3 class="title">Across the Middle East</h3>
+                    <p>Find us at a supermarket near you or shop online for even greater convenience.</p>
+                
+                    <div class="dropdown-container">
+                        <select class="form-select countryDrops" aria-label="Select Country">
+                            <option selected>Select your country</option>
+                            <option value="1">Saudi Arabia</option>
+                            <option value="2">United Arab Emirates</option>
+                            <option value="3">Qatar</option>
+                            <option value="4">Kuwait</option>
+                            <option value="5">Oman</option>
+                        </select>
+                    </div>
+
+               
+                    <div class="button-container">
+                        <button class="btn btn-more mt-3">Where to Buy</button>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <!-- Second column: Description, dropdown, and button -->
-        <div class="col-md-6 text-center">
-            <h3>Across the Middle East</h3>
-            <p>Find us at a supermarket near you or shop online for even greater convenience.</p>
-
-            <!-- Dropdown with reduced width -->
-            <div class="dropdown-container">
-                <select class="form-select custom-dropdown" aria-label="Select Country">
-                    <option selected>Select your country</option>
-                    <option value="1">Saudi Arabia</option>
-                    <option value="2">United Arab Emirates</option>
-                    <option value="3">Qatar</option>
-                    <option value="4">Kuwait</option>
-                    <option value="5">Oman</option>
-                </select>
-            </div>
-
-            <!-- Button (force it to remain below) -->
-            <div class="button-container">
-                <button class="btn btn-custom mt-3">Where to Buy</button>
-            </div>
-        </div>
-    </div>
     </div> 
 </section>

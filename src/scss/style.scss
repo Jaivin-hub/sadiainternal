@@ -5,10 +5,12 @@
 // @import 'custom';
 @import 'animation';
 
+
+
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
 
-
+// @import '../assets/fonts/fontawesome/css/all';
 
 
 /* Box sizing rules */
@@ -21,7 +23,12 @@
   box-sizing: border-box;
 }
 
-
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  letter-spacing: -0.25px;
+}
 
 @font-face {
     font-family: 'secondary-font';

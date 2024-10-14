@@ -7,13 +7,15 @@
   transform-origin: right bottom;
 }
 
+
+
 @keyframes swing {
 	0%,
 	100% {
 		transform: rotate(0deg);
 	}
 	50% {
-		transform: rotate(20deg);
+		transform: rotate(15deg);
 	}
 }
 /* ICON-ANIMATION END */

@@ -1,169 +1,98 @@
-<div class="container">
-    <section class="your-favorite">
-        <!-- Row with 3 sections -->
-        {{!-- <div class="favorite-row">
-            <!-- Left Text -->
-            <div class="favorite-text">
-                <h3>What is your favorite?</h3>
-            </div>
+<section class="your-favorite secSpace">
+  <div class="container">
 
-            <!-- Center Image -->
-            <div class="favorite-image">
-                <img src="https://via.placeholder.com/300x200?text=1" alt="Favorite Dish Image">
-            </div>
-
-            <!-- Right Text -->
-            <div class="favorite-text">
-                <p>100% Chicken Breast | 10+ products | 5+ recipes</p>
-                <div class="header-section"></div>
-                <h2>Breeded Chicken</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-                molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-                optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-                obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-                nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
-                tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-                quia. Quo neque error repudiandae fuga?</p>
-                <button class="btn btn-custom">View Products</button>
-            </div>
-        </div> --}}
-
-        <!-- Small card slider -->
-        {{!-- <div class="favorite-slider">
-            <div class="scrollable-cards">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+1" alt="Small Image 1">
-                    <div class="card-body">
-                        <h5>Small Card 1</h5>
-                        <p>Description</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+2" alt="Small Image 2">
-                    <div class="card-body">
-                        <h5>Small Card 2</h5>
-                        <p>Description</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+1" alt="Small Image 1">
-                    <div class="card-body">
-                        <h5>Small Card 1</h5>
-                        <p>Description</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+2" alt="Small Image 2">
-                    <div class="card-body">
-                        <h5>Small Card 2</h5>
-                        <p>Description</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+2" alt="Small Image 2">
-                    <div class="card-body">
-                        <h5>Small Card 2</h5>
-                        <p>Description</p>
-                    </div>
-                </div>
-                <!-- Repeat small cards as needed -->
-            </div>
-        </div> --}}
-    </section>
-
-
-<div class="slider-wrapper your-favorite">
-  <div class="row">
-    <!-- Slider for images -->
-    <div class="col-md-6">
-      <div class="image-slider">
-        <div class="slide">
-          <img  src="/assets/images/others/breaded_L.png" alt="Image 1">
+    <div class="slider-wrapper">
+      <div class="row">
+        <div class="col-md-4">
+          <h2 class="mainTitle">What <br/> is your <br/> favorite?</h2>
         </div>
-        {{!-- <div class="slide">
-          <img  src="/assets/images/others/whole_L.png" alt="Image 2">
-        </div> --}}
-        {{!-- <div class="slide">
-          <img src="/assets/images/others/breaded.png" alt="Image 3">
+        <div class="col-md-8">
+          <div class="row">
+            <!-- Slider for images -->
+            <div class="col-md-6">
+              <div class="image-slider">
+                <div class="slide">
+                  <img  src="/assets/images/others/breaded_L.png" alt="Image 1">
+                </div>
+                {{!-- <div class="slide">
+                  <img  src="/assets/images/others/whole_L.png" alt="Image 2">
+                </div> --}}
+                {{!-- <div class="slide">
+                  <img src="/assets/images/others/breaded.png" alt="Image 3">
+                </div>
+                <div class="slide">
+                  <img  src="/assets/images/others/breaded.png" alt="Image 4">
+                </div> --}}
+              </div>
+            </div>
+          
+            <!-- Slider for content (show/hide) -->
+            <div class="content-section  col-md-6">
+              <div class="content-item" data-slide="0">
+                <ul class="lists">
+                  <li>
+                    100% <br/>CHICKEN BREAST
+                  </li>
+                  <li>
+                    10 + <br/>PRODUCTS
+                  </li>
+                  <li>
+                    5 + <br/>RECIPES
+                  </li>
+                </ul>
+                <h3 class="title">BREADED CHICKEN</h3>
+                <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+                <a class="btn-more" href="#">VIEW PRODUCTS</a>
+              </div>
+              {{!-- <div class="content-item" data-slide="1">
+                <h3>WHOLE CHICKEN
+                  & CHICKEN PARTS</h3>
+                <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+                <a href="#">VIEW PRODUCTS</a>
+              </div> --}}
+              {{!-- <div class="content-item" data-slide="2">
+                <h3>Content for Image 3</h3>
+                <p>This is the description for image 3.</p>
+              </div> --}}
+              {{!-- <div class="content-item" data-slide="3">
+                <h3>WHOLE CHICKEN
+                  & CHICKEN PARTS</h3>
+                <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+                <a href="#">VIEW PRODUCTS</a>
+              </div> --}}
+            </div>
+          </div>
         </div>
-        <div class="slide">
-          <img  src="/assets/images/others/breaded.png" alt="Image 4">
-        </div> --}}
+
       </div>
-    </div>
-    
-    <!-- Slider for content (show/hide) -->
-    <div class="content-section  col-md-6">
-      <div class="content-item" data-slide="0">
-        <ul>
-          <li>
-            100% <br/>CHICKEN BREAST
-          </li>
-          <li>
-            10 + <br/>PRODUCTS
-          </li>
-          <li>
-            5 + <br/>RECIPES
-          </li>
-        </ul>
-        <h3>BREADED CHICKEN</h3>
-        <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
-        <a href="#">VIEW PRODUCTS</a>
+
+      <!-- Thumbnail navigation -->
+      <div class="thumbnail-slider">
+        <div class="thumbnail" data-slide="0">
+          <div class="imgSpc">
+            <div class="imgThumb"><img src="/assets/images/others/breaded.png" alt="Thumbnail 1"></div>
+          </div>
+          <p class="title">BREADED<br/> CHICKEN</p>
+        </div>
+        <div class="thumbnail" data-slide="1">
+          <div class="imgSpc">
+            <div class="imgThumb"><img src="/assets/images/others/whole.png" alt="Thumbnail 2"></div>
+          </div>
+          <p class="title">WHOLE CHICKEN<br/> & CHICKEN PARTS</p>
+        </div>
+        <div class="thumbnail" data-slide="2">
+          <div class="imgSpc">
+            <div class="imgThumb"><img  src="/assets/images/others/patties.png" alt="Thumbnail 3"></div>
+          </div>
+          <p class="title">Patties, Franks<br/> & Shawerma</p>
+        </div>
+        <div class="thumbnail" data-slide="3">
+          <div class="imgSpc">
+            <div class="imgThumb"><img src="/assets/images/others/fries.png" alt="Thumbnail 2"></div>
+          </div>
+          <p class="title">WHOLE CHICKEN<br/> & CHICKEN PARTS</p>
+        </div>
       </div>
-      {{!-- <div class="content-item" data-slide="1">
-        <h3>WHOLE CHICKEN
-          & CHICKEN PARTS</h3>
-        <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
-        <a href="#">VIEW PRODUCTS</a>
-      </div> --}}
-      {{!-- <div class="content-item" data-slide="2">
-        <h3>Content for Image 3</h3>
-        <p>This is the description for image 3.</p>
-      </div> --}}
-      {{!-- <div class="content-item" data-slide="3">
-        <h3>WHOLE CHICKEN
-          & CHICKEN PARTS</h3>
-        <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
-        <a href="#">VIEW PRODUCTS</a>
-      </div> --}}
     </div>
   </div>
-
-  <!-- Thumbnail navigation -->
-  <div class="thumbnail-slider">
-    <div class="thumbnail" data-slide="0">
-      <div class="imgSpc">
-        <div class="imgThumb"><img src="/assets/images/others/breaded.png" alt="Thumbnail 1"></div>
-      </div>
-      <p>BREADED CHICKEN</p>
-    </div>
-    <div class="thumbnail" data-slide="1">
-      <div class="imgSpc">
-        <div class="imgThumb"><img src="/assets/images/others/whole.png" alt="Thumbnail 2"></div>
-      </div>
-      <p>WHOLE CHICKEN & CHICKEN PARTS</p>
-    </div>
-    <div class="thumbnail" data-slide="2">
-      <div class="imgSpc">
-        <div class="imgThumb"><img  src="/assets/images/others/patties.png" alt="Thumbnail 3"></div>
-      </div>
-      <p>Patties, Franks & Shawerma</p>
-    </div>
-    <div class="thumbnail" data-slide="3">
-      <div class="imgSpc">
-        <div class="imgThumb"><img src="/assets/images/others/fries.png" alt="Thumbnail 2"></div>
-      </div>
-      <p>WHOLE CHICKEN & CHICKEN PARTS</p>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-</div>
+</section> 

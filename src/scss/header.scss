@@ -56,9 +56,9 @@ header {
 						border: 1px solid #DB3E44 !important;
 					}
 					&:hover{
-						background-color: #EBEBEB;
+						background-color: $border-color;
 						color: $black-color;
-						border: 1px solid #EBEBEB;
+						border: 1px solid $border-color;
 						h6{
 							color: $black-color;
 						}
@@ -112,7 +112,7 @@ header {
 					background-color: $primary-color;
 					color: $white-color;
 					img{
-						filter: grayscale(0) brightness(1) contrast(1) opacity(1) !important;
+						filter: brightness(0) invert(1);
 					}
 					h6 {
 						color: $white-color;
@@ -121,6 +121,7 @@ header {
 				img{
 					max-width: 64px;
 					max-height: 64px;
+					transition: all ease 0.3s;
 				}
 				h6{
 					text-align: center;
@@ -139,7 +140,7 @@ header {
 			}
 			.menuTitle{
 				h3{
-					color: #EBEBEB;
+					color: $border-color;
 					font-family: $title-font;
 					font-size: 80px;
 					font-style: normal;

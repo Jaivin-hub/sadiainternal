@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 $(document).ready(function() {
     // Initialize the image slider with sync to thumbnails and custom animation
     $('.image-slider').slick({

@@ -1,49 +1,92 @@
-<section class="popular-section">
+<section class="popular-section secSpace">
     <div class="container">
-        <h2>Our Popular Recipes</h2>
-    <div class="row">
-        <div class="col-12 text-center mb-3">
-            <div class="btn-group" role="group" aria-label="Recipe Categories">
-                <button type="button" class="btn btn-outline-secondary">All</button>
-                <button type="button" class="btn btn-outline-secondary">Airfryer</button>
-                <button type="button" class="btn btn-outline-secondary">Quick and Easy</button>
-                <button type="button" class="btn btn-outline-secondary">Seasonal</button>
-                <button type="button" class="btn btn-outline-secondary">Region</button>
-                <button type="button" class="btn btn-outline-secondary">Top Searched</button>
-            </div>
+        
+        <div class="titleWrap text-center">
+            <h2 class="mainTitle">Our Popular<span class="animateIc"><img class="Icons animate" src="/assets/images/icons/receipe.svg" alt="icon" /></span> Recipes</h2>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <img src="/assets/images/recipes/recipes_1.png" class="card-img-top" alt="Popular Recipe 1">
-                <div class="card-body">
-                    <h5 class="card-title">Popular Recipe 1</h5>
-                    <p class="card-text">Description of popular recipe 1.</p>
+
+        <div class="row">
+            <div class="col-12 text-center catgSpc">
+                <div class="btn-group categ_filter d-block" role="group" aria-label="Recipe Categories">
+                    <button type="button" class="btn filBtn active">All</button>
+                    <button type="button" class="btn filBtn">Airfryer</button>
+                    <button type="button" class="btn filBtn">Quick and Easy</button>
+                    <button type="button" class="btn filBtn">Seasonal</button>
+                    <button type="button" class="btn filBtn">Region</button>
+                    <button type="button" class="btn filBtn">Top Searched</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <img src="/assets/images/recipes/recipes_2.png" class="card-img-top" alt="Popular Recipe 2">
-                <div class="card-body">
-                    <h5 class="card-title">Popular Recipe 2</h5>
-                    <p class="card-text">Description of popular recipe 2.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="cardImg">
+                        <img src="/assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                        <p class="card-text">By<span>Diana Disoza</span></p>
+                        <div class="moreDtls">
+                            <div class="icCont">
+                                <span class="icons"><img src="/assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                30 Mins
+                            </div>
+                            <div class="icCont">
+                                <span class="icons"><img src="/assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                2-4 Persons
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="cardImg">
+                        <img src="/assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Peruvian-style Roast Chicken With<br/> Green Sauce</h5>
+                        <p class="card-text">By<span>Diana Disoza</span></p>
+                        <i class="fal fa-arrow-right ms-auto"></i>
+                        <div class="moreDtls">
+                            <div class="icCont">
+                                <span class="icons"><img src="/assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                30 Mins
+                            </div>
+                            <div class="icCont">
+                                <span class="icons"><img src="/assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                2-4 Persons
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="cardImg">
+                        <img src="/assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Middle Eastern-style Grilled<br/> Chicken Kabobs</h5>
+                        <p class="card-text">By<span>Diana Disoza</span></p>
+                        <div class="moreDtls">
+                            <div class="icCont">
+                                <span class="icons"><img src="/assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                30 Mins
+                            </div>
+                            <div class="icCont">
+                                <span class="icons"><img src="/assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                2-4 Persons
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <img src="/assets/images/recipes/recipes_3.png" class="card-img-top" alt="Popular Recipe 3">
-                <div class="card-body">
-                    <h5 class="card-title">Popular Recipe 3</h5>
-                    <p class="card-text">Description of popular recipe 3.</p>
-                </div>
-            </div>
+        <div class="text-center mt-4">
+            <a href="#" class="btn btn-more">View More Recipes</a> 
         </div>
-    </div>
-    <div class="text-center mt-4">
-    <a href="#" class="btn btn-custom">View More Recipes</a> <!-- Use custom class here -->
-</div>
+
     </div>
 </section>

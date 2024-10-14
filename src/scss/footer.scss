@@ -10,6 +10,10 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+    .animateIc {
+        margin-right: -12px;
+    }
+    
     ul{
         li{
             list-style: none;
@@ -40,14 +44,32 @@ footer {
             a{
                 color: #5E5E5E;
                 text-decoration: none;
+                &:hover{
+                    color: $primary-color;
+                }
+                
             }
         }
         
     }
     .footer-socials{
-        a{
+        ul{
+            margin: 0;
+            padding: 0;
+            display: flex;
+            a{
+                &:hover{
+                    img{
+                        transition: all ease 0.3s;
+                    }
+                    i{
+                        color: $white-color;
+                    }
+                }
 
+            }
         }
+       
     }
     
     .footer-grid-title{
@@ -68,6 +90,9 @@ footer {
             a{
                 color: $grey-color;
                 text-decoration: none; 
+                &:hover{
+                    color: $primary-color;
+                }
             }
         }
         
