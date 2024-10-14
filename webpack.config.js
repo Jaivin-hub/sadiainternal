@@ -18,7 +18,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.hbs$/,                       // Handlebar template files
+        test: /\.hbs$/, // Handlebar template files
         loader: 'handlebars-loader',
         options: {
           partialDirs: [
@@ -28,12 +28,22 @@ module.exports = {
         },
       },
       {
-        test: /\.(sa|sc|c)ss$/i,              // CSS and Sass files
+        test: /\.(sa|sc|c)ss$/i, // CSS and Sass files
         use: [
-          MiniCssExtractPlugin.loader,        // Extracts CSS to separate file
-          'css-loader',                       // Translates CSS into CommonJS
-          'sass-loader',                      // Compiles Sass to CSS
+          MiniCssExtractPlugin.loader, // Extracts CSS to separate file
+          'css-loader',                // Translates CSS into CommonJS
+          'sass-loader',               // Compiles Sass to CSS
         ],
+      },
+      {
+        test: /\.js$/, // JavaScript files
+        exclude: /node_modules/, // Exclude node_modules
+        use: {
+          loader: 'babel-loader', // Use Babel to transpile JS
+          options: {
+            presets: ['@babel/preset-env'], // Use the env preset for transpilation
+          },
+        },
       },
     ],
   },

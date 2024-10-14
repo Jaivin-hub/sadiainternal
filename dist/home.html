@@ -1,281 +1,449 @@
 <head><link href="css/style.css" rel="stylesheet"></head><section>
-  <div class="container">
-  <div id="imageCarousel" class="carousel slide" data-ride="carousel" style="padding: 20px;"> <!-- Add padding here -->
-      <div class="carousel-inner">
-          <div class="carousel-item active">
-              <img src="/assets/images/banner/slider_1.png" class="d-block w-100" alt="First Image">
-          </div>
-          <div class="carousel-item">
-              <img src="https://via.placeholder.com/600x400?text=2+Image" class="d-block w-100" alt="Second Image">
-          </div>
-          <div class="carousel-item">
-              <img src="https://via.placeholder.com/600x400?text=3+Image" class="d-block w-100" alt="Third Image">
-          </div>
-      </div>
-      <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-      </a>
-  </div>
-  </div>
   
-  <section class="popular-section">
+  <section  class="bannerSlider">
       <div class="container">
-          <h2>Our Popular Recipes</h2>
-      <div class="row">
-          <div class="col-12 text-center mb-3">
-              <div class="btn-group" role="group" aria-label="Recipe Categories">
-                  <button type="button" class="btn btn-outline-secondary">All</button>
-                  <button type="button" class="btn btn-outline-secondary">Airfryer</button>
-                  <button type="button" class="btn btn-outline-secondary">Quick and Easy</button>
-                  <button type="button" class="btn btn-outline-secondary">Seasonal</button>
-                  <button type="button" class="btn btn-outline-secondary">Region</button>
-                  <button type="button" class="btn btn-outline-secondary">Top Searched</button>
+          
+         <div id="fadeCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+              <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#fadeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#fadeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#fadeCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button> <!-- Added this -->
+                  <button type="button" data-bs-target="#fadeCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                  <button type="button" data-bs-target="#fadeCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                  <button type="button" data-bs-target="#fadeCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
               </div>
+  
+              <div class="carousel-inner">
+                  <div class="carousel-item active">
+                      <img src="/assets/images/banner/slider_1.png" class="d-block w-100" alt="Slide 1">
+                      <div class="carousel-caption d-none d-md-block">
+                          <h5>Campaign <br/>TITLE goes <br/>here</h5>
+                          <a class="btn learnBtn" href="#">Learn more</a>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <img src="/assets/images/banner/slider_2.png" class="d-block w-100" alt="Slide 2">
+                      <div class="carousel-caption d-none d-md-block">
+                          <h5>Recipes <br/>TITLE goes <br/>here</h5>
+                          <a class="btn learnBtn" href="#">Learn more</a>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <img src="/assets/images/banner/slider_3.png" class="d-block w-100" alt="Slide 3">
+                      <div class="carousel-caption d-none d-md-block">
+                          <h5>Products<br/>TITLE goes <br/>here</h5>
+                          <a class="btn learnBtn" href="#">Learn more</a>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <img src="/assets/images/banner/slider_4.png" class="d-block w-100" alt="Slide 4">
+                      <div class="carousel-caption d-none d-md-block">
+                          <h5>hacks <br/>TITLE goes <br/>here</h5>
+                          <a class="btn learnBtn" href="#">Learn more</a>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <img src="/assets/images/banner/slider_5.png" class="d-block w-100" alt="Slide 5">
+                      <div class="carousel-caption d-none d-md-block">
+                          <h5>halal <br/>TITLE goes <br/>here</h5>
+                          <a class="btn learnBtn" href="#">Learn more</a>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <img src="/assets/images/banner/slider_1.png" class="d-block w-100" alt="Slide 6">
+                      <div class="carousel-caption d-none d-md-block">
+                          <h5>Campaign<br/>TITLE goes <br/>here</h5>
+                          <a class="btn learnBtn" href="#">Learn more</a>
+                      </div>
+                  </div>
+              </div>
+  
+              <!-- Carousel controls -->
           </div>
+  
       </div>
-      <div class="row">
-          <div class="col-md-4">
-              <div class="card">
-                  <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+1" class="card-img-top" alt="Popular Recipe 1">
-                  <div class="card-body">
-                      <h5 class="card-title">Popular Recipe 1</h5>
-                      <p class="card-text">Description of popular recipe 1.</p>
+  
+     
+  
+  </section>
+  
+  <section class="popular-section secSpace">
+      <div class="container">
+          
+          <div class="titleWrap text-center">
+              <h2 class="mainTitle">Our Popular<span class="animateIc"><img class="Icons animate" src="/assets/images/icons/receipe.svg" alt="icon" /></span> Recipes</h2>
+          </div>
+  
+          <div class="row">
+              <div class="col-12 text-center catgSpc">
+                  <div class="btn-group categ_filter d-block" role="group" aria-label="Recipe Categories">
+                      <button type="button" class="btn filBtn active">All</button>
+                      <button type="button" class="btn filBtn">Airfryer</button>
+                      <button type="button" class="btn filBtn">Quick and Easy</button>
+                      <button type="button" class="btn filBtn">Seasonal</button>
+                      <button type="button" class="btn filBtn">Region</button>
+                      <button type="button" class="btn filBtn">Top Searched</button>
                   </div>
               </div>
           </div>
-          <div class="col-md-4">
-              <div class="card">
-                  <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+2" class="card-img-top" alt="Popular Recipe 2">
-                  <div class="card-body">
-                      <h5 class="card-title">Popular Recipe 2</h5>
-                      <p class="card-text">Description of popular recipe 2.</p>
+          <div class="row">
+              <div class="col-md-4">
+                  <div class="card">
+                      <div class="cardImg">
+                          <img src="/assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1">
+                      </div>
+                      <div class="card-body">
+                          <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                          <p class="card-text">By<span>Diana Disoza</span></p>
+                          <div class="moreDtls">
+                              <div class="icCont">
+                                  <span class="icons"><img src="/assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                  30 Mins
+                              </div>
+                              <div class="icCont">
+                                  <span class="icons"><img src="/assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                  2-4 Persons
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="card">
+                      <div class="cardImg">
+                          <img src="/assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2">
+                      </div>
+                      <div class="card-body">
+                          <h5 class="card-title">Peruvian-style Roast Chicken With<br/> Green Sauce</h5>
+                          <p class="card-text">By<span>Diana Disoza</span></p>
+                          <i class="fal fa-arrow-right ms-auto"></i>
+                          <div class="moreDtls">
+                              <div class="icCont">
+                                  <span class="icons"><img src="/assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                  30 Mins
+                              </div>
+                              <div class="icCont">
+                                  <span class="icons"><img src="/assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                  2-4 Persons
+                              </div>
+                          </div>
+                          
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="card">
+                      <div class="cardImg">
+                          <img src="/assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3">
+                      </div>
+                      <div class="card-body">
+                          <h5 class="card-title">Middle Eastern-style Grilled<br/> Chicken Kabobs</h5>
+                          <p class="card-text">By<span>Diana Disoza</span></p>
+                          <div class="moreDtls">
+                              <div class="icCont">
+                                  <span class="icons"><img src="/assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                  30 Mins
+                              </div>
+                              <div class="icCont">
+                                  <span class="icons"><img src="/assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                  2-4 Persons
+                              </div>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
-          <div class="col-md-4">
-              <div class="card">
-                  <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+3" class="card-img-top" alt="Popular Recipe 3">
-                  <div class="card-body">
-                      <h5 class="card-title">Popular Recipe 3</h5>
-                      <p class="card-text">Description of popular recipe 3.</p>
-                  </div>
-              </div>
+          <div class="text-center mt-4">
+              <a href="#" class="btn btn-more">View More Recipes</a> 
           </div>
-      </div>
-      <div class="text-center mt-4">
-      <a href="#" class="btn btn-custom">View More Recipes</a> <!-- Use custom class here -->
-  </div>
+  
       </div>
   </section>
-  <div class="container">
-      <section class="your-favorite">
-          <!-- Row with 3 sections -->
-          <div class="favorite-row">
-              <!-- Left Text -->
-              <div class="favorite-text">
-                  <h3>What is your favorite?</h3>
-              </div>
+  <section class="your-favorite secSpace">
+    <div class="container">
   
-              <!-- Center Image -->
-              <div class="favorite-image">
-                  <img src="https://via.placeholder.com/300x200?text=1" alt="Favorite Dish Image">
+      <div class="slider-wrapper">
+        <div class="row">
+          <div class="col-md-4">
+            <h2 class="mainTitle">What <br/> is your <br/> favorite?</h2>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <!-- Slider for images -->
+              <div class="col-md-6">
+                <div class="image-slider">
+                  <div class="slide">
+                    <img  src="/assets/images/others/breaded_L.png" alt="Image 1">
+                  </div>
+                </div>
               </div>
-  
-              <!-- Right Text -->
-              <div class="favorite-text">
-                  <p>100% Chicken Breast | 10+ products | 5+ recipes</p>
-                  <div class="header-section"></div>
-                  <h2>Breeded Chicken</h2>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-                  molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                  numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-                  optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-                  obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-                  nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
-                  tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-                  quia. Quo neque error repudiandae fuga?</p>
-                  <button class="btn btn-custom">View Products</button>
+            
+              <!-- Slider for content (show/hide) -->
+              <div class="content-section  col-md-6">
+                <div class="content-item" data-slide="0">
+                  <ul class="lists">
+                    <li>
+                      100% <br/>CHICKEN BREAST
+                    </li>
+                    <li>
+                      10 + <br/>PRODUCTS
+                    </li>
+                    <li>
+                      5 + <br/>RECIPES
+                    </li>
+                  </ul>
+                  <h3 class="title">BREADED CHICKEN</h3>
+                  <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+                  <a class="btn-more" href="#">VIEW PRODUCTS</a>
+                </div>
               </div>
+            </div>
           </div>
   
-          <!-- Small card slider -->
-          <div class="favorite-slider">
-              <div class="scrollable-cards">
-                  <div class="card">
-                      <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+1" alt="Small Image 1">
-                      <div class="card-body">
-                          <h5>Small Card 1</h5>
-                          <p>Description</p>
-                      </div>
-                  </div>
-                  <div class="card">
-                      <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+2" alt="Small Image 2">
-                      <div class="card-body">
-                          <h5>Small Card 2</h5>
-                          <p>Description</p>
-                      </div>
-                  </div>
-                  <div class="card">
-                      <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+1" alt="Small Image 1">
-                      <div class="card-body">
-                          <h5>Small Card 1</h5>
-                          <p>Description</p>
-                      </div>
-                  </div>
-                  <div class="card">
-                      <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+2" alt="Small Image 2">
-                      <div class="card-body">
-                          <h5>Small Card 2</h5>
-                          <p>Description</p>
-                      </div>
-                  </div>
-                  <div class="card">
-                      <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+2" alt="Small Image 2">
-                      <div class="card-body">
-                          <h5>Small Card 2</h5>
-                          <p>Description</p>
-                      </div>
-                  </div>
-                  <!-- Repeat small cards as needed -->
-              </div>
+        </div>
+  
+        <!-- Thumbnail navigation -->
+        <div class="thumbnail-slider">
+          <div class="thumbnail" data-slide="0">
+            <div class="imgSpc">
+              <div class="imgThumb"><img src="/assets/images/others/breaded.png" alt="Thumbnail 1"></div>
+            </div>
+            <p class="title">BREADED<br/> CHICKEN</p>
           </div>
-      </section>
-  </div>
-  <section class="photo-gallery">
+          <div class="thumbnail" data-slide="1">
+            <div class="imgSpc">
+              <div class="imgThumb"><img src="/assets/images/others/whole.png" alt="Thumbnail 2"></div>
+            </div>
+            <p class="title">WHOLE CHICKEN<br/> & CHICKEN PARTS</p>
+          </div>
+          <div class="thumbnail" data-slide="2">
+            <div class="imgSpc">
+              <div class="imgThumb"><img  src="/assets/images/others/patties.png" alt="Thumbnail 3"></div>
+            </div>
+            <p class="title">Patties, Franks<br/> & Shawerma</p>
+          </div>
+          <div class="thumbnail" data-slide="3">
+            <div class="imgSpc">
+              <div class="imgThumb"><img src="/assets/images/others/fries.png" alt="Thumbnail 2"></div>
+            </div>
+            <p class="title">WHOLE CHICKEN<br/> & CHICKEN PARTS</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+  <section class="trueFram_wraper secSpace">
       <div class="container">
-          <h2 class="gallery-header">Truly Farm to Table</h2>
+  
+           <div class="titleWrap text-center">
+              <h2 class="mainTitle">Truly Farm<span class="animateIc"><img class="Icons animate" src="/assets/images/icons/farm.svg" alt="icon" /></span> to Table</h2>
+          </div>
+  
+          <div class="row">
+              <div class="col-md-8">
+  				<!-- video.hbs -->
+                  <div class="video-container">
+                      <video autoplay muted loop playsinline>
+                          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+                          Your browser does not support the video tag.
+                      </video>
+                  </div>
+              </div>
+              <div class="col-md-4 rightBx">
+                  <div class="certBx blkBox p-0">
+                      <div class="rightImg">
+                          <img class="img-fluid" src="/assets/images/others/egg.png" alt="img12"/>
+                      </div>
+                      <h5 class="halalTitle">LOOK FOR THE<br/> GOLDEN EGG</h5>
+                  </div>
+              </div>
+  
+              
+              <div class="col-md-4 btmBx">
+                  <div class="certBx blkBox text-center">
+                      <h5 class="halalTitle "><img class="img-fluid" src="/assets/images/fav/android-chrome-512x512.png" alt="img"/> Certified halal</h5>
+                      <img class="Icons rotate-center img-fluid" src="/assets/images/others/rotate.png" alt="img12"/>
+                  </div>
+              </div>
+  
+              <div class="content btmBx col-md-8">
+  				
+  				<div class="grid truBoxs">
+  					<figure class="effect-lily">
+  						<img class="bgImg" src="/assets/images/others/hen.png" alt="img12"/>
+  						<figcaption>
+  							<div class="linkStr">
+                                  <div class="iconPart">
+                                      <img class="firtImg imgSize" src="/assets/images/others/arw.png" alt="img12"/>
+                                      <img class="secdImg imgSize" src="/assets/images/others/eggs.png" alt="img12"/>
+                                  </div>
+                                  <div class="textPart">
+                                      <h2>Freshness <br/>guaranteed</h2>
+                                      <p>We freeze our chickens within 2 hours of slaughtering and transport them in temperature-controlled trucks to ensure food safety.</p>
+  							    </div>
+                              </div>
+  							
+  						</figcaption>			
+  					</figure>
+  					
+  				</div>
+              </div>
+          </div>
+  
       
-      <div class="row">
-          <!-- First Row - First Image Large, Second Image Small -->
-          <div class="col large">
-              <img src="https://via.placeholder.com/300x200?text=1" alt="Farm Large">
-          </div>
-          <div class="col small">
-              <img src="https://via.placeholder.com/300x200?text=2" alt="Table Small">
-          </div>
       </div>
+  </section>
+  <section class="cookingHacks secSpace">
+      <div class="container">
   
-      <div class="row">
-          <!-- Second Row - First Image Small, Second Image Large -->
-          <div class="col small">
-              <img src="https://via.placeholder.com/300x200?text=3" alt="Farm Small">
+           <div class="titleWrap text-center">
+              <h2 class="mainTitle">Cooking Hacks</h2>
           </div>
-          <div class="col large">
-              <img src="https://via.placeholder.com/300x200?text=4" alt="Table Large">
+          <div class="row">
+              <div class="col-md-4">
+                  <div class="card">
+                      <div class="cardImg">
+                          <img src="/assets/images/recipes/hacks_1.png" class="mainImg" alt="Popular Recipe 3">
+                      </div>
+                      <div class="card-body">
+                          <h5 class="card-title">Season your chicken with a<br/> resealable bag</h5>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="card">
+                      <div class="cardImg">
+                          <img src="/assets/images/recipes/hacks_2.png" class="mainImg" alt="Popular Recipe 3">
+                      </div>
+                      <div class="card-body">
+                          <h5 class="card-title">Shred chicken with a hand mixer</h5>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="card">
+                      <div class="cardImg">
+                          <img src="/assets/images/recipes/hacks_3.png" class="mainImg" alt="Popular Recipe 3">
+                      </div>
+                      <div class="card-body">
+                          <h5 class="card-title">Marinate it in yogurt to make<br/> it more tender</h5>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="text-center mt-4">
+              <a href="#" class="btn btn-more">View More Hacks</a> 
           </div>
       </div>
-      </div>
-  </section>
-  <section class="popular-section">
+  </section>  <section class="find-us secSpace">
       <div class="container">
-          <h2>COOKING HACKS</h2>
-      <div class="row">
-          <div class="col-md-4">
-              <div class="card">
-                  <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+1" class="card-img-top" alt="Popular Recipe 1">
-                  <div class="card-body">
-                      <h5 class="card-title">Popular Recipe 1</h5>
-                      <p class="card-text">Description of popular recipe 1.</p>
+  
+          <div class="titleWrap text-center">
+              <h2 class="mainTitle">FIND<span class="animateIc"><img class="Icons animate" src="/assets/images/icons/location.svg" alt="icon" /></span> US</h2>
+          </div>
+          <div class="row">
+              <!-- First column: Map image -->
+              <div class="col-md-6 mapWrap">
+                  <div class="mapFrame">
+  
+                      <img class="img-fluid" src="/assets/images/others/Map.png" alt="Map">
+  
                   </div>
               </div>
-          </div>
-          <div class="col-md-4">
-              <div class="card">
-                  <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+2" class="card-img-top" alt="Popular Recipe 2">
-                  <div class="card-body">
-                      <h5 class="card-title">Popular Recipe 2</h5>
-                      <p class="card-text">Description of popular recipe 2.</p>
+              
+              <!-- Second column: Description, dropdown, and button -->
+              <div class="col-md-6">
+                  <div class="mapBox">
+                      <h3 class="title">Across the Middle East</h3>
+                      <p>Find us at a supermarket near you or shop online for even greater convenience.</p>
+                  
+                      <div class="dropdown-container">
+                          <select class="form-select countryDrops" aria-label="Select Country">
+                              <option selected>Select your country</option>
+                              <option value="1">Saudi Arabia</option>
+                              <option value="2">United Arab Emirates</option>
+                              <option value="3">Qatar</option>
+                              <option value="4">Kuwait</option>
+                              <option value="5">Oman</option>
+                          </select>
+                      </div>
+  
+                 
+                      <div class="button-container">
+                          <button class="btn btn-more mt-3">Where to Buy</button>
+                      </div>
                   </div>
               </div>
-          </div>
-          <div class="col-md-4">
-              <div class="card">
-                  <img src="https://via.placeholder.com/300x200?text=Popular+Recipe+3" class="card-img-top" alt="Popular Recipe 3">
-                  <div class="card-body">
-                      <h5 class="card-title">Popular Recipe 3</h5>
-                      <p class="card-text">Description of popular recipe 3.</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="text-center mt-4">
-      <a href="#" class="btn btn-custom">VIEW MORE RECIPES</a> <!-- Use custom class here -->
-  </div>
-      </div>
-  </section>
-  <section class="find-us">
-      <div class="container">
-          <h2>FIND US</h2>
-      <div class="row">
-          <!-- First column: Map image -->
-          <div class="col-md-6">
-              <img src="https://via.placeholder.com/600x400?text=Map+Image" alt="Map">
           </div>
           
-          <!-- Second column: Description, dropdown, and button -->
-          <div class="col-md-6 text-center">
-              <h3>Across the Middle East</h3>
-              <p>Find us at a supermarket near you or shop online for even greater convenience.</p>
-  
-              <!-- Dropdown with reduced width -->
-              <div class="dropdown-container">
-                  <select class="form-select custom-dropdown" aria-label="Select Country">
-                      <option selected>Select your country</option>
-                      <option value="1">Saudi Arabia</option>
-                      <option value="2">United Arab Emirates</option>
-                      <option value="3">Qatar</option>
-                      <option value="4">Kuwait</option>
-                      <option value="5">Oman</option>
-                  </select>
-              </div>
-  
-              <!-- Button (force it to remain below) -->
-              <div class="button-container">
-                  <button class="btn btn-custom mt-3">Where to Buy</button>
-              </div>
-          </div>
-      </div>
       </div> 
   </section>
-  <section class="whats-on-sadia">
+  <section class="whats-on-sadia secSpace d-flex" >
       <div class="container">
-          <h2>What's on Sadia</h2>
-      <div class="scrollable-cards">
-          <div class="card">
-              <img src="https://via.placeholder.com/600x400?text=1+Image" alt="Sadia content 1">
-              <div class="card-body">
-                  <h5>Title 1</h5>
-                  <p>Description for card 1</p>
-              </div>
+          <div class="titleWrap text-center">
+              <h2 class="mainTitle">What's<span class="animateIc"><img class="Icons animate" src="/assets/images/icons/whats.svg" alt="icon" /></span>on Sadia</h2>
           </div>
-          <div class="card">
-              <img src="https://via.placeholder.com/600x400?text=2+Image" alt="Sadia content 2">
-              <div class="card-body">
-                  <h5>Title 2</h5>
-                  <p>Description for card 2</p>
+          <div class="scrollable-cards row">
+              <div class="card col-md-4">
+                  <div class="cardImg">
+                      <span class="fbicon"><img src="/assets/images/news/fb.svg" alt="icon"></span>
+                      <img class="mainImg" src="/assets/images/news/news1.png" alt="news">
+                  </div>
+                  <div class="card-body">
+                      <div class="moreDtls">
+                          <div class="icCont">
+                              <span class="icons"><img src="/assets/images/news/comment.svg" class="img-fluid" alt="comment"></span>
+                              2,103
+                          </div>
+                          <div class="icCont">
+                              <span class="icons"><img src="/assets/images/news/share.svg" class="img-fluid" alt="share"></span>
+                              Share
+                          </div>
+                      </div>
+                      <p>Join us in our exciting Breaded Maze Challenge, featuring a variety of delicious options from our Breaded range. Test your skills and let the snacking fun begin!</p>
+                  </div>
               </div>
-          </div>
-          <div class="card">
-              <img src="https://via.placeholder.com/600x400?text=3+Image" alt="Sadia content 1">
-              <div class="card-body">
-                  <h5>Title 1</h5>
-                  <p>Description for card 1</p>
+              <div class="card col-md-4">
+                  <div class="cardImg">
+                      <span class="fbicon"><img src="/assets/images/news/fb.svg" alt="icon"></span>
+                      <img class="mainImg" src="/assets/images/news/news2.png" alt="news">
+                  </div>
+                  <div class="card-body">
+                      <div class="moreDtls">
+                          <div class="icCont">
+                              <span class="icons"><img src="/assets/images/news/comment.svg" class="img-fluid" alt="comment"></span>
+                              2,103
+                          </div>
+                          <div class="icCont">
+                              <span class="icons"><img src="/assets/images/news/share.svg" class="img-fluid" alt="share"></span>
+                              Share
+                          </div>
+                      </div>
+                      <p>Join us in our exciting Breaded Maze Challenge, featuring a variety of delicious options from our Breaded range. Test your skills and let the snacking fun begin!</p>
+                  </div>
               </div>
-          </div>
-          <div class="card">
-              <img src="https://via.placeholder.com/600x400?text=4+Image" alt="Sadia content 2">
-              <div class="card-body">
-                  <h5>Title 2</h5>
-                  <p>Description for card 2</p>
+              <div class="card  col-md-4">
+                  <div class="cardImg">
+                      <span class="fbicon"><img src="/assets/images/news/fb.svg" alt="icon"></span>
+                      <img class="mainImg" src="/assets/images/news/news3.png" alt="news">
+                  </div>
+                  <div class="card-body">
+                      <div class="moreDtls">
+                          <div class="icCont">
+                              <span class="icons"><img src="/assets/images/news/comment.svg" class="img-fluid" alt="comment"></span>
+                              2,103
+                          </div>
+                          <div class="icCont">
+                              <span class="icons"><img src="/assets/images/news/share.svg" class="img-fluid" alt="share"></span>
+                              Share
+                          </div>
+                      </div>
+                      <p>Join us in our exciting Breaded Maze Challenge, featuring a variety of delicious options from our Breaded range. Test your skills and let the snacking fun begin!</p>
+                  </div>
               </div>
+              <!-- Repeat cards as needed -->
           </div>
-          <!-- Repeat cards as needed -->
-      </div>
       </div>
   </section>
-</section><script defer src="bundle.js"></script>
+  
+</section><script defer src="assets/js/main.bundle.js"></script>
