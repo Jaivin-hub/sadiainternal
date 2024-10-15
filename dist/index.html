@@ -13,26 +13,24 @@
 
   <link rel="stylesheet" type="text/css" href="../assets/fonts/fontawesome/css/_all.scss" />
 
-
-
+  <!-- Mapbox GL CSS -->
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<!-- Mapbox GL JS -->
   <link rel="stylesheet" href="css/style.css">
-  <title></title>
+  <title> Sadia</title>
+  <link rel="icon" href="assets/images/fav/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <header class="main-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container">
           
-            <a class="navbar-brand" href="/"><img src="/assets/images/logos/logo.png" alt="icon"></a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand headerLogo" href="/"><img src="/assets/images/logos/logo.png" alt="icon"></a>
 
             <div class="collapse navbar-collapse" id="main_nav">
                 <ul class="navbar-nav">
                     <li class="nav-item active dropdown has-megamenu">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Products</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
                         <div class="dropdown-menu megamenu" role="menu">
                             <div class="menuBg">
                                 <div class="row">
@@ -158,11 +156,15 @@
                
 
                 <ul class="navbar-nav navRights ms-auto">
-                    <li>
+                    <li class="nav-item search_nav">
                         <!-- Search bar section Start -->
                         <div class="search-bar-container">
-                            <form class="d-flex">
-                                <button class="btn btn-outline-success" type="submit"><img src="/assets/images/icons/Search.svg" alt="Search"></button>
+                           <form class="d-flex search-form">
+                                <input id="searchBar" class="form-control search-bar" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline search-button" type="button">
+                                    <img src="/assets/images/icons/Search.svg" alt="Search">
+                                </button>
+                                <button class="btn btn-outline close-button" type="button" style="display: none;"><img src="/assets/images/icons/s_close.svg" alt="Search"></button> <!-- Close button -->
                             </form>
                         </div>
                         <!-- Search bar section  End-->
@@ -223,11 +225,165 @@
                     <li class="nav-item hd_lang"><a class="nav-link" href="#"> عربي </a></li>
 
                 </ul>
-            </div> <!-- navbar-collapse.// -->
+            </div> 
         </div>
     </nav>
+</header>
+
+ 
+
+
+
+
+<header class="mobileHeader">
+
+    <button class="navbar-toggler mobHamburg" type="button" data-bs-toggle="modal" data-bs-target="#mobileMenu">        
+        <img src="/assets/images/icons/hamburg.svg" class="img-fluid iconMenu"alt="icon">
+    </button>
+
+    <div class="modal fade mobileMenu" id="mobileMenu" tabindex="-1" aria-labelledby="mobileMenuLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="navbar-brand headerLogo" href="/"><img src="/assets/images/logos/logo.png" alt="icon"></a>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> <img src="/assets/images/icons/close.svg" class="img-fluid iconMenu"alt="icon"> </button>
+                </div>
+                <div class="modal-body">
+                    <div class="navbar ">
+                        <ul class="navbar-nav">
+                        <li class="nav-item active dropdown has-megamenu">
+                            <a class="nav-link dropdown-toggle mob" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                            <div class="dropdown-menu megamenu" role="menu">
+                                <div class="menuBg">
+                                    <div class="row">
+                                        <div class="col-md-4 menuTitle">
+                                            <h3>our<br/> products</h3>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/prod_1.svg" class="img-fluid"alt="icon">
+                                                        <h6>Whole Chicken</h6>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/prod_2.svg" class="img-fluid"alt="icon">
+                                                        <h6>Chicken Parts</h6>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/prod_1.svg" class="img-fluid"alt="icon">
+                                                        <h6>Breaded</h6>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/prod_1.svg" class="img-fluid"alt="icon">
+                                                        <h6>Burger Patties</h6>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/prod_1.svg" class="img-fluid"alt="icon">
+                                                        <h6>Fries</h6>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/prod_1.svg" class="img-fluid"alt="icon">
+                                                        <h6>Vegetable</h6>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/prod_1.svg" class="img-fluid"alt="icon">
+                                                        <h6>Franks & Shawarma</h6>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/prod_1.svg" class="img-fluid"alt="icon">
+                                                        <h6>Kids</h6>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </li>
+                        <li class="nav-item dropdown  has-megamenu">
+                            <a class="nav-link dropdown-toggle mob" href="#" data-bs-toggle="dropdown">Recipes</a>
+                            <div class="dropdown-menu megamenu" role="menu">
+                                <div class="menuBg">
+                                    <div class="row">
+                                        <div class="col-md-4 menuTitle">
+                                            <h3>our<br/> RECIPES</h3>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/cook_1.svg" class="img-fluid"alt="icon">
+                                                        <h6>Recipes</h6>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/cook_2.svg" class="img-fluid"alt="icon">
+                                                        <h6>Cooking Hacks</h6>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </li>
+                        <li class="nav-item dropdown has-megamenu">
+                            <a class="nav-link dropdown-toggle mob" href="#" data-bs-toggle="dropdown">About</a>
+                            <div class="dropdown-menu megamenu" role="menu">
+                                <div class="menuBg">
+                                    <div class="row">
+                                        <div class="col-md-4 menuTitle">
+                                            <h3>About<br/> Us</h3>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/about.svg" class="img-fluid"alt="icon">
+                                                        <h6>About Us</h6>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a class="navBox" href="#">
+                                                        <img src="/assets/images/icons/buy.svg" class="img-fluid" alt="icon">
+                                                        <h6>Where to buy</h6>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </li>
+                    </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 </header>
+
+
  <!-- Header Partial -->
   
   <section  class="bannerSlider">
@@ -245,42 +401,42 @@
   
               <div class="carousel-inner">
                   <div class="carousel-item active">
-                      <img src="/assets/images/banner/slider_1.png" class="d-block w-100" alt="Slide 1">
+                      <img src="/assets/images/banner/slider_1.png" class="d-block slider-img" alt="Slide 1">
                       <div class="carousel-caption d-none d-md-block">
                           <h5>Campaign <br/>TITLE goes <br/>here</h5>
                           <a class="btn learnBtn" href="#">Learn more</a>
                       </div>
                   </div>
                   <div class="carousel-item">
-                      <img src="/assets/images/banner/slider_2.png" class="d-block w-100" alt="Slide 2">
+                      <img src="/assets/images/banner/slider_2.png" class="d-block slider-img" alt="Slide 2">
                       <div class="carousel-caption d-none d-md-block">
                           <h5>Recipes <br/>TITLE goes <br/>here</h5>
                           <a class="btn learnBtn" href="#">Learn more</a>
                       </div>
                   </div>
                   <div class="carousel-item">
-                      <img src="/assets/images/banner/slider_3.png" class="d-block w-100" alt="Slide 3">
+                      <img src="/assets/images/banner/slider_3.png" class="d-block slider-img" alt="Slide 3">
                       <div class="carousel-caption d-none d-md-block">
                           <h5>Products<br/>TITLE goes <br/>here</h5>
                           <a class="btn learnBtn" href="#">Learn more</a>
                       </div>
                   </div>
                   <div class="carousel-item">
-                      <img src="/assets/images/banner/slider_4.png" class="d-block w-100" alt="Slide 4">
+                      <img src="/assets/images/banner/slider_4.png" class="d-block slider-img" alt="Slide 4">
                       <div class="carousel-caption d-none d-md-block">
                           <h5>hacks <br/>TITLE goes <br/>here</h5>
                           <a class="btn learnBtn" href="#">Learn more</a>
                       </div>
                   </div>
                   <div class="carousel-item">
-                      <img src="/assets/images/banner/slider_5.png" class="d-block w-100" alt="Slide 5">
+                      <img src="/assets/images/banner/slider_5.png" class="d-block slider-img" alt="Slide 5">
                       <div class="carousel-caption d-none d-md-block">
                           <h5>halal <br/>TITLE goes <br/>here</h5>
                           <a class="btn learnBtn" href="#">Learn more</a>
                       </div>
                   </div>
                   <div class="carousel-item">
-                      <img src="/assets/images/banner/slider_1.png" class="d-block w-100" alt="Slide 6">
+                      <img src="/assets/images/banner/slider_1.png" class="d-block slider-img" alt="Slide 6">
                       <div class="carousel-caption d-none d-md-block">
                           <h5>Campaign<br/>TITLE goes <br/>here</h5>
                           <a class="btn learnBtn" href="#">Learn more</a>
@@ -292,28 +448,6 @@
           </div>
   
       </div>
-  
-      <div class="your-carousel-class">
-      <div class="carousel-item">
-          <img src="https://via.placeholder.com/800x400?text=Slide+1" alt="Slide 1">
-          <h3>Slide 1</h3>
-      </div>
-      <div class="carousel-item">
-          <img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Slide 2">
-          <h3>Slide 2</h3>
-      </div>
-      <div class="carousel-item">
-          <img src="https://via.placeholder.com/800x400?text=Slide+3" alt="Slide 3">
-          <h3>Slide 3</h3>
-      </div>
-      <div class="carousel-item">
-          <img src="https://via.placeholder.com/800x400?text=Slide+4" alt="Slide 4">
-          <h3>Slide 4</h3>
-      </div>
-  </div>
-  
-     
-  
   </section>
   
   <section class="popular-section secSpace">
@@ -339,10 +473,12 @@
               <div class="col-md-4">
                   <div class="card">
                       <div class="cardImg">
-                          <img src="/assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1">
+                          <a href="#"><img src="/assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1"></a>
                       </div>
                       <div class="card-body">
-                          <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                          <a href="#">
+                              <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                          </a>
                           <p class="card-text">By<span>Diana Disoza</span></p>
                           <div class="moreDtls">
                               <div class="icCont">
@@ -360,12 +496,14 @@
               <div class="col-md-4">
                   <div class="card">
                       <div class="cardImg">
-                          <img src="/assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2">
+                          <a href="#"><img src="/assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2"></a>
                       </div>
                       <div class="card-body">
-                          <h5 class="card-title">Peruvian-style Roast Chicken With<br/> Green Sauce</h5>
-                          <p class="card-text">By<span>Diana Disoza</span></p>
-                          <i class="fal fa-arrow-right ms-auto"></i>
+                              <a href="#">
+                                  <h5 class="card-title">Peruvian-style Roast Chicken With<br/> Green Sauce</h5>
+                              </a>
+                              <p class="card-text">By<span>Diana Disoza</span></p>
+                           
                           <div class="moreDtls">
                               <div class="icCont">
                                   <span class="icons"><img src="/assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
@@ -376,17 +514,20 @@
                                   2-4 Persons
                               </div>
                           </div>
-                          
+                              
                       </div>
+                      
                   </div>
               </div>
               <div class="col-md-4">
                   <div class="card">
                       <div class="cardImg">
-                          <img src="/assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3">
+                          <a href="#"><img src="/assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3"></a>
                       </div>
                       <div class="card-body">
-                          <h5 class="card-title">Middle Eastern-style Grilled<br/> Chicken Kabobs</h5>
+                          <a href="#">
+                              <h5 class="card-title">Middle Eastern-style Grilled<br/> Chicken Kabobs</h5>
+                          </a>
                           <p class="card-text">By<span>Diana Disoza</span></p>
                           <div class="moreDtls">
                               <div class="icCont">
@@ -424,11 +565,21 @@
                   <div class="slide">
                     <img  src="/assets/images/others/breaded_L.png" alt="Image 1">
                   </div>
+                  <div class="slide">
+                    <img  src="/assets/images/others/whole_L.png" alt="Image 2">
+                  </div>
+                  <div class="slide">
+                    <img src="/assets/images/others/patties.png" alt="Image 3">
+                  </div>
+                  <div class="slide">
+                    <img  src="/assets/images/others/fries.png" alt="Image 4">
+                  </div>
                 </div>
               </div>
             
               <!-- Slider for content (show/hide) -->
-              <div class="content-section  col-md-6">
+              <div class="content-section col-md-6">
+  
                 <div class="content-item" data-slide="0">
                   <ul class="lists">
                     <li>
@@ -445,6 +596,67 @@
                   <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
                   <a class="btn-more" href="#">VIEW PRODUCTS</a>
                 </div>
+  
+                <div class="content-item" data-slide="1">
+                   <ul class="lists">
+                    <li>
+                      100% <br/>CHICKEN BREAST
+                    </li>
+                    <li>
+                      10 + <br/>PRODUCTS
+                    </li>
+                    <li>
+                      5 + <br/>RECIPES
+                    </li>
+                  </ul>
+                  <h3 class="title">
+                    WHOLE CHICKEN
+                    & CHICKEN PARTS
+                  </h3>
+                  <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+                  <a class="btn-more" href="#">VIEW PRODUCTS</a>
+                </div>
+  
+                <div class="content-item" data-slide="2">
+                  <ul class="lists">
+                    <li>
+                      100% <br/>CHICKEN BREAST
+                    </li>
+                    <li>
+                      7 + <br/>PRODUCTS
+                    </li>
+                    <li>
+                      3 + <br/>RECIPES
+                    </li>
+                  </ul>
+                  <h3 class="title">
+                    Patties, Franks<br/> & Shawerma
+                  </h3>
+                  <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+                  <a class="btn-more" href="#">VIEW PRODUCTS</a>
+                </div>
+  
+                <div class="content-item" data-slide="3">
+                  <ul class="lists">
+                    <li>
+                      100% <br/>CHICKEN BREAST
+                    </li>
+                    <li>
+                      20 + <br/>PRODUCTS
+                    </li>
+                    <li>
+                      10 + <br/>RECIPES
+                    </li>
+                  </ul>
+                  
+                  <h3 class="title">
+                    Fries & FROZEN<br/>Vegetables
+                  </h3>
+                  <p>Id cursus metus aliquam eleifend mi in nulla posuere. Lorem faucibus vitae aliquet nec ullamcorper sit. </p>
+                  <a class="btn-more" href="#">VIEW PRODUCTS</a>
+                </div>
+            
+  
               </div>
             </div>
           </div>
@@ -475,8 +687,9 @@
             <div class="imgSpc">
               <div class="imgThumb"><img src="/assets/images/others/fries.png" alt="Thumbnail 2"></div>
             </div>
-            <p class="title">WHOLE CHICKEN<br/> & CHICKEN PARTS</p>
+            <p class="title">Fries & FROZEN<br/>Vegetables</p>
           </div>
+           
         </div>
       </div>
     </div>
@@ -489,21 +702,45 @@
           </div>
   
           <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-8 videoBx">
   				<!-- video.hbs -->
                   <div class="video-container">
-                      <video autoplay muted loop playsinline>
+                      <video autoplay muted loop playsinline poster="/assets/images/others/video.png">
                           <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
                           Your browser does not support the video tag.
                       </video>
                   </div>
               </div>
               <div class="col-md-4 rightBx">
-                  <div class="certBx blkBox p-0">
-                      <div class="rightImg">
-                          <img class="img-fluid" src="/assets/images/others/egg.png" alt="img12"/>
+                  <div class="certBx blkBox changeBx p-0">
+  
+                      <div class="hvrBox firstBox">
+                          <div class="rightImg">
+                              <img class="img-fluid" src="/assets/images/others/egg.png" alt="img"/>
+                          </div>
+                          <h5 class="halalTitle">LOOK FOR THE<br/> GOLDEN EGG</h5>
                       </div>
-                      <h5 class="halalTitle">LOOK FOR THE<br/> GOLDEN EGG</h5>
+  
+                      <div class="hvrBox secondtBox">
+                              
+                          <div class="boxVideo">
+                              <video autoplay muted loop playsinline poster="/assets/images/others/bread.png">
+                                  <source src="/assets/videos/video.mp4" type="video/mp4">
+                                  <source src="/assets/videos/video.mov" type="video/mov">
+  
+                                  <source src=" https://static.vecteezy.com/system/resources/previews/016/129/541/mp4/woman-preparing-sandwich-with-ham-and-cheese-slice-in-the-kitchen-closeup-free-video.mp4" type="video/mp4">
+                                  Your browser does not support the video tag.
+                              </video>
+                           </div>
+                          
+                          <div class="contSec">
+                              <h5 class="halalTitle">Exceptional quality <span class="animateIc"><img class="Icons animate" src="/assets/images/icons/tick.svg" alt="icon" /></span></h5>
+                              
+                              <p>
+                                  At Sadia, goodness starts with the way we care for our chickens, ensuring only the best quality, taste and nutrition.
+                              </p>
+                          </div>
+                      </div>
                   </div>
               </div>
   
@@ -511,28 +748,31 @@
               <div class="col-md-4 btmBx">
                   <div class="certBx blkBox text-center">
                       <h5 class="halalTitle "><img class="img-fluid" src="/assets/images/fav/android-chrome-512x512.png" alt="img"/> Certified halal</h5>
-                      <img class="Icons rotate-center img-fluid" src="/assets/images/others/rotate.png" alt="img12"/>
+                      <img class="Icons rotate-center img-fluid" src="/assets/images/others/rotate.png" alt="img"/>
                   </div>
               </div>
   
               <div class="content btmBx col-md-8">
-  				
   				<div class="grid truBoxs">
   					<figure class="effect-lily">
-  						<img class="bgImg" src="/assets/images/others/hen.png" alt="img12"/>
-  						<figcaption>
-  							<div class="linkStr">
-                                  <div class="iconPart">
-                                      <img class="firtImg imgSize" src="/assets/images/others/arw.png" alt="img12"/>
-                                      <img class="secdImg imgSize" src="/assets/images/others/eggs.png" alt="img12"/>
+                          <a href="#">
+  						    <img class="bgImg" src="/assets/images/others/hen.png" alt="img12"/>
+                              
+                              <figcaption>
+                                  <div class="linkStr">
+                                      <div class="iconPart">
+                                          <img class="firtImg imgSize" src="/assets/images/others/arw.png" alt="img12"/>
+                                          <img class="secdImg imgSize" src="/assets/images/others/eggs.png" alt="img12"/>
+                                      </div>
+                                      <div class="textPart">
+                                          <h2>Freshness <br/>guaranteed</h2>
+                                          <p>We freeze our chickens within 2 hours of slaughtering and transport them in temperature-controlled trucks to ensure food safety.</p>
+                                      
+                                      </div>
                                   </div>
-                                  <div class="textPart">
-                                      <h2>Freshness <br/>guaranteed</h2>
-                                      <p>We freeze our chickens within 2 hours of slaughtering and transport them in temperature-controlled trucks to ensure food safety.</p>
-  							    </div>
-                              </div>
-  							
-  						</figcaption>			
+                                  
+                              </figcaption>	
+                          </a>		
   					</figure>
   					
   				</div>
@@ -551,32 +791,38 @@
           <div class="row">
               <div class="col-md-4">
                   <div class="card">
-                      <div class="cardImg">
-                          <img src="/assets/images/recipes/hacks_1.png" class="mainImg" alt="Popular Recipe 3">
-                      </div>
-                      <div class="card-body">
-                          <h5 class="card-title">Season your chicken with a<br/> resealable bag</h5>
-                      </div>
+                      <a href="#">
+                          <div class="cardImg">
+                              <img src="/assets/images/recipes/hacks_1.png" class="mainImg" alt="Popular Recipe 3">
+                          </div>
+                          <div class="card-body">
+                              <h5 class="card-title">Season your chicken with a<br/> resealable bag</h5>
+                          </div>
+                      </a>
                   </div>
               </div>
               <div class="col-md-4">
                   <div class="card">
-                      <div class="cardImg">
-                          <img src="/assets/images/recipes/hacks_2.png" class="mainImg" alt="Popular Recipe 3">
-                      </div>
-                      <div class="card-body">
-                          <h5 class="card-title">Shred chicken with a hand mixer</h5>
-                      </div>
+                      <a href="#">
+                          <div class="cardImg">
+                              <img src="/assets/images/recipes/hacks_2.png" class="mainImg" alt="Popular Recipe 3">
+                          </div>
+                          <div class="card-body">
+                              <h5 class="card-title">Shred chicken with a hand mixer</h5>
+                          </div>
+                      </a>
                   </div>
               </div>
               <div class="col-md-4">
                   <div class="card">
-                      <div class="cardImg">
-                          <img src="/assets/images/recipes/hacks_3.png" class="mainImg" alt="Popular Recipe 3">
-                      </div>
-                      <div class="card-body">
-                          <h5 class="card-title">Marinate it in yogurt to make<br/> it more tender</h5>
-                      </div>
+                      <a href="#">
+                          <div class="cardImg">
+                              <img src="/assets/images/recipes/hacks_3.png" class="mainImg" alt="Popular Recipe 3">
+                          </div>
+                          <div class="card-body">
+                              <h5 class="card-title">Marinate it in yogurt to make<br/> it more tender</h5>
+                          </div>
+                      </a>
                   </div>
               </div>
           </div>
@@ -593,9 +839,8 @@
           <div class="row">
               <!-- First column: Map image -->
               <div class="col-md-6 mapWrap">
-                  <div class="mapFrame">
+                  <div id="mapFrame">
   
-                      <img class="img-fluid" src="/assets/images/others/Map.png" alt="Map">
   
                   </div>
               </div>
@@ -608,12 +853,11 @@
                   
                       <div class="dropdown-container">
                           <select class="form-select countryDrops" aria-label="Select Country">
-                              <option selected>Select your country</option>
+                              <option value="1" selected>UAE</option>
                               <option value="1">Saudi Arabia</option>
-                              <option value="2">United Arab Emirates</option>
-                              <option value="3">Qatar</option>
-                              <option value="4">Kuwait</option>
-                              <option value="5">Oman</option>
+                              <option value="2">Qatar</option>
+                              <option value="3">Kuwait</option>
+                              <option value="4">Oman</option>
                           </select>
                       </div>
   
@@ -632,8 +876,9 @@
           <div class="titleWrap text-center">
               <h2 class="mainTitle">What's<span class="animateIc"><img class="Icons animate" src="/assets/images/icons/whats.svg" alt="icon" /></span>on Sadia</h2>
           </div>
-          <div class="scrollable-cards row">
-              <div class="card col-md-4">
+          <div class="scrl_cards whatSlider">
+  
+              <div class="card">
                   <div class="cardImg">
                       <span class="fbicon"><img src="/assets/images/news/fb.svg" alt="icon"></span>
                       <img class="mainImg" src="/assets/images/news/news1.png" alt="news">
@@ -652,7 +897,8 @@
                       <p>Join us in our exciting Breaded Maze Challenge, featuring a variety of delicious options from our Breaded range. Test your skills and let the snacking fun begin!</p>
                   </div>
               </div>
-              <div class="card col-md-4">
+  
+              <div class="card">
                   <div class="cardImg">
                       <span class="fbicon"><img src="/assets/images/news/fb.svg" alt="icon"></span>
                       <img class="mainImg" src="/assets/images/news/news2.png" alt="news">
@@ -671,10 +917,31 @@
                       <p>Join us in our exciting Breaded Maze Challenge, featuring a variety of delicious options from our Breaded range. Test your skills and let the snacking fun begin!</p>
                   </div>
               </div>
-              <div class="card  col-md-4">
+  
+              <div class="card">
                   <div class="cardImg">
                       <span class="fbicon"><img src="/assets/images/news/fb.svg" alt="icon"></span>
                       <img class="mainImg" src="/assets/images/news/news3.png" alt="news">
+                  </div>
+                  <div class="card-body">
+                      <div class="moreDtls">
+                          <div class="icCont">
+                              <span class="icons"><img src="/assets/images/news/comment.svg" class="img-fluid" alt="comment"></span>
+                              2,103
+                          </div>
+                          <div class="icCont">
+                              <span class="icons"><img src="/assets/images/news/share.svg" class="img-fluid" alt="share"></span>
+                              Share
+                          </div>
+                      </div>
+                      <p>Join us in our exciting Breaded Maze Challenge, featuring a variety of delicious options from our Breaded range. Test your skills and let the snacking fun begin!</p>
+                  </div>
+              </div>
+  
+              <div class="card">
+                  <div class="cardImg">
+                      <span class="fbicon"><img src="/assets/images/news/fb.svg" alt="icon"></span>
+                      <img class="mainImg" src="/assets/images/news/news4.png" alt="news">
                   </div>
                   <div class="card-body">
                       <div class="moreDtls">
@@ -750,16 +1017,11 @@
           </div>
         </div>
 </footer> <!-- Footer Partial -->
-
-
-
-
 <script src="assets/js/main.bundle.js"></script>
 <script src="assets/js/slick.min.js"></script>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

@@ -15,27 +15,134 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 // Mapbox access token (replace 'YOUR_MAPBOX_ACCESS_TOKEN' with your actual token)
-mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+mapboxgl.accessToken = 'pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb3hwY21lY3p1eCJ9.7t6X_NQIGtIsI-FRLNPU6g';
+
+// Country coordinates with multiple places
+const countryCoordinates = {
+  "UAE": [
+    { name: "Abu Dhabi", coordinates: [24.4539, 54.3773] },
+    { name: "Dubai", coordinates: [25.2048, 55.2708] },
+    { name: "Sharjah", coordinates: [25.3463, 55.4209] },
+    { name: "Al Ain", coordinates: [24.1302, 55.8023] }
+  ],
+  "Saudi Arabia": [
+    { name: "Riyadh", coordinates: [24.7136, 46.6753] },
+    { name: "Jeddah", coordinates: [21.4858, 39.1925] },
+    { name: "Mecca", coordinates: [21.3891, 39.8579] },
+    { name: "Dammam", coordinates: [26.4207, 50.0888] }
+  ],
+  "Qatar": [
+    { name: "Doha", coordinates: [25.276987, 51.520008] },
+    { name: "Al Rayyan", coordinates: [25.2919, 51.4244] },
+    { name: "Al Wakrah", coordinates: [25.1686, 51.6032] },
+    { name: "Dukhan", coordinates: [25.6281, 50.8819] }
+  ],
+  "Kuwait": [
+    { name: "Kuwait City", coordinates: [29.3759, 47.9774] },
+    { name: "Salmiya", coordinates: [29.3333, 48.0833] },
+    { name: "Hawally", coordinates: [29.3320, 48.0285] },
+    { name: "Jahra", coordinates: [29.3375, 47.6581] }
+  ],
+  "Oman": [
+    { name: "Muscat", coordinates: [23.5880, 58.3829] },
+    { name: "Sohar", coordinates: [24.3650, 56.7465] },
+    { name: "Nizwa", coordinates: [22.9333, 57.5333] },
+    { name: "Salalah", coordinates: [17.0170, 54.0823] }
+  ]
+};
+
+const pulsingDotStyle = `
+<style>
+.pulsing-dot {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255, 0, 0, 0.5); /* Changed to red */
+  border-radius: 50%;
+  position: relative;
+}
+
+.pulsing-dot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(255, 0, 0, 0.5); /* Changed to red */
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+</style>
+`;
+document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
+
 
 // Function to initialize Mapbox map
 const initializeMapbox = () => {
-  console.log('initializeMapbox')
+  console.log('initializeMapbox');
   try {
     // Initialize the Mapbox map
     const map = new mapboxgl.Map({
       container: 'mapFrame', // ID of the container element
-      style: 'mapbox://styles/mapbox/streets-v11', // Map style URL
-      center: [-74.5, 40], // Starting position [lng, lat]
-      zoom: 9, // Starting zoom level
+      style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
+      center: countryCoordinates.UAE[0].coordinates, // Default starting position for UAE
+      zoom: 5, // Starting zoom level
     });
 
-    // Optional: Add navigation control (zoom buttons)
-    map.addControl(new mapboxgl.NavigationControl());
+    let markers = [];
 
-    // Optional: Add a marker at a specific location
-    new mapboxgl.Marker()
-      .setLngLat([-74.5, 40]) // Coordinates for the marker [lng, lat]
-      .addTo(map); // Add the marker to the map
+    // Function to clear all markers from the map
+    const clearMarkers = () => {
+      markers.forEach(marker => marker.remove());
+      markers = [];
+    };
+
+    // Function to add pulsing dot markers
+    const addPulsingMarkers = (locations) => {
+      locations.forEach(location => {
+        const el = document.createElement('div');
+        el.className = 'pulsing-dot'; // Apply pulsing dot class
+
+        const marker = new mapboxgl.Marker(el)
+          .setLngLat(location.coordinates)
+          .addTo(map);
+
+        markers.push(marker); // Keep track of added markers
+      });
+    };
+
+    // Listen for dropdown selection change
+    const countryDropdown = document.querySelector('.countryDrops');
+    countryDropdown.addEventListener('change', (event) => {
+      const selectedCountry = event.target.options[event.target.selectedIndex].text;
+      const locations = countryCoordinates[selectedCountry];
+
+      if (locations) {
+        // Update the map's center to the first location in the selected country
+        map.setCenter(locations[0].coordinates);
+        map.setZoom(5); // Reset zoom level
+
+        // Clear existing markers and add new ones
+        clearMarkers();
+        addPulsingMarkers(locations);
+
+        console.log(`Map updated to ${selectedCountry}:`, locations);
+      }
+    });
+
+    // Initialize the map with the default country (UAE)
+    addPulsingMarkers(countryCoordinates.UAE);
 
     console.log('Mapbox initialized successfully');
   } catch (error) {
@@ -101,6 +208,15 @@ const initializeSlick = () => {
       autoplaySpeed: 3000,
       arrows: false,
       variableWidth: true, // Enable variable width for custom slide widths
+      responsive: [
+        {
+          breakpoint: 768, // Screen width at which settings should change
+          settings: {
+            slidesToShow: 1, // Show only one slide at a time on mobile
+            variableWidth: false // Disable variable width for consistent slide width
+          }
+        }
+      ]
     });
   } catch (error) {
     console.error('Error initializing Slick sliders:', error);
@@ -128,26 +244,46 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Handle dropdowns for mobile
-  document.querySelectorAll('.dropdown-toggle.mob').forEach(function (dropdown) {
+  function isMobileViewport() {
+    return window.innerWidth <= 991; // Check if the viewport is 991px or below
+  }
+  
+  document.querySelectorAll('.dropdown-toggle').forEach(function (dropdown) {
     dropdown.addEventListener('click', function (event) {
-      const dropdownMenu = this.nextElementSibling;
-      if (dropdownMenu.classList.contains('show')) {
-        dropdownMenu.classList.remove('show');
-      } else {
-        document.querySelectorAll('.dropdown-menu').forEach(function (openDropdown) {
-          openDropdown.classList.remove('show');
-        });
-        dropdownMenu.classList.add('show');
+      if (isMobileViewport()) { // Only trigger for mobile view
+        const dropdownMenu = this.nextElementSibling;
+        if (dropdownMenu.classList.contains('show')) {
+          dropdownMenu.classList.remove('show');
+        } else {
+          document.querySelectorAll('.dropdown-menu').forEach(function (openDropdown) {
+            openDropdown.classList.remove('show');
+          });
+          dropdownMenu.classList.add('show');
+        }
+        event.stopPropagation();
       }
-      event.stopPropagation();
     });
   });
-
+  
+  // Close all dropdowns when clicking outside, only on mobile
   document.addEventListener('click', function () {
-    document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
-      dropdown.classList.remove('show');
-    });
+    if (isMobileViewport()) { // Only trigger for mobile view
+      document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
+        dropdown.classList.remove('show');
+      });
+    }
   });
+  
+  // Re-check if on mobile when resizing the window
+  window.addEventListener('resize', function () {
+    if (!isMobileViewport()) {
+      // Close all dropdowns when switching to desktop view
+      document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
+        dropdown.classList.remove('show');
+      });
+    }
+  });
+  
 
   // Fix header visibility and scroll appearance
   const header = document.querySelector('.main-header');

@@ -10,6 +10,12 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+    .footer-container{
+        padding: 0 100px;
+    }
+    .ftrNewsletter{
+        display: none;
+    }
     .animateIc {
         margin-right: -12px;
     }
@@ -38,6 +44,7 @@ footer {
         display: flex;
         li{
             margin-right: 40px;
+            
             &:last-child{
                 margin-right: 0;
             }
@@ -69,6 +76,9 @@ footer {
 
             }
         }
+        &.mobOnly{
+            display: none;
+        }
        
     }
     
@@ -87,6 +97,9 @@ footer {
         li{
             list-style: none;
             margin-bottom: 24px;
+            display: inline-block;
+            width: 49%;
+            text-transform: uppercase;
             a{
                 color: $grey-color;
                 text-decoration: none; 
@@ -116,4 +129,136 @@ footer {
             }
         }
     }
+    .ftrNewsletter{
+        margin: 70px 0 0px;
+        .newsTitle{
+            font-family: $title-font;
+            color: $white-color;
+            font-size: 61px;
+            line-height: 64px;
+            font-weight: 500;
+        }
+        .form-control{
+            color: $white-color;
+            background: transparent;
+            outline: 0;
+            box-shadow: inherit;
+            width: 100%;
+            height: 50px;
+            border-radius: 4px;
+            font-size: 16px;
+            padding: 5px 15px;
+            text-align: center;
+            border: 0;
+            border-bottom: 1px solid #3F3F3A;
+            margin: 20px 0;
+            &::placeholder{
+                color: #D6D6D6;
+            }
+        }
+        .btn-signup{
+            width: 100%;
+            background: $primary-color;
+            color: $white-color;
+            font-size: 21px;
+            height: 50px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: $title-font;
+            &:hover{
+                background: $hover-color;
+                color: $white-color;
+            }
+        }
+       
+    }
+}
+
+
+
+
+@media (max-width: 991px) {
+    footer{
+        margin-top: 120px;
+        .footer-container {
+            padding: 0 50px;
+        }
+    }
+
+}
+@media (max-width: 767px) {
+
+    footer{
+        padding: 64px 0px 96px;
+        .footer-end {
+            margin-top: 40px;
+        }
+        .footer-container {
+            padding: 0 20px;
+        }
+        .ftrNewsletter{
+            display: block;
+        }
+        .ftrLogoWrap{
+            text-align: center;
+            padding-bottom: 40px;
+            margin: 0;
+            .footer-logo{
+                height: 96px;
+                width: auto;
+                max-width: 100%;
+                
+            }
+        }
+        .footer-socials{
+            &.webOnly{
+                display: none;
+            }
+            &.mobOnly{
+                display: block;
+                margin: 45px 0 0;
+            }
+            .footer-grid-title{
+                display: none;
+            }
+            ul{
+                justify-content: center;
+                li{
+                    .social_cons{
+                        max-width: 50px;
+                    }
+                    
+                }
+            }
+        }
+        .ftrLinks{
+            ul{
+                li{
+                    display: inline-block;
+                    width: 49%;
+                    text-align: center;
+                    text-transform: inherit;
+                    margin: 15px 0;
+                    padding: 0;
+                }
+            }
+        }
+        .footer-copyright{
+            text-align: center;
+        }
+        .ftr_links{
+            justify-content: center;
+            margin: 15px 0;
+        }
+       
+        
+    }
+
+
+
+
+
+
 }
