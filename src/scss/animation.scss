@@ -56,3 +56,25 @@
 
 
 /* CIRCLE-ANIAMTION END */
+
+
+
+/* Keyframes for swinging and size increase Start */
+@keyframes swing-size {
+  0% {
+      transform: scale(1) rotate(0deg); /* Start with original size and rotation */
+  }
+  25% {
+      transform: scale(1.5) rotate(-10deg); /* Increase size and slightly rotate */
+  }
+  50% {
+      transform: scale(1) rotate(10deg); /* Back to original size with opposite rotation */
+  }
+  75% {
+      transform: scale(1.5) rotate(-10deg); /* Increase size and slightly rotate again */
+  }
+  100% {
+      transform: scale(1) rotate(0deg); /* End back at original size and rotation */
+  }
+}
+/* Keyframes for swinging and size increase Enb */

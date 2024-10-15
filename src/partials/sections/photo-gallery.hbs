@@ -6,21 +6,47 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 videoBx">
 				<!-- video.hbs -->
                 <div class="video-container">
-                    <video autoplay muted loop playsinline>
+                    <video autoplay muted loop playsinline poster="/assets/images/others/video.png">
                         <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
             </div>
             <div class="col-md-4 rightBx">
-                <div class="certBx blkBox p-0">
-                    <div class="rightImg">
-                        <img class="img-fluid" src="/assets/images/others/egg.png" alt="img12"/>
+                <div class="certBx blkBox changeBx p-0">
+
+                    <div class="hvrBox firstBox">
+                        <div class="rightImg">
+                            <img class="img-fluid" src="/assets/images/others/egg.png" alt="img"/>
+                        </div>
+                        <h5 class="halalTitle">LOOK FOR THE<br/> GOLDEN EGG</h5>
                     </div>
-                    <h5 class="halalTitle">LOOK FOR THE<br/> GOLDEN EGG</h5>
+
+                    {{!-- Hover-box Start --}}
+                    <div class="hvrBox secondtBox">
+                            
+                        <div class="boxVideo">
+                            <video autoplay muted loop playsinline poster="/assets/images/others/bread.png">
+                                <source src="/assets/videos/video.mp4" type="video/mp4">
+                                <source src="/assets/videos/video.mov" type="video/mov">
+
+                                <source src=" https://static.vecteezy.com/system/resources/previews/016/129/541/mp4/woman-preparing-sandwich-with-ham-and-cheese-slice-in-the-kitchen-closeup-free-video.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                         </div>
+                        
+                        <div class="contSec">
+                            <h5 class="halalTitle">Exceptional quality <span class="animateIc"><img class="Icons animate" src="/assets/images/icons/tick.svg" alt="icon" /></span></h5>
+                            
+                            <p>
+                                At Sadia, goodness starts with the way we care for our chickens, ensuring only the best quality, taste and nutrition.
+                            </p>
+                        </div>
+                    </div>
+                    {{!-- Hover-box End --}}
                 </div>
             </div>
 
@@ -28,28 +54,31 @@
             <div class="col-md-4 btmBx">
                 <div class="certBx blkBox text-center">
                     <h5 class="halalTitle "><img class="img-fluid" src="/assets/images/fav/android-chrome-512x512.png" alt="img"/> Certified halal</h5>
-                    <img class="Icons rotate-center img-fluid" src="/assets/images/others/rotate.png" alt="img12"/>
+                    <img class="Icons rotate-center img-fluid" src="/assets/images/others/rotate.png" alt="img"/>
                 </div>
             </div>
 
             <div class="content btmBx col-md-8">
-				
 				<div class="grid truBoxs">
 					<figure class="effect-lily">
-						<img class="bgImg" src="/assets/images/others/hen.png" alt="img12"/>
-						<figcaption>
-							<div class="linkStr">
-                                <div class="iconPart">
-                                    <img class="firtImg imgSize" src="/assets/images/others/arw.png" alt="img12"/>
-                                    <img class="secdImg imgSize" src="/assets/images/others/eggs.png" alt="img12"/>
+                        <a href="#">
+						    <img class="bgImg" src="/assets/images/others/hen.png" alt="img12"/>
+                            
+                            <figcaption>
+                                <div class="linkStr">
+                                    <div class="iconPart">
+                                        <img class="firtImg imgSize" src="/assets/images/others/arw.png" alt="img12"/>
+                                        <img class="secdImg imgSize" src="/assets/images/others/eggs.png" alt="img12"/>
+                                    </div>
+                                    <div class="textPart">
+                                        <h2>Freshness <br/>guaranteed</h2>
+                                        <p>We freeze our chickens within 2 hours of slaughtering and transport them in temperature-controlled trucks to ensure food safety.</p>
+                                    
+                                    </div>
                                 </div>
-                                <div class="textPart">
-                                    <h2>Freshness <br/>guaranteed</h2>
-                                    <p>We freeze our chickens within 2 hours of slaughtering and transport them in temperature-controlled trucks to ensure food safety.</p>
-							    </div>
-                            </div>
-							
-						</figcaption>			
+                                
+                            </figcaption>	
+                        </a>		
 					</figure>
 					
 				</div>

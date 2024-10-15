@@ -26,6 +26,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
+    "mapbox-gl": "^3.7.0",
     "slick-carousel": "^1.8.1"
   }
 }
