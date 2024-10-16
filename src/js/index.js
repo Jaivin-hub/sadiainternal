@@ -1,4 +1,5 @@
 // Import Bootstrap CSS and JS
+import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'slick-carousel/slick/slick.css';
@@ -7,8 +8,6 @@ import 'slick-carousel';
 // Import SCSS
 import '../scss/style.scss';
 
-// Import jQuery (Slick Slider requires jQuery)
-import $ from 'jquery';
 
 // Import Mapbox GL JS and CSS
 import mapboxgl from 'mapbox-gl';
@@ -90,7 +89,6 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 
 // Function to initialize Mapbox map
 const initializeMapbox = () => {
-  console.log('initializeMapbox');
   try {
     // Initialize the Mapbox map
     const map = new mapboxgl.Map({
@@ -137,14 +135,12 @@ const initializeMapbox = () => {
         clearMarkers();
         addPulsingMarkers(locations);
 
-        console.log(`Map updated to ${selectedCountry}:`, locations);
       }
     });
 
     // Initialize the map with the default country (UAE)
     addPulsingMarkers(countryCoordinates.UAE);
 
-    console.log('Mapbox initialized successfully');
   } catch (error) {
     console.error('Error initializing Mapbox:', error);
   }
@@ -152,9 +148,6 @@ const initializeMapbox = () => {
 
 // Function to initialize Slick sliders
 const initializeSlick = () => {
-  console.log('inside the initializeslick');
-  console.log('jQuery:', $);
-  console.log('Slick:', $.fn.slick);
 
   try {
     // FAVOURITE-SLIDER START
@@ -225,7 +218,6 @@ const initializeSlick = () => {
 
 // Event listener to ensure code runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM fully loaded and parsed');
   initializeSlick(); // Initialize Slick sliders
   initializeMapbox(); // Initialize Mapbox map
 
@@ -284,7 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-
   // Fix header visibility and scroll appearance
   const header = document.querySelector('.main-header');
   header.classList.add('visible');
@@ -297,5 +288,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  console.log('Main script loaded and running');
+  // Add the redirectToRecipeDetails function for the button click
+  function redirectToRecipeDetails(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    window.location.href = 'recipe-details.hbs'; // Redirect to the desired page
+  }
+
+  // Attach the function to the View More Recipes button
+  document.querySelector('.btn-more').addEventListener('click', redirectToRecipeDetails);
+
 });
+
