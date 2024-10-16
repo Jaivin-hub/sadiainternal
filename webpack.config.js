@@ -50,20 +50,15 @@ module.exports = {
       inject: false,                        // Do not inject scripts
       filename: 'index.html',               // Output filename
     }),
-    new HtmlWebpackPlugin({
-      template: 'src/pages/home.hbs',       // Template for home page
-      inject: 'body',                       // Inject scripts at the end of the body
-      filename: 'home.html',                // Output filename for home page
-      chunks: ['main', 'slickslider'],      // Include both entry points in this file
-    }),
     new MiniCssExtractPlugin({
       filename: 'css/style.css',            // Output CSS filename
     }),
     new CopyWebpackPlugin({
       patterns: [
         { from: './src/assets/images', to: './assets/images', noErrorOnMissing: true },
-        { from: './src/assets/videos', to: './assets/videos', noErrorOnMissing: true },  // Fixed videos path
+        { from: './src/assets/videos', to: './assets/videos', noErrorOnMissing: true },
         { from: './src/assets/fonts', to: './assets/fonts', noErrorOnMissing: true },
+        { from: './src/pages/*.hbs', to: './pages/[name][ext]', noErrorOnMissing: true }, // Use glob pattern to match .hbs files
         { from: './node_modules/slick-carousel/slick/slick.css', to: './assets/css/slick.css' },
         { from: './node_modules/slick-carousel/slick/slick-theme.css', to: './assets/css/slick-theme.css' },
         { from: './node_modules/slick-carousel/slick/slick.min.js', to: './assets/js/slick.min.js' },
