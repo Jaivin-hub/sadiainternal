@@ -149,9 +149,20 @@ const initializeMapbox = () => {
 
 // Function to initialize Slick sliders
 const initializeSlick = () => {
-
   try {
-    // FAVOURITE-SLIDER START
+    // Ensure Slick is loaded
+    if (typeof $.fn.slick === 'undefined') {
+      console.error('Slick is not loaded.');
+      return;
+    }
+
+    // Check if sliders exist in the DOM
+    if (!$('.image-slider').length || !$('.thumbnail-slider').length) {
+      console.error('Required slider elements are not found in the DOM.');
+      return;
+    }
+
+    // Initialize the main image slider
     $('.image-slider').slick({
       arrows: false,
       autoplay: false,
@@ -164,6 +175,7 @@ const initializeSlick = () => {
       autoplaySpeed: 3000,
     });
 
+    // Initialize the thumbnail slider
     $('.thumbnail-slider').slick({
       slidesToShow: 4,
       slidesToScroll: 1,
@@ -172,26 +184,41 @@ const initializeSlick = () => {
       infinite: false,
     });
 
-    // Handle content display on slide change
-    $('.image-slider').on('beforeChange', (event, slick, currentSlide, nextSlide) => {
-      $('.content-item').removeClass('active');
-      $('.content-item[data-slide="' + nextSlide + '"]').addClass('active');
-      $('.slick-current .slide').removeClass('slide-exiting');
-      $('.slick-current .slide').addClass('slide-exiting');
-    });
+    // Ensure content items exist before adding event listener
+    if ($('.content-item').length) {
+      // Handle content display on slide change
+      $('.image-slider').on('beforeChange', (event, slick, currentSlide, nextSlide) => {
+        $('.content-item').removeClass('active');
+        $('.content-item[data-slide="' + nextSlide + '"]').addClass('active');
 
-    // Initialize content for the first slide
-    $('.content-item[data-slide="0"]').addClass('active');
+        // Ensure current slide exists
+        const currentSlideElement = $('.slick-current .slide');
+        if (currentSlideElement.length) {
+          currentSlideElement.removeClass('slide-exiting');
+          currentSlideElement.addClass('slide-exiting');
+        }
+      });
 
-    // Clicking a thumbnail manually triggers the image slider
-    $('.thumbnail').on('click', function () {
-      const slideIndex = $(this).data('slide');
-      $('.image-slider').slick('slickGoTo', slideIndex);
-    });
+      // Initialize content for the first slide
+      $('.content-item[data-slide="0"]').addClass('active');
+    } else {
+      console.error('Content items not found.');
+    }
 
-    // FAVOURITE-SLIDER END
+    // Prevent adding duplicate event listeners on clicking a thumbnail
+    if (!$._data($('.thumbnail').get(0), 'events')) {
+      // Clicking a thumbnail manually triggers the image slider
+      $('.thumbnail').on('click', function () {
+        const slideIndex = $(this).data('slide');
+        // Ensure the slideIndex is valid
+        if (typeof slideIndex !== 'undefined') {
+          $('.image-slider').slick('slickGoTo', slideIndex);
+        }
+      });
+    }
 
-    // Initialize another carousel if needed
+
+    // Initialize another carousel
     $('.whatSlider').slick({
       dots: false,
       slidesToShow: 3, // Show one main slide at a time
@@ -212,10 +239,13 @@ const initializeSlick = () => {
         }
       ]
     });
+
+
   } catch (error) {
     console.error('Error initializing Slick sliders:', error);
   }
 };
+
 
 // Event listener to ensure code runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -259,51 +289,61 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   // Close all dropdowns when clicking outside, only on mobile
-  document.addEventListener('click', function () {
-    if (isMobileViewport()) { // Only trigger for mobile view
-      document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
-        dropdown.classList.remove('show');
-      });
-    }
-  });
+document.addEventListener('click', function () {
+  if (isMobileViewport()) { // Only trigger for mobile view
+    document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
+      dropdown.classList.remove('show');
+    });
+  }
+});
 
-  document.getElementById('viewMoreRecipes').addEventListener('click', function(event) {
+// Add event listeners with null checks
+const viewMoreRecipes = document.getElementById('viewMoreRecipes');
+if (viewMoreRecipes) {
+  viewMoreRecipes.addEventListener('click', function (event) {
     event.preventDefault(); // Prevent the default action of the link
-    // Change the href dynamically to recipe-details.hbs
     this.href = 'recipe-details.hbs'; // Adjust the path as per your file structure
     window.location.href = this.href; // Navigate to the new page
-});
-
-document.getElementById('viewProduct').addEventListener('click', function(event) {
-  event.preventDefault(); // Prevent the default action of the link
-  // Change the href dynamically to recipe-details.hbs
-  this.href = 'product-listing.hbs'; // Adjust the path as per your file structure
-  window.location.href = this.href; // Navigate to the new page
-});
-
-document.getElementById('viewMoreHack').addEventListener('click', function(event) {
-  event.preventDefault(); // Prevent the default action of the link
-  // Change the href dynamically to recipe-details.hbs
-  this.href = 'hack-listing.hbs'; // Adjust the path as per your file structure
-  window.location.href = this.href; // Navigate to the new page
-});
-
-document.getElementById('whereToBuy').addEventListener('click', function(event) {
-  event.preventDefault(); // Prevent the default action of the link
-  // Change the href dynamically to recipe-details.hbs
-  this.href = 'about.hbs'; // Adjust the path as per your file structure
-  window.location.href = this.href; // Navigate to the new page
-});
-
-  // Re-check if on mobile when resizing the window
-  window.addEventListener('resize', function () {
-    if (!isMobileViewport()) {
-      // Close all dropdowns when switching to desktop view
-      document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
-        dropdown.classList.remove('show');
-      });
-    }
   });
+}
+
+const viewProduct = document.getElementById('viewProduct');
+if (viewProduct) {
+  viewProduct.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default action of the link
+    this.href = 'product-listing.hbs'; // Adjust the path as per your file structure
+    window.location.href = this.href; // Navigate to the new page
+  });
+}
+
+const viewMoreHack = document.getElementById('viewMoreHack');
+if (viewMoreHack) {
+  viewMoreHack.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default action of the link
+    this.href = 'hack-listing.hbs'; // Adjust the path as per your file structure
+    window.location.href = this.href; // Navigate to the new page
+  });
+}
+
+const whereToBuy = document.getElementById('whereToBuy');
+if (whereToBuy) {
+  whereToBuy.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default action of the link
+    this.href = 'about.hbs'; // Adjust the path as per your file structure
+    window.location.href = this.href; // Navigate to the new page
+  });
+}
+
+// Re-check if on mobile when resizing the window
+window.addEventListener('resize', function () {
+  if (!isMobileViewport()) {
+    // Close all dropdowns when switching to desktop view
+    document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
+      dropdown.classList.remove('show');
+    });
+  }
+});
+
   
 
   // Fix header visibility and scroll appearance

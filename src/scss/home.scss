@@ -34,6 +34,7 @@ p{
 .btn-more {
     background-color: $primary-color;
     font-family: $title-font;
+    border: 1px solid $primary-color;
     color: $white-color;
     font-weight: 400;
     letter-spacing: 0.7px;
@@ -46,12 +47,13 @@ p{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 0;
     transition: background-color 0.3s ease;
     text-decoration: none;
-    &:hover{
-        background-color: $hover-color;
-        color: $white-color;
+    cursor: pointer;
+    &:hover, &:focus{
+        background-color: $hover-color !important;
+        color: $white-color !important;
+        border: 1px solid $hover-color !important;
     }
 }
 .secSpace{
@@ -451,7 +453,6 @@ p{
 /* WHATS-ON START */
 
 .whats-on-sadia {
-    padding-bottom:  120px;
     .scrl_cards{
         .slick-slide {
             max-width: 28.5vw !important;
