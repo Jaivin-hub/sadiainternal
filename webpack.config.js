@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const JS_DIR = path.resolve(__dirname, 'src/js');
-console.log("JS_DIR", JS_DIR);
 
 module.exports = {
   entry: './src/js/index.js',
@@ -50,6 +49,26 @@ module.exports = {
       inject: false,                        // Do not inject scripts
       filename: 'index.html',               // Output filename
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/recipe-details.hbs',     // Template for main HTML file
+      inject: false,                        // Do not inject scripts
+      filename: 'recipe-details.html',               // Output filename
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/product-listing.hbs',     // Template for main HTML file
+      inject: false,                        // Do not inject scripts
+      filename: 'product-listing.html',               // Output filename
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/hack-listing.hbs',     // Template for main HTML file
+      inject: false,                        // Do not inject scripts
+      filename: 'hack-listing.html',               // Output filename
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/about.hbs',     // Template for main HTML file
+      inject: false,                        // Do not inject scripts
+      filename: 'about.html',               // Output filename
+    }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/style.css',            // Output CSS filename
     }),
@@ -66,9 +85,17 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: path.join(__dirname, 'dist'),   // Serve content from 'dist'
-    port: 8080,                             // Development server port
-    historyApiFallback: true,               // Fallback for single-page applications
+    static: path.join(__dirname, 'dist'),
+    port: 8080,
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/recipe-details/, to: '/recipe-details.html' }, // rewrite /recipe-details to index.html
+        { from: /^\/product-listing/, to: '/product-listing.html' }, // rewrite /recipe-details to index.html
+        { from: /^\/hack-listing/, to: '/hack-listing.html' }, // rewrite /recipe-details to index.html
+        { from: /^\/about/, to: '/about.html' }, // rewrite /recipe-details to index.html
+        { from: /./, to: '/index.html' },
+      ],
+    },
   },
   mode: 'development',                      // Set mode to development
 };
