@@ -265,7 +265,35 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
-  
+
+  document.getElementById('viewMoreRecipes').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default action of the link
+    // Change the href dynamically to recipe-details.hbs
+    this.href = 'recipe-details.hbs'; // Adjust the path as per your file structure
+    window.location.href = this.href; // Navigate to the new page
+});
+
+document.getElementById('viewProduct').addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent the default action of the link
+  // Change the href dynamically to recipe-details.hbs
+  this.href = 'product-listing.hbs'; // Adjust the path as per your file structure
+  window.location.href = this.href; // Navigate to the new page
+});
+
+document.getElementById('viewMoreHack').addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent the default action of the link
+  // Change the href dynamically to recipe-details.hbs
+  this.href = 'hack-listing.hbs'; // Adjust the path as per your file structure
+  window.location.href = this.href; // Navigate to the new page
+});
+
+document.getElementById('whereToBuy').addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent the default action of the link
+  // Change the href dynamically to recipe-details.hbs
+  this.href = 'about.hbs'; // Adjust the path as per your file structure
+  window.location.href = this.href; // Navigate to the new page
+});
+
   // Re-check if on mobile when resizing the window
   window.addEventListener('resize', function () {
     if (!isMobileViewport()) {
@@ -287,15 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
       header.classList.remove('scrolled');
     }
   });
-
-  // Add the redirectToRecipeDetails function for the button click
-  function redirectToRecipeDetails(event) {
-    event.preventDefault(); // Prevent the default link behavior
-    window.location.href = 'recipe-details.hbs'; // Redirect to the desired page
-  }
-
-  // Attach the function to the View More Recipes button
-  document.querySelector('.btn-more').addEventListener('click', redirectToRecipeDetails);
 
 });
 
