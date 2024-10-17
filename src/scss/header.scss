@@ -185,7 +185,7 @@ header {
 				}
 			}
 			.menuTitle{
-				h3{
+				.titleText{
 					color: $border-color;
 					font-family: $title-font;
 					font-size: 80px;
@@ -492,13 +492,13 @@ header {
 						align-items: center;
 						justify-content: space-between;
 						background-color:$white-color;
-						&.dropdown-toggle::after{
-							width: 22px;
-							height: 12px;
-							background-size: cover;
-							display: inline-block !important;
-						}
 						
+					}
+					.dropdown-toggle::after{
+						width: 22px;
+						height: 12px;
+						background-size: cover;
+						display: inline-block !important;
 					}
 				}
 				.megamenu{
