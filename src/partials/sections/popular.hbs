@@ -5,94 +5,492 @@
             <h2 class="mainTitle">Our Popular<span class="animateIc"><img class="Icons animate" src="./assets/images/icons/receipe.svg" alt="icon" /></span> Recipes</h2>
         </div>
 
-        <div class="row">
-            <div class="col-12 text-center catgSpc">
-                <div class="btn-group categ_filter d-block" role="group" aria-label="Recipe Categories">
-                    <button type="button" class="btn filBtn active">All</button>
-                    <button type="button" class="btn filBtn">Airfryer</button>
-                    <button type="button" class="btn filBtn">Quick and Easy</button>
-                    <button type="button" class="btn filBtn">Seasonal</button>
-                    <button type="button" class="btn filBtn">Region</button>
-                    <button type="button" class="btn filBtn">Top Searched</button>
+        <div class="catgSpc">
+            <ul class="nav nav-tabs categ_filter justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link filBtn active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">All</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link filBtn" id="airfryer-tab" data-bs-toggle="tab" data-bs-target="#airfryer-tab-pane" type="button" role="tab" aria-controls="airfryer-tab-pane" aria-selected="false">Airfryer</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link filBtn" id="quick-tab" data-bs-toggle="tab" data-bs-target="#quick-tab-pane" type="button" role="tab" aria-controls="quick-tab-pane" aria-selected="false">Quick and Easy</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link filBtn" id="seasonal-tab" data-bs-toggle="tab" data-bs-target="#seasonal-tab-pane" type="button" role="tab" aria-controls="seasonal-tab-pane" aria-selected="false">Seasonal</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link filBtn" id="region-tab" data-bs-toggle="tab" data-bs-target="#region-tab-pane" type="button" role="tab" aria-controls="region-tab-pane" aria-selected="false">Region</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link filBtn" id="top-tab" data-bs-toggle="tab" data-bs-target="#top-tab-pane" type="button" role="tab" aria-controls="top-tab-pane" aria-selected="false">Top Searched</button>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane  fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
+                
+                <div class="row horizontal-scroll">
+                    <div class="col-12">
+                        <div class="d-flex flex-nowrap">
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Peruvian-style Roast Chicken With Green Sauce</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Middle Eastern-style Grilled Chicken Kabobs</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-more" id="viewMoreRecipes">View More Recipes</a>
+                </div>
+
+
+            </div>
+
+            <div class="tab-pane fade" id="airfryer-tab-pane" role="tabpanel" aria-labelledby="airfryer-tab" tabindex="0">
+                <div class="row horizontal-scroll">
+                    <div class="col-12">
+                        <div class="d-flex flex-nowrap">
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Peruvian-style Roast Chicken With<br/> Green Sauce</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Middle Eastern-style Grilled<br/> Chicken Kabobs</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-more" id="viewMoreRecipes">View More Recipes</a>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="quick-tab-pane" role="tabpanel" aria-labelledby="quick-tab" tabindex="0">
+                <div class="row horizontal-scroll">
+                    <div class="col-12">
+                        <div class="d-flex flex-nowrap">
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Peruvian-style Roast Chicken With<br/> Green Sauce</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Middle Eastern-style Grilled<br/> Chicken Kabobs</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-more" id="viewMoreRecipes">View More Recipes</a>
+                </div>
+
+            </div>
+
+            <div class="tab-pane fade" id="seasonal-tab-pane" role="tabpanel" aria-labelledby="seasonal-tab" tabindex="0">
+
+                <div class="row horizontal-scroll">
+                    <div class="col-12">
+                        <div class="d-flex flex-nowrap">
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Peruvian-style Roast Chicken With Green Sauce</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Middle Eastern-style Grilled Chicken Kabobs</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-more" id="viewMoreRecipes">View More Recipes</a>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="region-tab-pane" role="tabpanel" aria-labelledby="region-tab" tabindex="0">
+                <div class="row horizontal-scroll">
+                    <div class="col-12">
+                        <div class="d-flex flex-nowrap">
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Peruvian-style Roast Chicken With Green Sauce</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Middle Eastern-style Grilled<br/> Chicken Kabobs</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-more" id="viewMoreRecipes">View More Recipes</a>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="top-tab-pane" role="tabpanel" aria-labelledby="top-tab" tabindex="0">
+                <div class="row horizontal-scroll">
+                    <div class="col-12">
+                        <div class="d-flex flex-nowrap">
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Peruvian-style Roast Chicken With Green Sauce</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card me-4">
+                                <div class="cardImg">
+                                    <a href="#"><img src="./assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3"></a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="#">
+                                        <h5 class="card-title">Middle Eastern-style Grilled<br/> Chicken Kabobs</h5>
+                                    </a>
+                                    <p class="card-text">By<span>Diana Disoza</span></p>
+                                    <div class="moreDtls">
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
+                                            30 Mins
+                                        </div>
+                                        <div class="icCont">
+                                            <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
+                                            2-4 Persons
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-more" id="viewMoreRecipes">View More Recipes</a>
                 </div>
             </div>
         </div>
 
-        <!-- Add a wrapper with overflow-x for horizontal scrolling -->
-        <div class="row horizontal-scroll">
-            <div class="col-12">
-                <div class="d-flex flex-nowrap">
-                    <div class="card me-4">
-                        <div class="cardImg">
-                            <a href="#"><img src="./assets/images/recipes/recipes_1.png" class="mainImg" alt="Popular Recipe 1"></a>
-                        </div>
-                        <div class="card-body">
-                            <a href="#">
-                                <h5 class="card-title">Buttermilk fried chicken tenders to BBQ chicken</h5>
-                            </a>
-                            <p class="card-text">By<span>Diana Disoza</span></p>
-                            <div class="moreDtls">
-                                <div class="icCont">
-                                    <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
-                                    30 Mins
-                                </div>
-                                <div class="icCont">
-                                    <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
-                                    2-4 Persons
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card me-4">
-                        <div class="cardImg">
-                            <a href="#"><img src="./assets/images/recipes/recipes_2.png" class="mainImg" alt="Popular Recipe 2"></a>
-                        </div>
-                        <div class="card-body">
-                            <a href="#">
-                                <h5 class="card-title">Peruvian-style Roast Chicken With<br/> Green Sauce</h5>
-                            </a>
-                            <p class="card-text">By<span>Diana Disoza</span></p>
-                            <div class="moreDtls">
-                                <div class="icCont">
-                                    <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
-                                    30 Mins
-                                </div>
-                                <div class="icCont">
-                                    <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
-                                    2-4 Persons
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card me-4">
-                        <div class="cardImg">
-                            <a href="#"><img src="./assets/images/recipes/recipes_3.png" class="mainImg" alt="Popular Recipe 3"></a>
-                        </div>
-                        <div class="card-body">
-                            <a href="#">
-                                <h5 class="card-title">Middle Eastern-style Grilled<br/> Chicken Kabobs</h5>
-                            </a>
-                            <p class="card-text">By<span>Diana Disoza</span></p>
-                            <div class="moreDtls">
-                                <div class="icCont">
-                                    <span class="icons"><img src="./assets/images/icons/clock.svg" class="img-fluid" alt="clock"></span>
-                                    30 Mins
-                                </div>
-                                <div class="icCont">
-                                    <span class="icons"><img src="./assets/images/icons/people-group.svg" class="img-fluid" alt="clock"></span>
-                                    2-4 Persons
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <a href="#" class="btn btn-more" id="viewMoreRecipes">View More Recipes</a>
-        </div>
-
+        
     </div>
 </section>
 
