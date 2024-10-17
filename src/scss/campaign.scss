@@ -1,0 +1,164 @@
+
+@use '../../src/scss/custom.scss' as *;
+
+.campTitles{
+    margin: 144px 0;
+    .titleWrap{
+        margin: 0;
+        padding: 0;
+        .mainTitle{
+            margin: 0 0 24px 0;
+        }
+        .descp{
+            margin: 0 auto;
+            font-size: 16px;
+            line-height: 22px;
+            color: $black-color;
+            max-width: 520px;
+        }
+    }
+    
+}
+
+.campaignSlider{
+    .carousel-caption{
+        bottom: 28px;
+        .titleStyle{
+            margin: 0;
+        }
+    }
+}
+.campaignBxWraper{
+    &.btmSpace{
+        margin-bottom: 74px;
+    }
+    .pr-0{
+        padding-right: 0;
+    }
+    .pl-0{
+        padding-left: 0;
+    }
+    .bannerSlider{
+        &.campagin{
+            .carousel{
+                .carousel-indicators {
+                    justify-content: start;
+                    right: inherit;
+                    bottom: 14px;
+                    left: 24px;
+                }
+                .carousel-item{
+                    img.slider-img{
+                        height: 496px;
+                    }
+
+                }
+            }
+            
+        }
+    }
+    .camp_bximg{
+        .img-box{
+            height: 496px;
+            overflow: hidden;
+            border-radius: 8px;
+            &:hover{
+                img.bxImg{
+                    transform: scale(1.1);
+                }
+            }
+            img.bxImg{
+                height: 496px;
+                object-fit: cover;
+                width: 100%;
+                transition: 1s ease;
+            }
+        }
+        
+
+    }
+    .contBoxs {
+        padding: 0 80px;
+        .subitle{
+            color: $secondary-color;
+            font-size: 47px;
+            line-height: 50px;
+            font-family: $title-font;
+            margin: 20px 0;
+            padding: 0;
+        }
+        .descp{
+            font-size: 16px;
+            line-height: 22px;
+            margin: 0;
+            padding: 0;
+            color: $black-color;
+            font-weight: 500;
+        }
+        .btn-more{
+            margin: 24px 0;
+        }
+
+    }
+    
+       
+
+}
+
+@media (max-width: 991px) {
+
+    .campaignBxWraper{
+        .contBoxs {
+            padding: 0 40px;
+        }
+    } 
+
+
+}
+@media (max-width: 767px) {
+
+    .reverBx{
+        flex-direction: column-reverse;
+    }
+
+    .campTitles {
+        margin: 115px 0 48px;
+        .titleWrap{
+            font-size: 47px;
+            line-height: 47px;
+        }
+    }
+    .campaignBxWraper{
+        margin: 0 0 48px;
+        &.btmSpace {
+            margin-bottom: 0px;
+        }
+        .contBoxs {
+            padding: 0 15px;
+            .btn-more{
+                margin: 16px 0 0;
+            }
+            .subitle {
+                font-size: 36px;
+                line-height: 38px;
+                margin: 20px 0 16px;
+            }
+        }
+        .pl-0 {
+            padding-left: 15px;
+        }
+        .pr-0 {
+            padding-right: 15px;
+        }
+        .camp_bximg{
+            .img-box{
+                height: 390px;
+                img.bxImg {
+                    height: 390px;
+                }
+            }
+        }
+    } 
+ 
+
+}
