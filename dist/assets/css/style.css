@@ -12886,7 +12886,7 @@ header .navbar .megamenu .navBox h6 {
   text-transform: uppercase;
   transition: all ease 0.3s;
 }
-header .navbar .megamenu .menuTitle h3 {
+header .navbar .megamenu .menuTitle .titleText {
   color: #EBEBEB;
   font-family: "Bebas Neue", serif;
   font-size: 80px;
@@ -13124,7 +13124,7 @@ header .navbar .megamenu .menuTitle h3 {
     justify-content: space-between;
     background-color: #FFF;
   }
-  .mobileMenu .navbar .navbar-nav .nav-item .nav-link.dropdown-toggle::after {
+  .mobileMenu .navbar .navbar-nav .nav-item .dropdown-toggle::after {
     width: 22px;
     height: 12px;
     background-size: cover;
@@ -13465,6 +13465,11 @@ a, button {
   cursor: pointer;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .titleWrap {
   margin: 0 0 70px;
 }
@@ -13604,7 +13609,7 @@ a, button {
   bottom: 50px;
   left: 70px;
 }
-.bannerSlider .carousel-caption h5 {
+.bannerSlider .carousel-caption .titleStyle {
   font-size: 80px;
   font-weight: 500;
   line-height: 80px;
@@ -13637,8 +13642,10 @@ a, button {
   .bannerSlider .carousel-caption {
     display: block !important;
     text-align: center;
+    left: 20px;
+    right: 20px;
   }
-  .bannerSlider .carousel-caption h5 {
+  .bannerSlider .carousel-caption .titleStyle {
     font-size: 61px;
     line-height: 64px;
   }
@@ -13646,6 +13653,11 @@ a, button {
 /* POPULAR START */
 .catgSpc {
   margin-bottom: 64px;
+}
+.catgSpc .categ_filter {
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 .catgSpc .categ_filter .filBtn {
   background-color: #F7F7F7;
@@ -13658,6 +13670,7 @@ a, button {
   border-radius: 4px !important;
   font-family: "Nunito", serif;
   margin: 5px;
+  cursor: pointer;
 }
 .catgSpc .categ_filter .filBtn:hover {
   border: 1px solid #EBEBEB;
@@ -13690,19 +13703,27 @@ a, button {
 }
 
 @media (max-width: 767px) {
-  .catgSpc {
+  .popular-section .catgSpc {
     display: none;
   }
-  .card .cardImg {
+  .popular-section .card .card-title {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .popular-section .card .cardImg {
     height: 256px;
   }
-  .card .cardImg img.mainImg {
+  .popular-section .card .cardImg img.mainImg {
     min-height: 256px;
     max-height: 280px;
   }
-  .card .card-body {
+  .popular-section .card .card-body {
     padding-bottom: 0px;
     margin: 0;
+  }
+  .popular-section .card .card-body .moreDtls .icCont {
+    margin-right: 20px;
+    font-size: 13px;
   }
 }
 /* POPULAR END */
@@ -14083,8 +14104,12 @@ a, button {
 .trueFram_wraper .blkBox {
   background-color: #252523;
   border-radius: 8px;
-  max-height: 430px;
-  height: 100%;
+  height: 430px;
+}
+.trueFram_wraper .blkBox img.Icons.rotate-center {
+  max-height: 290px;
+  object-fit: cover;
+  width: auto;
 }
 .trueFram_wraper .blkBox .halalTitle {
   color: #FFF;
@@ -14107,6 +14132,7 @@ a, button {
   background-color: #252523;
 }
 .trueFram_wraper .rightBx .changeBx.blkBox .firstBox {
+  min-height: 100vh;
   z-index: 10;
 }
 .trueFram_wraper .rightBx .changeBx.blkBox .firstBox .halalTitle {
@@ -14147,7 +14173,7 @@ a, button {
   animation: swing-size 6s infinite;
   transform-origin: inherit;
 }
-.trueFram_wraper .rightBx .changeBx .secondtBox .contSec p {
+.trueFram_wraper .rightBx .changeBx .secondtBox .contSec .descp {
   color: #ADADAD;
   font-size: 16px;
   line-height: 22px;
@@ -14156,18 +14182,21 @@ a, button {
 }
 .trueFram_wraper .rightBx .changeBx .secondtBox .boxVideo {
   height: 193px;
+  position: relative;
   float: left;
   width: 100%;
   overflow: hidden;
   border-radius: 6px;
 }
 .trueFram_wraper .rightBx .changeBx .secondtBox .boxVideo video, .trueFram_wraper .rightBx .changeBx .secondtBox .boxVideo iframe {
-  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 100%;
-  padding: 0;
-  margin: -5px 0;
-  border: 0;
-  min-height: 225px;
+  height: 100%;
+  min-height: 193px;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
 }
 .trueFram_wraper .rightBx .changeBx .hvrBox {
   -webkit-transition-delay: 0.05s;
@@ -14257,7 +14286,7 @@ a, button {
 .trueFram_wraper .grid.truBoxs figure .textPart a {
   text-decoration: none;
 }
-.trueFram_wraper .grid.truBoxs figure .textPart h2 {
+.trueFram_wraper .grid.truBoxs figure .textPart .gridTitle {
   word-spacing: 0.5px;
   font-weight: 500;
   font-size: 47px;
@@ -14265,11 +14294,11 @@ a, button {
   font-family: "Bebas Neue", serif;
   color: #FFF;
 }
-.trueFram_wraper .grid.truBoxs figure .textPart h2 a {
+.trueFram_wraper .grid.truBoxs figure .textPart .gridTitle a {
   color: #FFF;
   text-decoration: none;
 }
-.trueFram_wraper .grid.truBoxs figure .textPart p {
+.trueFram_wraper .grid.truBoxs figure .textPart .descp {
   letter-spacing: 1px;
   font-size: 16px;
   line-height: 22px;
@@ -14283,7 +14312,7 @@ a, button {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.trueFram_wraper .grid.truBoxs figure .textPart p a {
+.trueFram_wraper .grid.truBoxs figure .textPart .descp a {
   color: #D6D6D6;
   text-decoration: none;
 }
@@ -14298,13 +14327,13 @@ a, button {
 .trueFram_wraper .grid.truBoxs figure.effect-lily figcaption {
   text-align: left;
 }
-.trueFram_wraper .grid.truBoxs figure.effect-lily figcaption p {
+.trueFram_wraper .grid.truBoxs figure.effect-lily figcaption .descp {
   color: rgba(255, 255, 255, 0.8);
   opacity: 0;
   -webkit-transition: opacity 0.2s, -webkit-transform 0.35s;
   transition: opacity 0.2s, transform 0.35s;
 }
-.trueFram_wraper .grid.truBoxs figure.effect-lily figcaption:hover p {
+.trueFram_wraper .grid.truBoxs figure.effect-lily figcaption:hover .descp {
   -webkit-transition-delay: 0.2s;
   transition-delay: 0.2s;
   -webkit-transition-duration: 35s;
@@ -14328,8 +14357,8 @@ a, button {
   width: 100%;
   height: 100%;
 }
-.trueFram_wraper .grid.truBoxs figure h2,
-.trueFram_wraper .grid.truBoxs figure p {
+.trueFram_wraper .grid.truBoxs figure .gridTitle,
+.trueFram_wraper .grid.truBoxs figure .descp {
   margin: 0;
 }
 .trueFram_wraper .grid.truBoxs figure.effect-lily.linkStr {
@@ -14349,22 +14378,24 @@ a, button {
   transition-duration: 0.75s;
 }
 .trueFram_wraper .grid.truBoxs figure.effect-lily:hover img,
-.trueFram_wraper .grid.truBoxs figure.effect-lily:hover p {
+.trueFram_wraper .grid.truBoxs figure.effect-lily:hover .descp {
   opacity: 1;
 }
 .trueFram_wraper .video-container {
   border-radius: 8px;
   overflow: hidden;
-  max-height: 430px;
-  height: 100%;
+  height: 430px;
+  position: relative;
 }
 .trueFram_wraper .video-container video, .trueFram_wraper .video-container iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 100%;
-  min-height: 540px;
   height: 100%;
-  padding: 0;
-  margin: -10px 0;
-  border-radius: 8px;
+  min-height: 430px;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
 }
 
 @media (max-width: 991px) {
@@ -14394,30 +14425,47 @@ a, button {
     padding: 20px;
   }
   .trueFram_wraper .rightBx .changeBx .secondtBox .contSec {
-    margin: 0px 0 0 0;
+    margin: 0;
+    padding: 10px 0;
+  }
+  .trueFram_wraper .rightBx .changeBx .secondtBox .contSec .descp {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .trueFram_wraper .rightBx .changeBx .secondtBox .contSec .halalTitle {
+    font-size: 38px;
+    line-height: 40px;
+    min-height: inherit;
   }
   .trueFram_wraper .rightBx .changeBx .secondtBox .contSec .halalTitle .animateIc img.Icons.animate {
     max-width: 54px;
-  }
-  .trueFram_wraper .rightBx .changeBx .secondtBox .boxVideo video, .trueFram_wraper .rightBx .changeBx .secondtBox .boxVideo iframe {
-    width: 171%;
-    margin: -35px -25%;
-    border: 0;
-    min-height: 225px;
   }
   .trueFram_wraper .rightBx .rightImg img {
     max-height: 280px;
   }
 }
 @media (max-width: 767px) {
+  .trueFram_wraper .grid.truBoxs {
+    height: 390px;
+  }
+  .trueFram_wraper .grid.truBoxs figure .textPart .gridTitle {
+    font-size: 36px;
+    line-height: 39px;
+  }
+  .trueFram_wraper .grid.truBoxs figure.effect-lily img.bgImg {
+    min-height: 390px;
+  }
   .trueFram_wraper .grid.truBoxs figure figcaption .linkStr .iconPart {
     width: 70px;
   }
   .trueFram_wraper .grid.truBoxs figure figcaption .linkStr .textPart {
     padding-left: 10px;
   }
-  .trueFram_wraper p {
+  .trueFram_wraper p, .trueFram_wraper .gridTitle, .trueFram_wraper .descp {
     white-space: normal;
+  }
+  .trueFram_wraper .horizontal-scroll {
+    padding-left: 10px;
   }
   .trueFram_wraper .horizontal-scroll .flex-nowrap .row {
     flex-wrap: nowrap !important;
@@ -14430,19 +14478,24 @@ a, button {
     margin: 0;
   }
   .trueFram_wraper .blkBox {
-    min-height: 390px;
-    height: 100%;
+    height: 390px;
+  }
+  .trueFram_wraper .blkBox .Icons.rotate-center {
+    max-height: 241px;
   }
   .trueFram_wraper .scr_box {
     flex: 0 0 auto;
     width: 80%;
   }
+  .trueFram_wraper .video-container {
+    height: 390px;
+  }
   .trueFram_wraper .video-container video, .trueFram_wraper .video-container iframe {
-    width: 200%;
-    min-height: 600px;
-    height: 100%;
-    min-width: 100%;
-    margin: -25% -50%;
+    min-height: 390px;
+  }
+  .trueFram_wraper .rightBx .changeBx.blkBox .firstBox .halalTitle {
+    font-size: 36px;
+    line-height: 40px;
   }
   .trueFram_wraper .rightBx .changeBx .secondtBox .contSec {
     padding: 20px 0;
@@ -14453,38 +14506,13 @@ a, button {
   }
   .trueFram_wraper .rightBx .changeBx .secondtBox .boxVideo {
     margin: 0 0 0 7px;
+    height: 175px;
   }
   .trueFram_wraper .rightBx .changeBx .secondtBox .boxVideo video, .trueFram_wraper .rightBx .changeBx .secondtBox .boxVideo iframe {
-    width: 211%;
-    margin: -45px -49%;
-    min-height: 345px;
+    min-height: 175px;
   }
-}
-@media (max-width: 600px) {
-  .trueFram_wraper .video-container {
-    margin-left: 8px;
-  }
-  .trueFram_wraper .video-container video, .trueFram_wraper .video-container iframe {
-    width: 205%;
-    margin: -28% -50%;
-  }
-}
-@media (max-width: 520px) {
-  .trueFram_wraper .video-container video, .trueFram_wraper .video-container iframe {
-    width: 300%;
-    margin: -144% -90%;
-  }
-}
-@media (max-width: 430px) {
-  .trueFram_wraper .video-container video, .trueFram_wraper .video-container iframe {
-    width: 340%;
-    margin: -48% -120%;
-  }
-}
-@media (max-width: 380px) {
-  .trueFram_wraper .video-container video, .trueFram_wraper .video-container iframe {
-    width: 450%;
-    margin: -45% -150%;
+  .trueFram_wraper .rightBx .rightImg img {
+    max-height: 230px;
   }
 }
 .cookingHacks .card {
@@ -14494,6 +14522,15 @@ a, button {
   margin: 0;
 }
 
+@media (max-width: 767px) {
+  .cookingHacks .card {
+    margin-bottom: 15px;
+  }
+  .cookingHacks .card .card-title {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
 @media (max-width: 991px) {
   .secSpace {
     padding: 115px 0 0px;

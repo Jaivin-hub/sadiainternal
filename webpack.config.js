@@ -65,6 +65,11 @@ module.exports = {
       filename: 'hack-listing.html',               // Output filename
     }),
     new HtmlWebpackPlugin({
+      template: 'src/layouts/campaign.hbs',     // Template for main HTML file
+      inject: false,                        // Do not inject scripts
+      filename: 'campaign.html',               // Output filename
+    }),
+    new HtmlWebpackPlugin({
       template: 'src/layouts/about.hbs',     // Template for main HTML file
       inject: false,                        // Do not inject scripts
       filename: 'about.html',               // Output filename
@@ -92,6 +97,7 @@ module.exports = {
         { from: /^\/recipe-details/, to: '/recipe-details.html' }, // rewrite /recipe-details to index.html
         { from: /^\/product-listing/, to: '/product-listing.html' }, // rewrite /recipe-details to index.html
         { from: /^\/hack-listing/, to: '/hack-listing.html' }, // rewrite /recipe-details to index.html
+        { from: /^\/campaign/, to: '/campaign.html' }, // rewrite /recipe-details to index.html
         { from: /^\/about/, to: '/about.html' }, // rewrite /recipe-details to index.html
         { from: /./, to: '/index.html' },
       ],
