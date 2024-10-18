@@ -458,7 +458,7 @@
               </div>
   
               <div class="carousel-inner">
-                  <div class="carousel-item active">
+                  <div class="carousel-item active viewCampaign" >
                       <img src="./assets/images/banner/slider_1.png" class="d-block slider-img" alt="Slide 1">
                       <div class="carousel-caption d-none d-md-block">
                           <div class="titleStyle">
@@ -467,49 +467,49 @@
                           <a class="btn learnBtn" href="#">Learn more</a>
                       </div>
                   </div>
-                  <div class="carousel-item">
+                  <div class="carousel-item viewCampaign" >
                       <img src="./assets/images/banner/slider_2.png" class="d-block slider-img" alt="Slide 2">
                       <div class="carousel-caption d-none d-md-block">
                           <div class="titleStyle">
                               <p>Recipes <br/>TITLE goes <br/>here</p>
                           </div>
-                          <a class="btn learnBtn" href="#">Learn more</a>
+                          <a class="btn learnBtn"  href="#">Learn more</a>
                       </div>
                   </div>
-                  <div class="carousel-item">
+                  <div class="carousel-item viewCampaign" >
                       <img src="./assets/images/banner/slider_3.png" class="d-block slider-img" alt="Slide 3">
                       <div class="carousel-caption d-none d-md-block">
                           <div class="titleStyle">
                               <p>Products <br/>TITLE goes <br/>here</p>
                           </div>
-                          <a class="btn learnBtn" href="#">Learn more</a>
+                          <a class="btn learnBtn"  href="#">Learn more</a>
                       </div>
                   </div>
-                  <div class="carousel-item">
+                  <div class="carousel-item viewCampaign" >
                       <img src="./assets/images/banner/slider_4.png" class="d-block slider-img" alt="Slide 4">
                       <div class="carousel-caption d-none d-md-block">
                           <div class="titleStyle">
                               <p>hacks <br/>TITLE goes <br/>here</p>
                           </div>
-                          <a class="btn learnBtn" href="#">Learn more</a>
+                          <a class="btn learnBtn"  href="#">Learn more</a>
                       </div>
                   </div>
-                  <div class="carousel-item">
+                  <div class="carousel-item viewCampaign" >
                       <img src="./assets/images/banner/slider_5.png" class="d-block slider-img" alt="Slide 5">
                       <div class="carousel-caption d-none d-md-block">
                           <div class="titleStyle">
                               <p>halal <br/>TITLE goes <br/>here</p>
                           </div>
-                          <a class="btn learnBtn" href="#">Learn more</a>
+                          <a class="btn learnBtn"  href="#">Learn more</a>
                       </div>
                   </div>
-                  <div class="carousel-item">
+                  <div class="carousel-item viewCampaign" >
                       <img src="./assets/images/banner/slider_1.png" class="d-block slider-img" alt="Slide 6">
                       <div class="carousel-caption d-none d-md-block">
                           <div class="titleStyle">
                               <p>Campaign <br/>TITLE goes <br/>here</p>
                           </div>
-                          <a class="btn learnBtn" href="#">Learn more</a>
+                          <a class="btn learnBtn"  href="#">Learn more</a>
                       </div>
                   </div>
               </div>
@@ -1307,44 +1307,36 @@
           </div>
       </div>
   </section><section class="find-us secSpace">
-      <div class="container">
-  
-          <div class="titleWrap text-center">
-              <h2 class="mainTitle">FIND<span class="animateIc"><img class="Icons animate" src="./assets/images/icons/location.svg" alt="icon" /></span> US</h2>
+    <div class="container">
+      <div class="titleWrap text-center">
+        <h2 class="mainTitle">FIND<span class="animateIc"><img class="Icons animate" src="./assets/images/icons/location.svg" alt="icon" /></span> US</h2>
+      </div>
+      <div class="row">
+        <!-- First column: Map image -->
+        <div class="col-lg-6 mapWrap">
+          <div id="mapContainer">
+            <div id="mapFrame"></div>
           </div>
-          <div class="row">
-              <!-- First column: Map image -->
-              <div class="col-lg-6 mapWrap">
-                  <div id="mapContainer">
-                  <div id="mapFrame"></div>
-                  </div>
-              </div>
-              
-              <!-- Second column: Description, dropdown, and button -->
-              <div class="col-lg-6">
-                  <div class="mapBox">
-                      <h3 class="title">Across the Middle East</h3>
-                      <p>Find us at a supermarket near you or shop online for even greater convenience.</p>
-                  
-                      <div class="dropdown-container">
-                          <select class="form-select countryDrops" aria-label="Select Country">
-                              <option value="1" selected>UAE</option>
-                              <option value="1">Saudi Arabia</option>
-                              <option value="2">Qatar</option>
-                              <option value="3">Kuwait</option>
-                              <option value="4">Oman</option>
-                          </select>
-                      </div>
+        </div>
   
-                 
-                      <div class="button-container">
-                          <button class="btn btn-more mt-3" id="whereToBuy">Where to Buy</button>
-                      </div>
-                  </div>
-              </div>
+        <!-- Second column: Description, dropdown, and button -->
+        <div class="col-lg-6">
+          <div class="mapBox">
+            <h3 class="title">Across the Middle East</h3>
+            <p>Find us at a supermarket near you or shop online for even greater convenience.</p>
+  
+            <!-- Placeholder for dropdown that will be filled by JS -->
+            <div class="dropdown-container">
+              <select class="form-select countryDrops"></select>
+            </div>
+  
+            <div class="button-container">
+              <button class="btn btn-more mt-3" id="whereToBuy">Where to Buy</button>
+            </div>
           </div>
-          
-      </div> 
+        </div>
+      </div>
+    </div>
   </section>
   <section class="whats-on-sadia secSpace d-flex" >
       <div class="container">
@@ -1469,14 +1461,7 @@
                           </ul>
                         </div>
 
-                        <div class="col-md-12 ftrNewsletter">
-                            <h4 class="newsTitle text-center">stay informed</h4>
-                            <form>
-                              <div class="formGrp">
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                              </div>
-                              <button type="submit" class="btn btn-signup">SIGN UP</button>
-                            </form>
+                        <div class="col-md-12 ftrNewsletter m-0">
                         </div>
 
                         <div class="footer-socials mobOnly col-md-12">
@@ -1510,11 +1495,11 @@
   <!-- Include Handlebars.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
 <script src="assets/js/main.bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="assets/js/slick.min.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

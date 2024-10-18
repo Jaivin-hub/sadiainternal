@@ -13249,6 +13249,7 @@ footer {
   position: relative;
   bottom: 0;
   width: 100%;
+  margin-top: 70px;
 }
 footer .footer-container {
   padding: 0 100px;
@@ -13487,6 +13488,7 @@ p {
 .btn-more {
   background-color: #D7282F;
   font-family: "Bebas Neue", serif;
+  border: 1px solid #D7282F;
   color: #FFF;
   font-weight: 400;
   letter-spacing: 0.7px;
@@ -13499,13 +13501,14 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 0;
   transition: background-color 0.3s ease;
   text-decoration: none;
+  cursor: pointer;
 }
-.btn-more:hover {
-  background-color: #AC2026;
-  color: #FFF;
+.btn-more:hover, .btn-more:focus {
+  background-color: #AC2026 !important;
+  color: #FFF !important;
+  border: 1px solid #AC2026 !important;
 }
 
 .secSpace {
@@ -13810,9 +13813,6 @@ p {
   }
 }
 /* WHATS-ON START */
-.whats-on-sadia {
-  padding-bottom: 120px;
-}
 .whats-on-sadia .scrl_cards .slick-slide {
   max-width: 28.5vw !important;
   margin-right: 20px;
@@ -14638,6 +14638,132 @@ p {
   }
 }
 /* Keyframes for swinging and size increase Enb */
+.campTitles {
+  margin: 144px 0;
+}
+.campTitles .titleWrap {
+  margin: 0;
+  padding: 0;
+}
+.campTitles .titleWrap .mainTitle {
+  margin: 0 0 24px 0;
+}
+.campTitles .titleWrap .descp {
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 22px;
+  color: #0D0D0D;
+  max-width: 520px;
+}
+
+.campaignSlider .carousel-caption {
+  bottom: 28px;
+}
+.campaignSlider .carousel-caption .titleStyle {
+  margin: 0;
+}
+
+.campaignBxWraper.btmSpace {
+  margin-bottom: 74px;
+}
+.campaignBxWraper .pr-0 {
+  padding-right: 0;
+}
+.campaignBxWraper .pl-0 {
+  padding-left: 0;
+}
+.campaignBxWraper .bannerSlider.campagin .carousel .carousel-indicators {
+  justify-content: start;
+  right: inherit;
+  bottom: 14px;
+  left: 24px;
+}
+.campaignBxWraper .bannerSlider.campagin .carousel .carousel-item img.slider-img {
+  height: 496px;
+}
+.campaignBxWraper .camp_bximg .img-box {
+  height: 496px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.campaignBxWraper .camp_bximg .img-box:hover img.bxImg {
+  transform: scale(1.1);
+}
+.campaignBxWraper .camp_bximg .img-box img.bxImg {
+  height: 496px;
+  object-fit: cover;
+  width: 100%;
+  transition: 1s ease;
+}
+.campaignBxWraper .contBoxs {
+  padding: 0 80px;
+}
+.campaignBxWraper .contBoxs .subitle {
+  color: #1D1D1B;
+  font-size: 47px;
+  line-height: 50px;
+  font-family: "Bebas Neue", serif;
+  margin: 20px 0;
+  padding: 0;
+}
+.campaignBxWraper .contBoxs .descp {
+  font-size: 16px;
+  line-height: 22px;
+  margin: 0;
+  padding: 0;
+  color: #0D0D0D;
+  font-weight: 500;
+}
+.campaignBxWraper .contBoxs .btn-more {
+  margin: 24px 0;
+}
+
+@media (max-width: 991px) {
+  .campaignBxWraper .contBoxs {
+    padding: 0 40px;
+  }
+}
+@media (max-width: 767px) {
+  .reverBx {
+    flex-direction: column-reverse;
+  }
+  .campTitles {
+    margin: 115px 0 48px;
+  }
+  .campTitles .titleWrap {
+    font-size: 47px;
+    line-height: 47px;
+  }
+  .campaignBxWraper {
+    margin: 0 0 48px;
+  }
+  .campaignBxWraper.btmSpace {
+    margin-bottom: 0px;
+  }
+  .campaignBxWraper .contBoxs {
+    padding: 0 15px;
+  }
+  .campaignBxWraper .contBoxs .btn-more {
+    margin: 16px 0 0;
+  }
+  .campaignBxWraper .contBoxs .subitle {
+    font-size: 36px;
+    line-height: 38px;
+    margin: 20px 0 16px;
+  }
+  .campaignBxWraper .pl-0 {
+    padding-left: 15px;
+  }
+  .campaignBxWraper .pr-0 {
+    padding-right: 15px;
+  }
+  .campaignBxWraper .camp_bximg .img-box {
+    height: 390px;
+  }
+  .campaignBxWraper .camp_bximg .img-box img.bxImg {
+    height: 390px;
+  }
+}
 /* Box sizing rules */
 *,
 *::before,
