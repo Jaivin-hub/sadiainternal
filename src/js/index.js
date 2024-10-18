@@ -325,6 +325,15 @@ if (viewMoreHack) {
   });
 }
 
+const viewCampaign = document.getElementById('viewCampaign');
+if (viewCampaign) {
+  viewCampaign.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default action of the link
+    this.href = 'campaign.hbs'; // Adjust the path as per your file structure
+    window.location.href = this.href; // Navigate to the new page
+  });
+}
+
 const whereToBuy = document.getElementById('whereToBuy');
 if (whereToBuy) {
   whereToBuy.addEventListener('click', function (event) {
