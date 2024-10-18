@@ -1,40 +1,32 @@
 <section class="find-us secSpace">
-    <div class="container">
-
-        <div class="titleWrap text-center">
-            <h2 class="mainTitle">FIND<span class="animateIc"><img class="Icons animate" src="./assets/images/icons/location.svg" alt="icon" /></span> US</h2>
+  <div class="container">
+    <div class="titleWrap text-center">
+      <h2 class="mainTitle">FIND<span class="animateIc"><img class="Icons animate" src="./assets/images/icons/location.svg" alt="icon" /></span> US</h2>
+    </div>
+    <div class="row">
+      <!-- First column: Map image -->
+      <div class="col-lg-6 mapWrap">
+        <div id="mapContainer">
+          <div id="mapFrame"></div>
         </div>
-        <div class="row">
-            <!-- First column: Map image -->
-            <div class="col-lg-6 mapWrap">
-                <div id="mapContainer">
-                <div id="mapFrame"></div>
-                </div>
-            </div>
-            
-            <!-- Second column: Description, dropdown, and button -->
-            <div class="col-lg-6">
-                <div class="mapBox">
-                    <h3 class="title">Across the Middle East</h3>
-                    <p>Find us at a supermarket near you or shop online for even greater convenience.</p>
-                
-                    <div class="dropdown-container">
-                        <select class="form-select countryDrops" aria-label="Select Country">
-                            <option value="1" selected>UAE</option>
-                            <option value="1">Saudi Arabia</option>
-                            <option value="2">Qatar</option>
-                            <option value="3">Kuwait</option>
-                            <option value="4">Oman</option>
-                        </select>
-                    </div>
+      </div>
 
-               
-                    <div class="button-container">
-                        <button class="btn btn-more mt-3" id="whereToBuy">Where to Buy</button>
-                    </div>
-                </div>
-            </div>
+      <!-- Second column: Description, dropdown, and button -->
+      <div class="col-lg-6">
+        <div class="mapBox">
+          <h3 class="title">Across the Middle East</h3>
+          <p>Find us at a supermarket near you or shop online for even greater convenience.</p>
+
+          <!-- Placeholder for dropdown that will be filled by JS -->
+          <div class="dropdown-container">
+            <select class="form-select countryDrops">{{countries}}</select>
+          </div>
+
+          <div class="button-container">
+            <button class="btn btn-more mt-3" id="whereToBuy">Where to Buy</button>
+          </div>
         </div>
-        
-    </div> 
+      </div>
+    </div>
+  </div>
 </section>

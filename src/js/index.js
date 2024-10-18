@@ -50,6 +50,21 @@ const countryCoordinates = {
   ]
 };
 
+// Replace Handlebars-like {{countries}} placeholder
+const injectCountriesDropdown = () => {
+  // Find the placeholder
+  const dropdownElement = document.querySelector('.countryDrops');
+
+  // Generate <option> tags from countryCoordinates
+  let options = '';
+  Object.keys(countryCoordinates).forEach(country => {
+    options += `<option value="${country}">${country}</option>`;
+  });
+
+  // Replace the placeholder {{countries}} with real options
+  dropdownElement.innerHTML = options;
+};
+
 const pulsingDotStyle = `
 <style>
 .pulsing-dot {
@@ -110,33 +125,23 @@ const initializeMapbox = () => {
     const addPulsingMarkers = (locations) => {
       locations.forEach(location => {
         const el = document.createElement('div');
-        el.className = 'pulsing-dot'; // Apply pulsing dot class
-
-        const marker = new mapboxgl.Marker(el)
-          .setLngLat(location.coordinates)
-          .addTo(map);
-
-        markers.push(marker); // Keep track of added markers
+        el.className = 'pulsing-dot';
+        new mapboxgl.Marker(el).setLngLat(location.coordinates).addTo(map);
+        markers.push(el);
       });
     };
 
     // Listen for dropdown selection change
     const countryDropdown = document.querySelector('.countryDrops');
-    countryDropdown.addEventListener('change', (event) => {
-      const selectedCountry = event.target.options[event.target.selectedIndex].text;
-      const locations = countryCoordinates[selectedCountry];
-
-      if (locations) {
-        // Update the map's center to the first location in the selected country
-        map.setCenter(locations[0].coordinates);
-        map.setZoom(5); // Reset zoom level
-
-        // Clear existing markers and add new ones
-        clearMarkers();
-        addPulsingMarkers(locations);
-
-      }
-    });
+  countryDropdown.addEventListener('change', () => {
+    const selectedCountry = countryDropdown.value;
+    const locations = countryCoordinates[selectedCountry];
+    if (locations) {
+      clearMarkers();
+      addPulsingMarkers(locations);
+      map.setCenter(locations[0].coordinates);
+    }
+  });
 
     // Initialize the map with the default country (UAE)
     addPulsingMarkers(countryCoordinates.UAE);
@@ -250,6 +255,7 @@ const initializeSlick = () => {
 document.addEventListener('DOMContentLoaded', () => {
   initializeSlick(); // Initialize Slick sliders
   initializeMapbox(); // Initialize Mapbox map
+  injectCountriesDropdown(); 
 
   // Initialize search bar functionality
   $('.search-button').on('click', function () {
