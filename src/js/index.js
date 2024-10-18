@@ -1,4 +1,5 @@
 // Import Bootstrap CSS and JS
+import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'slick-carousel/slick/slick.css';
@@ -7,8 +8,6 @@ import 'slick-carousel';
 // Import SCSS
 import '../scss/style.scss';
 
-// Import jQuery (Slick Slider requires jQuery)
-import $ from 'jquery';
 
 // Import Mapbox GL JS and CSS
 import mapboxgl from 'mapbox-gl';
@@ -354,7 +353,6 @@ window.addEventListener('resize', function () {
 });
 
   
-
   // Fix header visibility and scroll appearance
   const header = document.querySelector('.main-header');
   header.classList.add('visible');
@@ -368,3 +366,4 @@ window.addEventListener('resize', function () {
   });
 
 });
+
