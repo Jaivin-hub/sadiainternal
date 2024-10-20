@@ -90,7 +90,6 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 
 // Function to initialize Mapbox map
 const initializeMapbox = () => {
-  console.log('initializeMapbox');
   try {
     // Initialize the Mapbox map
     const map = new mapboxgl.Map({
@@ -137,14 +136,12 @@ const initializeMapbox = () => {
         clearMarkers();
         addPulsingMarkers(locations);
 
-        console.log(`Map updated to ${selectedCountry}:`, locations);
       }
     });
 
     // Initialize the map with the default country (UAE)
     addPulsingMarkers(countryCoordinates.UAE);
 
-    console.log('Mapbox initialized successfully');
   } catch (error) {
     console.error('Error initializing Mapbox:', error);
   }
@@ -152,9 +149,6 @@ const initializeMapbox = () => {
 
 // Function to initialize Slick sliders
 const initializeSlick = () => {
-  console.log('inside the initializeslick');
-  console.log('jQuery:', $);
-  console.log('Slick:', $.fn.slick);
 
   try {
     // FAVOURITE-SLIDER START
@@ -225,7 +219,6 @@ const initializeSlick = () => {
 
 // Event listener to ensure code runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM fully loaded and parsed');
   initializeSlick(); // Initialize Slick sliders
   initializeMapbox(); // Initialize Mapbox map
 
@@ -273,7 +266,35 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
-  
+
+  document.getElementById('viewMoreRecipes').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default action of the link
+    // Change the href dynamically to recipe-details.hbs
+    this.href = 'recipe-details.hbs'; // Adjust the path as per your file structure
+    window.location.href = this.href; // Navigate to the new page
+});
+
+document.getElementById('viewProduct').addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent the default action of the link
+  // Change the href dynamically to recipe-details.hbs
+  this.href = 'product-listing.hbs'; // Adjust the path as per your file structure
+  window.location.href = this.href; // Navigate to the new page
+});
+
+document.getElementById('viewMoreHack').addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent the default action of the link
+  // Change the href dynamically to recipe-details.hbs
+  this.href = 'hack-listing.hbs'; // Adjust the path as per your file structure
+  window.location.href = this.href; // Navigate to the new page
+});
+
+document.getElementById('whereToBuy').addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent the default action of the link
+  // Change the href dynamically to recipe-details.hbs
+  this.href = 'about.hbs'; // Adjust the path as per your file structure
+  window.location.href = this.href; // Navigate to the new page
+});
+
   // Re-check if on mobile when resizing the window
   window.addEventListener('resize', function () {
     if (!isMobileViewport()) {
@@ -297,5 +318,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  console.log('Main script loaded and running');
 });
