@@ -188,6 +188,7 @@ const initializeSlick = () => {
       infinite: false,
     });
 
+
     // Ensure content items exist before adding event listener
     if ($('.content-item').length) {
       // Handle content display on slide change
@@ -244,8 +245,6 @@ const initializeSlick = () => {
       ]
     });
 
-
-  
 
 
   } catch (error) {
