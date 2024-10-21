@@ -1,0 +1,431 @@
+@use '../../src/scss/custom.scss' as *;
+
+
+.flex-nowrap{
+    P {
+        white-space: normal;
+    }
+
+}
+
+
+
+
+// FOOD_SAFETY START
+.abtBox{
+    .camp_bximg{
+        .img-box{
+            height: 593px;
+            img.bxImg{
+                height: 593px;
+            }
+        }
+        .contBoxs{
+            .descp{
+                color: #3F3F3A;
+            }
+        } 
+
+            
+    }  
+    .descp{
+        color: #3F3F3A;
+        font-size:16px;
+        line-height:22px;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+    .abtBox{
+        .camp_bximg{
+            .img-box{
+                height: 380px;
+                img.bxImg {
+                    height: 380px;
+                }
+            }
+        }
+
+    }   
+
+}
+
+// FOOD_SAFETY END
+
+
+
+
+// HOW-WE START
+
+.how_weSect{
+    .titleWrap{
+        margin-bottom: 60px;
+        .mainTitle{
+            font-size: 47px;
+            line-height: 50px;
+        }
+    } 
+    .card{
+        .cardBox{
+            .cardImg{
+                height: 320px;
+                .mainImg{
+                    min-height: 320px;
+                }
+            }
+        }
+        .card-body{
+            .card-title{
+                margin-bottom: 12px;
+            }
+            .descp{
+                color: #3F3F3A;
+                font-size:16px;
+                line-height:22px;
+            }
+        }
+    } 
+}
+
+@media (max-width: 767px) {
+
+    .how_weSect{
+        .card{
+            margin-bottom: 0;
+        }
+    }
+
+}
+
+// HOW-WE END
+
+
+
+
+// WHERE-TO-BUY START
+
+.buyBoxs{
+    .flex_col {
+        flex-direction: column;
+    }
+    .contBoxs{
+        .descp{
+            padding-right: 5%;
+        }
+    } 
+    .boxDivs{
+        display: flex;
+        .card{
+            width: calc(100% / 3);
+            float: left;
+        }
+    }
+    
+    .button-container{
+        margin: 48px 0 0;
+    }
+    .pad-L{
+        padding-left: 15px;
+    }
+    .shop_logos{
+        .logo-box{
+            height: 203px;
+            border: 1px solid $border-color;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            img.bxImg{
+                object-fit: cover;
+                max-height: 203px;
+                width: auto;
+                max-width: 100%;
+            }
+        }
+    }
+    .mobOnly{
+        display: none;
+    }
+   
+}
+
+@media (max-width: 767px) {
+   
+    .buyBoxs{
+        margin-bottom: 0;
+        .contBoxs {
+            text-align: center;
+            .descp{
+                padding-right: 0;
+            }
+        }
+        .boxDivs{
+            .card {
+                width: 70%;
+            }
+        } 
+        .flex_col {
+            flex-direction: row;
+        }
+        
+        .button-container{
+            margin-top: 40px;
+        }
+        .mobOnly{
+            display: block;
+            text-align: center;
+        }
+        .weObly{
+            display: none;
+        }
+        .shop_logos{
+            margin: 40px 0 0 0;
+            .logo-box{
+                margin: 0;
+            }
+        }
+    } 
+    
+
+}
+
+
+// WHERE-TO-BUY END
+
+
+
+
+// STORY_SECTION START
+
+.storyWraper{
+    .sliderTitle{
+        color: #111110;
+        font-size: 47px;
+        line-height: 50px;
+        font-family: $title-font;
+        margin: 0;
+        padding: 0;
+    }
+    .yearSlider{
+        .slick-slider{
+            position: relative;
+        }
+        .content-item {
+            display: none;   
+            opacity: 0;                
+            transition: opacity 0.5s;   
+            visibility: hidden;        
+            transition: all ease 0.5s;
+            &.active { 
+                display: block;          
+                opacity: 1;            
+                visibility: visible; 
+            }
+        }
+    }
+    
+    .contWrapper{
+        .spaceBx{
+            padding: 80px 80px 0;
+            .title{
+                color: $border-color;
+                font-size: 300px;
+                line-height: 294px;
+                font-family: $title-font;
+            }
+            .descp{
+                color: #3F3F3A;
+                font-size: 16px;
+                line-height: 22px;
+                max-width: 420px;
+
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        
+        }
+
+    }
+    .imgWrapper{
+        .imgBox{
+            height: 590px;
+            border-radius: 8px;
+            overflow: hidden;
+            img{            
+                min-height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        
+    }
+    .slick-list.draggable {
+        margin: 0 15px;
+    }
+    .slick-arrow{
+        width: 25px;
+        height: 25px;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        background-repeat: no-repeat !important;
+        &.slick-disabled {
+            opacity: .2;
+        }
+        &.slick-prev{
+            background: url(../assets/images/icons/circle-left.svg);
+            &::before{
+                display: none;
+            }
+        }
+        &.slick-next{
+            background: url(../assets/images/icons/circle-right.svg);
+            &::before{
+                display: none;
+            }
+        }
+    
+    }
+    .yearWidth{
+        max-width: 250px;
+        width: 100%;
+
+        position: absolute;
+        bottom: 60px;
+        left: 105px;
+        .slick-slide{
+            // width: 80px !important;
+            text-align: center;
+        }
+        .slick-current{
+            .thumbnail{
+                .title{
+                    color: $black-color;
+                }
+        
+            } 
+        }
+        .thumbnail{
+            .title{
+                color: #D6D6D6;
+                font-size: 16px;
+                line-height: 22px;
+            }
+    
+        } 
+    }
+    
+}
+
+@media (max-width: 1200px) {
+
+    .storyWraper{
+        .contWrapper{
+            .spaceBx{
+                .title{
+                    font-size: 226px;
+                    line-height: 250px;
+                }
+            }
+        }
+    }  
+
+
+}
+@media (max-width: 991px) {
+
+    .storyWraper{
+        .yearWidth{
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        .content-item{
+            .spaceBx{
+                padding-bottom: 25px;
+            }
+        }
+        
+    }
+
+}
+    
+@media (max-width: 767px) {
+
+    .storyWraper{
+        .imgWrapper{
+            .imgBox{
+                height: 380px;
+            }
+            
+        } 
+        
+        .contWrapper{
+            .spaceBx{
+                .descp {
+                    min-height: 90px;
+                }
+            }
+        }  
+            
+        .yearSlider{
+            
+            .slick-slider{
+                padding: 0;
+                margin: 0;
+            }
+        } 
+        .slick-arrow{
+            margin: 18px 0 0 0;
+        }
+        .slick-list{
+            margin: 0 5px !important;
+        }
+        .yearWidth {
+            max-width: 100%;
+            position: relative;
+            bottom: 0;
+            left: 0;
+
+            border-top: 1px solid  $border-color;
+            width: calc(100% - 50px);
+            margin: 20px 25px 0 !important;
+            padding: 40px 0 0 0 !important;
+        }
+        .contWrapper{
+            .spaceBx{
+                padding: 35px 0px 0;
+                text-align: center;
+                max-width: 100%;
+                .title{
+                    font-size: 150px;
+                    line-height: 170px;
+                }
+            }
+        }  
+            
+        .rotSect {
+            flex-direction: column-reverse;
+        }
+    }
+
+
+
+    
+}
+
+
+// STORY_SECTION END

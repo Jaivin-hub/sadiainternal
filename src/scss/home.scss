@@ -17,6 +17,25 @@ p{
     padding: 0;
 }
 
+.breadcrumb{
+    border-top: 1px solid #EBEBEB;
+    padding: 50px 0 30px;
+    margin: 0;
+    .breadcrumb-item{
+        color: #ADADAD;
+        font-size: 16px;
+        line-height: 22px;
+        a{
+            color: #ADADAD; 
+        }
+        &.active{
+            color: $hover-color;
+            font-size: 14px;
+        }
+    } 
+}
+
+
 .titleWrap{
     margin: 0 0 70px;
     .mainTitle{
@@ -1510,7 +1529,9 @@ p{
         font-weight: 500;
     }
 
-
+    .breadcrumbSect{
+        display: none;
+    }
 
 }
 
