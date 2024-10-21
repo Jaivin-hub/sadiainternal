@@ -58,7 +58,13 @@ const injectCountriesDropdown = () => {
   // Generate <option> tags from countryCoordinates
   let options = '';
   Object.keys(countryCoordinates).forEach(country => {
-    options += `<option value="${country}">${country}</option>`;
+    // Generate the data attribute by concatenating the cities and coordinates
+    const cities = countryCoordinates[country]
+      .map(city => `${city.name}-${city.coordinates.join(', ')}`)
+      .join(' | ');
+
+    // Create an option for each country with the city data
+    options += `<option data="${cities}" value="${country}">${country}</option>`;
   });
 
   // Replace the placeholder {{countries}} with real options
