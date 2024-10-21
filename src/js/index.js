@@ -245,6 +245,9 @@ const initializeSlick = () => {
     });
 
 
+  
+
+
   } catch (error) {
     console.error('Error initializing Slick sliders:', error);
   }
