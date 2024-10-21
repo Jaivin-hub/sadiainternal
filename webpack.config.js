@@ -7,7 +7,7 @@ const webpack = require('webpack');  // Import webpack for DefinePlugin
 module.exports = {
   entry: './src/js/index.js', // Entry point for JavaScript
   output: {
-    filename: 'assets/js/[name].bundle.js', // Dynamic output filenames for multiple entry points
+    filename: 'assets/js/[name].bundle.js',  // Keep JS in the assets folder
     path: path.resolve(__dirname, 'dist'),  // Output directory
     clean: true,  // Clean the output directory before each build
   },
@@ -39,6 +39,13 @@ module.exports = {
           options: {
             presets: ['@babel/preset-env'],  // Use the env preset for transpilation
           },
+        },
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|svg|gif)$/, // Match font and image files
+        type: 'asset/resource',  // Let Webpack handle asset loading
+        generator: {
+          filename: 'assets/[name][ext]',  // Output assets to assets/ folder
         },
       },
     ],
@@ -75,7 +82,7 @@ module.exports = {
       filename: 'about.html',
     }),
     new MiniCssExtractPlugin({
-      filename: 'assets/css/style.css',  // Output CSS filename
+      filename: 'assets/css/style.css',  // Output CSS to assets folder
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -87,9 +94,6 @@ module.exports = {
         { from: './node_modules/slick-carousel/slick/slick.min.js', to: './assets/js/slick.min.js' },
       ],
     }),
-    // new webpack.DefinePlugin({
-    //   'process.env.NODE_ENV': JSON.stringify('production'),  // Manually define NODE_ENV as 'production'
-    // }),
   ],
   devServer: {
     static: path.join(__dirname, 'dist'),
