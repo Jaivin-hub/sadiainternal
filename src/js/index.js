@@ -162,7 +162,7 @@ const initializeSlick = () => {
 
     // Check if sliders exist in the DOM
     if (!$('.image-slider').length || !$('.thumbnail-slider').length) {
-      console.error('Required slider elements are not found in the DOM.');
+      // console.error('Required slider elements are not found in the DOM.');
       return;
     }
 
@@ -346,6 +346,17 @@ if (whereToBuy) {
     window.location.href = this.href; // Navigate to the new page
   });
 }
+
+const aboutlink = document.getElementById('abtLink');
+if (aboutlink) {
+  aboutlink.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default action of the link
+    this.href = 'about.hbs'; // Adjust the path as per your file structure
+    window.location.href = this.href; // Navigate to the new page
+  });
+}
+
+
 
 // Re-check if on mobile when resizing the window
 window.addEventListener('resize', function () {

@@ -118,7 +118,10 @@
 @media (max-width: 767px) {
 
     .reverBx{
-        flex-direction: column-reverse;
+        .bxOuter{
+            flex-direction: column-reverse;
+        }
+       
     }
 
     .campTitles {
