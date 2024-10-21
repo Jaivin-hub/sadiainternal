@@ -2,19 +2,19 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const JS_DIR = path.resolve(__dirname, 'src/js');
+const webpack = require('webpack');  // Import webpack for DefinePlugin
 
 module.exports = {
-  entry: './src/js/index.js',
+  entry: './src/js/index.js', // Entry point for JavaScript
   output: {
     filename: 'assets/js/[name].bundle.js', // Dynamic output filenames for multiple entry points
-    path: path.resolve(__dirname, 'dist'),    // Output directory
-    clean: true,                              // Clean the output directory before each build
+    path: path.resolve(__dirname, 'dist'),  // Output directory
+    clean: true,  // Clean the output directory before each build
   },
   module: {
     rules: [
       {
-        test: /\.hbs$/, // Handlebar template files
+        test: /\.hbs$/,  // Handlebars template files
         loader: 'handlebars-loader',
         options: {
           partialDirs: [
@@ -24,7 +24,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(sa|sc|c)ss$/i, // CSS and Sass files
+        test: /\.(sa|sc|c)ss$/i,  // CSS and Sass files
         use: [
           MiniCssExtractPlugin.loader, // Extracts CSS to separate file
           'css-loader',                // Translates CSS into CommonJS
@@ -32,12 +32,12 @@ module.exports = {
         ],
       },
       {
-        test: /\.js$/, // JavaScript files
-        exclude: /node_modules/, // Exclude node_modules
+        test: /\.js$/,  // JavaScript files
+        exclude: /node_modules/,  // Exclude node_modules
         use: {
-          loader: 'babel-loader', // Use Babel to transpile JS
+          loader: 'babel-loader',  // Use Babel to transpile JS
           options: {
-            presets: ['@babel/preset-env'], // Use the env preset for transpilation
+            presets: ['@babel/preset-env'],  // Use the env preset for transpilation
           },
         },
       },
@@ -45,63 +45,69 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/layouts/main.hbs',     // Template for main HTML file
-      inject: false,                        // Do not inject scripts
-      filename: 'index.html',               // Output filename
+      template: 'src/layouts/main.hbs',  // Template for main HTML file
+      inject: false,  // Do not inject scripts
+      filename: 'index.html',  // Output filename
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/recipe-details.hbs',     // Template for main HTML file
-      inject: false,                        // Do not inject scripts
-      filename: 'recipe-details.html',               // Output filename
+      template: 'src/layouts/recipe-details.hbs',  // Template for recipe details page
+      inject: false,
+      filename: 'recipe-details.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/product-listing.hbs',     // Template for main HTML file
-      inject: false,                        // Do not inject scripts
-      filename: 'product-listing.html',               // Output filename
+      template: 'src/layouts/product-listing.hbs',  // Template for product listing page
+      inject: false,
+      filename: 'product-listing.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/hack-listing.hbs',     // Template for main HTML file
-      inject: false,                        // Do not inject scripts
-      filename: 'hack-listing.html',               // Output filename
+      template: 'src/layouts/hack-listing.hbs',  // Template for hack listing page
+      inject: false,
+      filename: 'hack-listing.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/campaign.hbs',     // Template for main HTML file
-      inject: false,                        // Do not inject scripts
-      filename: 'campaign.html',               // Output filename
+      template: 'src/layouts/campaign.hbs',  // Template for campaign page
+      inject: false,
+      filename: 'campaign.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/about.hbs',     // Template for main HTML file
-      inject: false,                        // Do not inject scripts
-      filename: 'about.html',               // Output filename
+      template: 'src/layouts/about.hbs',  // Template for about page
+      inject: false,
+      filename: 'about.html',
     }),
     new MiniCssExtractPlugin({
-      filename: 'assets/css/style.css',            // Output CSS filename
+      filename: 'assets/css/style.css',  // Output CSS filename
     }),
     new CopyWebpackPlugin({
       patterns: [
         { from: './src/assets/images', to: './assets/images', noErrorOnMissing: true },
         { from: './src/assets/videos', to: './assets/videos', noErrorOnMissing: true },
         { from: './src/assets/fonts', to: './assets/fonts', noErrorOnMissing: true },
-        // { from: './src/pages/*.hbs', to: './pages/[name][ext]', noErrorOnMissing: true }, // Use glob pattern to match .hbs files
         { from: './node_modules/slick-carousel/slick/slick.css', to: './assets/css/slick.css' },
         { from: './node_modules/slick-carousel/slick/slick-theme.css', to: './assets/css/slick-theme.css' },
         { from: './node_modules/slick-carousel/slick/slick.min.js', to: './assets/js/slick.min.js' },
       ],
     }),
+    // new webpack.DefinePlugin({
+    //   'process.env.NODE_ENV': JSON.stringify('production'),  // Manually define NODE_ENV as 'production'
+    // }),
   ],
   devServer: {
     static: path.join(__dirname, 'dist'),
     port: 8080,
     historyApiFallback: {
       rewrites: [
-        { from: /^\/recipe-details/, to: '/recipe-details.html' }, // rewrite /recipe-details to index.html
-        { from: /^\/product-listing/, to: '/product-listing.html' }, // rewrite /recipe-details to index.html
-        { from: /^\/hack-listing/, to: '/hack-listing.html' }, // rewrite /recipe-details to index.html
-        { from: /^\/campaign/, to: '/campaign.html' }, // rewrite /recipe-details to index.html
-        { from: /^\/about/, to: '/about.html' }, // rewrite /recipe-details to index.html
+        { from: /^\/recipe-details/, to: '/recipe-details.html' },
+        { from: /^\/product-listing/, to: '/product-listing.html' },
+        { from: /^\/hack-listing/, to: '/hack-listing.html' },
+        { from: /^\/campaign/, to: '/campaign.html' },
+        { from: /^\/about/, to: '/about.html' },
         { from: /./, to: '/index.html' },
       ],
     },
   },
-  mode: 'development',                      // Set mode to development
+  mode: 'production',  // Set mode to 'production' for optimizations
+
+  performance: {
+    hints: false,  // Disable performance hints
+  },
 };
