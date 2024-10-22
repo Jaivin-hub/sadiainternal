@@ -1,0 +1,213 @@
+@use '../../src/scss/custom.scss' as *;
+
+
+
+.whereWrapper{
+    .locationTabs{
+        margin: 0 0 45px 0;
+        .categ_filter{
+            .filBtn{
+                margin: 0 10px 0  0;
+            }
+
+        }
+    }
+    .tabWraper{
+        .tab-pane{
+            position: relative;
+            .postDiv{
+                float: right;
+                margin: -98px 0 0 0;
+            }
+        }
+
+    }
+    .filterSection{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+
+        .countryDrops {
+            border-radius: 4px;
+            box-shadow: inherit !important;
+            outline: 0;
+            height: 52px;
+            width: auto;
+            max-width: 100%;
+            font-size: 16px;
+            border: 1px solid $border-color;
+        }
+        .search-bar-container{
+            max-width: 100%;
+            margin: 0 0 0 10px;
+
+            .locatSearch{
+                &.expanded{
+                    .search-bar{
+                        display: block;
+                        height: 52px;
+                        width: 320px;        
+                        opacity: 1;    
+                    }
+                }
+                .search-bar{
+                    display: none;
+                }
+                .serLoc{
+                    border-radius: 4px;
+                    box-shadow: inherit !important;
+                    outline: 0;
+                    height: 52px;
+                    width: 58px;
+                    border: 1px solid $border-color;
+                    background: transparent;
+                }
+                .cl_ser{
+                    height: 100%;
+                    margin-left: 0px;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    z-index: 10;
+                }
+    
+            }
+            
+            
+        }
+    }
+
+
+    .buyBoxs{
+        
+        .btnSpace{
+            margin-top: 50px;
+            .btn-more{
+                background-color: $white-color;
+                border-color: $primary-color;
+                color: $secondary-color;
+            }
+        }
+        .shop_logos{
+            padding: 0;
+            margin: 0 -10px;
+            .card{
+               padding: 0 10px;
+               .logo-box{
+                height: 195px;
+                margin-bottom: 20px;
+                .bxImg{
+                    max-height: 195px;
+                }
+            }
+            }
+            
+        }
+    }
+    .mapWraper{
+        border-radius: 8px;
+        overflow: hidden;
+    }  
+
+}
+
+.locTitles{
+    .titleWrap{
+        margin: 20px 0 50px;
+        padding: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 767px) {
+
+    .locTitles{
+        .titleWrap {
+            margin: 60px 0;
+        }
+    } 
+    .whereWrapper{
+        .buyBoxs{
+            .shop_logos{
+                .card{
+                    padding: 0 7px;
+                    width: calc(100% / 2);
+                    .logo-box{
+                        height: 190px;
+                        margin-bottom: 15px;
+                        .bxImg{
+                            max-height: 190px;
+                        }
+                    }
+                }
+            }
+            .btnSpace {
+                margin-top: 40px;
+            }
+        } 
+        .locationTabs{
+           .categ_filter{
+                display: flex;
+                justify-content: space-between;
+                li.nav-item{
+                    width: 49%;
+                    .filBtn{
+                        margin: 0;
+                        width: 100%;
+                    }
+                }
+                
+            }
+        }
+        .filterSection{
+            .countryDrops{
+                width: 100%;
+                
+            }
+            .dropdown-container {
+                width: calc(100% - 68px);
+            }
+        }
+        
+        .tabWraper{
+            .tab-pane{
+                .postDiv{
+                    float: inherit;
+                    margin: 0 0 35px;
+                    width: 100%;;
+                }
+
+            }
+        }
+    }  
+
+
+    
+}
+@media (max-width: 420px) {
+
+    .whereWrapper{
+        .locationTabs{
+            margin: 0 0 15px 0;
+           .categ_filter{
+                li.nav-item{
+                    width: 48%;
+                    
+                }
+            }
+        }
+        
+    }  
+
+
+    
+}
