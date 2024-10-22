@@ -278,6 +278,24 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.search-button').show();
     $('#searchBar').val('');
   });
+  // HEADER-SEARCH END
+
+
+  // Map search-bar
+    $('.serLoc').on('click', function () {
+      $('.locatSearch').addClass('expanded');
+      $('.cl_ser').show();
+      $('.serLoc').hide();
+    });
+  
+    $('.cl_ser').on('click', function () {
+      $('.locatSearch').removeClass('expanded');
+      $('.cl_ser').hide();
+      $('.serLoc').show();
+      $('.search-bar').val('');
+    });
+  // Map search-bar eND
+
 
   // Handle dropdowns for mobile
   function isMobileViewport() {
