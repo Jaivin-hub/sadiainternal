@@ -81,6 +81,11 @@ module.exports = {
       inject: false,
       filename: 'about.html',
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/where-to-buy.hbs',  // Template for about page
+      inject: false,
+      filename: 'where-to-buy.html',
+    }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/style.css',  // Output CSS to assets folder
     }),
@@ -104,6 +109,7 @@ module.exports = {
         { from: /^\/product-listing/, to: '/product-listing.html' },
         { from: /^\/hack-listing/, to: '/hack-listing.html' },
         { from: /^\/campaign/, to: '/campaign.html' },
+        { from: /^\/where-to-buy/, to: '/where-to-buy.html' },
         { from: /^\/about/, to: '/about.html' },
         { from: /./, to: '/index.html' },
       ],

@@ -58,7 +58,13 @@ const injectCountriesDropdown = () => {
   // Generate <option> tags from countryCoordinates
   let options = '';
   Object.keys(countryCoordinates).forEach(country => {
-    options += `<option value="${country}">${country}</option>`;
+    // Generate the data attribute by concatenating the cities and coordinates
+    const cities = countryCoordinates[country]
+      .map(city => `${city.name}-${city.coordinates.join(', ')}`)
+      .join(' | ');
+
+    // Create an option for each country with the city data
+    options += `<option data="${cities}" value="${country}">${country}</option>`;
   });
 
   // Replace the placeholder {{countries}} with real options
@@ -354,6 +360,15 @@ if (aboutlink) {
   aboutlink.addEventListener('click', function (event) {
     event.preventDefault(); // Prevent the default action of the link
     this.href = 'about.hbs'; // Adjust the path as per your file structure
+    window.location.href = this.href; // Navigate to the new page
+  });
+}
+
+const wheretobuylink = document.getElementById('where-to-buy');
+if (wheretobuylink) {
+  wheretobuylink.addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the default action of the link
+    this.href = 'where-to-buy.hbs'; // Adjust the path as per your file structure
     window.location.href = this.href; // Navigate to the new page
   });
 }
