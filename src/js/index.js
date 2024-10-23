@@ -160,20 +160,17 @@ const initializeMapbox = () => {
 // Function to initialize Slick sliders
 const initializeSlick = () => {
   try {
-    console.log('inside 1');
     // Ensure Slick is loaded
     if (typeof $.fn.slick === 'undefined') {
       console.error('Slick is not loaded.');
       return;
     }
-    console.log('inside 2');
 
     // Check if sliders exist in the DOM
     if (!$('.image-slider').length || !$('.thumbnail-slider').length) {
       // console.error('Required slider elements are not found in the DOM.');
       return;
     }
-    console.log('inside 3');
 
     // Initialize the main image slider
     $('.image-slider').slick({
@@ -188,7 +185,6 @@ const initializeSlick = () => {
       autoplaySpeed: 3000,
     });
 
-    console.log('inside 4');
 
 
     // Initialize the thumbnail slider
@@ -200,7 +196,6 @@ const initializeSlick = () => {
       infinite: false,
     });
 
-    console.log('inside 5');
 
     // Ensure content items exist before adding event listener
     if ($('.content-item').length) {
@@ -223,7 +218,6 @@ const initializeSlick = () => {
       console.error('Content items not found.');
     }
 
-    console.log('inside 6');
 
 
     // Prevent adding duplicate event listeners on clicking a thumbnail
@@ -238,7 +232,6 @@ const initializeSlick = () => {
       });
     }
 
-    console.log('inside 7');
 
     // Initialize another carousel
     $('.whatSlider').slick({
