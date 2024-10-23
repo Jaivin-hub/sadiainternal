@@ -53,38 +53,43 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/layouts/main.hbs',  // Template for main HTML file
-      inject: false,  // Do not inject scripts
+      inject: true,  // inject scripts
       filename: 'index.html',  // Output filename
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/recipe-details.hbs',  // Template for recipe details page
-      inject: false,
+      inject: true,
       filename: 'recipe-details.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/product-listing.hbs',  // Template for product listing page
-      inject: false,
+      inject: true,
       filename: 'product-listing.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/hack-listing.hbs',  // Template for hack listing page
-      inject: false,
+      inject: true,
       filename: 'hack-listing.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/campaign.hbs',  // Template for campaign page
-      inject: false,
+      inject: true,
       filename: 'campaign.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/about.hbs',  // Template for about page
-      inject: false,
+      inject: true,
       filename: 'about.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/where-to-buy.hbs',  // Template for about page
-      inject: false,
+      inject: true,
       filename: 'where-to-buy.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/product.hbs',  // Template for about page
+      inject: true,
+      filename: 'product.html',
     }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/style.css',  // Output CSS to assets folder
@@ -110,6 +115,7 @@ module.exports = {
         { from: /^\/hack-listing/, to: '/hack-listing.html' },
         { from: /^\/campaign/, to: '/campaign.html' },
         { from: /^\/where-to-buy/, to: '/where-to-buy.html' },
+        { from: /^\/product/, to: '/product.html' },
         { from: /^\/about/, to: '/about.html' },
         { from: /./, to: '/index.html' },
       ],
