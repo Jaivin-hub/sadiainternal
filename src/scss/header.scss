@@ -131,6 +131,9 @@ header {
 					background-position: center center;
 				}
 			}
+			&.show{
+				color: $secondary-color;
+			}
 			
 		}
         .megamenu {

@@ -112,8 +112,9 @@ p{
             font-size: 21px;
             font-style: normal;
             font-weight: 700;
-            line-height: 27px; 
+            line-height: 26px;
             letter-spacing: 0px;
+            margin: 0 0 10px;
         }
         .moreDtls {
             border-top: 1px solid $border-color;
@@ -121,6 +122,7 @@ p{
             align-items: center;
             justify-content: left;
             padding: 12px 0;
+            margin-top: 20px;
             
             .icCont{
                 margin-right: 24px;
@@ -310,6 +312,9 @@ p{
         margin: 0px;
         width: calc(100% / 3);
         .card-body{
+            .card-title{
+                min-height: 52px;
+            }
             .card-text{
                 color: #ADADAD;
                 font-size: 14px;
