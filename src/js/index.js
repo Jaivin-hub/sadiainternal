@@ -139,15 +139,15 @@ const initializeMapbox = () => {
 
     // Listen for dropdown selection change
     const countryDropdown = document.querySelector('.countryDrops');
-  countryDropdown.addEventListener('change', () => {
-    const selectedCountry = countryDropdown.value;
-    const locations = countryCoordinates[selectedCountry];
-    if (locations) {
-      clearMarkers();
-      addPulsingMarkers(locations);
-      map.setCenter(locations[0].coordinates);
-    }
-  });
+    countryDropdown.addEventListener('change', () => {
+      const selectedCountry = countryDropdown.value;
+      const locations = countryCoordinates[selectedCountry];
+      if (locations) {
+        clearMarkers();
+        addPulsingMarkers(locations);
+        map.setCenter(locations[0].coordinates);
+      }
+    });
 
     // Initialize the map with the default country (UAE)
     addPulsingMarkers(countryCoordinates.UAE);
@@ -160,17 +160,20 @@ const initializeMapbox = () => {
 // Function to initialize Slick sliders
 const initializeSlick = () => {
   try {
+    console.log('inside 1');
     // Ensure Slick is loaded
     if (typeof $.fn.slick === 'undefined') {
       console.error('Slick is not loaded.');
       return;
     }
+    console.log('inside 2');
 
     // Check if sliders exist in the DOM
     if (!$('.image-slider').length || !$('.thumbnail-slider').length) {
       // console.error('Required slider elements are not found in the DOM.');
       return;
     }
+    console.log('inside 3');
 
     // Initialize the main image slider
     $('.image-slider').slick({
@@ -185,6 +188,9 @@ const initializeSlick = () => {
       autoplaySpeed: 3000,
     });
 
+    console.log('inside 4');
+
+
     // Initialize the thumbnail slider
     $('.thumbnail-slider').slick({
       slidesToShow: 4,
@@ -194,6 +200,7 @@ const initializeSlick = () => {
       infinite: false,
     });
 
+    console.log('inside 5');
 
     // Ensure content items exist before adding event listener
     if ($('.content-item').length) {
@@ -216,6 +223,9 @@ const initializeSlick = () => {
       console.error('Content items not found.');
     }
 
+    console.log('inside 6');
+
+
     // Prevent adding duplicate event listeners on clicking a thumbnail
     if (!$._data($('.thumbnail').get(0), 'events')) {
       // Clicking a thumbnail manually triggers the image slider
@@ -228,6 +238,7 @@ const initializeSlick = () => {
       });
     }
 
+    console.log('inside 7');
 
     // Initialize another carousel
     $('.whatSlider').slick({
@@ -261,9 +272,30 @@ const initializeSlick = () => {
 
 // Event listener to ensure code runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  initializeSlick(); // Initialize Slick sliders
-  initializeMapbox(); // Initialize Mapbox map
-  injectCountriesDropdown(); 
+  const imageSliderExists = document.querySelector('.image-slider') !== null;
+  const thumbnailSliderExists = document.querySelector('.thumbnail-slider') !== null;
+  const contentItem = document.querySelector('.content-item') !== null;
+
+  // initializeSlick(); // Initialize Slick sliders
+  // initializeMapbox(); // Initialize Mapbox map
+  // injectCountriesDropdown(); 
+
+  // if ($('.image-slider').length && $('.thumbnail-slider').length) {
+  //   initializeSlick(); // Initialize Slick sliders
+  // }
+  if (imageSliderExists && thumbnailSliderExists && contentItem) {
+    initializeSlick(); // Initialize Slick sliders
+  } else {
+    console.warn('Slick slider elements not found in the DOM.');
+  }
+
+  if (document.getElementById('mapFrame')) { // Replace with your actual Mapbox element ID
+    initializeMapbox(); // Initialize Mapbox map
+  }
+
+  if (document.querySelector('.dropdown-container')) { // Adjust selector as needed
+    injectCountriesDropdown(); // Initialize countries dropdown
+  }
 
   // Initialize search bar functionality
   $('.search-button').on('click', function () {
@@ -283,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function isMobileViewport() {
     return window.innerWidth <= 991; // Check if the viewport is 991px or below
   }
-  
+
   document.querySelectorAll('.dropdown-toggle').forEach(function (dropdown) {
     dropdown.addEventListener('click', function (event) {
       if (isMobileViewport()) { // Only trigger for mobile view
@@ -300,92 +332,92 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  
+
   // Close all dropdowns when clicking outside, only on mobile
-document.addEventListener('click', function () {
-  if (isMobileViewport()) { // Only trigger for mobile view
-    document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
-      dropdown.classList.remove('show');
+  document.addEventListener('click', function () {
+    if (isMobileViewport()) { // Only trigger for mobile view
+      document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
+        dropdown.classList.remove('show');
+      });
+    }
+  });
+
+  // Add event listeners with null checks
+  const viewMoreRecipes = document.getElementById('viewMoreRecipes');
+  if (viewMoreRecipes) {
+    viewMoreRecipes.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'recipe-details.hbs'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
     });
   }
-});
 
-// Add event listeners with null checks
-const viewMoreRecipes = document.getElementById('viewMoreRecipes');
-if (viewMoreRecipes) {
-  viewMoreRecipes.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent the default action of the link
-    this.href = 'recipe-details.hbs'; // Adjust the path as per your file structure
-    window.location.href = this.href; // Navigate to the new page
-  });
-}
-
-const viewProduct = document.getElementById('viewProduct');
-if (viewProduct) {
-  viewProduct.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent the default action of the link
-    this.href = 'product-listing.hbs'; // Adjust the path as per your file structure
-    window.location.href = this.href; // Navigate to the new page
-  });
-}
-
-const viewMoreHack = document.getElementById('viewMoreHack');
-if (viewMoreHack) {
-  viewMoreHack.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent the default action of the link
-    this.href = 'hack-listing.hbs'; // Adjust the path as per your file structure
-    window.location.href = this.href; // Navigate to the new page
-  });
-}
-
-const viewCampaignButtons = document.querySelectorAll('.viewCampaign');
-viewCampaignButtons.forEach(button => {
-  button.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent the default action of the link
-    window.location.href = 'campaign.hbs'; // Navigate to the new page
-  });
-});
-
-const whereToBuy = document.getElementById('whereToBuy');
-if (whereToBuy) {
-  whereToBuy.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent the default action of the link
-    this.href = 'about.hbs'; // Adjust the path as per your file structure
-    window.location.href = this.href; // Navigate to the new page
-  });
-}
-
-const aboutlink = document.getElementById('abtLink');
-if (aboutlink) {
-  aboutlink.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent the default action of the link
-    this.href = 'about.hbs'; // Adjust the path as per your file structure
-    window.location.href = this.href; // Navigate to the new page
-  });
-}
-
-const wheretobuylink = document.getElementById('where-to-buy');
-if (wheretobuylink) {
-  wheretobuylink.addEventListener('click', function (event) {
-    event.preventDefault(); // Prevent the default action of the link
-    this.href = 'where-to-buy.hbs'; // Adjust the path as per your file structure
-    window.location.href = this.href; // Navigate to the new page
-  });
-}
-
-
-
-// Re-check if on mobile when resizing the window
-window.addEventListener('resize', function () {
-  if (!isMobileViewport()) {
-    // Close all dropdowns when switching to desktop view
-    document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
-      dropdown.classList.remove('show');
+  const viewProduct = document.getElementById('viewProduct');
+  if (viewProduct) {
+    viewProduct.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'product-listing.hbs'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
     });
   }
-});
 
-  
+  const viewMoreHack = document.getElementById('viewMoreHack');
+  if (viewMoreHack) {
+    viewMoreHack.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'hack-listing.hbs'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
+    });
+  }
+
+  const viewCampaignButtons = document.querySelectorAll('.viewCampaign');
+  viewCampaignButtons.forEach(button => {
+    button.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      window.location.href = 'campaign.hbs'; // Navigate to the new page
+    });
+  });
+
+  const whereToBuy = document.getElementById('whereToBuy');
+  if (whereToBuy) {
+    whereToBuy.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'about.hbs'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
+    });
+  }
+
+  const aboutlink = document.getElementById('abtLink');
+  if (aboutlink) {
+    aboutlink.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'about.hbs'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
+    });
+  }
+
+  const wheretobuylink = document.getElementById('where-to-buy');
+  if (wheretobuylink) {
+    wheretobuylink.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'where-to-buy.hbs'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
+    });
+  }
+
+
+
+  // Re-check if on mobile when resizing the window
+  window.addEventListener('resize', function () {
+    if (!isMobileViewport()) {
+      // Close all dropdowns when switching to desktop view
+      document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
+        dropdown.classList.remove('show');
+      });
+    }
+  });
+
+
   // Fix header visibility and scroll appearance
   const header = document.querySelector('.main-header');
   header.classList.add('visible');

@@ -53,37 +53,37 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/layouts/main.hbs',  // Template for main HTML file
-      inject: false,  // Do not inject scripts
+      inject: true,  // inject scripts
       filename: 'index.html',  // Output filename
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/recipe-details.hbs',  // Template for recipe details page
-      inject: false,
+      inject: true,
       filename: 'recipe-details.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/product-listing.hbs',  // Template for product listing page
-      inject: false,
+      inject: true,
       filename: 'product-listing.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/hack-listing.hbs',  // Template for hack listing page
-      inject: false,
+      inject: true,
       filename: 'hack-listing.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/campaign.hbs',  // Template for campaign page
-      inject: false,
+      inject: true,
       filename: 'campaign.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/about.hbs',  // Template for about page
-      inject: false,
+      inject: true,
       filename: 'about.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/where-to-buy.hbs',  // Template for about page
-      inject: false,
+      inject: true,
       filename: 'where-to-buy.html',
     }),
     new MiniCssExtractPlugin({
