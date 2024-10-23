@@ -12816,7 +12816,7 @@ header .navbar .nav-link {
   align-items: center;
 }
 header .navbar .nav-link.dropdown-toggle::after {
-  background-image: url(../../8c2b0728ff59cc85d18b.svg);
+  background-image: url(../../cf0c6153676a62d9f18f.svg);
   border: 0;
   width: 11px;
   height: 22px;
@@ -12830,7 +12830,7 @@ header .navbar .nav-link.active {
   color: #FFF;
 }
 header .navbar .nav-link.active.dropdown-toggle::after {
-  background-image: url(../../0307c4e5f6c323d4d025.svg);
+  background-image: url(../../1c8a372c831a804eb744.svg);
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center center;
