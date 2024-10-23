@@ -16,61 +16,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 // Mapbox access token (replace 'YOUR_MAPBOX_ACCESS_TOKEN' with your actual token)
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb3hwY21lY3p1eCJ9.7t6X_NQIGtIsI-FRLNPU6g';
 
-// Country coordinates with multiple places
-const countryCoordinates = {
-  "UAE": [
-    { name: "Abu Dhabi", coordinates: [24.4539, 54.3773] },
-    { name: "Dubai", coordinates: [25.2048, 55.2708] },
-    { name: "Sharjah", coordinates: [25.3463, 55.4209] },
-    { name: "Al Ain", coordinates: [24.1302, 55.8023] }
-  ],
-  "Saudi Arabia": [
-    { name: "Riyadh", coordinates: [24.7136, 46.6753] },
-    { name: "Jeddah", coordinates: [21.4858, 39.1925] },
-    { name: "Mecca", coordinates: [21.3891, 39.8579] },
-    { name: "Dammam", coordinates: [26.4207, 50.0888] }
-  ],
-  "Qatar": [
-    { name: "Doha", coordinates: [25.276987, 51.520008] },
-    { name: "Al Rayyan", coordinates: [25.2919, 51.4244] },
-    { name: "Al Wakrah", coordinates: [25.1686, 51.6032] },
-    { name: "Dukhan", coordinates: [25.6281, 50.8819] }
-  ],
-  "Kuwait": [
-    { name: "Kuwait City", coordinates: [29.3759, 47.9774] },
-    { name: "Salmiya", coordinates: [29.3333, 48.0833] },
-    { name: "Hawally", coordinates: [29.3320, 48.0285] },
-    { name: "Jahra", coordinates: [29.3375, 47.6581] }
-  ],
-  "Oman": [
-    { name: "Muscat", coordinates: [23.5880, 58.3829] },
-    { name: "Sohar", coordinates: [24.3650, 56.7465] },
-    { name: "Nizwa", coordinates: [22.9333, 57.5333] },
-    { name: "Salalah", coordinates: [17.0170, 54.0823] }
-  ]
-};
-
-// Replace Handlebars-like {{countries}} placeholder
-const injectCountriesDropdown = () => {
-  // Find the placeholder
-  const dropdownElement = document.querySelector('.countryDrops');
-
-  // Generate <option> tags from countryCoordinates
-  let options = '';
-  Object.keys(countryCoordinates).forEach(country => {
-    // Generate the data attribute by concatenating the cities and coordinates
-    const cities = countryCoordinates[country]
-      .map(city => `${city.name}-${city.coordinates.join(', ')}`)
-      .join(' | ');
-
-    // Create an option for each country with the city data
-    options += `<option data="${cities}" value="${country}">${country}</option>`;
-  });
-
-  // Replace the placeholder {{countries}} with real options
-  dropdownElement.innerHTML = options;
-};
-
 const pulsingDotStyle = `
 <style>
 .pulsing-dot {
@@ -115,7 +60,7 @@ const initializeMapbox = () => {
     const map = new mapboxgl.Map({
       container: 'mapFrame', // ID of the container element
       style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
-      center: countryCoordinates.UAE[0].coordinates, // Default starting position for UAE
+      center: [54.3773, 24.4539], // Default starting position for UAE (Abu Dhabi)
       zoom: 5, // Starting zoom level
     });
 
@@ -132,25 +77,36 @@ const initializeMapbox = () => {
       locations.forEach(location => {
         const el = document.createElement('div');
         el.className = 'pulsing-dot';
-        new mapboxgl.Marker(el).setLngLat(location.coordinates).addTo(map);
-        markers.push(el);
+        const coordinates = location.split(',').map(Number); // Split coordinates and convert to numbers
+        const marker = new mapboxgl.Marker(el).setLngLat(coordinates).addTo(map);
+        markers.push(marker); // Store marker reference
       });
     };
 
-    // Listen for dropdown selection change
+    // Get the first option's data from the dropdown to initialize the map
     const countryDropdown = document.querySelector('.countryDrops');
+    const firstOption = countryDropdown.options[0]; // Get the first option
+    const initialLocationsData = firstOption.getAttribute('data'); // Get the 'data' attribute from the first option
+    const initialLocations = initialLocationsData.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
+
+    // Add pulsing markers for the first option's locations
+    addPulsingMarkers(initialLocations);
+    const firstLocation = initialLocations[0].split(',').map(Number);
+    map.setCenter(firstLocation); // Center map on the first city's coordinates
+
+    // Listen for dropdown selection change
     countryDropdown.addEventListener('change', () => {
-      const selectedCountry = countryDropdown.value;
-      const locations = countryCoordinates[selectedCountry];
+      const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
+      const data = selectedOption.getAttribute('data'); // Get the 'data' attribute
+      const locations = data.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
+
       if (locations) {
-        clearMarkers();
-        addPulsingMarkers(locations);
-        map.setCenter(locations[0].coordinates);
+        clearMarkers(); // Clear existing markers
+        addPulsingMarkers(locations); // Add new markers
+        const firstLocation = locations[0].split(',').map(Number); // Use the first location for centering
+        map.setCenter(firstLocation); // Set the map center to the first city's coordinates
       }
     });
-
-    // Initialize the map with the default country (UAE)
-    addPulsingMarkers(countryCoordinates.UAE);
 
   } catch (error) {
     console.error('Error initializing Mapbox:', error);
@@ -284,10 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (document.getElementById('mapFrame')) { // Replace with your actual Mapbox element ID
     initializeMapbox(); // Initialize Mapbox map
-  }
-
-  if (document.querySelector('.dropdown-container')) { // Adjust selector as needed
-    injectCountriesDropdown(); // Initialize countries dropdown
   }
 
   // Initialize search bar functionality
