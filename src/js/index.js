@@ -414,14 +414,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const wheretobuylink = document.getElementById('where-to-buy');
-  if (wheretobuylink) {
-    wheretobuylink.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'where-to-buy.hbs'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
+  const wheretobuylinks = document.querySelectorAll('.where-to-buy');
+  wheretobuylinks.forEach(link => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action
+      const targetUrl = 'where-to-buy.hbs'; // Adjust the path as per your file structure
+      window.location.href = targetUrl; // Navigate to the new page
     });
-  }
+  });
 
 
 
