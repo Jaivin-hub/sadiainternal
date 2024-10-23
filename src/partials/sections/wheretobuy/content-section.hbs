@@ -1,0 +1,148 @@
+
+<section class="locTitles">
+    <div class="container">
+        <div class="titleWrap text-center">
+            <h2 class="mainTitle">Where to buy</h2>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="whereWrapper">
+    <div class="container">
+       
+
+        <div class="locationTabs catgSpc">
+            <ul class="nav nav-tabs categ_filter" id="locationTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link filBtn active" id="all-tab" data-bs-toggle="tab" data-bs-target="#online-tab" type="button" role="tab" aria-controls="online-tab" aria-selected="true">Online</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link filBtn" id="airfryer-tab" data-bs-toggle="tab" data-bs-target="#store-tab" type="button" role="tab" aria-controls="store-tab" aria-selected="false">In Store</button>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content tabWraper" id="locationTab">
+            <div class="tab-pane fade show active" id="online-tab" role="tabpanel" aria-labelledby="online-tab" tabindex="0">
+                {{!-- FILTER-START --}}
+                <div class="filterSection postDiv">
+                    <div class="dropdown-container">
+                        <select class="form-select countryDrops">{{countries}}</select>
+                    </div>
+
+                    <!-- Search bar section Start -->
+                    <div class="search-bar-container">
+                        <form class="d-flex locatSearch">
+                            <input id="searchInpts" class="form-control search-bar" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline serLoc" type="button">
+                                <img src="./assets/images/icons/Search.svg" loading="lazy" alt="Search">
+                            </button>
+                            <button class="btn btn-outline cl_ser" type="button" style="display: none;"><img src="./assets/images/icons/s_close.svg" loading="lazy" alt="Search"></button> <!-- Close button -->
+                        </form>
+                    </div>
+                    <!-- Search bar section End-->
+                </div>
+                {{!-- FILTER-END --}}
+
+                <div class="boxDivs buyBoxs">
+                    <div class="row shop_logos">
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo1.png" class="img-fluid bxImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo2.png" class="img-fluid bxImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo3.png" class="img-fluid icImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo4.png" class="img-fluid icImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo5.png" class="img-fluid bxImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo6.png" class="img-fluid bxImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo7.png" class="img-fluid icImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo8.png" class="img-fluid icImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo9.png" class="img-fluid bxImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <a href="#"><img src="./assets/images/about/logo10.png" class="img-fluid bxImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <img src="./assets/images/about/logo11.png" class="img-fluid icImg" alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="card col-md-3">
+                            <div class="logo-box">
+                                <img src="./assets/images/about/logo12.png" class="img-fluid icImg" alt="img"></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btnSpace text-center">
+                        <button class="btn btn-more">Show More</button>
+                    </div>
+                </div> 
+
+            </div>
+
+            <div class="tab-pane fade" id="store-tab" role="tabpanel" aria-labelledby="store-tab" tabindex="0">
+                {{!-- FILTER-START --}}
+                <div class="filterSection postDiv">
+                    <div class="dropdown-container">
+                        <select class="form-select countryDrops">{{countries}}</select>
+                    </div>
+
+                    <!-- Search bar section Start -->
+                    <div class="search-bar-container">
+                        <form class="d-flex locatSearch">
+                            <input id="searchInpts" class="form-control search-bar" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline serLoc" type="button">
+                                <img src="./assets/images/icons/Search.svg" loading="lazy" alt="Search">
+                            </button>
+                            <button class="btn btn-outline cl_ser" type="button" style="display: none;"><img src="./assets/images/icons/s_close.svg" loading="lazy" alt="Search"></button> <!-- Close button -->
+                        </form>
+                    </div>
+                    <!-- Search bar section End-->
+                </div>
+                {{!-- FILTER-END --}}
+
+                <div class="mapWraper">
+                    <img class="img-fluid" src="./assets/images/others/maps.jpg" alt="map">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
