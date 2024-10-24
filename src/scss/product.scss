@@ -1,0 +1,48 @@
+
+@use '../../src/scss/custom.scss' as *;
+
+
+.ftrPrdct{
+    .flex_col{
+        flex-direction: column;
+    
+    }
+    .prdct_bximg{
+        .imgDiv{
+            border-radius: 8px;
+            overflow: hidden;
+        }
+    }
+}
+
+
+
+.ourPrdcts{
+    .imgDiv{
+        .titles{
+
+        }
+        .imgWraper{
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 767px) {
+
+
+}
