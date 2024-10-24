@@ -378,7 +378,9 @@ p{
 
 /* FIND-US START */
 .find-us {
-
+    &.secSpace{
+        padding-top: 110px;
+    }
     #mapContainer {
         width: 100%;
         height: 100%;
