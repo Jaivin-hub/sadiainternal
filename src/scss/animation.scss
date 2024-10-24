@@ -3,21 +3,21 @@
 
 /* ICON-ANIMATION START */
 .Icons.animate {
-	animation: 4s ease-out infinite swing;
-  transform-origin: right bottom;
+  animation: swing-move 8s ease-out infinite; 
+  transform-origin: center center; 
 }
 
 
 
-@keyframes swing {
-	0%,
-	100% {
-		transform: rotate(0deg);
-	}
-	50% {
-		transform: rotate(15deg);
-	}
-}
+// @keyframes swing {
+// 	0%,
+// 	100% {
+// 		transform: rotate(0deg);
+// 	}
+// 	50% {
+// 		transform: rotate(15deg);
+// 	}
+// }
 /* ICON-ANIMATION END */
 
 /**
@@ -59,22 +59,83 @@
 
 
 
-/* Keyframes for swinging and size increase Start */
-@keyframes swing-size {
+/* Keyframes for swinging Start */
+
+@keyframes swing-move {
   0% {
-      transform: scale(1) rotate(0deg); /* Start with original size and rotation */
+    transform: rotate(0deg); /* Start at the original position */
   }
-  25% {
-      transform: scale(1.5) rotate(-10deg); /* Increase size and slightly rotate */
+  10% {
+    transform: rotate(-30deg); /* First swing to the left */
+  }
+  20% {
+    transform: rotate(0deg); /* Swing back to the right */
+  }
+  30% {
+    transform: rotate(-15deg); /* Second swing to the left */
+  }
+  40% {
+    transform: rotate(0deg); /* Return to the original position */
   }
   50% {
-      transform: scale(1) rotate(10deg); /* Back to original size with opposite rotation */
+    transform: rotate(0deg); /* Pause for 2 seconds */
   }
-  75% {
-      transform: scale(1.5) rotate(-10deg); /* Increase size and slightly rotate again */
+  60% {
+    transform: rotate(30deg); /* First swing to the right */
+  }
+  70% {
+    transform: rotate(0deg); /* Swing back to the left */
+  }
+  80% {
+    transform: rotate(15deg); /* Second swing to the right */
+  }
+  90% {
+    transform: rotate(0deg); /* Return to the original position */
   }
   100% {
-      transform: scale(1) rotate(0deg); /* End back at original size and rotation */
+    transform: rotate(0deg); /* Pause for 2 seconds */
   }
 }
-/* Keyframes for swinging and size increase Enb */
+
+// FOOTER-SWING START
+
+@keyframes swing-footer {
+  0% {
+    transform: rotate(0deg); 
+  }
+  10% {
+    transform: rotate(-35deg); 
+  }
+  20% {
+    transform: rotate(0deg); 
+  }
+  30% {
+    transform: rotate(-35deg); 
+  }
+  40% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(0deg); 
+  }
+  60% {
+    transform: rotate(60deg); 
+  }
+  70% {
+    transform: rotate(35deg); 
+  }
+  80% {
+    transform: rotate(60deg); 
+  }
+  90% {
+    transform: rotate(35deg); 
+  }
+  95% {
+    transform: rotate(35deg); 
+  }
+  100% {
+    transform: rotate(0deg); 
+  }
+}
+
+/* Keyframes for swinging End */

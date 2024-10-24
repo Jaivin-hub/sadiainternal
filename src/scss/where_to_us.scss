@@ -7,9 +7,11 @@
         height: 100%;
         position: relative;
         width: 100%;
-        min-height: 500px;
+        min-height: 750px;
     }
-    
+    .mapboxgl-popup-tip{
+        display: none;
+    }
     .mapboxgl-map{
         top: 0;
         left: 0;
@@ -22,6 +24,38 @@
         width: 100% !important;
         height: 100% !important;
     }
+    .mapboxgl-popup{
+        max-width: 100% !important;
+        .mapboxgl-popup-content {
+            background: transparent;
+            border-radius: inherit;
+            box-shadow: inherit;
+            padding: 0;
+            p{
+                font-size: 16px;
+                line-height: 22px;
+                font-family: 'secondary-font';
+            }
+            div > img{
+                margin-bottom: 20px;
+                padding: 0;
+            }
+            button{
+                background: $primary-color !important;
+                font-family: $title-font !important;
+                border-radius: 4px !important;
+                font-size: 18px;
+                margin: 15px 0;
+            }
+            .mapboxgl-popup-close-button{
+                background: transparent !important;
+                margin: 0 !important;
+                display: none;
+            }
+        } 
+    }
+
+
     .locationTabs{
         margin: 0 0 45px 0;
         .categ_filter{
@@ -46,7 +80,7 @@
         align-items: center;
         justify-content: end;
 
-        .countryDrops {
+        .countryDrops, .form-select {
             border-radius: 4px;
             box-shadow: inherit !important;
             outline: 0;
@@ -157,6 +191,9 @@
         }
     } 
     .whereWrapper{
+        #mapContainer{
+            min-height: 500px;
+        }
         .buyBoxs{
             .shop_logos{
                 .card{
@@ -190,7 +227,7 @@
             }
         }
         .filterSection{
-            .countryDrops{
+            .countryDrops, .form-select{
                 width: 100%;
                 
             }
