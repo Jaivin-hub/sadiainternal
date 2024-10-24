@@ -218,20 +218,125 @@ const initializeSlick = () => {
   }
 };
 
+const initializeWhereToBuyMapbox = () => {
+  console.log('inside the initializeWhereToBuyMapbox');
+  try {
+    // Initialize the Mapbox map
+    const map = new mapboxgl.Map({
+      container: 'wheretobuyMapframe', // ID of the container element
+      style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
+      center: [54.3773, 24.4539], // Default starting position for UAE (Abu Dhabi)
+      zoom: 5, // Starting zoom level
+    });
+
+    let markers = [];
+
+    // Function to clear all markers from the map
+    const clearMarkers = () => {
+      markers.forEach(marker => marker.remove());
+      markers = [];
+    };
+
+    // Function to clear all previously opened popups
+    const clearPopups = () => {
+      markers.forEach(marker => {
+        if (marker.getPopup() && marker.getPopup().isOpen()) {
+          marker.getPopup().remove(); // Close the currently open popup
+        }
+      });
+    };
+
+    // Function to add red location markers with popups
+    const addRedMarkers = (locations) => {
+      clearPopups(); // Clear any previously opened popups
+
+      locations.forEach(location => {
+        const coordinates = location.split(',').map(Number); // Split coordinates and convert to numbers
+
+        // Create the popup content with an image and "Get Directions" button
+        const popupContent = `
+          <div style="text-align: center; width: 300px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+            <img src="./assets/images/others/image 141.png" alt="Location Image" style="width: 100%; height: auto; max-width: 100%; padding: 5px 0; border-radius: 8px;"/>
+            <br/>
+            <img src="./assets/images/others/image 75.png" alt="Location Image" style="width: 100%; height: auto; max-width: 100px; border-radius: 8px; margin: 0 auto; display: block;"/>
+            <br/>
+            <p style="font-size: 16px; font-weight: bold; color: #333; margin: 5px 0;">Park AI Karama - Dubai</p>
+            <button style="margin-top: 10px; padding: 10px 15px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;"
+              onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}', '_blank')">
+              Get Directions
+            </button>
+          </div>
+        `;
+
+        // Create the popup and attach it to the marker
+        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent);
+
+        // Create the marker and attach the popup
+        const marker = new mapboxgl.Marker({ color: 'red' })
+          .setLngLat(coordinates)
+          .setPopup(popup) // Attach the popup to the marker
+          .addTo(map);
+
+        markers.push(marker); // Store marker reference
+      });
+    };
+
+    // Get the first option's data from the dropdown to initialize the map
+    const countryDropdown = document.querySelector('.countryDrops');
+    console.log('countryDropdown', countryDropdown);
+    const firstOption = countryDropdown.options[0]; // Get the first option
+    console.log('firstOption', firstOption);
+    const initialLocationsData = firstOption.getAttribute('data'); // Get the 'data' attribute from the first option
+    const initialLocations = initialLocationsData.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
+
+    // Add red markers for the first option's locations
+    addRedMarkers(initialLocations);
+    const firstLocation = initialLocations[0].split(',').map(Number);
+    map.setCenter(firstLocation); // Center map on the first city's coordinates
+
+    // Listen for dropdown selection change
+    countryDropdown.addEventListener('change', () => {
+      console.log('Dropdown changed');
+      const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
+      console.log('Selected Option:', selectedOption);
+    
+      const data = selectedOption.getAttribute('data'); // Get the 'data' attribute
+      console.log('Data attribute:', data);
+    
+      if (data) {
+        const locations = data.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates
+        console.log('Parsed Locations:', locations);
+    
+        if (locations.length > 0) {
+          clearMarkers(); // Clear existing markers
+          addRedMarkers(locations); // Add new markers
+          const firstLocation = locations[0].split(',').map(Number); // Get the first location for centering
+          map.setCenter(firstLocation); // Center map on the first city's coordinates
+        } else {
+          console.warn('No locations found in the selected data.');
+        }
+      } else {
+        console.error('No data attribute found for the selected option.');
+      }
+    });
+
+  } catch (error) {
+    console.error('Error initializing Mapbox:', error);
+  }
+};
+
+
+
+
+
+
+
 
 // Event listener to ensure code runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
   const imageSliderExists = document.querySelector('.image-slider') !== null;
   const thumbnailSliderExists = document.querySelector('.thumbnail-slider') !== null;
   const contentItem = document.querySelector('.content-item') !== null;
-
-  // initializeSlick(); // Initialize Slick sliders
-  // initializeMapbox(); // Initialize Mapbox map
-  // injectCountriesDropdown(); 
-
-  // if ($('.image-slider').length && $('.thumbnail-slider').length) {
-  //   initializeSlick(); // Initialize Slick sliders
-  // }
   if (imageSliderExists && thumbnailSliderExists && contentItem) {
     initializeSlick(); // Initialize Slick sliders
   } else {
@@ -240,6 +345,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (document.getElementById('mapFrame')) { // Replace with your actual Mapbox element ID
     initializeMapbox(); // Initialize Mapbox map
+  }
+
+  if (document.getElementById('wheretobuyMapframe')) { // Replace with your actual Mapbox element ID
+    initializeWhereToBuyMapbox(); // Initialize Mapbox map
   }
 
   // Initialize search bar functionality

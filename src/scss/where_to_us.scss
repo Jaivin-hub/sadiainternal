@@ -3,6 +3,25 @@
 
 
 .whereWrapper{
+    #mapContainer{
+        height: 100%;
+        position: relative;
+        width: 100%;
+        min-height: 500px;
+    }
+    
+    .mapboxgl-map{
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute !important;
+    }
+    
+    .mapboxgl-canvas{
+        width: 100% !important;
+        height: 100% !important;
+    }
     .locationTabs{
         margin: 0 0 45px 0;
         .categ_filter{
@@ -117,6 +136,8 @@
         padding: 0;
     }
 }
+
+
 
 
 
