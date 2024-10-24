@@ -4,8 +4,8 @@
 
 
 .container {
-    max-width: 1440px;
-    padding: 0 20px;
+    max-width: 1480px;
+    padding: 0 50px;
 }
 
 a, button{
@@ -213,7 +213,7 @@ p{
             font-size: 18px;
             line-height: 30px;
             border-radius: 4px;
-            padding: 8px 10px 5px;
+            padding: 8px 20px 5px;
             min-width: 120px;
             height: 41px;
             display: inline-flex;
@@ -305,13 +305,16 @@ p{
 
 .popular-section {
     .Icons.animate {
-        animation: 4s ease-out infinite swing;
-        transform-origin: left bottom;
+        // animation: 4s ease-out infinite swing;
+        // transform-origin: left bottom;
+        margin: 0 4px;
     }
     .card {
         margin: 0px;
         width: calc(100% / 3);
         .card-body{
+            padding-left: 10px;
+            padding-right: 10px;
             .card-title{
                 min-height: 52px;
             }
@@ -444,6 +447,10 @@ p{
 
 
 @media (max-width: 991px) {
+
+    .container {
+        padding: 0 20px;
+    }
 
     .find-us{
         .mapBox{
@@ -620,7 +627,7 @@ p{
                     display: flex;
                     justify-content: space-between;
                     padding: 15px 0 0 0;
-                    .thumbnail {
+                    .thumbnail{
                         .imgThumb {
                             transition: 1s ease;
                             margin: 0 auto;
@@ -634,10 +641,6 @@ p{
                             overflow: hidden;
                             // transform: scale(1);
 
-                            &:hover{
-                                transform: scale(1.2);
-                            }
-
                             img {
                                 width: 120px;
                                 height: 120px;
@@ -649,9 +652,15 @@ p{
                             opacity: 1;
                         }
                         &:hover {
+                            .imgThumb{
+                                transform: scale(1.2);
+                            }
+                            .title{
+                                color: $primary-color;
+                            }
                             img {
                                 opacity: 1;
-                            }
+                            }                            
                         }
                         .title{
                             font-family: $title-font;
@@ -669,6 +678,13 @@ p{
                         }
                         .title{
                             color: $primary-color;
+                        }
+                        .thumbnail{
+                            &:hover{
+                                .imgThumb {
+                                    border-color: transparent;
+                                }
+                            }
                         }
             
                     }
@@ -862,6 +878,21 @@ p{
 // TRULY_FARM START
 
 .trueFram_wraper{
+    .animateIc{
+        margin: 0 6px;
+    }
+    .horizontal-scroll{
+        width: 100%;
+        .d-flex.flex-nowrap{
+            width: 100%;
+            .row{
+                width: calc(100% + 20px);
+                margin: 0 -10px;
+                padding: 0 0;
+            }
+        }
+    }
+    
     .certBx{
         &.blkBox {
             padding: 48px 30px 40px;
@@ -883,6 +914,11 @@ p{
             color: $white-color;
             font-size: 36px;
             font-family: $title-font;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
             img.logHalal{
                 max-width: 43px;
                 margin-right: 10px;
@@ -1454,6 +1490,9 @@ p{
         margin-bottom: 15px;
         .card-title{
             margin: 0;
+        }
+        &.me-4:last-child{
+            margin-right: 0 !important;
         }
         
     }
