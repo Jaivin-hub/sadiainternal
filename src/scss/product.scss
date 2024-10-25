@@ -2,7 +2,34 @@
 @use '../../src/scss/custom.scss' as *;
 
 
-.ftrPrdct{
+
+
+.featuredPrdct{
+    .partDiv{
+        padding: 0 10px;
+    }
+    .rowDiv{
+        padding: 0 2px;
+    }
+    .contBoxs {
+        padding-right: 40px;
+        .subitle {
+            color: $secondary-color;
+            font-size: 61px;
+            line-height: 61px;
+            font-family: $title-font;
+            margin: 20px 0;
+            padding: 0;
+        }
+        .descp{
+            color: $black-color;
+            font-size: 16px;
+            line-height: 22px;
+        }
+        .btn-more {
+            margin: 40px 0 20px;
+        }
+    }
     .flex_col{
         flex-direction: column;
     
@@ -11,23 +38,188 @@
         .imgDiv{
             border-radius: 8px;
             overflow: hidden;
+            width: 100%;
+            margin-bottom: 20px;
+            &.firstBox{
+                height: 410px;
+            }
+            &.secondBox{
+                height: 235px;
+            }
+            &.thirdBox{
+                height: 155px;
+            }
+            &.fourthBox{
+                height: 250px;
+            }
+            .bxImg{
+                width: 100%;
+                object-fit: cover;
+                min-height: 100%;
+                transition: 1s ease;
+            }
+            &:hover{
+                .bxImg{
+                    transform: scale(1.1);
+                }
+            }
         }
+        
     }
 }
+@media (max-width: 767px) {
+
+    .featuredPrdct{
+        .prdct_bximg{
+            .imgDiv{
+                &.firstBox {
+                    height: 300px;
+                }
+                &.secondBox{
+                    height: 190px;
+                }
+                &.thirdBox{
+                    height: 100px;
+                }
+                &.fourthBox {
+                    height: 200px;
+                }
+            }
+            
+        } 
+        .flex_col{
+            flex-direction: column;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+          
+            .alignDiv{
+                display: flex;
+                .imgDiv{
+                    margin-bottom: 10px;  
+                }
+                .rowDiv{
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap !important;
+                    .partDiv{
+                        padding-right: 0;
+                    }
+                }
+                &.secondRow{
+                    .strRow{
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: nowrap !important;
+                        .partDiv{
+                            width: 50%;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .contBoxs{
+            .btn-more {
+                margin: 40px 0 40px;
+                min-height: 50px;
+            }
+
+            text-align: center;
+            padding-right: 15px;
+            .subitle{
+                font-size: 47px;
+                line-height: 47px;
+            }
+        }
+    }
+    
+
+}
+
+
 
 
 
 .ourPrdcts{
+    .partDiv{
+        padding: 0 10px;
+    }
+    .rowDiv{
+        padding: 0 2px;
+    }
     .imgDiv{
+        position: relative;
         .titles{
-
+            font-size: 47px;
+            line-height: 50px;
+            font-family: $title-font;
+            position: absolute;
+            left: 40px;
+            bottom: 35px;
+            z-index: 10;
+            color: $white-color;
+            margin: 0;
+            padding: 0;
         }
         .imgWraper{
             border-radius: 8px;
             overflow: hidden;
+            height: 425px;
+            position: relative;
+            margin-bottom: 20px;
+            &::before{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: rgb(0 0 0 / 22%);
+                content: ' ';
+                z-index: 1;
+                display: block;
+            }
+            .bxImg{
+                width: 100%;
+                height: 100%;
+                transition: 1s ease;
+                object-fit: cover;
+            }
+        }
+        &:hover{
+            .bxImg{
+                transform: scale(1.1);
+            }
+           
         }
 
     }
+}
+
+
+@media (max-width: 767px) {
+
+    .ourPrdcts{
+        .rowDiv{
+            padding: 0 5px;
+        }
+        .partDiv{
+            width: 50%;
+            padding: 0 5px;
+        }
+        .imgDiv{
+            .titles {
+                font-size: 36px;
+                line-height: 38px;
+                left: 15px;
+                bottom: 15px;
+            }
+            .imgWraper{
+                height: 185px;
+                margin-bottom: 10px;
+            }
+        }
+    }  
 }
 
 
@@ -35,14 +227,44 @@
 
 
 
+.trendingWraper{
+    .card{
+        .card-body{
+            .card-title{
+                margin: 0 0 5px;
+            }
+            .card-text{
+                color: #adadad;
+                font-size: 14px;
+                font-weight: 400
+                span{
+                    color: #d7282f;
+                    padding-left: 5px
+                }
+            }
+        }
+    }  
 
-
-
-
+}
 
 
 
 @media (max-width: 767px) {
+
+    .trendingWraper{
+        .row.horizontal-scroll{
+            margin: 0;
+            .scrlWidth{
+                padding: 0;
+            }
+        }
+        .btn-more {
+            min-height: 50px;
+        }
+        .horizontal-scroll{
+            padding-bottom: 0;
+        }
+    }
 
 
 }
