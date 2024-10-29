@@ -137,7 +137,7 @@ const initializeSlick = () => {
       slidesToShow: 1,
       slidesToScroll: 1,
       fade: false,
-      asNavFor: '.thumbnail-slider',
+      asNavFor: '.thumbnail-slider, .content-slider',
       autoplaySpeed: 3000,
     });
 
@@ -147,11 +147,22 @@ const initializeSlick = () => {
     $('.thumbnail-slider').slick({
       slidesToShow: 4,
       slidesToScroll: 1,
-      asNavFor: '.image-slider',
+      asNavFor: '.image-slider, .content-slider',
       focusOnSelect: true,
       infinite: false,
     });
 
+    // Initialize the content slider
+    $('.content-slider').slick({
+      arrows: false,
+      autoplay: false,
+      infinite: false,
+      speed: 1000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      fade: false,
+      asNavFor: '.image-slider, .thumbnail-slider',  // Link both image and thumbnail
+    });
 
     // Ensure content items exist before adding event listener
     if ($('.content-item').length) {
