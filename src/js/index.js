@@ -348,6 +348,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const imageSliderExists = document.querySelector('.image-slider') !== null;
   const thumbnailSliderExists = document.querySelector('.thumbnail-slider') !== null;
   const contentItem = document.querySelector('.content-item') !== null;
+  const currentURL = window.location.pathname; // Get the current URL pathname
+    console.log('currentURL:', currentURL);
+    // productnav
+    if (currentURL === '/about' || currentURL === '/where-to-buy') {
+    const aboutNavLink = document.querySelector('#aboutnav');
+      console.log('inside')
+      aboutNavLink.classList.add('active'); // Add the active class to the About link
+      console.log('inside 2')
+  }else if(currentURL === '/product-listing'){
+    const aboutNavLink = document.querySelector('#productnav');
+    aboutNavLink.classList.add('active');
+  }
+  
+  
   if (imageSliderExists && thumbnailSliderExists && contentItem) {
     initializeSlick(); // Initialize Slick sliders
   } else {
@@ -430,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (viewMoreRecipes) {
     viewMoreRecipes.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'recipe-details.hbs'; // Adjust the path as per your file structure
+      this.href = 'recipe-details'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -439,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (viewProduct) {
     viewProduct.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'product-listing.hbs'; // Adjust the path as per your file structure
+      this.href = 'product-listing'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -448,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (viewMoreHack) {
     viewMoreHack.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'hack-listing.hbs'; // Adjust the path as per your file structure
+      this.href = 'hack-listing'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -457,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
   viewCampaignButtons.forEach(button => {
     button.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      window.location.href = 'campaign.hbs'; // Navigate to the new page
+      window.location.href = 'campaign'; // Navigate to the new page
     });
   });
 
@@ -465,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (whereToBuy) {
     whereToBuy.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'about.hbs'; // Adjust the path as per your file structure
+      this.href = 'about'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -474,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (aboutlink) {
     aboutlink.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'about.hbs'; // Adjust the path as per your file structure
+      this.href = 'about'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -483,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
   wheretobuylinks.forEach(link => {
     link.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action
-      const targetUrl = 'where-to-buy.hbs'; // Adjust the path as per your file structure
+      const targetUrl = 'where-to-buy'; // Adjust the path as per your file structure
       window.location.href = targetUrl; // Navigate to the new page
     });
   });
