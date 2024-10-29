@@ -125,9 +125,11 @@
         .card{
             width: calc(100% / 3);
             float: left;
-            &.pad-L:first-child{
-                padding-left: 0;
-            } 
+            &.pad-L{
+                &:first-child, &:nth-child(4){
+                    padding-left: 0;
+                }
+            }
         }
     }
     
@@ -176,6 +178,11 @@
             display: flex;
             .card {
                 width: 70%;
+                &.pad-L{
+                    &:nth-child(4){
+                        padding-left: 15px;
+                    }
+                }
             }
         } 
         .flex_col {
