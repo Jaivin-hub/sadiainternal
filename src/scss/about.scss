@@ -121,10 +121,13 @@
         }
     } 
     .boxDivs{
-        display: flex;
+        display: block;
         .card{
             width: calc(100% / 3);
             float: left;
+            &.pad-L:first-child{
+                padding-left: 0;
+            } 
         }
     }
     
@@ -170,6 +173,7 @@
             }
         }
         .boxDivs{
+            display: flex;
             .card {
                 width: 70%;
             }
