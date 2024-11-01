@@ -121,29 +121,46 @@ const initializeSlick = () => {
       console.error('Slick is not loaded.');
       return;
     }
-
-    // Check if sliders exist in the DOM
-    if (!$('.image-slider').length || !$('.thumbnail-slider').length) {
-      // console.error('Required slider elements are not found in the DOM.');
-      return;
+    
+    if ($('.whatSlider').length) {
+    $('.whatSlider').slick({
+      dots: false,
+      slidesToShow: 3, // Show one main slide at a time
+      slidesToScroll: 1,
+      initialSlide: 3, // Start at the 4th slide (index 3)
+      infinite: true, // Enable infinite looping
+      autoplay: true,
+      autoplaySpeed: 3000,
+      arrows: false,
+      variableWidth: true, // Enable variable width for custom slide widths
+      responsive: [
+        {
+          breakpoint: 768, // Screen width at which settings should change
+          settings: {
+            slidesToShow: 1, // Show only one slide at a time on mobile
+            variableWidth: false // Disable variable width for consistent slide width
+          }
+        }
+      ]
+    });
+      // return;
     }
 
-    // Initialize the main image slider
-    $('.image-slider').slick({
-      arrows: false,
-      autoplay: false,
-      infinite: false,
-      speed: 1000,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      fade: false,
-      asNavFor: '.thumbnail-slider, .content-slider',
-      autoplaySpeed: 3000,
-    });
+    if ($('.image-slider').length || $('.thumbnail-slider').length) {
+      // Initialize the main image slider
+      $('.image-slider').slick({
+        arrows: false,
+        autoplay: false,
+        infinite: false,
+        speed: 1000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        fade: false,
+        asNavFor: '.thumbnail-slider, .content-slider',
+        autoplaySpeed: 3000,
+      });
 
-
-
-    // Initialize the thumbnail slider
+      // Initialize the thumbnail slider
     $('.thumbnail-slider').slick({
       slidesToShow: 4,
       slidesToScroll: 1,
@@ -199,31 +216,9 @@ const initializeSlick = () => {
       });
     }
 
-
-    // Initialize another carousel
-    $('.whatSlider').slick({
-      dots: false,
-      slidesToShow: 3, // Show one main slide at a time
-      slidesToScroll: 1,
-      initialSlide: 3, // Start at the 4th slide (index 3)
-      infinite: true, // Enable infinite looping
-      autoplay: true,
-      autoplaySpeed: 3000,
-      arrows: false,
-      variableWidth: true, // Enable variable width for custom slide widths
-      responsive: [
-        {
-          breakpoint: 768, // Screen width at which settings should change
-          settings: {
-            slidesToShow: 1, // Show only one slide at a time on mobile
-            variableWidth: false // Disable variable width for consistent slide width
-          }
-        }
-      ]
-    });
-
-
-
+      // return;
+    }
+    
   } catch (error) {
     console.error('Error initializing Slick sliders:', error);
   }
@@ -336,8 +331,12 @@ const initializeWhereToBuyMapbox = () => {
   }
 };
 
-
-
+function setDynamicTitle(newTitle) {
+  const titleElement = document.querySelector("#recipiesheading"); // Updated to select by ID
+  if (titleElement) {
+    titleElement.textContent = newTitle;
+  }
+}
 
 
 
@@ -348,6 +347,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const imageSliderExists = document.querySelector('.image-slider') !== null;
   const thumbnailSliderExists = document.querySelector('.thumbnail-slider') !== null;
   const contentItem = document.querySelector('.content-item') !== null;
+  const whatSlider = document.querySelector('.whatSlider') !== null;
+  const targetDiv = document.querySelector('.row.align-items-center.bxOuter');
+  console.log('targetDiv',targetDiv)
   const currentURL = window.location.pathname; // Get the current URL pathname
     console.log('currentURL:', currentURL);
     // productnav
@@ -359,10 +361,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }else if(currentURL === '/product-listing'){
     const aboutNavLink = document.querySelector('#productnav');
     aboutNavLink.classList.add('active');
+  }else if(currentURL === '/product-details'){
+  setDynamicTitle("RELATED RECIPES");
+  if (targetDiv) {
+    targetDiv.classList.add('reverse-cl'); // Add the 'reverse-cl' class
+  }
   }
   
   
-  if (imageSliderExists && thumbnailSliderExists && contentItem) {
+  
+  if (imageSliderExists || thumbnailSliderExists || contentItem || whatSlider ) {
+    console.log('here it is')
     initializeSlick(); // Initialize Slick sliders
   } else {
     console.warn('Slick slider elements not found in the DOM.');
@@ -429,6 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
 
   // Close all dropdowns when clicking outside, only on mobile
   document.addEventListener('click', function () {
