@@ -525,6 +525,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
+
+
+
   // Fix header visibility and scroll appearance
   const header = document.querySelector('.main-header');
   header.classList.add('visible');
