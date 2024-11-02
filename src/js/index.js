@@ -121,29 +121,46 @@ const initializeSlick = () => {
       console.error('Slick is not loaded.');
       return;
     }
-
-    // Check if sliders exist in the DOM
-    if (!$('.image-slider').length || !$('.thumbnail-slider').length) {
-      // console.error('Required slider elements are not found in the DOM.');
-      return;
+    
+    if ($('.whatSlider').length) {
+    $('.whatSlider').slick({
+      dots: false,
+      slidesToShow: 3, // Show one main slide at a time
+      slidesToScroll: 1,
+      initialSlide: 3, // Start at the 4th slide (index 3)
+      infinite: true, // Enable infinite looping
+      autoplay: true,
+      autoplaySpeed: 3000,
+      arrows: false,
+      variableWidth: true, // Enable variable width for custom slide widths
+      responsive: [
+        {
+          breakpoint: 768, // Screen width at which settings should change
+          settings: {
+            slidesToShow: 1, // Show only one slide at a time on mobile
+            variableWidth: false // Disable variable width for consistent slide width
+          }
+        }
+      ]
+    });
+      // return;
     }
 
-    // Initialize the main image slider
-    $('.image-slider').slick({
-      arrows: false,
-      autoplay: false,
-      infinite: false,
-      speed: 1000,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      fade: false,
-      asNavFor: '.thumbnail-slider, .content-slider',
-      autoplaySpeed: 3000,
-    });
+    if ($('.image-slider').length || $('.thumbnail-slider').length) {
+      // Initialize the main image slider
+      $('.image-slider').slick({
+        arrows: false,
+        autoplay: false,
+        infinite: false,
+        speed: 1000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        fade: false,
+        asNavFor: '.thumbnail-slider, .content-slider',
+        autoplaySpeed: 3000,
+      });
 
-
-
-    // Initialize the thumbnail slider
+      // Initialize the thumbnail slider
     $('.thumbnail-slider').slick({
       slidesToShow: 4,
       slidesToScroll: 1,
@@ -199,31 +216,9 @@ const initializeSlick = () => {
       });
     }
 
-
-    // Initialize another carousel
-    $('.whatSlider').slick({
-      dots: false,
-      slidesToShow: 3, // Show one main slide at a time
-      slidesToScroll: 1,
-      initialSlide: 3, // Start at the 4th slide (index 3)
-      infinite: true, // Enable infinite looping
-      autoplay: true,
-      autoplaySpeed: 3000,
-      arrows: false,
-      variableWidth: true, // Enable variable width for custom slide widths
-      responsive: [
-        {
-          breakpoint: 768, // Screen width at which settings should change
-          settings: {
-            slidesToShow: 1, // Show only one slide at a time on mobile
-            variableWidth: false // Disable variable width for consistent slide width
-          }
-        }
-      ]
-    });
-
-
-
+      // return;
+    }
+    
   } catch (error) {
     console.error('Error initializing Slick sliders:', error);
   }
@@ -336,8 +331,12 @@ const initializeWhereToBuyMapbox = () => {
   }
 };
 
-
-
+function setDynamicTitle(newTitle) {
+  const titleElement = document.querySelector("#recipiesheading"); // Updated to select by ID
+  if (titleElement) {
+    titleElement.textContent = newTitle;
+  }
+}
 
 
 
@@ -348,7 +347,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const imageSliderExists = document.querySelector('.image-slider') !== null;
   const thumbnailSliderExists = document.querySelector('.thumbnail-slider') !== null;
   const contentItem = document.querySelector('.content-item') !== null;
-  if (imageSliderExists && thumbnailSliderExists && contentItem) {
+  const whatSlider = document.querySelector('.whatSlider') !== null;
+  const targetDiv = document.querySelector('.row.align-items-center.bxOuter');
+  console.log('targetDiv',targetDiv)
+  const currentURL = window.location.pathname; // Get the current URL pathname
+    console.log('currentURL:', currentURL);
+    // productnav
+    if (currentURL === '/about' || currentURL === '/where-to-buy') {
+    const aboutNavLink = document.querySelector('#aboutnav');
+      console.log('inside')
+      aboutNavLink.classList.add('active'); // Add the active class to the About link
+      console.log('inside 2')
+  }else if(currentURL === '/product-listing'){
+    const aboutNavLink = document.querySelector('#productnav');
+    aboutNavLink.classList.add('active');
+  }else if(currentURL === '/product-details'){
+  setDynamicTitle("RELATED RECIPES");
+  if (targetDiv) {
+    targetDiv.classList.add('reverse-cl'); // Add the 'reverse-cl' class
+  }
+  }
+  
+  
+  
+  if (imageSliderExists || thumbnailSliderExists || contentItem || whatSlider ) {
+    console.log('here it is')
     initializeSlick(); // Initialize Slick sliders
   } else {
     console.warn('Slick slider elements not found in the DOM.');
@@ -416,6 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+
   // Close all dropdowns when clicking outside, only on mobile
   document.addEventListener('click', function () {
     if (isMobileViewport()) { // Only trigger for mobile view
@@ -430,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (viewMoreRecipes) {
     viewMoreRecipes.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'recipe-details.hbs'; // Adjust the path as per your file structure
+      this.href = 'recipe-details'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -439,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (viewProduct) {
     viewProduct.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'product-listing.hbs'; // Adjust the path as per your file structure
+      this.href = 'product-listing'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -448,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (viewMoreHack) {
     viewMoreHack.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'hack-listing.hbs'; // Adjust the path as per your file structure
+      this.href = 'hack-listing'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -457,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
   viewCampaignButtons.forEach(button => {
     button.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      window.location.href = 'campaign.hbs'; // Navigate to the new page
+      window.location.href = 'campaign'; // Navigate to the new page
     });
   });
 
@@ -465,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (whereToBuy) {
     whereToBuy.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'about.hbs'; // Adjust the path as per your file structure
+      this.href = 'about'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -474,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (aboutlink) {
     aboutlink.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'about.hbs'; // Adjust the path as per your file structure
+      this.href = 'about'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -483,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
   wheretobuylinks.forEach(link => {
     link.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action
-      const targetUrl = 'where-to-buy.hbs'; // Adjust the path as per your file structure
+      const targetUrl = 'where-to-buy'; // Adjust the path as per your file structure
       window.location.href = targetUrl; // Navigate to the new page
     });
   });
