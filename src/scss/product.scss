@@ -447,12 +447,19 @@
 // PRODUCT-DETAIL START
 
 .prdctDetailwrap{
-    .prdctSlider{
+    .mobVis{
+        display: none;
+    }
+    .prdctSlider {
         .carousel {
             position: relative;
             overflow: hidden;
+            width: 100%;
+            .carousel-inner{
+                width: 100%;
+            }
         }
-        .carousel-item{
+        .carousel-item {
             height: 506px;
             border-radius: 8px;
             overflow: hidden;
@@ -460,7 +467,7 @@
             align-items: center;
             justify-content: center;
             background-color: $white-color;
-            .sliderImg{
+            .sliderImg {
                 max-height: 506px;
                 height: auto;
                 object-fit: cover;
@@ -469,37 +476,47 @@
                 margin: 0 auto;
             }
         }
-        
-        .carousel-indicators{
-            &.thumbSect{
-                position: relative;
-                margin: 0;
+        .carousel-scroll{
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            scroll-snap-type: x mandatory; 
+            scroll-padding-left: 20px;
+            float: left;
+            width: 100%;
+            flex-wrap: nowrap;
+            &::-webkit-scrollbar {
+                height: 0.2em;
+                background-color: transparent;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: #a2a0a0;
+            }
+        }
+        .carousel-indicators {
+            &.thumbSect {
+                position: relative !important;
+                left: 0 !important;
+                right: inherit !important;
+                margin: 0 !important;
                 padding: 0;
                 display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                overflow-y: hidden;
-                white-space: nowrap;
-                &::-webkit-scrollbar {
-                    height: 0.2em;
-                    background-color: transparent;
-                }
-                &::-webkit-scrollbar-track {
-                    box-shadow: inherit
-                }
-                &::-webkit-scrollbar-thumb {
-                    background-color: #a2a0a0;
-                }
-                li{
+                float: left;
+               
+                
+                li {
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     flex-direction: column;
                     margin: 20px 20px 20px 0;
-                    &:last-child{
+                    scroll-snap-align: start; // Aligns each thumbnail at the start of the scroll
+                    
+                    &:last-child {
                         margin-right: 0;
                     }
-                    .titles{
+    
+                    .titles {
                         font-size: 14px;
                         line-height: 16px;
                         color: $black-color;
@@ -507,20 +524,17 @@
                         padding: 0;
                         font-weight: 500;
                     }
-                   
-                    &.active{
+    
+                    &.active {
                         opacity: 1;
-                        .thumbs{
+                        .thumbs {
                             border: 2px solid $primary-color;
                             box-shadow: 0px 25px 25px 0px #00000012;
-                            &::before{
-                                background-color: $primary-color;
-                            }
                         }
-                     
                     }
                 }
-                .thumbs{
+    
+                .thumbs {
                     height: 92px;
                     width: 92px;
                     border-radius: 8px;
@@ -529,28 +543,16 @@
                     align-items: center;
                     justify-content: center;
                     border: 2px solid transparent;
-                    box-shadow: inherit;
                     position: relative;
-                    &::before{
-                        width: 7px;
-                        height: 7px;
-                        border-radius: 100%;
-                        background-color: transparent;
-                        display: inline-block;
-                        content: ' ';
-                        position: absolute;
-                        right: 8px;
-                        top: 8px;
-                    }
-
+                    
                     img.thumbImg {
-                        width: 60px; 
+                        width: 60px;
                         height: auto;
                         border-radius: 5px;
                         object-fit: cover;
                     }
                 }
-                
+    
                 [data-bs-target] {
                     width: auto;
                     height: auto;
@@ -560,11 +562,10 @@
                     border: 0;
                     opacity: .3;
                 }
-                
             }
-            
-        } 
+        }
     }
+    
     
 
     .prdctInfo-wrap{
@@ -607,7 +608,7 @@
             .tags{
                 font-size: 14px;
                 line-height: 16px;
-                font-weight: 600;
+                font-weight: 500;
                 color: $primary-color;
                 min-height: 48px;
                 display: inline-flex;
@@ -657,6 +658,9 @@
                         }
                     }
                 }
+            }
+            .benifts-tit{
+                margin-top: 35px;
             }
             .benefits{
                 list-style: none;
@@ -761,8 +765,23 @@
         }
         
     }
+    .carousel-indicators.thumbSect > * {
+        flex: 0 0 auto;
+        scroll-snap-align: start; 
+        margin-right: 10px; 
+    }
 }
 
+.rldPrdct-slider{
+    .scrl_cards{
+        .slick-slide {
+            max-width: 28.3vw !important;
+            width: 28.3vw;
+            margin-right: 20px;
+        }
+    }
+ 
+}
 
 .rldPrdct-slider{
     padding-top: 90px;
@@ -772,5 +791,98 @@
     display: flex;
     flex-direction: row-reverse;
 }
+
+
+.campaignBxWraper{
+    .reverse-cl{
+        .subitle{
+            font-size: 61px;
+            line-height: 61px;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+
+    .prdctDetailwrap{
+        .titleWrap{
+            text-align: center;
+            .mainTitle{
+                text-align: center !important;
+            }
+        }
+        .mobVis {
+            display: block;
+        }
+        .mobHide{
+            display: none;
+        }
+        .prdctInfo-wrap{
+            padding-left: 0;
+            max-height: inherit;
+            overflow: inherit;
+            .dtlsWraper{
+                margin-top: 15px;
+                .subTitles{
+                    font-size: 36px;
+                    line-height: 38px;
+                    text-align: center;
+                }
+                .boxGrids{
+                    .divSect {
+                        width: 50%;
+                    } 
+                } 
+            } 
+            .nutritionWtraper{
+                .titles {
+                    font-size: 21px;
+                    line-height: 21px;
+                    min-height: 60px;
+                    padding: 20px 30px 15px;
+                }
+                .contSect{
+                    .tableStyle{
+                        th, td{
+                            font-size: 16px;
+                        }
+                    }
+                } 
+            } 
+
+        }
+        
+        .prdctSlider{
+            .carousel-item {
+                height: 390px;
+                .sliderImg{
+                    max-height: 390px;
+                }
+            }
+            .carousel-indicators{
+                &.thumbSect{
+                    .thumbs {
+                        height: 120px;
+                        width: 120px;
+                    }
+                }
+            }
+        } 
+        
+    } 
+    .rldPrdct-slider{
+        .scrl_cards{
+            .slick-slide {
+                max-width: 82vw !important;
+                width: 100%;
+            }
+        }
+    } 
+
+}
+
+
+
+
 
 // PRODUCT-DETAIL END

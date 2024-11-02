@@ -2,6 +2,22 @@
 <section class="prdctDetailwrap bgGrey">
     <div class="container">
         <div class="row">
+
+            <div class="col-md-6 mobVis">
+                <div class="prdctInfo-wrap">
+                    <div class="titleWrap">
+                        <h2 class="mainTitle">Featured Product</h2>
+                        <div class="tags">
+                            <p>Whole Chicken</p>
+                        </div>
+                        <div class="descp">
+                            <p>
+                                Transform a simple meal into a gastronomic experience with our high-quality products and easy recipes. 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <div class="col-md-6 prdctSlider"> 
                 <div id="carouselPrdcts" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="50000">
@@ -26,50 +42,55 @@
                         </div>
                     </div>
 
-                    <ol class="carousel-indicators thumbSect">
-                        <li data-bs-target="#carouselPrdcts" data-bs-slide-to="0" class="active">
-                            <div class="thumbs">
-                                <img src="./assets/images/products/Product-dtl1.png" class="img-fluid thumbImg" alt="Image 1">
-                            </div>
-                            <p class="titles">600 g</p>
-                        </li>
-                        <li data-bs-target="#carouselPrdcts" data-bs-slide-to="1">
-                            <div class="thumbs">
-                                <img src="./assets/images/products/Product-dtl2.png" class="img-fluid thumbImg" alt="Image 2">
-                            </div>
-                            <p class="titles">700 g</p>
-                        </li>
-                        <li data-bs-target="#carouselPrdcts" data-bs-slide-to="2">
-                            <div class="thumbs">
-                                <img src="./assets/images/products/Product-dtl3.png" class="img-fluid thumbImg" alt="Image 3">
-                            </div>
-                            <p class="titles">800 g</p>
-                        </li>
-                        <li data-bs-target="#carouselPrdcts" data-bs-slide-to="3">
-                            <div class="thumbs">
-                                <img src="./assets/images/products/Product-dtl4.png" class="img-fluid thumbImg" alt="Image 4">
-                            </div>
-                            <p class="titles">900 g</p>
-                        </li>
-                        <li data-bs-target="#carouselPrdcts" data-bs-slide-to="4">
-                            <div class="thumbs">
-                                <img src="./assets/images/products/Product-dtl5.png" class="img-fluid thumbImg" alt="Image 5">
-                            </div>
-                            <p class="titles">1000 g</p>
-                        </li>
-                        <li data-bs-target="#carouselPrdcts" data-bs-slide-to="5">
-                            <div class="thumbs">
-                                <img src="./assets/images/products/Product-dtl6.png" class="img-fluid thumbImg" alt="Image 6">
-                            </div>
-                            <p class="titles">1100 g</p>
-                        </li>     
-                    </ol>
+                    <div class="carousel-scroll">
+                        <ol class="carousel-indicators thumbSect">
+                            <li data-bs-target="#carouselPrdcts" data-bs-slide-to="0" class="active">
+                                <div class="thumbs">
+                                    <img src="./assets/images/products/Product-dtl1.png" class="img-fluid thumbImg" alt="Image 1">
+                                </div>
+                                <p class="titles">600 g</p>
+                            </li>
+                            <li data-bs-target="#carouselPrdcts" data-bs-slide-to="1">
+                                <div class="thumbs">
+                                    <img src="./assets/images/products/Product-dtl2.png" class="img-fluid thumbImg" alt="Image 2">
+                                </div>
+                                <p class="titles">700 g</p>
+                            </li>
+                            <li data-bs-target="#carouselPrdcts" data-bs-slide-to="2">
+                                <div class="thumbs">
+                                    <img src="./assets/images/products/Product-dtl3.png" class="img-fluid thumbImg" alt="Image 3">
+                                </div>
+                                <p class="titles">800 g</p>
+                            </li>
+                            <li data-bs-target="#carouselPrdcts" data-bs-slide-to="3">
+                                <div class="thumbs">
+                                    <img src="./assets/images/products/Product-dtl4.png" class="img-fluid thumbImg" alt="Image 4">
+                                </div>
+                                <p class="titles">900 g</p>
+                            </li>
+                            <li data-bs-target="#carouselPrdcts" data-bs-slide-to="4">
+                                <div class="thumbs">
+                                    <img src="./assets/images/products/Product-dtl5.png" class="img-fluid thumbImg" alt="Image 5">
+                                </div>
+                                <p class="titles">1000 g</p>
+                            </li>
+                            <li data-bs-target="#carouselPrdcts" data-bs-slide-to="5">
+                                <div class="thumbs">
+                                    <img src="./assets/images/products/Product-dtl6.png" class="img-fluid thumbImg" alt="Image 6">
+                                </div>
+                                <p class="titles">1100 g</p>
+                            </li>     
+                        </ol>
+                    </div>
+
                 </div>
             </div>
 
+            
+
             <div class="col-md-6">
                 <div class="prdctInfo-wrap">
-                    <div class="titleWrap">
+                    <div class="titleWrap mobHide">
                         <div class="tags">
                             <p>Whole Chicken</p>
                         </div>
@@ -141,7 +162,7 @@
                             </div>
                         </div>
 
-                        <h4 class="subTitles">Product Benefits</h4>
+                        <h4 class="subTitles benifts-tit">Product Benefits</h4>
                         <ul class="benefits">
                             <li>
                                 <span class="iconSpc"><img src="./assets/images/icons/benifitIc-1.svg" class="img-fluid" alt="icons"></span>
