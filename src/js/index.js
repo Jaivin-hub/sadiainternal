@@ -121,28 +121,28 @@ const initializeSlick = () => {
       console.error('Slick is not loaded.');
       return;
     }
-    
+
     if ($('.whatSlider').length) {
-    $('.whatSlider').slick({
-      dots: false,
-      slidesToShow: 3, // Show one main slide at a time
-      slidesToScroll: 1,
-      initialSlide: 3, // Start at the 4th slide (index 3)
-      infinite: true, // Enable infinite looping
-      autoplay: true,
-      autoplaySpeed: 3000,
-      arrows: false,
-      variableWidth: true, // Enable variable width for custom slide widths
-      responsive: [
-        {
-          breakpoint: 768, // Screen width at which settings should change
-          settings: {
-            slidesToShow: 1, // Show only one slide at a time on mobile
-            variableWidth: false // Disable variable width for consistent slide width
+      $('.whatSlider').slick({
+        dots: false,
+        slidesToShow: 3, // Show one main slide at a time
+        slidesToScroll: 1,
+        initialSlide: 3, // Start at the 4th slide (index 3)
+        infinite: true, // Enable infinite looping
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: false,
+        variableWidth: true, // Enable variable width for custom slide widths
+        responsive: [
+          {
+            breakpoint: 768, // Screen width at which settings should change
+            settings: {
+              slidesToShow: 1, // Show only one slide at a time on mobile
+              variableWidth: false // Disable variable width for consistent slide width
+            }
           }
-        }
-      ]
-    });
+        ]
+      });
       // return;
     }
 
@@ -161,64 +161,64 @@ const initializeSlick = () => {
       });
 
       // Initialize the thumbnail slider
-    $('.thumbnail-slider').slick({
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      asNavFor: '.image-slider, .content-slider',
-      focusOnSelect: true,
-      infinite: false,
-    });
-
-    // Initialize the content slider
-    $('.content-slider').slick({
-      arrows: false,
-      autoplay: false,
-      infinite: false,
-      speed: 1000,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      fade: false,
-      asNavFor: '.image-slider, .thumbnail-slider',  // Link both image and thumbnail
-    });
-
-    // Ensure content items exist before adding event listener
-    if ($('.content-item').length) {
-      // Handle content display on slide change
-      $('.image-slider').on('beforeChange', (event, slick, currentSlide, nextSlide) => {
-        $('.content-item').removeClass('active');
-        $('.content-item[data-slide="' + nextSlide + '"]').addClass('active');
-
-        // Ensure current slide exists
-        const currentSlideElement = $('.slick-current .slide');
-        if (currentSlideElement.length) {
-          currentSlideElement.removeClass('slide-exiting');
-          currentSlideElement.addClass('slide-exiting');
-        }
+      $('.thumbnail-slider').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '.image-slider, .content-slider',
+        focusOnSelect: true,
+        infinite: false,
       });
 
-      // Initialize content for the first slide
-      $('.content-item[data-slide="0"]').addClass('active');
-    } else {
-      console.error('Content items not found.');
-    }
-
-
-
-    // Prevent adding duplicate event listeners on clicking a thumbnail
-    if (!$._data($('.thumbnail').get(0), 'events')) {
-      // Clicking a thumbnail manually triggers the image slider
-      $('.thumbnail').on('click', function () {
-        const slideIndex = $(this).data('slide');
-        // Ensure the slideIndex is valid
-        if (typeof slideIndex !== 'undefined') {
-          $('.image-slider').slick('slickGoTo', slideIndex);
-        }
+      // Initialize the content slider
+      $('.content-slider').slick({
+        arrows: false,
+        autoplay: false,
+        infinite: false,
+        speed: 1000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        fade: false,
+        asNavFor: '.image-slider, .thumbnail-slider',  // Link both image and thumbnail
       });
-    }
+
+      // Ensure content items exist before adding event listener
+      if ($('.content-item').length) {
+        // Handle content display on slide change
+        $('.image-slider').on('beforeChange', (event, slick, currentSlide, nextSlide) => {
+          $('.content-item').removeClass('active');
+          $('.content-item[data-slide="' + nextSlide + '"]').addClass('active');
+
+          // Ensure current slide exists
+          const currentSlideElement = $('.slick-current .slide');
+          if (currentSlideElement.length) {
+            currentSlideElement.removeClass('slide-exiting');
+            currentSlideElement.addClass('slide-exiting');
+          }
+        });
+
+        // Initialize content for the first slide
+        $('.content-item[data-slide="0"]').addClass('active');
+      } else {
+        console.error('Content items not found.');
+      }
+
+
+
+      // Prevent adding duplicate event listeners on clicking a thumbnail
+      if (!$._data($('.thumbnail').get(0), 'events')) {
+        // Clicking a thumbnail manually triggers the image slider
+        $('.thumbnail').on('click', function () {
+          const slideIndex = $(this).data('slide');
+          // Ensure the slideIndex is valid
+          if (typeof slideIndex !== 'undefined') {
+            $('.image-slider').slick('slickGoTo', slideIndex);
+          }
+        });
+      }
 
       // return;
     }
-    
+
   } catch (error) {
     console.error('Error initializing Slick sliders:', error);
   }
@@ -305,14 +305,14 @@ const initializeWhereToBuyMapbox = () => {
       console.log('Dropdown changed');
       const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
       console.log('Selected Option:', selectedOption);
-    
+
       const data = selectedOption.getAttribute('data'); // Get the 'data' attribute
       console.log('Data attribute:', data);
-    
+
       if (data) {
         const locations = data.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates
         console.log('Parsed Locations:', locations);
-    
+
         if (locations.length > 0) {
           clearMarkers(); // Clear existing markers
           addRedMarkers(locations); // Add new markers
@@ -349,28 +349,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const contentItem = document.querySelector('.content-item') !== null;
   const whatSlider = document.querySelector('.whatSlider') !== null;
   const targetDiv = document.querySelector('.row.align-items-center.bxOuter');
-  console.log('targetDiv',targetDiv)
+  const cookwithsadiaNavLink = document.querySelector('#cookwithsadianav');
+  console.log('targetDiv', targetDiv)
   const currentURL = window.location.pathname; // Get the current URL pathname
-    console.log('currentURL:', currentURL);
-    // productnav
-    if (currentURL === '/about' || currentURL === '/where-to-buy') {
+  console.log('currentURL:', currentURL);
+  // productnav
+  if (currentURL === '/about' || currentURL === '/where-to-buy') {
     const aboutNavLink = document.querySelector('#aboutnav');
-      console.log('inside')
-      aboutNavLink.classList.add('active'); // Add the active class to the About link
-      console.log('inside 2')
-  }else if(currentURL === '/product-listing'){
-    const aboutNavLink = document.querySelector('#productnav');
-    aboutNavLink.classList.add('active');
-  }else if(currentURL === '/product-details'){
-  setDynamicTitle("RELATED RECIPES");
-  if (targetDiv) {
-    targetDiv.classList.add('reverse-cl'); // Add the 'reverse-cl' class
+    console.log('inside')
+    aboutNavLink.classList.add('active'); // Add the active class to the About link
+    console.log('inside 2')
+  } else if (currentURL === '/product-listing' || currentURL === '/products') {
+    const productnav = document.querySelector('#productnav');
+    productnav.classList.add('active');
+  } else if (currentURL === '/product-details') {
+    setDynamicTitle("RELATED RECIPES");
+    if (targetDiv) {
+      targetDiv.classList.add('reverse-cl'); // Add the 'reverse-cl' class
+    }
+  } else if (currentURL === '/product-details') {
+    setDynamicTitle("RELATED RECIPES");
+    if (targetDiv) {
+      targetDiv.classList.add('reverse-cl'); // Add the 'reverse-cl' class
+    }
   }
-  }
-  
-  
-  
-  if (imageSliderExists || thumbnailSliderExists || contentItem || whatSlider ) {
+
+
+
+  if (imageSliderExists || thumbnailSliderExists || contentItem || whatSlider) {
     console.log('here it is')
     initializeSlick(); // Initialize Slick sliders
   } else {
@@ -402,18 +408,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // Map search-bar
-    $('.serLoc').on('click', function () {
-      $('.locatSearch').addClass('expanded');
-      $('.cl_ser').show();
-      $('.serLoc').hide();
-    });
-  
-    $('.cl_ser').on('click', function () {
-      $('.locatSearch').removeClass('expanded');
-      $('.cl_ser').hide();
-      $('.serLoc').show();
-      $('.search-bar').val('');
-    });
+  $('.serLoc').on('click', function () {
+    $('.locatSearch').addClass('expanded');
+    $('.cl_ser').show();
+    $('.serLoc').hide();
+  });
+
+  $('.cl_ser').on('click', function () {
+    $('.locatSearch').removeClass('expanded');
+    $('.cl_ser').hide();
+    $('.serLoc').show();
+    $('.search-bar').val('');
+  });
   // Map search-bar eND
 
 
@@ -468,11 +474,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const products = document.getElementById('productnav');
+  if (products) {
+    products.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'products'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
+    });
+  }
+
+  const aboutnav = document.getElementById('aboutnav');
+  if (aboutnav) {
+    aboutnav.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'about'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
+    });
+  }
+
   const viewMoreHack = document.getElementById('viewMoreHack');
   if (viewMoreHack) {
     viewMoreHack.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
       this.href = 'hack-listing'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
+    });
+  }
+
+  const cookwithsadianav = document.getElementById('cookwithsadianav');
+  if (cookwithsadianav) {
+    cookwithsadianav.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'recipe-details'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
