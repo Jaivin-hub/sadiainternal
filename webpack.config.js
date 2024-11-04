@@ -87,7 +87,7 @@ module.exports = {
       filename: 'where-to-buy.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/products.hbs',  // Template for about page
+      template: 'src/layouts/product.hbs',  // Template for about page
       inject: true,
       filename: 'products.html',
     }),
