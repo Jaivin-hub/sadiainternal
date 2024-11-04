@@ -87,9 +87,9 @@ module.exports = {
       filename: 'where-to-buy.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/product.hbs',  // Template for about page
+      template: 'src/layouts/products.hbs',  // Template for about page
       inject: true,
-      filename: 'product.html',
+      filename: 'products.html',
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/product-details.hbs',  // Template for about page
@@ -121,7 +121,7 @@ module.exports = {
         { from: /^\/product-details/, to: '/product-details.html' },
         { from: /^\/campaign/, to: '/campaign.html' },
         { from: /^\/where-to-buy/, to: '/where-to-buy.html' },
-        { from: /^\/product/, to: '/product.html' },
+        { from: /^\/products/, to: '/products.html' },
         { from: /^\/about/, to: '/about.html' },
         { from: /./, to: '/index.html' },
       ],
