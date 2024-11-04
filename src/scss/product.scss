@@ -229,6 +229,9 @@
 
 .trendingWraper{
     .card{
+        &.me-4:last-child{
+            margin-right: 0 !important;
+        }
         .card-body{
             .card-title{
                 margin: 0 0 5px;
