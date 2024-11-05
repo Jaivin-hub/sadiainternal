@@ -356,9 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // productnav
   if (currentURL === '/about' || currentURL === '/where-to-buy') {
     const aboutNavLink = document.querySelector('#aboutnav');
-    console.log('inside')
     aboutNavLink.classList.add('active'); // Add the active class to the About link
-    console.log('inside 2')
   } else if (currentURL === '/product-listing' || currentURL === '/products') {
     const productnav = document.querySelector('#productnav');
     productnav.classList.add('active');
@@ -467,9 +465,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const viewProduct = document.getElementById('viewProduct');
   if (viewProduct) {
+    console.log('heeeiiii')
     viewProduct.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
       this.href = 'product-listing'; // Adjust the path as per your file structure
+      window.location.href = this.href; // Navigate to the new page
+    });
+  }
+
+  const productDetail = document.getElementById('productdetails');
+  if (productDetail) {
+    console.log('pd')
+    productDetail.addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default action of the link
+      this.href = 'product-details'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
@@ -522,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (whereToBuy) {
     whereToBuy.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
-      this.href = 'about'; // Adjust the path as per your file structure
+      this.href = 'where-to-buy'; // Adjust the path as per your file structure
       window.location.href = this.href; // Navigate to the new page
     });
   }
