@@ -70,6 +70,9 @@
 @media (max-width: 767px) {
 
     .featuredPrdct{
+        .partDiv {
+            padding: 0 10px;
+        }
         .prdct_bximg{
             .imgDiv{
                 &.firstBox {
@@ -89,9 +92,10 @@
         } 
         .flex_col{
             flex-direction: column;
-            overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
+            // overflow-x: auto;
+            // white-space: nowrap;
+            overflow: hidden;
+            
           
             .alignDiv{
                 display: flex;
@@ -103,7 +107,7 @@
                     flex-direction: row;
                     flex-wrap: nowrap !important;
                     .partDiv{
-                        padding-right: 0;
+                        padding-right: 10px;
                     }
                 }
                 &.secondRow{
@@ -111,8 +115,10 @@
                         display: flex;
                         flex-direction: row;
                         flex-wrap: nowrap !important;
+                        padding: 0 5px;
                         .partDiv{
                             width: 50%;
+                            padding: 0 5px;
                         }
                     }
                 }

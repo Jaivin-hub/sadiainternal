@@ -421,6 +421,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // Map search-bar eND
 
 
+
+  // RANGE-SLIDER START
+  
+ // JavaScript to dynamically update the fill width
+ const rangeInput = document.getElementById("customRange");
+ const rangeValue = document.getElementById("rangeValue");
+ const sliderFill = document.getElementById("sliderFill");
+
+ function updateSlider() {
+     const value = rangeInput.value;
+     rangeValue.textContent = value;
+
+     // Calculate fill width percentage and update the overlay element
+     const fillPercentage = (value / 100) * 100;
+     sliderFill.style.width = `${fillPercentage}%`;
+ }
+
+ rangeInput.addEventListener("input", updateSlider);
+
+ // Initialize with the default value
+ updateSlider();
+
+  // RANGE-SLIDER END
+
+
+
   // Handle dropdowns for mobile
   function isMobileViewport() {
     return window.innerWidth <= 991; // Check if the viewport is 991px or below

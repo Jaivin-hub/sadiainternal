@@ -1,0 +1,40 @@
+
+<section class="sideFilter">
+    <div class="container">
+
+         <div class="container mt-5">
+        <h4>Range Slider with Dynamic Color Fill</h4>
+        
+        <!-- Slider Labels -->
+        <div class="range-labels d-flex justify-content-between">
+            <span>0</span>
+            <span>25</span>
+            <span>50</span>
+            <span>75</span>
+            <span>100</span>
+        </div>
+
+        <!-- Range Slider Container with Overlay for Fill -->
+        <div class="position-relative">
+            <div class="range-slider-fill" id="sliderFill"></div> <!-- Overlay for fill -->
+            <input type="range" class="form-range range-slider position-relative" min="0" max="100" step="1" id="customRange" style="z-index: 2;">
+        </div>
+
+        <!-- Displaying Current Value -->
+        <div class="text-center mt-3">
+            <span id="rangeValue">50</span>
+        </div>
+    </div>
+         
+
+{{!-- 
+        <div class="range-labels">
+            <span>Easy</span>
+            <span>Medium</span>
+            <span>Hard</span>
+        </div> --}}
+        <!-- Range Slider -->
+        {{!-- <input type="range" class="form-range range-slider"  step="3" id="customRange"> --}}
+   
+    </div>
+</section>
