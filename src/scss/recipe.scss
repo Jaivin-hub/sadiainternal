@@ -49,55 +49,55 @@
 }
 
 
-.range-slider {
-    width: 100%;
-    -webkit-appearance: none;
-    appearance: none;
-    height: 8px;
-    background-color: #ddd; /* Unfilled color */
-    border-radius: 5px;
-    outline: none;
-    position: relative;
-    overflow: hidden;
+
+
+
+.price-range-slider {
+	width:100%;
+  float:left;
+  padding:10px 20px;
+	.range-value {
+		margin:0;
+		input {
+			width:100%;
+			background:none;
+			color: #000;
+			font-size: 16px;
+			font-weight: initial;
+			box-shadow: none;
+			border: none;
+			margin: 20px 0 20px 0;
+		}
+	}
+	
+	.range-bar {
+		border: none;
+		background: #000;
+		height: 3px;	
+		width: 96%;
+		margin-left: 8px;
+		
+		.ui-slider-range {
+			background:#06b9c0;
+		}
+		
+		.ui-slider-handle {
+			border:none;
+			border-radius:25px;
+			background:#fff;
+			border:2px solid #06b9c0;
+			height:17px;
+			width:17px;
+			top: -0.52em;
+			cursor:pointer;
+		}
+		.ui-slider-handle + span {
+			background:#06b9c0;
+		}
+	}
 }
 
-/* Pseudo-element to simulate the filled portion */
-.range-slider-fill {
-    content: "";
-    position: absolute;
-    height: 100%;
-    background-color: #0d6efd; /* Fill color */
-    width: 0; /* Start with no fill */
-    top: 0;
-    left: 0;
-    z-index: 1;
-    pointer-events: none;
-}
 
-/* Thumb styling for the range slider */
-.range-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background-color: #0d6efd;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    border: 2px solid #fff;
-}
-
-.range-slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background-color: #0d6efd;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    border: 2px solid #fff;
-}
 
 
 @media (max-width: 767px) {
