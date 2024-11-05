@@ -1,25 +1,45 @@
 
-<section class="productFilter secSpace pt-0">
+<section class="productFilter recpFilt">
     <div class="container">
 
         <div class="filterSec">
             <div class="filterWrap catgSpc">
                 <div class="categ_filter">
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">All</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Whole Chicken</a>
-                    <a href="#" class="btn filBtn active" data-toggle="portfilter">Chicken Parts</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Breaded</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Burger Patties</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Vegetables</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Fires</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Franks & Shawerma</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Kids</a>
+                    <div class="filt-catSpc">
+                        <button type="button" id="toggleButton" class="btn filToggle">
+                            <img class="icons filtIcon" src="./assets/images/icons/filter.svg" alt="filter">
+                            <p>Filter</p>
+                            <img class="icons arwIcon" src="./assets/images/icons/chevron-left.svg" alt="filter">
+                        </button>
+                    </div>
+
+                    <a href="#" class="btn filBtn active">All</a>
+                    <a href="#" class="btn filBtn">Airfryer</a>
+                    <a href="#" class="btn filBtn">Quick & Easy</a>
+                    <a href="#" class="btn filBtn">Regional</a>
+                    <a href="#" class="btn filBtn">Instant pot</a>
+                    <a href="#" class="btn filBtn">Top Searched</a>
                 </div>
 
-                <select class="form-select">
-                    <option>Popular</option>
-                    <option>New</option>
-                </select>
+                <div class="filterSection postDiv">
+                    <select class="form-select">
+                        <option>Popular</option>
+                        <option>New</option>
+                    </select>
+
+                    <!-- Search bar section Start -->
+                    <div class="search-bar-container">
+                        <form class="d-flex locatSearch">
+                            <input id="searchInpts" class="form-control search-bar" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline serLoc" type="button">
+                                <img src="./assets/images/icons/Search.svg" loading="lazy" alt="Search">
+                            </button>
+                            <button class="btn btn-outline cl_ser" type="button" style="display: none;"><img src="./assets/images/icons/s_close.svg" loading="lazy" alt="Search"></button> 
+                        </form>
+                    </div>
+                    <!-- Search bar section End-->
+                </div>
+                  
             </div>
         </div>
         {{!-- FILTER-END --}}
