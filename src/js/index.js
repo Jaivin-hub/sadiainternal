@@ -480,6 +480,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
+
+
+
+
+
+
   // Close all dropdowns when clicking outside, only on mobile
   document.addEventListener('click', function () {
     if (isMobileViewport()) { // Only trigger for mobile view

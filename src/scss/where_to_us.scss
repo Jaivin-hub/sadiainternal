@@ -75,60 +75,7 @@
         }
 
     }
-    .filterSection{
-        display: flex;
-        align-items: center;
-        justify-content: end;
-
-        .countryDrops, .form-select {
-            border-radius: 4px;
-            box-shadow: inherit !important;
-            outline: 0;
-            height: 52px;
-            width: auto;
-            max-width: 100%;
-            font-size: 16px;
-            border: 1px solid $border-color;
-        }
-        .search-bar-container{
-            max-width: 100%;
-            margin: 0 0 0 10px;
-
-            .locatSearch{
-                &.expanded{
-                    .search-bar{
-                        display: block;
-                        height: 52px;
-                        width: 320px;        
-                        opacity: 1;    
-                    }
-                }
-                .search-bar{
-                    display: none;
-                }
-                .serLoc{
-                    border-radius: 4px;
-                    box-shadow: inherit !important;
-                    outline: 0;
-                    height: 52px;
-                    width: 58px;
-                    border: 1px solid $border-color;
-                    background: transparent;
-                }
-                .cl_ser{
-                    height: 100%;
-                    margin-left: 0px;
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    z-index: 10;
-                }
-    
-            }
-            
-            
-        }
-    }
+ 
 
 
     .buyBoxs{
@@ -172,7 +119,60 @@
 }
 
 
+.filterSection{
+    display: flex;
+    align-items: center;
+    justify-content: end;
 
+    .countryDrops, .form-select {
+        border-radius: 4px;
+        box-shadow: inherit !important;
+        outline: 0;
+        height: 52px;
+        width: auto;
+        max-width: 100%;
+        font-size: 16px;
+        border: 1px solid $border-color;
+    }
+    .search-bar-container{
+        max-width: 100%;
+        margin: 0 0 0 10px;
+
+        .locatSearch{
+            &.expanded{
+                .search-bar{
+                    display: block;
+                    height: 52px;
+                    width: 320px;        
+                    opacity: 1;    
+                }
+            }
+            .search-bar{
+                display: none;
+            }
+            .serLoc{
+                border-radius: 4px;
+                box-shadow: inherit !important;
+                outline: 0;
+                height: 52px;
+                width: 58px;
+                border: 1px solid $border-color;
+                background: transparent;
+            }
+            .cl_ser{
+                height: 100%;
+                margin-left: 0px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                z-index: 10;
+            }
+
+        }
+        
+        
+    }
+}
 
 
 
