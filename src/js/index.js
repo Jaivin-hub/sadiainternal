@@ -360,17 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if (currentURL === '/product-listing' || currentURL === '/products') {
     const productnav = document.querySelector('#productnav');
     productnav.classList.add('active');
-  } else if (currentURL === '/product-details') {
-    setDynamicTitle("RELATED RECIPES");
-    if (targetDiv) {
-      targetDiv.classList.add('reverse-cl'); // Add the 'reverse-cl' class
-    }
-  } else if (currentURL === '/product-details') {
-    setDynamicTitle("RELATED RECIPES");
-    if (targetDiv) {
-      targetDiv.classList.add('reverse-cl'); // Add the 'reverse-cl' class
-    }
-  }
+  } 
+
 
 
 
