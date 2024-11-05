@@ -1,0 +1,109 @@
+
+@use '../../src/scss/custom.scss' as *;
+
+
+
+.campaignBnr{
+    .sliderBox{
+        position: relative;
+        height: 317px;
+        border-radius: 8px;
+        overflow: hidden;
+        &::after{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            content: ' ';
+            display: block;
+            background-color: rgb(0 0 0 / 30%);
+        }
+        img{
+            width: 100%;
+            min-height: 317px;
+            object-fit: cover;
+        }
+        .titleStyle{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            font-family: $title-font;
+            font-size: 61px;
+            line-height: 61px;
+            z-index: 1;
+            color: $white-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+    }
+
+    .titleStyle{
+
+    }
+
+}
+
+
+
+
+
+.price-range-slider {
+	width:100%;
+  float:left;
+  padding:10px 20px;
+	.range-value {
+		margin:0;
+		input {
+			width:100%;
+			background:none;
+			color: #000;
+			font-size: 16px;
+			font-weight: initial;
+			box-shadow: none;
+			border: none;
+			margin: 20px 0 20px 0;
+		}
+	}
+	
+	.range-bar {
+		border: none;
+		background: #000;
+		height: 3px;	
+		width: 96%;
+		margin-left: 8px;
+		
+		.ui-slider-range {
+			background:#06b9c0;
+		}
+		
+		.ui-slider-handle {
+			border:none;
+			border-radius:25px;
+			background:#fff;
+			border:2px solid #06b9c0;
+			height:17px;
+			width:17px;
+			top: -0.52em;
+			cursor:pointer;
+		}
+		.ui-slider-handle + span {
+			background:#06b9c0;
+		}
+	}
+}
+
+
+
+
+@media (max-width: 767px) {
+
+
+}
+
+
+// PRODUCT-DETAIL END
