@@ -362,6 +362,30 @@ document.addEventListener('DOMContentLoaded', () => {
     productnav.classList.add('active');
   } 
 
+  var slider = document.getElementById("slider-range");
+    noUiSlider.create(slider, {
+        start: [130, 250], // Initial values
+        connect: true,
+        range: {
+            min: 130,
+            max: 500
+        },
+        format: {
+            to: function(value) {
+                return "$" + value.toFixed(0);
+            },
+            from: function(value) {
+                return Number(value.replace('$', ''));
+            }
+        }
+    });
+
+    // Update the amount field with the current range values
+    var amount = document.getElementById("amount");
+    slider.noUiSlider.on("update", function(values) {
+        amount.value = values[0] + " - " + values[1];
+    });
+
 
 
 
@@ -415,19 +439,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // RANGE-SLIDER START
 
-    $(function() {
-      $( "#slider-range" ).slider({
-        range: true,
-        min: 130,
-        max: 500,
-        values: [ 130, 250 ],
-        slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-        }
-      });
-      $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-    });
+    // $(function() {
+    //   $( "#slider-range" ).slider({
+    //     range: true,
+    //     min: 130,
+    //     max: 500,
+    //     values: [ 130, 250 ],
+    //     slide: function( event, ui ) {
+    //     $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+    //     }
+    //   });
+    //   $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+    //     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    // });
 
   // RANGE-SLIDER END
 
