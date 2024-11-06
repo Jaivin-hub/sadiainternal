@@ -101,6 +101,11 @@ module.exports = {
       inject: true,
       filename: 'recipe-listing.html',
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/recipe-category-listing.hbs',  // Template for recipe listing page
+      inject: true,
+      filename: 'recipe-category-listing.html',
+    }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/style.css',  // Output CSS to assets folder
     }),
@@ -121,6 +126,7 @@ module.exports = {
     historyApiFallback: {
       rewrites: [
         { from: /^\/recipe-details/, to: '/recipe-details.html' },
+        { from: /^\/recipe-category-listing/, to: '/recipe-category-listing.html' },
         { from: /^\/recipe-listing/, to: '/recipe-listing.html' },
         { from: /^\/product-listing/, to: '/product-listing.html' },
         { from: /^\/hack-listing/, to: '/hack-listing.html' },
