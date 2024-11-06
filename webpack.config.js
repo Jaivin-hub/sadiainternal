@@ -42,7 +42,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(woff|woff2|eot|ttf|svg|gif)$/, // Match font and image files
+        test: /\.(woff|woff2|eot|ttf|svg|gif|png|jpg)$/, // Match font and image files
         type: 'asset/resource',  // Let Webpack handle asset loading
         generator: {
           filename: 'assets/[name][ext]',  // Output assets to assets/ folder
@@ -87,17 +87,17 @@ module.exports = {
       filename: 'where-to-buy.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/product.hbs',  // Template for about page
+      template: 'src/layouts/product.hbs',  // Template for product page
       inject: true,
       filename: 'products.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/product-details.hbs',  // Template for about page
+      template: 'src/layouts/product-details.hbs',  // Template for product details page
       inject: true,
       filename: 'product-details.html',
     }),
     new HtmlWebpackPlugin({
-      template: 'src/layouts/recipe-listing.hbs',  // Template for about page
+      template: 'src/layouts/recipe-listing.hbs',  // Template for recipe listing page
       inject: true,
       filename: 'recipe-listing.html',
     }),
