@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
 
   
-  if (document.getElementById('price-range-slider')) { // Replace with your actual Mapbox element ID
+  if (document.getElementById('price-range-slider')) { 
     priceSliderInitialize();
   }
 
@@ -163,6 +163,31 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+
+
+
+// SIDEBAR-COLLPASE START
+
+  // Select the toggle button and sidebar frame elements
+  const toggleButton = document.getElementById("toggleButton");
+  const sidebarFrame = document.getElementById("sidebarFrame");
+
+  // Add click event listener to the button
+  toggleButton.addEventListener("click", function() {
+      // Toggle the "active" class on the toggleButton
+      toggleButton.classList.toggle("active");
+      
+      // Toggle the "hideSidebar" class on the sidebarFrame
+      sidebarFrame.classList.toggle("hideSidebar");
+  });
+
+
+
+// SIDEBAR-COLLPASE END
+
+
+
 
   // Add event listeners with null checks
   const viewMoreRecipes = document.getElementById('viewMoreRecipes');

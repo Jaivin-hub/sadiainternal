@@ -1,5 +1,5 @@
 
-<section class="sideFilter" id="toggleSection">
+<section class="sideFilter">
 
     <div class="topArea">
         <h6 class="filTxt">Filter by:</h6>
@@ -18,26 +18,37 @@
         </div>
     </div>
 
+
     <div class="spDivs">
         <div class="range-filter">
             <label class="subTitles">Difficulty</label>
-            <div class="price-range-slider" id="price-range-slider">
-                <p class="range-value">
+            <div class="price-range-slider" id="price-range-sliders">
+                {{!-- <p class="range-value">
                     <input type="text" id="amount" readonly>
-                </p>
-                <div id="slider-range" class="range-bar"></div>
+                </p> --}}
+                <div id="slider-ranges" class="range-bar"></div>
+                <div class="range-labels">
+                    <span>Easy</span>
+                    <span>Medium</span>
+                    <span>Hard</span>
+                </div> 
             </div>
         </div>
 
-        {{!-- 
-        <label class="subTitles">Preparation Time</label>
-        <div class="range-labels">
-            <span>Easy</span>
-            <span>Medium</span>
-            <span>Hard</span>
-        </div> --}}
-        <!-- Range Slider -->
-        {{!-- <input type="range" class="form-range range-slider"  step="3" id="customRange"> --}}
+        <div class="range-filter">
+            <label class="subTitles">Preparation Time</label>
+            <div class="price-range-slider" id="price-range-slider">
+                <p class="range-value">
+                    <input type="text" id="amount" readonly>Mins
+                </p>
+                <div id="slider-range" class="range-bar"></div>
+                <div class="range-labels">
+                    <span>5 Mins</span>
+                    <span>30 Mins</span>
+                    <span>60 Mins</span>
+                </div> 
+            </div>
+        </div>
     </div>
 
     <div class="form-group">

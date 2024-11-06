@@ -812,6 +812,18 @@
 }
 
 @media (max-width: 767px) {
+    .trendingWraper{
+        &.prdctDtl{
+            .card{
+                .cardImg{
+                    height: 256px;
+                    img.mainImg{
+                        min-height: 256px;
+                    }
+                }
+            } 
+        }
+    }
 
     .prdctDetailwrap{
         .titleWrap{

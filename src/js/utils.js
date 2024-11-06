@@ -69,31 +69,35 @@ const initializeMapbox = () => {
     }
   };
 
-  const priceSliderInitialize = () =>{
+  const priceSliderInitialize = () => {
     var slider = document.getElementById("slider-range");
-      noUiSlider.create(slider, {
-          start: [130, 250], // Initial values
-          connect: true,
-          range: {
-              min: 130,
-              max: 500
-          },
-          format: {
-              to: function(value) {
-                  return "$" + value.toFixed(0);
-              },
-              from: function(value) {
-                  return Number(value.replace('$', ''));
-              }
-          }
-      });
-  
-      // Update the amount field with the current range values
-      var amount = document.getElementById("amount");
-      slider.noUiSlider.on("update", function(values) {
-          amount.value = values[0] + " - " + values[1];
-      });
+    noUiSlider.create(slider, {
+        start: 15, // Single initial value
+        connect: [true, false], // Connect the bar from the start to the thumb position
+        range: {
+            min: 5,
+            max: 60
+        },
+        format: {
+            to: function(value) {
+                return " " + value.toFixed(0);
+            },
+            from: function(value) {
+                return Number(value.replace('', ''));
+            }
+        }
+    });
+    // Update the amount field with the single thumb value
+    var amount = document.getElementById("amount");
+    slider.noUiSlider.on("update", function(values) {
+        amount.value = values[0]; // Display the single thumb value
+    });
   }
+
+
+
+
+
 
   // Function to initialize Slick sliders
 const initializeSlick = () => {
