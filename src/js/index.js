@@ -1,20 +1,11 @@
-// Import Bootstrap CSS and JS
 import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel';
-// Import SCSS
 import '../scss/style.scss';
+import Handlebars from 'handlebars';
+import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox } from './utils.js';
+import {fetchAssets} from './api.js'
 
-
-// Import Mapbox GL JS and CSS
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-
-// Mapbox access token (replace 'YOUR_MAPBOX_ACCESS_TOKEN' with your actual token)
-mapboxgl.accessToken = 'pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb3hwY21lY3p1eCJ9.7t6X_NQIGtIsI-FRLNPU6g';
 
 const pulsingDotStyle = `
 <style>
@@ -53,295 +44,6 @@ const pulsingDotStyle = `
 document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 
 
-// Function to initialize Mapbox map
-const initializeMapbox = () => {
-  try {
-    // Initialize the Mapbox map
-    const map = new mapboxgl.Map({
-      container: 'mapFrame', // ID of the container element
-      style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
-      center: [54.3773, 24.4539], // Default starting position for UAE (Abu Dhabi)
-      zoom: 5, // Starting zoom level
-    });
-
-    let markers = [];
-
-    // Function to clear all markers from the map
-    const clearMarkers = () => {
-      markers.forEach(marker => marker.remove());
-      markers = [];
-    };
-
-    // Function to add pulsing dot markers
-    const addPulsingMarkers = (locations) => {
-      locations.forEach(location => {
-        const el = document.createElement('div');
-        el.className = 'pulsing-dot';
-        const coordinates = location.split(',').map(Number); // Split coordinates and convert to numbers
-        const marker = new mapboxgl.Marker(el).setLngLat(coordinates).addTo(map);
-        markers.push(marker); // Store marker reference
-      });
-    };
-
-    // Get the first option's data from the dropdown to initialize the map
-    const countryDropdown = document.querySelector('.countryDrops');
-    const firstOption = countryDropdown.options[0]; // Get the first option
-    const initialLocationsData = firstOption.getAttribute('data'); // Get the 'data' attribute from the first option
-    const initialLocations = initialLocationsData.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
-
-    // Add pulsing markers for the first option's locations
-    addPulsingMarkers(initialLocations);
-    const firstLocation = initialLocations[0].split(',').map(Number);
-    map.setCenter(firstLocation); // Center map on the first city's coordinates
-
-    // Listen for dropdown selection change
-    countryDropdown.addEventListener('change', () => {
-      const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
-      const data = selectedOption.getAttribute('data'); // Get the 'data' attribute
-      const locations = data.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
-
-      if (locations) {
-        clearMarkers(); // Clear existing markers
-        addPulsingMarkers(locations); // Add new markers
-        const firstLocation = locations[0].split(',').map(Number); // Use the first location for centering
-        map.setCenter(firstLocation); // Set the map center to the first city's coordinates
-      }
-    });
-
-  } catch (error) {
-    console.error('Error initializing Mapbox:', error);
-  }
-};
-
-// Function to initialize Slick sliders
-const initializeSlick = () => {
-  try {
-    // Ensure Slick is loaded
-    if (typeof $.fn.slick === 'undefined') {
-      console.error('Slick is not loaded.');
-      return;
-    }
-
-    if ($('.whatSlider').length) {
-      $('.whatSlider').slick({
-        dots: false,
-        slidesToShow: 3, // Show one main slide at a time
-        slidesToScroll: 1,
-        initialSlide: 3, // Start at the 4th slide (index 3)
-        infinite: true, // Enable infinite looping
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false,
-        variableWidth: true, // Enable variable width for custom slide widths
-        responsive: [
-          {
-            breakpoint: 768, // Screen width at which settings should change
-            settings: {
-              slidesToShow: 1, // Show only one slide at a time on mobile
-              variableWidth: false // Disable variable width for consistent slide width
-            }
-          }
-        ]
-      });
-      // return;
-    }
-
-    if ($('.image-slider').length || $('.thumbnail-slider').length) {
-      // Initialize the main image slider
-      $('.image-slider').slick({
-        arrows: false,
-        autoplay: false,
-        infinite: false,
-        speed: 1000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        fade: false,
-        asNavFor: '.thumbnail-slider, .content-slider',
-        autoplaySpeed: 3000,
-      });
-
-      // Initialize the thumbnail slider
-      $('.thumbnail-slider').slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        asNavFor: '.image-slider, .content-slider',
-        focusOnSelect: true,
-        infinite: false,
-      });
-
-      // Initialize the content slider
-      $('.content-slider').slick({
-        arrows: false,
-        autoplay: false,
-        infinite: false,
-        speed: 1000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        fade: false,
-        asNavFor: '.image-slider, .thumbnail-slider',  // Link both image and thumbnail
-      });
-
-      // Ensure content items exist before adding event listener
-      if ($('.content-item').length) {
-        // Handle content display on slide change
-        $('.image-slider').on('beforeChange', (event, slick, currentSlide, nextSlide) => {
-          $('.content-item').removeClass('active');
-          $('.content-item[data-slide="' + nextSlide + '"]').addClass('active');
-
-          // Ensure current slide exists
-          const currentSlideElement = $('.slick-current .slide');
-          if (currentSlideElement.length) {
-            currentSlideElement.removeClass('slide-exiting');
-            currentSlideElement.addClass('slide-exiting');
-          }
-        });
-
-        // Initialize content for the first slide
-        $('.content-item[data-slide="0"]').addClass('active');
-      } else {
-        console.error('Content items not found.');
-      }
-
-
-
-      // Prevent adding duplicate event listeners on clicking a thumbnail
-      if (!$._data($('.thumbnail').get(0), 'events')) {
-        // Clicking a thumbnail manually triggers the image slider
-        $('.thumbnail').on('click', function () {
-          const slideIndex = $(this).data('slide');
-          // Ensure the slideIndex is valid
-          if (typeof slideIndex !== 'undefined') {
-            $('.image-slider').slick('slickGoTo', slideIndex);
-          }
-        });
-      }
-
-      // return;
-    }
-
-  } catch (error) {
-    console.error('Error initializing Slick sliders:', error);
-  }
-};
-
-const initializeWhereToBuyMapbox = () => {
-  console.log('inside the initializeWhereToBuyMapbox');
-  try {
-    // Initialize the Mapbox map
-    const map = new mapboxgl.Map({
-      container: 'wheretobuyMapframe', // ID of the container element
-      style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
-      center: [54.3773, 24.4539], // Default starting position for UAE (Abu Dhabi)
-      zoom: 5, // Starting zoom level
-    });
-
-    let markers = [];
-
-    // Function to clear all markers from the map
-    const clearMarkers = () => {
-      markers.forEach(marker => marker.remove());
-      markers = [];
-    };
-
-    // Function to clear all previously opened popups
-    const clearPopups = () => {
-      markers.forEach(marker => {
-        if (marker.getPopup() && marker.getPopup().isOpen()) {
-          marker.getPopup().remove(); // Close the currently open popup
-        }
-      });
-    };
-
-    // Function to add red location markers with popups
-    const addRedMarkers = (locations) => {
-      clearPopups(); // Clear any previously opened popups
-
-      locations.forEach(location => {
-        const coordinates = location.split(',').map(Number); // Split coordinates and convert to numbers
-
-        // Create the popup content with an image and "Get Directions" button
-        const popupContent = `
-          <div style="text-align: center; width: 300px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
-            <img src="./assets/images/others/image 141.png" alt="Location Image" style="width: 100%; height: auto; max-width: 100%; padding: 5px 0; border-radius: 8px;"/>
-            <br/>
-            <img src="./assets/images/others/image 75.png" alt="Location Image" style="width: 100%; height: auto; max-width: 100px; border-radius: 8px; margin: 0 auto; display: block;"/>
-            <br/>
-            <p style="font-size: 16px; font-weight: bold; color: #333; margin: 5px 0;">Park AI Karama - Dubai</p>
-            <button style="margin-top: 10px; padding: 10px 15px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;"
-              onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}', '_blank')">
-              Get Directions
-            </button>
-          </div>
-        `;
-
-        // Create the popup and attach it to the marker
-        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent);
-
-        // Create the marker and attach the popup
-        const marker = new mapboxgl.Marker({ color: 'red' })
-          .setLngLat(coordinates)
-          .setPopup(popup) // Attach the popup to the marker
-          .addTo(map);
-
-        markers.push(marker); // Store marker reference
-      });
-    };
-
-    // Get the first option's data from the dropdown to initialize the map
-    const countryDropdown = document.querySelector('.countryDrops');
-    console.log('countryDropdown', countryDropdown);
-    const firstOption = countryDropdown.options[0]; // Get the first option
-    console.log('firstOption', firstOption);
-    const initialLocationsData = firstOption.getAttribute('data'); // Get the 'data' attribute from the first option
-    const initialLocations = initialLocationsData.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
-
-    // Add red markers for the first option's locations
-    addRedMarkers(initialLocations);
-    const firstLocation = initialLocations[0].split(',').map(Number);
-    map.setCenter(firstLocation); // Center map on the first city's coordinates
-
-    // Listen for dropdown selection change
-    countryDropdown.addEventListener('change', () => {
-      console.log('Dropdown changed');
-      const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
-      console.log('Selected Option:', selectedOption);
-
-      const data = selectedOption.getAttribute('data'); // Get the 'data' attribute
-      console.log('Data attribute:', data);
-
-      if (data) {
-        const locations = data.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates
-        console.log('Parsed Locations:', locations);
-
-        if (locations.length > 0) {
-          clearMarkers(); // Clear existing markers
-          addRedMarkers(locations); // Add new markers
-          const firstLocation = locations[0].split(',').map(Number); // Get the first location for centering
-          map.setCenter(firstLocation); // Center map on the first city's coordinates
-        } else {
-          console.warn('No locations found in the selected data.');
-        }
-      } else {
-        console.error('No data attribute found for the selected option.');
-      }
-    });
-
-  } catch (error) {
-    console.error('Error initializing Mapbox:', error);
-  }
-};
-
-function setDynamicTitle(newTitle) {
-  const titleElement = document.querySelector("#recipiesheading"); // Updated to select by ID
-  if (titleElement) {
-    titleElement.textContent = newTitle;
-  }
-}
-
-
-
-
-
 // Event listener to ensure code runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
   const imageSliderExists = document.querySelector('.image-slider') !== null;
@@ -349,48 +51,43 @@ document.addEventListener('DOMContentLoaded', () => {
   const contentItem = document.querySelector('.content-item') !== null;
   const whatSlider = document.querySelector('.whatSlider') !== null;
   const targetDiv = document.querySelector('.row.align-items-center.bxOuter');
-  const cookwithsadiaNavLink = document.querySelector('#cookwithsadianav');
-  console.log('targetDiv', targetDiv)
   const currentURL = window.location.pathname; // Get the current URL pathname
-  console.log('currentURL:', currentURL);
-  // productnav
-  if (currentURL === '/about' || currentURL === '/where-to-buy') {
-    const aboutNavLink = document.querySelector('#aboutnav');
-    aboutNavLink.classList.add('active'); // Add the active class to the About link
-  } else if (currentURL === '/product-listing' || currentURL === '/products') {
-    const productnav = document.querySelector('#productnav');
-    productnav.classList.add('active');
-  } 
 
-  var slider = document.getElementById("slider-range");
-    noUiSlider.create(slider, {
-        start: [130, 250], // Initial values
-        connect: true,
-        range: {
-            min: 130,
-            max: 500
-        },
-        format: {
-            to: function(value) {
-                return "$" + value.toFixed(0);
-            },
-            from: function(value) {
-                return Number(value.replace('$', ''));
-            }
-        }
-    });
+  if (document.getElementById('locationTab')) { // Replace with your actual Mapbox element ID
+    const logos = fetchAssets();
+  if (logos && Array.isArray(logos)) {
+    // Get the template HTML
+    const templateSource = `
+        <div class="row shop_logos">
+          {{#each logos}}
+          <div class="card col-md-3">
+            <div class="logo-box">
+              <a href="#">
+                <img src="{{this.src}}" class="img-fluid {{this.class}}" alt="{{this.alt}}">
+              </a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+        <div class="btnSpace text-center">
+          <button class="btn btn-more">Show More</button>
+        </div>
+    `;
+    const template = Handlebars.compile(templateSource);
+    const compiledHTML = template({ logos });
+    document.getElementById('cnt_sec').innerHTML = compiledHTML;
+  }
+  }
 
-    // Update the amount field with the current range values
-    var amount = document.getElementById("amount");
-    slider.noUiSlider.on("update", function(values) {
-        amount.value = values[0] + " - " + values[1];
-    });
+  
 
-
+  
+  if (document.getElementById('price-range-slider')) { // Replace with your actual Mapbox element ID
+    priceSliderInitialize();
+  }
 
 
   if (imageSliderExists || thumbnailSliderExists || contentItem || whatSlider) {
-    console.log('here it is')
     initializeSlick(); // Initialize Slick sliders
   } else {
     console.warn('Slick slider elements not found in the DOM.');
@@ -435,28 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   // Map search-bar eND
 
-
-
-  // RANGE-SLIDER START
-
-    // $(function() {
-    //   $( "#slider-range" ).slider({
-    //     range: true,
-    //     min: 130,
-    //     max: 500,
-    //     values: [ 130, 250 ],
-    //     slide: function( event, ui ) {
-    //     $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-    //     }
-    //   });
-    //   $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-    //     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-    // });
-
-  // RANGE-SLIDER END
-
-
-
   // Handle dropdowns for mobile
   function isMobileViewport() {
     return window.innerWidth <= 991; // Check if the viewport is 991px or below
@@ -480,12 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-
-
-
-
-
-
   // Close all dropdowns when clicking outside, only on mobile
   document.addEventListener('click', function () {
     if (isMobileViewport()) { // Only trigger for mobile view
@@ -504,10 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = this.href; // Navigate to the new page
     });
   }
-
   const viewProduct = document.getElementById('viewProduct');
   if (viewProduct) {
-    console.log('heeeiiii')
     viewProduct.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
       this.href = 'product-listing'; // Adjust the path as per your file structure
@@ -517,7 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const productDetail = document.getElementById('productdetails');
   if (productDetail) {
-    console.log('pd')
     productDetail.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
       this.href = 'product-details'; // Adjust the path as per your file structure
@@ -526,7 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const products = document.getElementById('productnav');
+  console.log('products',products)
   if (products) {
+    console.log('iffiffif')
     products.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
       this.href = 'products'; // Adjust the path as per your file structure
@@ -608,9 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-
-
-
+  
 
   // Fix header visibility and scroll appearance
   const header = document.querySelector('.main-header');
