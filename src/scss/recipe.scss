@@ -51,6 +51,7 @@
         }
     }
 }
+
 .recpFilt{
     .catgSpc{
         margin-bottom: 70px;
@@ -74,16 +75,23 @@
     padding: 5px 20px;
     display: inline-flex;
     align-items: center;
-    border: 1px solid $primary-color;
+    border: 1px solid $bg-color;
     outline: 0;
     box-shadow: inherit;
+    &.active{
+        border: 1px solid $primary-color;
+        background: $bg-color;
+        color: $white-color;
+        outline: 0;
+        box-shadow: inherit;
+    }
     &:hover{
         background: $bg-color !important;
         color: $white-color !important;
         border: 1px solid $primary-color;
     }
     p{
-        margin: 0 10px;
+        margin: 0 15px;
         padding: 0;
     }
 }
@@ -132,8 +140,19 @@
 }
 
 
-.leftarea{
+.Colapse_area{
+    transition: all 0.3s ease;
     .sideFilter{
+        .filterWrap{
+            &.catgSpc {
+                margin-bottom: 40px;
+                .filBtn{
+                    margin-top: 0;
+                    margin-left: 0;
+                }
+            }
+        }
+        
         .spDivs{
             border-bottom: 1px solid $border-color;
             padding: 0 0 15px;
@@ -233,53 +252,98 @@
         }
     }
  
-}  
+} 
+
+.hideSidebar{
+    .Colapse_area{
+        display: none;
+    }
+    .contArea {
+        padding-left: calc(var(--bs-gutter-x)* .5);
+        transition: transform 0.3s ease;
+        width: 100%;
+    }
+}
 
 
 .range-filter{
     position: relative;
-    .price-range-slider {
+    margin: 0 0 30px;
+    .price-range-slider{
         width:100%;
-        float:left;
-        padding:10px 20px;
-        .range-value {
-            margin:0;
-            input {
-                width:100%;
-                background:none;
-                color: #000;
-                font-size: 16px;
-                font-weight: initial;
-                box-shadow: none;
-                border: none;
-                margin: 20px 0 20px 0;
+        padding:0px;
+        .range-labels {
+            margin: 10px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: $secondary-color;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: $primary-font;
+            span:nth-child(2){
+                margin: 0 0 0 -12px;
             }
         }
-        
+        .range-value{
+            margin: -37px 0 0 0;
+            color: $primary-color;
+            display: inline-flex;
+            align-items: center;
+            justify-content: end;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 500;
+            float: right;
+            font-family: $primary-font;
+            input{
+                width: 25px;
+                background: transparent !important;
+                color: $primary-color;
+                font-size: 14px;
+                line-height: 20px;
+                font-weight: 500;
+                box-shadow: inherit !important;
+                border: 0 !important;
+                margin: 0;
+                max-width: 100%;
+                padding: 0 !important;
+                outline: 0 !important;
+                font-family: $primary-font;
+            }
+        }
+        .noUi-connect {
+            background: $primary-color;
+        }
+        .noUi-horizontal{
+            .noUi-origin{
+                .noUi-handle{
+                    border-radius: 60px;
+                    background: $primary-color;
+                    border: 0px !important;
+                    height: 8px;
+                    width: 8px;
+                    padding: 0;
+                    margin: 0;
+                    opacity: 1 !important;
+                    left: inherit;
+                    right: 0 !important;
+                    box-shadow: inherit;
+                    top: -3px;
+                    cursor: pointer;
+                    &::after, &::before{
+                        display: none;
+                    }
+                }
+            }
+           
+        } 
         .range-bar {
             border: none;
-            background: #000;
-            height: 3px;	
-            width: 96%;
-            margin-left: 8px;
-            
-            .ui-slider-range {
-                background:#06b9c0;
-            }
-            
-            .ui-slider-handle {
-                border:none;
-                border-radius:25px;
-                background:#fff;
-                border:2px solid #06b9c0;
-                height:17px;
-                width:17px;
-                top: -0.52em;
-                cursor:pointer;
-            }
-            .ui-slider-handle + span {
-                background:#06b9c0;
-            }
+            background: #ADADAD;
+            height: 2px;	
+            width: 100%;
+            margin: 0px;
         }
     }
 }
@@ -291,6 +355,7 @@
 @media (max-width: 767px) {
 
     .campaignBnr{
+        margin-bottom: 25px;
         .sliderBox{
             overflow: inherit;
             height: auto;
@@ -315,14 +380,66 @@
                 position: relative;
                 height: auto;
                 background: transparent;
-                margin: 0;
+                padding: 0;
                 color: $black-color;
                 font-size: 47px;
                 line-height: 47px;
+                margin: 45px 0;
+            }
+        }
+    } 
+
+    .recpFilt{
+        .filterWrap{
+            &.catgSpc{
+                flex-direction: column-reverse;
+                margin-bottom: 0;
+            }
+            .form-select{
+                width: 100%;
+            }
+        }
+    }
+    .contArea{
+        padding-left: calc(var(--bs-gutter-x)* .5);
+    }
+    .sideFilter{
+        margin-bottom: 50px;
+        .topArea, .spDivs{
+            margin: 0 0 20px;
+        }
+        .subTitles {
+            font-size: 16px;
+            line-height: 22px;
+            margin: 0 0 10px;
+        }
+        .form-select{
+            height: 52px;
+        }
+    }
+
+    .rptBoxs-des{
+        .listSpace{
+            margin-bottom: 45px;
+        }
+        .card{
+            .card-body{
+                .card-title{
+                    min-height: inherit;
+                }
+            }
+        }  
+        .titleWrap{
+            .btn-more{
+                background: $primary-color;
+                color: $white-color;
+            }
+            .mainTitle{ 
+                font-size: 36px;
+                margin: 4px 0 0px;
+                line-height: 38px;
             }
         }
     }  
+
 }
-
-
-// PRODUCT-DETAIL END

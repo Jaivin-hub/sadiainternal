@@ -50,7 +50,17 @@
             }
         }
 
-    }   
+    }
+    .campaignBxWraper{
+        &.abtBox{
+            margin: 0;
+            .contBoxs{
+                .subitle{
+                    max-width: 82%;
+                }
+            }
+        }
+    }
 
 }
 
