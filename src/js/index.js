@@ -120,7 +120,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('price-range-slider')) { 
     priceSliderInitialize();
   }
-
+  if (document.getElementById('price-range-sliders')) { 
+    priceSliderInitialize();
+  }
+  
 
   if (imageSliderExists || thumbnailSliderExists || contentItem || whatSlider) {
     initializeSlick(); // Initialize Slick sliders
