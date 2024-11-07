@@ -477,3 +477,16 @@
     }  
 
 }
+
+
+.categList{
+    &.btnSpc {
+        margin: 30px 0 0;
+        text-align: center;
+    }
+    .btn-more{
+        background-color: $white-color;
+        border-color:  $primary-color;
+        color: $black-color;
+    }
+}
