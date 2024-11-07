@@ -4,7 +4,10 @@ const fetchAssets = (url, callback) =>{
 const xhr = new XMLHttpRequest();
 xhr.open('GET', url, true);
 xhr.onload = function () {
+  console.log('inside the functin')
   if (xhr.status >= 200 && xhr.status < 300) {
+    console.log('inside if case');
+    console.log('responseText--',xhr.responseText)
     const data = JSON.parse(xhr.responseText);
     console.log(data);
     callback(data); // Pass data to the callback

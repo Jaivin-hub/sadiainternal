@@ -46,14 +46,15 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 
 // Function to render data
 const renderData = (data) => {
+  console.log('data in renderData',data)
   if (data && Array.isArray(data)) {
     const templateSource = `
       <div class="row shop_logos">
         {{#each data}}
         <div class="card col-md-3">
           <div class="logo-box">
-            <a href="#">
-              <img src="{{this.src}}" class="img-fluid {{this.class}}" alt="{{this.alt}}">
+            <a href="{{this.onlineBuyUrl}}">
+              <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
             </a>
           </div>
         </div>
