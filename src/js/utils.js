@@ -70,13 +70,13 @@ const initializeMapbox = () => {
   };
 
   const priceSliderInitialize = () => {
-    var slider = document.getElementById("slider-range");
+    var slider = document.getElementById("slider-ranges");
     noUiSlider.create(slider, {
-        start: 12, // Single initial value
+        start: 15, // Single initial value
         connect: [true, false], // Connect the bar from the start to the thumb position
         range: {
-            min: 5,
-            max: 60
+            min: 0,
+            max: 100
         },
         format: {
             to: function(value) {
@@ -88,7 +88,7 @@ const initializeMapbox = () => {
         }
     });
 
-    var slider = document.getElementById("slider-ranges");
+    var slider = document.getElementById("slider-range");
     noUiSlider.create(slider, {
       start: 15, // Single initial value
       connect: [true, false], // Connect the bar from the start to the thumb position
