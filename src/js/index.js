@@ -60,9 +60,6 @@ const renderData = (data) => {
         </div>
         {{/each}}
       </div>
-      <div class="btnSpace text-center">
-        <button class="btn btn-more">Show More</button>
-      </div>
     `;
     const template = Handlebars.compile(templateSource);
     const compiledHTML = template({ data });
@@ -75,10 +72,20 @@ const renderData = (data) => {
 
 function fetchDataForSelectedOption() {
   const selectElement = document.querySelector('.form-select');
-  if (!selectElement) return;
-  const baseUrl = selectElement.getAttribute('data-url');
+  const buttonElement = document.querySelector('#onlineShowMore');
+  const searchInput = document.querySelector('#searchInpts');
+  
+
+  const apiUrl = buttonElement.getAttribute('data-api');
+  const limit = buttonElement.getAttribute('data-limit') || 0;
+  const offset = buttonElement.getAttribute('data-offset') || 0;
   const selectedValue = selectElement.value;
-  const fullUrl = `${baseUrl}${selectedValue}`;
+  const keyword = searchInput.value || '';  // Get the search keyword, or use an empty string if no input.
+
+  // Construct the full URL with all parameters
+  const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
+  console.log('fullUrl',fullUrl)
+
   fetchAssets(fullUrl, renderData);
 }
 
@@ -91,11 +98,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const thumbnailSliderExists = document.querySelector('.thumbnail-slider') !== null;
   const contentItem = document.querySelector('.content-item') !== null;
   const whatSlider = document.querySelector('.whatSlider') !== null;
+  const searchInput = document.querySelector('#searchInpts');
   const selectElement = document.querySelector('.form-select');
+  const buttonElement = document.querySelector('#onlineShowMore');
   if (selectElement) {
     fetchDataForSelectedOption();
     selectElement.addEventListener('change', fetchDataForSelectedOption);
   }
+
+    // Call function on each keystroke in the search input
+  searchInput.addEventListener('input', fetchDataForSelectedOption);
+
+   // Call function when "Show More" button is clicked
+   buttonElement.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent default behavior if it's a form button
+    fetchDataForSelectedOption();
+  });
+
 
   
   if (document.getElementById('price-range-slider')) { 
