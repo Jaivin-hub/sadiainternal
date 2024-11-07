@@ -72,7 +72,7 @@ const initializeMapbox = () => {
   const priceSliderInitialize = () => {
     var slider = document.getElementById("slider-range");
     noUiSlider.create(slider, {
-        start: 15, // Single initial value
+        start: 12, // Single initial value
         connect: [true, false], // Connect the bar from the start to the thumb position
         range: {
             min: 5,
@@ -87,11 +87,50 @@ const initializeMapbox = () => {
             }
         }
     });
+
+    var slider = document.getElementById("slider-ranges");
+    noUiSlider.create(slider, {
+      start: 15, // Single initial value
+      connect: [true, false], // Connect the bar from the start to the thumb position
+      range: {
+          min: 5,
+          max: 60
+      },
+      format: {
+          to: function(value) {
+              return " " + value.toFixed(0);
+          },
+          from: function(value) {
+              return Number(value.replace('', ''));
+          }
+      }
+  });
     // Update the amount field with the single thumb value
     var amount = document.getElementById("amount");
     slider.noUiSlider.on("update", function(values) {
         amount.value = values[0]; // Display the single thumb value
     });
+  }
+
+  const toogleBtn = () =>{
+    // SIDEBAR-COLLPASE START
+
+  // Select the toggle button and sidebar frame elements
+  const toggleButton = document.getElementById("toggleButton");
+  const sidebarFrame = document.getElementById("sidebarFrame");
+
+  // Add click event listener to the button
+  toggleButton.addEventListener("click", function() {
+      // Toggle the "active" class on the toggleButton
+      toggleButton.classList.toggle("active");
+      
+      // Toggle the "hideSidebar" class on the sidebarFrame
+      sidebarFrame.classList.toggle("hideSidebar");
+  });
+
+
+
+// SIDEBAR-COLLPASE END
   }
 
 
@@ -310,4 +349,4 @@ const initializeSlick = () => {
     }
   };
 
-  export { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox };
+  export { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn };

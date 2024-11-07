@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../scss/style.scss';
 import Handlebars from 'handlebars';
-import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox } from './utils.js';
+import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
 import {fetchAssets} from './api.js'
 
 
@@ -101,6 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeWhereToBuyMapbox(); // Initialize Mapbox map
   }
 
+  if (document.getElementById('filt-catSpc')) { // Replace with your actual Mapbox element ID
+    console.log('jjj')
+    toogleBtn(); // Initialize Mapbox map
+  }
+  
+
   // Initialize search bar functionality
   $('.search-button').on('click', function () {
     $('.search-form').addClass('expanded');
@@ -166,29 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-// SIDEBAR-COLLPASE START
-
-  // Select the toggle button and sidebar frame elements
-  const toggleButton = document.getElementById("toggleButton");
-  const sidebarFrame = document.getElementById("sidebarFrame");
-
-  // Add click event listener to the button
-  toggleButton.addEventListener("click", function() {
-      // Toggle the "active" class on the toggleButton
-      toggleButton.classList.toggle("active");
-      
-      // Toggle the "hideSidebar" class on the sidebarFrame
-      sidebarFrame.classList.toggle("hideSidebar");
-  });
-
-
-
-// SIDEBAR-COLLPASE END
-
-
-
-
   // Add event listeners with null checks
   const viewMoreRecipes = document.getElementById('viewMoreRecipes');
   if (viewMoreRecipes) {
@@ -217,9 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const products = document.getElementById('productnav');
-  console.log('products',products)
   if (products) {
-    console.log('iffiffif')
     products.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent the default action of the link
       this.href = 'products'; // Adjust the path as per your file structure
