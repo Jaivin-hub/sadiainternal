@@ -6,7 +6,6 @@ import Handlebars from 'handlebars';
 import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
 import {fetchAssets} from './api.js'
 
-
 const pulsingDotStyle = `
 <style>
 .pulsing-dot {
@@ -42,6 +41,37 @@ const pulsingDotStyle = `
 </style>
 `;
 document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
+const baseUrl = 'https://sadialife-dev.azurewebsites.net';
+const defaultUrl = 'https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetOnlineStores?countryId=1288'
+
+// Function to render data
+const renderData = (data) => {
+  if (data && Array.isArray(data)) {
+    const templateSource = `
+      <div class="row shop_logos">
+        {{#each data}}
+        <div class="card col-md-3">
+          <div class="logo-box">
+            <a href="#">
+              <img src="{{this.src}}" class="img-fluid {{this.class}}" alt="{{this.alt}}">
+            </a>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      <div class="btnSpace text-center">
+        <button class="btn btn-more">Show More</button>
+      </div>
+    `;
+    const template = Handlebars.compile(templateSource);
+    const compiledHTML = template({ data });
+    document.getElementById('cnt_sec').innerHTML = compiledHTML;
+  }
+};
+
+// Fetch initial data for the default country (UAE)
+fetchAssets(defaultUrl, renderData);
+
 
 
 // Event listener to ensure code runs after the DOM is fully loaded
@@ -52,33 +82,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const whatSlider = document.querySelector('.whatSlider') !== null;
   const targetDiv = document.querySelector('.row.align-items-center.bxOuter');
   const currentURL = window.location.pathname; // Get the current URL pathname
-
-  if (document.getElementById('locationTab')) { // Replace with your actual Mapbox element ID
-    const logos = fetchAssets();
-  if (logos && Array.isArray(logos)) {
-    // Get the template HTML
-    const templateSource = `
-        <div class="row shop_logos">
-          {{#each logos}}
-          <div class="card col-md-3">
-            <div class="logo-box">
-              <a href="#">
-                <img src="{{this.src}}" class="img-fluid {{this.class}}" alt="{{this.alt}}">
-              </a>
-            </div>
-          </div>
-          {{/each}}
-        </div>
-        <div class="btnSpace text-center">
-          <button class="btn btn-more">Show More</button>
-        </div>
-    `;
-    const template = Handlebars.compile(templateSource);
-    const compiledHTML = template({ logos });
-    document.getElementById('cnt_sec').innerHTML = compiledHTML;
-  }
-  }
-
+  
+  const selectElement = document.querySelector('.form-select');
+  selectElement.addEventListener('change', function () {
+    const selectedOption = this.options[this.selectedIndex];
+    const dataUrl = selectedOption.getAttribute('data_url');
+    const fullUrl = `${baseUrl}${dataUrl}`;
+    fetchAssets(fullUrl, renderData);
+  });
+    
+    
   
 
   
