@@ -41,8 +41,8 @@ const pulsingDotStyle = `
 </style>
 `;
 document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
-const baseUrl = 'https://sadialife-dev.azurewebsites.net';
-const defaultUrl = 'https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetOnlineStores?countryId=1288'
+// const baseUrl = 'https://sadialife-dev.azurewebsites.net';
+// const defaultUrl = 'https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetOnlineStores?countryId=1288'
 
 // Function to render data
 const renderData = (data) => {
@@ -70,7 +70,17 @@ const renderData = (data) => {
 };
 
 // Fetch initial data for the default country (UAE)
-fetchAssets(defaultUrl, renderData);
+// fetchAssets(defaultUrl, renderData);
+
+function fetchDataForSelectedOption() {
+  const selectElement = document.querySelector('.form-select');
+  if (!selectElement) return;
+  const baseUrl = selectElement.getAttribute('data-url');
+  const selectedValue = selectElement.value;
+  const fullUrl = `${baseUrl}${selectedValue}`;
+  fetchAssets(fullUrl, renderData);
+}
+
 
 
 
@@ -80,19 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const thumbnailSliderExists = document.querySelector('.thumbnail-slider') !== null;
   const contentItem = document.querySelector('.content-item') !== null;
   const whatSlider = document.querySelector('.whatSlider') !== null;
-  const targetDiv = document.querySelector('.row.align-items-center.bxOuter');
-  const currentURL = window.location.pathname; // Get the current URL pathname
-  
   const selectElement = document.querySelector('.form-select');
-  selectElement.addEventListener('change', function () {
-    const selectedOption = this.options[this.selectedIndex];
-    const dataUrl = selectedOption.getAttribute('data_url');
-    const fullUrl = `${baseUrl}${dataUrl}`;
-    fetchAssets(fullUrl, renderData);
-  });
-    
-    
-  
+  if (selectElement) {
+    fetchDataForSelectedOption();
+    selectElement.addEventListener('change', fetchDataForSelectedOption);
+  }
 
   
   if (document.getElementById('price-range-slider')) { 

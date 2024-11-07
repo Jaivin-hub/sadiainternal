@@ -5,9 +5,9 @@ const xhr = new XMLHttpRequest();
 xhr.open('GET', url, true);
 xhr.onload = function () {
   if (xhr.status >= 200 && xhr.status < 300) {
-    const data = JSON.parse(xhr.responseText);
-    console.log(data);
-    callback(data); // Pass data to the callback
+    // const data = JSON.parse(xhr.responseText);
+    // console.log(data);
+    // callback(data); // Pass data to the callback
   } else {
     console.error('Error fetching logos:', xhr.status, xhr.statusText);
   }
