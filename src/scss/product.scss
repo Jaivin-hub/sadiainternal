@@ -531,7 +531,8 @@
                         color: $black-color;
                         margin: 10px 0;
                         padding: 0;
-                        font-weight: 500;
+                        font-weight: 600;
+                        font-family: $primary-font;
                     }
     
                     &.active {
@@ -617,8 +618,9 @@
             .tags{
                 font-size: 14px;
                 line-height: 16px;
-                font-weight: 500;
+                font-weight: 600;
                 color: $primary-color;
+                font-family: $primary-font;
                 min-height: 48px;
                 display: inline-flex;
                 align-items: center;
@@ -663,6 +665,7 @@
                             color: $black-color;
                             font-weight: 600;
                             margin: 10px 0 0;
+                            font-family: $primary-font;
                             padding: 0;
                         }
                     }
