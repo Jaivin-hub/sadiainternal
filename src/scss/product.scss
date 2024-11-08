@@ -630,9 +630,10 @@
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                padding: 10px;
+                padding: 10px 15px;
                 background-color: $white-color;
                 margin: 0 8px 8px 0;
+                border-radius: 4px;
             }
         }
         .dtlsWraper{
