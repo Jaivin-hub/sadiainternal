@@ -409,8 +409,33 @@
     }
 }
 
-
-
+.recipies{
+    .range-filter{
+        .titles{
+            margin: 10px 0;
+        }
+        .price-range-slider{
+            padding: 15px 0 0;
+            .range-bar{
+                height: 5px;
+                border-radius: 100px;
+            }
+            .range-labels{
+                .names{
+                    &::before,  &::after{
+                        display: none;
+                    }
+                }
+            } 
+            .range-bar{
+                background: linear-gradient(90deg, #478D01 0%, #F00000 100%);
+            
+            }
+        }
+        
+    } 
+    
+}
 
 
 @media (max-width: 767px) {
