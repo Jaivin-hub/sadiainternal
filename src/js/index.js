@@ -41,34 +41,48 @@ const pulsingDotStyle = `
 </style>
 `;
 document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
-// const baseUrl = 'https://sadialife-dev.azurewebsites.net';
-// const defaultUrl = 'https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetOnlineStores?countryId=1288'
 
-// Function to render data
+let showMoreClicked = false; // Global flag
 const renderData = (data) => {
-  console.log('data in renderData',data)
+  console.log('data in renderData', data);
   if (data && Array.isArray(data)) {
     const templateSource = `
-      <div class="row shop_logos">
-        {{#each data}}
-        <div class="card col-md-3">
-          <div class="logo-box">
-            <a href="{{this.onlineBuyUrl}}">
-              <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
-            </a>
-          </div>
+      <div class="card col-md-3">
+        <div class="logo-box">
+          <a href="{{this.onlineBuyUrl}}">
+            <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
+          </a>
         </div>
-        {{/each}}
       </div>
     `;
     const template = Handlebars.compile(templateSource);
-    const compiledHTML = template({ data });
-    document.getElementById('cnt_sec').innerHTML = compiledHTML;
+
+    // Compile the data into HTML cards
+    const compiledHTML = data.map(item => template(item)).join(''); // Join items into a single string of HTML
+
+    const container = document.getElementById('OnlineStoreCards'); // The container for the cards
+    const existingRow = container.querySelector('.row.shop_logos'); // Find the existing row
+
+    if (showMoreClicked && existingRow) {
+      // Append new items to the existing row if "Show More" was clicked
+      existingRow.innerHTML += compiledHTML;
+    } else {
+      // Replace content for dropdown change or initial load
+      if (existingRow) {
+        existingRow.innerHTML = compiledHTML; // Replace the content in the row
+      } else {
+        // Create the row if it doesn't exist
+        const newRow = document.createElement('div');
+        newRow.classList.add('row', 'shop_logos');
+        newRow.innerHTML = compiledHTML;
+        container.appendChild(newRow);
+      }
+    }
+
+    // Reset the flag after rendering
+    showMoreClicked = false;
   }
 };
-
-// Fetch initial data for the default country (UAE)
-// fetchAssets(defaultUrl, renderData);
 
 function fetchDataForSelectedOption() {
   const selectElement = document.querySelector('.form-select');
@@ -96,6 +110,9 @@ function updateOffsetAndFetch() {
 
   if (!buttonElement) return;
 
+  // Set showMoreClicked to true
+  // showMoreClicked = true;
+
   // Get current limit and offset
   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
@@ -108,6 +125,14 @@ function updateOffsetAndFetch() {
 
   // Fetch data with the new offset
   fetchDataForSelectedOption();
+}
+
+function resetOffset() {
+  const buttonElement = document.querySelector('#onlineShowMore');
+  if (buttonElement) {
+    // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
+    buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
+  }
 }
 
 
@@ -144,12 +169,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (selectElement) {
     fetchDataForSelectedOption();
-    selectElement.addEventListener('change', fetchDataForSelectedOption);
+    selectElement.addEventListener('change', ()=>{
+      showMoreClicked = false;
+      resetOffset();
+      fetchDataForSelectedOption();
+    });
   }
 
   // Call function on each keystroke in the search input
   searchInput.addEventListener('input', ()=>{
     if (searchInput.value.length >= 3) {
+      showMoreClicked = false;
       fetchDataForSelectedOption();
     }
   });
@@ -157,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Call function when "Show More" button is clicked
   buttonElement.addEventListener('click', (event) => {
     event.preventDefault();
+    showMoreClicked = true;
     updateOffsetAndFetch();
   });
 
