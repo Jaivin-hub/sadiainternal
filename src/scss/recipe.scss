@@ -158,6 +158,43 @@
             padding: 0 0 15px;
             margin: 0 0 35px;
         }
+
+        .btnSpace{
+            margin: 30px 0;
+            .resetBtn{
+                min-width: 86px;
+                &.submit{
+                    width: calc(100% - 100px);
+                    margin: 0 0 0 10px;
+                }
+            }
+        }
+        
+     
+        .resetBtn{
+            min-height: 42px;
+            color: $secondary-color;
+            border: 1px solid $secondary-color;
+            font-size: 18px;
+            padding: 7px 10px 5px;
+            line-height: 18px;
+            letter-spacing: 0.3px;
+            border-radius: 4px;
+            outline: 0;
+            box-shadow: inherit;
+            background: transparent;
+            text-transform: uppercase;
+            font-family: $title-font;
+            img{
+                max-width: 14px;
+                margin: 0 0 0 5px;
+            }
+            &.submit{
+                background-color: $primary-color;
+                color: $white-color;
+                border-color: $primary-color;
+            }
+        }
         .topArea {
             display: flex;
             align-items: center;
@@ -174,17 +211,7 @@
             }
             .resetBtn{
                 min-height: 32px;
-                color: $secondary-color;
-                border: 1px solid $secondary-color;
                 font-size: 13px;
-                line-height: 18px;
-                letter-spacing: 0.3px;
-                border-radius: 4px;
-                outline: 0;
-                box-shadow: inherit;
-                background: transparent;
-                text-transform: uppercase;
-                font-family: $title-font;
                 img{
                     max-width: 14px;
                     margin: 0 0 0 5px;
