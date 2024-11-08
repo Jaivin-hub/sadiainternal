@@ -155,6 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('Slick slider elements not found in the DOM.');
   }
 
+  if (document.getElementById('price-range-slider')) { 
+    priceSliderInitialize();
+  }
+  if (document.getElementById('price-range-sliders')) { 
+    priceSliderInitialize();
+  }
+
   if (document.getElementById('mapFrame')) { // Replace with your actual Mapbox element ID
     initializeMapbox(); // Initialize Mapbox map
   }
@@ -164,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (document.getElementById('filt-catSpc')) { // Replace with your actual Mapbox element ID
-    toogleBtn(); // Initialize Mapbox map
+    toogleBtn(); 
   }
 
   if (selectElement) {
@@ -193,12 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   
-  if (document.getElementById('price-range-slider')) { 
-    priceSliderInitialize();
-  }
-  if (document.getElementById('price-range-sliders')) { 
-    priceSliderInitialize();
-  }
+  
   
 
   // Initialize search bar functionality
