@@ -392,3 +392,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
+
+// VIDEO-PLAYBUTTON START
+
+const video = document.getElementById("myVideo");
+    const playButton = document.getElementById("playButton");
+
+    // Add click event listener for play button
+    playButton.addEventListener("click", () => {
+        playVideo();
+    });
+
+    // Optional: Allow click on the video to play/pause
+    video.addEventListener("click", () => {
+        if (video.paused) {
+            playVideo();
+        } else {
+            video.pause();
+            playButton.style.display = "flex"; // Show play button when paused
+        }
+    });
+
+    function playVideo() {
+        video.play().then(() => {
+            playButton.style.display = "none"; // Hide play button when video starts playing
+        }).catch(error => {
+            console.error("Playback prevented:", error);
+            alert("Click to play was blocked by the browser.");
+        });
+    }
+
+
+// VIDEO-PLAYBUTTON END
