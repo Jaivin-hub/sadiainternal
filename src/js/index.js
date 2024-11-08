@@ -45,8 +45,30 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 // const defaultUrl = 'https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetOnlineStores?countryId=1288'
 
 // Function to render data
+// const renderData = (data) => {
+//   console.log('data in renderData',data)
+//   if (data && Array.isArray(data)) {
+//     const templateSource = `
+//       <div class="row shop_logos">
+//         {{#each data}}
+//         <div class="card col-md-3">
+//           <div class="logo-box">
+//             <a href="{{this.onlineBuyUrl}}">
+//               <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
+//             </a>
+//           </div>
+//         </div>
+//         {{/each}}
+//       </div>
+//     `;
+//     const template = Handlebars.compile(templateSource);
+//     const compiledHTML = template({ data });
+//     document.getElementById('cnt_sec').innerHTML = compiledHTML;
+//   }
+// };
+let showMoreClicked = false; // Global flag
 const renderData = (data) => {
-  console.log('data in renderData',data)
+  console.log('data in renderData', data);
   if (data && Array.isArray(data)) {
     const templateSource = `
       <div class="row shop_logos">
@@ -63,7 +85,19 @@ const renderData = (data) => {
     `;
     const template = Handlebars.compile(templateSource);
     const compiledHTML = template({ data });
-    document.getElementById('cnt_sec').innerHTML = compiledHTML;
+
+    const container = document.getElementById('cnt_sec');
+
+    if (showMoreClicked) {
+      // Append new HTML to existing content when Show More is clicked
+      container.innerHTML += compiledHTML;
+    } else {
+      // Replace content for dropdown or initial fetch
+      container.innerHTML = compiledHTML;
+    }
+    
+    // Reset the flag after rendering
+    showMoreClicked = false;
   }
 };
 
@@ -96,6 +130,9 @@ function updateOffsetAndFetch() {
 
   if (!buttonElement) return;
 
+  // Set showMoreClicked to true
+  showMoreClicked = true;
+
   // Get current limit and offset
   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
@@ -108,6 +145,14 @@ function updateOffsetAndFetch() {
 
   // Fetch data with the new offset
   fetchDataForSelectedOption();
+}
+
+function resetOffset() {
+  const buttonElement = document.querySelector('#onlineShowMore');
+  if (buttonElement) {
+    const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
+    buttonElement.setAttribute('data-offset', limit); // Reset offset to the current limit value
+  }
 }
 
 
@@ -144,7 +189,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (selectElement) {
     fetchDataForSelectedOption();
-    selectElement.addEventListener('change', fetchDataForSelectedOption);
+    selectElement.addEventListener('change', ()=>{
+      resetOffset();
+      fetchDataForSelectedOption();
+    });
   }
 
   // Call function on each keystroke in the search input
