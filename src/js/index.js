@@ -67,35 +67,76 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 //   }
 // };
 let showMoreClicked = false; // Global flag
+// const renderData = (data) => {
+//   console.log('data in renderData', data);
+//   if (data && Array.isArray(data)) {
+//     const templateSource = `
+//       <div class="row shop_logos">
+//         {{#each data}}
+//         <div class="card col-md-3">
+//           <div class="logo-box">
+//             <a href="{{this.onlineBuyUrl}}">
+//               <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
+//             </a>
+//           </div>
+//         </div>
+//         {{/each}}
+//       </div>
+//     `;
+//     const template = Handlebars.compile(templateSource);
+//     const compiledHTML = template({ data });
+
+//     const container = document.getElementById('cnt_sec');
+
+//     if (showMoreClicked) {
+//       // Append new HTML to existing content when Show More is clicked
+//       container.innerHTML += compiledHTML;
+//     } else {
+//       // Replace content for dropdown or initial fetch
+//       container.innerHTML = compiledHTML;
+//     }
+    
+//     // Reset the flag after rendering
+//     showMoreClicked = false;
+//   }
+// };
+
 const renderData = (data) => {
   console.log('data in renderData', data);
+
   if (data && Array.isArray(data)) {
     const templateSource = `
-      <div class="row shop_logos">
-        {{#each data}}
-        <div class="card col-md-3">
-          <div class="logo-box">
-            <a href="{{this.onlineBuyUrl}}">
-              <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
-            </a>
-          </div>
+      <div class="card col-md-3">
+        <div class="logo-box">
+          <a href="{{this.onlineBuyUrl}}">
+            <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
+          </a>
         </div>
-        {{/each}}
       </div>
     `;
     const template = Handlebars.compile(templateSource);
-    const compiledHTML = template({ data });
+    const compiledHTML = data.map(item => template(item)).join(''); // Compile each data item
 
-    const container = document.getElementById('cnt_sec');
+    const container = document.getElementById('OnlineStoreCards');
+    let currentRow = container.querySelector('.row'); // Find the current row in the container
+    if (!currentRow) {
+      // If no row exists (e.g., initial load), create the first row
+      currentRow = document.createElement('div');
+      currentRow.classList.add('row', 'shop_logos');
+      container.appendChild(currentRow);
+    }
 
     if (showMoreClicked) {
-      // Append new HTML to existing content when Show More is clicked
-      container.innerHTML += compiledHTML;
+      // Append new items to the current row
+      const newItems = document.createElement('div');
+      newItems.classList.add('row', 'shop_logos');
+      newItems.innerHTML = compiledHTML;
+      currentRow.appendChild(newItems);
     } else {
       // Replace content for dropdown or initial fetch
-      container.innerHTML = compiledHTML;
+      currentRow.innerHTML = compiledHTML;
     }
-    
+
     // Reset the flag after rendering
     showMoreClicked = false;
   }
@@ -150,8 +191,8 @@ function updateOffsetAndFetch() {
 function resetOffset() {
   const buttonElement = document.querySelector('#onlineShowMore');
   if (buttonElement) {
-    const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
-    buttonElement.setAttribute('data-offset', limit); // Reset offset to the current limit value
+    // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
+    buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
   }
 }
 
