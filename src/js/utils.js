@@ -112,27 +112,24 @@ const initializeMapbox = () => {
     });
   }
 
+
+
+ // SIDEBAR-COLLPASE START
   const toogleBtn = () =>{
-    // SIDEBAR-COLLPASE START
+    // Select the toggle button and sidebar frame elements
+    const toggleButton = document.getElementById("toggleButton");
+    const sidebarFrame = document.getElementById("sidebarFrame");
 
-  // Select the toggle button and sidebar frame elements
-  const toggleButton = document.getElementById("toggleButton");
-  const sidebarFrame = document.getElementById("sidebarFrame");
-
-  // Add click event listener to the button
-  toggleButton.addEventListener("click", function() {
-      // Toggle the "active" class on the toggleButton
-      toggleButton.classList.toggle("active");
-      
-      // Toggle the "hideSidebar" class on the sidebarFrame
-      sidebarFrame.classList.toggle("hideSidebar");
-  });
-
-
-
-// SIDEBAR-COLLPASE END
+    // Add click event listener to the button
+    toggleButton.addEventListener("click", function() {
+        // Toggle the "active" class on the toggleButton
+        toggleButton.classList.toggle("active");
+        
+        // Toggle the "hideSidebar" class on the sidebarFrame
+        sidebarFrame.classList.toggle("hideSidebar");
+    });
   }
-
+// SIDEBAR-COLLPASE END
 
 
 
