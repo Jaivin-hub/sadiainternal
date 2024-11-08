@@ -67,43 +67,8 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 //   }
 // };
 let showMoreClicked = false; // Global flag
-// const renderData = (data) => {
-//   console.log('data in renderData', data);
-//   if (data && Array.isArray(data)) {
-//     const templateSource = `
-//       <div class="row shop_logos">
-//         {{#each data}}
-//         <div class="card col-md-3">
-//           <div class="logo-box">
-//             <a href="{{this.onlineBuyUrl}}">
-//               <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
-//             </a>
-//           </div>
-//         </div>
-//         {{/each}}
-//       </div>
-//     `;
-//     const template = Handlebars.compile(templateSource);
-//     const compiledHTML = template({ data });
-
-//     const container = document.getElementById('cnt_sec');
-
-//     if (showMoreClicked) {
-//       // Append new HTML to existing content when Show More is clicked
-//       container.innerHTML += compiledHTML;
-//     } else {
-//       // Replace content for dropdown or initial fetch
-//       container.innerHTML = compiledHTML;
-//     }
-    
-//     // Reset the flag after rendering
-//     showMoreClicked = false;
-//   }
-// };
-
 const renderData = (data) => {
   console.log('data in renderData', data);
-
   if (data && Array.isArray(data)) {
     const templateSource = `
       <div class="card col-md-3">
@@ -115,32 +80,69 @@ const renderData = (data) => {
       </div>
     `;
     const template = Handlebars.compile(templateSource);
-    const compiledHTML = data.map(item => template(item)).join(''); // Compile each data item
 
-    const container = document.getElementById('OnlineStoreCards');
-    let currentRow = container.querySelector('.row'); // Find the current row in the container
-    if (!currentRow) {
-      // If no row exists (e.g., initial load), create the first row
-      currentRow = document.createElement('div');
-      currentRow.classList.add('row', 'shop_logos');
-      container.appendChild(currentRow);
-    }
+    // Compile the data into HTML cards
+    const compiledHTML = data.map(item => template(item)).join(''); // Join items into a single string of HTML
 
-    if (showMoreClicked) {
-      // Append new items to the current row
-      const newItems = document.createElement('div');
-      newItems.classList.add('row', 'shop_logos');
-      newItems.innerHTML = compiledHTML;
-      currentRow.appendChild(newItems);
+    const container = document.getElementById('OnlineStoreCards');  // The container for the cards
+    const existingRow = container.querySelector('.row.shop_logos');  // Find the existing row
+
+    if (existingRow) {
+      // If Show More was clicked, append new items to the existing row
+      existingRow.innerHTML += compiledHTML;
     } else {
-      // Replace content for dropdown or initial fetch
-      currentRow.innerHTML = compiledHTML;
+      // This should not be needed if the row is always there, but just in case
+      const newRow = document.createElement('div');
+      newRow.classList.add('row', 'shop_logos');
+      newRow.innerHTML = compiledHTML;
+      container.appendChild(newRow);
     }
 
     // Reset the flag after rendering
     showMoreClicked = false;
   }
 };
+
+// const renderData = (data) => {
+//   console.log('data in renderData', data);
+
+//   if (data && Array.isArray(data)) {
+//     const templateSource = `
+//       <div class="card col-md-3">
+//         <div class="logo-box">
+//           <a href="{{this.onlineBuyUrl}}">
+//             <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
+//           </a>
+//         </div>
+//       </div>
+//     `;
+//     const template = Handlebars.compile(templateSource);
+//     const compiledHTML = data.map(item => template(item)).join(''); // Compile each data item
+
+//     const container = document.getElementById('OnlineStoreCards');
+//     let currentRow = container.querySelector('.row'); // Find the current row in the container
+//     if (!currentRow) {
+//       // If no row exists (e.g., initial load), create the first row
+//       currentRow = document.createElement('div');
+//       currentRow.classList.add('row', 'shop_logos');
+//       container.appendChild(currentRow);
+//     }
+
+//     if (showMoreClicked) {
+//       // Append new items to the current row
+//       const newItems = document.createElement('div');
+//       newItems.classList.add('row', 'shop_logos');
+//       newItems.innerHTML = compiledHTML;
+//       currentRow.appendChild(newItems);
+//     } else {
+//       // Replace content for dropdown or initial fetch
+//       currentRow.innerHTML = compiledHTML;
+//     }
+
+//     // Reset the flag after rendering
+//     showMoreClicked = false;
+//   }
+// };
 
 // Fetch initial data for the default country (UAE)
 // fetchAssets(defaultUrl, renderData);
