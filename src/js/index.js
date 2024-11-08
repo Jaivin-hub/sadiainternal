@@ -41,31 +41,7 @@ const pulsingDotStyle = `
 </style>
 `;
 document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
-// const baseUrl = 'https://sadialife-dev.azurewebsites.net';
-// const defaultUrl = 'https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetOnlineStores?countryId=1288'
 
-// Function to render data
-// const renderData = (data) => {
-//   console.log('data in renderData',data)
-//   if (data && Array.isArray(data)) {
-//     const templateSource = `
-//       <div class="row shop_logos">
-//         {{#each data}}
-//         <div class="card col-md-3">
-//           <div class="logo-box">
-//             <a href="{{this.onlineBuyUrl}}">
-//               <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
-//             </a>
-//           </div>
-//         </div>
-//         {{/each}}
-//       </div>
-//     `;
-//     const template = Handlebars.compile(templateSource);
-//     const compiledHTML = template({ data });
-//     document.getElementById('cnt_sec').innerHTML = compiledHTML;
-//   }
-// };
 let showMoreClicked = false; // Global flag
 const renderData = (data) => {
   console.log('data in renderData', data);
@@ -84,68 +60,29 @@ const renderData = (data) => {
     // Compile the data into HTML cards
     const compiledHTML = data.map(item => template(item)).join(''); // Join items into a single string of HTML
 
-    const container = document.getElementById('OnlineStoreCards');  // The container for the cards
-    const existingRow = container.querySelector('.row.shop_logos');  // Find the existing row
+    const container = document.getElementById('OnlineStoreCards'); // The container for the cards
+    const existingRow = container.querySelector('.row.shop_logos'); // Find the existing row
 
-    if (existingRow) {
-      // If Show More was clicked, append new items to the existing row
+    if (showMoreClicked && existingRow) {
+      // Append new items to the existing row if "Show More" was clicked
       existingRow.innerHTML += compiledHTML;
     } else {
-      // This should not be needed if the row is always there, but just in case
-      const newRow = document.createElement('div');
-      newRow.classList.add('row', 'shop_logos');
-      newRow.innerHTML = compiledHTML;
-      container.appendChild(newRow);
+      // Replace content for dropdown change or initial load
+      if (existingRow) {
+        existingRow.innerHTML = compiledHTML; // Replace the content in the row
+      } else {
+        // Create the row if it doesn't exist
+        const newRow = document.createElement('div');
+        newRow.classList.add('row', 'shop_logos');
+        newRow.innerHTML = compiledHTML;
+        container.appendChild(newRow);
+      }
     }
 
     // Reset the flag after rendering
     showMoreClicked = false;
   }
 };
-
-// const renderData = (data) => {
-//   console.log('data in renderData', data);
-
-//   if (data && Array.isArray(data)) {
-//     const templateSource = `
-//       <div class="card col-md-3">
-//         <div class="logo-box">
-//           <a href="{{this.onlineBuyUrl}}">
-//             <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
-//           </a>
-//         </div>
-//       </div>
-//     `;
-//     const template = Handlebars.compile(templateSource);
-//     const compiledHTML = data.map(item => template(item)).join(''); // Compile each data item
-
-//     const container = document.getElementById('OnlineStoreCards');
-//     let currentRow = container.querySelector('.row'); // Find the current row in the container
-//     if (!currentRow) {
-//       // If no row exists (e.g., initial load), create the first row
-//       currentRow = document.createElement('div');
-//       currentRow.classList.add('row', 'shop_logos');
-//       container.appendChild(currentRow);
-//     }
-
-//     if (showMoreClicked) {
-//       // Append new items to the current row
-//       const newItems = document.createElement('div');
-//       newItems.classList.add('row', 'shop_logos');
-//       newItems.innerHTML = compiledHTML;
-//       currentRow.appendChild(newItems);
-//     } else {
-//       // Replace content for dropdown or initial fetch
-//       currentRow.innerHTML = compiledHTML;
-//     }
-
-//     // Reset the flag after rendering
-//     showMoreClicked = false;
-//   }
-// };
-
-// Fetch initial data for the default country (UAE)
-// fetchAssets(defaultUrl, renderData);
 
 function fetchDataForSelectedOption() {
   const selectElement = document.querySelector('.form-select');
@@ -174,7 +111,7 @@ function updateOffsetAndFetch() {
   if (!buttonElement) return;
 
   // Set showMoreClicked to true
-  showMoreClicked = true;
+  // showMoreClicked = true;
 
   // Get current limit and offset
   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
@@ -233,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (selectElement) {
     fetchDataForSelectedOption();
     selectElement.addEventListener('change', ()=>{
+      showMoreClicked = false;
       resetOffset();
       fetchDataForSelectedOption();
     });
@@ -241,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Call function on each keystroke in the search input
   searchInput.addEventListener('input', ()=>{
     if (searchInput.value.length >= 3) {
+      showMoreClicked = false;
       fetchDataForSelectedOption();
     }
   });
@@ -248,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Call function when "Show More" button is clicked
   buttonElement.addEventListener('click', (event) => {
     event.preventDefault();
+    showMoreClicked = true;
     updateOffsetAndFetch();
   });
 
