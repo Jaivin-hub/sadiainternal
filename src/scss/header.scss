@@ -29,6 +29,9 @@ header {
 			display: flex;
 			.headerLogo{
 				margin-right: 65px;
+				border: 0 !important;
+				box-shadow: inherit !important;
+				outline: 0 !important;
 				img{
 					max-width: 100px;
 				}
