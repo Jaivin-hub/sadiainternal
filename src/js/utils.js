@@ -179,7 +179,6 @@ const toogleBtn = () => {
   // Select the toggle button and sidebar frame elements
   const toggleButton = document.getElementById("toggleButton");
   const sidebarFrame = document.getElementById("sidebarFrame");
-
   // Add click event listener to the button
   toggleButton.addEventListener("click", function () {
     // Toggle the "active" class on the toggleButton
