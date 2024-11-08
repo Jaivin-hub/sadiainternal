@@ -1,22 +1,29 @@
-const fetchAssets = (url, callback) =>{
-  console.log('urlurl---- ---- --',url)
-// Create a new XMLHttpRequest object
-const xhr = new XMLHttpRequest();
-xhr.open('GET', url, true);
-xhr.onload = function () {
-  if (xhr.status >= 200 && xhr.status < 300) {
-    const data = JSON.parse(xhr.responseText);
-    console.log(data);
-    callback(data); // Pass data to the callback
-  } else {
-    console.error('Error fetching logos:', xhr.status, xhr.statusText);
-  }
+const fetchAssets = (url, callback) => {
+  
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      try {
+        const data = JSON.parse(xhr.responseText);
+        console.log('Data fetched:', data);
+        callback(data); // Pass data to the callback
+      } catch (e) {
+        console.error('Failed to parse JSON:', e);
+        console.error('Response received (not JSON):', xhr.responseText);
+      }
+    } else {
+      console.error('Error fetching data:', xhr.status, xhr.statusText);
+    }
+  };
+  
+  xhr.onerror = function () {
+    console.error('Request failed', xhr.status, xhr.statusText);
+  };
+  
+  xhr.send();
 };
-xhr.onerror = function () {
-  console.error('Request failed', xhr.status, xhr.statusText);
-};
-xhr.send();
-  }
 
   export { fetchAssets };
 

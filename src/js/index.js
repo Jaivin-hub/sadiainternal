@@ -74,19 +74,40 @@ function fetchDataForSelectedOption() {
   const selectElement = document.querySelector('.form-select');
   const buttonElement = document.querySelector('#onlineShowMore');
   const searchInput = document.querySelector('#searchInpts');
-  
+
+  if (!selectElement || !buttonElement) return;
 
   const apiUrl = buttonElement.getAttribute('data-api');
   const limit = buttonElement.getAttribute('data-limit') || 0;
   const offset = buttonElement.getAttribute('data-offset') || 0;
   const selectedValue = selectElement.value;
-  const keyword = searchInput.value || '';  // Get the search keyword, or use an empty string if no input.
+  const keyword = searchInput.value || '';
 
   // Construct the full URL with all parameters
   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-  console.log('fullUrl',fullUrl)
+  console.log('Fetching data from:', fullUrl);
 
+  // Fetch data
   fetchAssets(fullUrl, renderData);
+}
+
+function updateOffsetAndFetch() {
+  const buttonElement = document.querySelector('#onlineShowMore');
+
+  if (!buttonElement) return;
+
+  // Get current limit and offset
+  const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
+  let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
+
+  // Update offset by adding limit
+  offset += limit;
+
+  // Update the offset in the HTML attribute
+  buttonElement.setAttribute('data-offset', offset);
+
+  // Fetch data with the new offset
+  fetchDataForSelectedOption();
 }
 
 
@@ -101,27 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.querySelector('#searchInpts');
   const selectElement = document.querySelector('.form-select');
   const buttonElement = document.querySelector('#onlineShowMore');
-  if (selectElement) {
-    fetchDataForSelectedOption();
-    selectElement.addEventListener('change', fetchDataForSelectedOption);
-  }
-
-    // Call function on each keystroke in the search input
-  searchInput.addEventListener('input', fetchDataForSelectedOption);
-
-   // Call function when "Show More" button is clicked
-   buttonElement.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent default behavior if it's a form button
-    fetchDataForSelectedOption();
-  });
-
-
   
-  if (document.getElementById('price-range-slider')) { 
-    priceSliderInitialize();
-  }
-
-
+  
   if (imageSliderExists || thumbnailSliderExists || contentItem || whatSlider) {
     initializeSlick(); // Initialize Slick sliders
   } else {
@@ -137,8 +139,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (document.getElementById('filt-catSpc')) { // Replace with your actual Mapbox element ID
-    console.log('jjj')
     toogleBtn(); // Initialize Mapbox map
+  }
+
+  if (selectElement) {
+    fetchDataForSelectedOption();
+    selectElement.addEventListener('change', fetchDataForSelectedOption);
+  }
+
+  // Call function on each keystroke in the search input
+  searchInput.addEventListener('input', ()=>{
+    if (searchInput.value.length >= 3) {
+      fetchDataForSelectedOption();
+    }
+  });
+
+  // Call function when "Show More" button is clicked
+  buttonElement.addEventListener('click', (event) => {
+    event.preventDefault();
+    updateOffsetAndFetch();
+  });
+
+
+  
+  if (document.getElementById('price-range-slider')) { 
+    priceSliderInitialize();
+  }
+  if (document.getElementById('price-range-sliders')) { 
+    priceSliderInitialize();
   }
   
 
