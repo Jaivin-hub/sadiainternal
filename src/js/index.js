@@ -4,7 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../scss/style.scss';
 import Handlebars from 'handlebars';
 import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
-import {fetchAssets} from './api.js'
+import {fetchAssets, fetchProducts} from './api.js'
 
 const pulsingDotStyle = `
 <style>
@@ -44,7 +44,6 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 
 let showMoreClicked = false; // Global flag
 const renderData = (data) => {
-  console.log('data in renderData', data);
   if (data && Array.isArray(data)) {
     const templateSource = `
       <div class="card col-md-3">
@@ -56,8 +55,6 @@ const renderData = (data) => {
       </div>
     `;
     const template = Handlebars.compile(templateSource);
-
-    // Compile the data into HTML cards
     const compiledHTML = data.map(item => template(item)).join(''); // Join items into a single string of HTML
 
     const container = document.getElementById('OnlineStoreCards'); // The container for the cards
@@ -99,36 +96,98 @@ function fetchDataForSelectedOption() {
 
   // Construct the full URL with all parameters
   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-  console.log('Fetching data from:', fullUrl);
 
   // Fetch data
   fetchAssets(fullUrl, renderData);
 }
 
+const renderProductData = (data) => {
+  // Check if data is a JSON string and parse it if necessary
+  if (typeof data === 'string') {
+      try {
+          data = JSON.parse(data);
+      } catch (e) {
+          console.error('Failed to parse JSON data:', e);
+          return;
+      }
+  }
+  if (Array.isArray(data)) {
+      const templateSource = `
+          <div class="col-md-4">
+              <div class="list_prdct text-center">
+                  <div class="pdctImg">
+                      <img src="{{productThumbnailUrl}}" class="img-fluid prdctImg" alt="img">
+                  </div>
+                  <div class="prdctCont">
+                      <h4 class="titles">{{productTitle}}</h4>
+                      <p class="dtls">{{productCalories}}</p>
+                  </div>
+              </div>
+          </div>
+      `;
+      const template = Handlebars.compile(templateSource);
+      const compiledHTML = data.map(item => template(item)).join('');
+
+      // Find the row container where the products will be inserted
+      const productRow = document.querySelector('.productList .row');
+      if (showMoreClicked && productRow) {
+          // Insert the compiled HTML into the row
+          productRow.innerHTML += compiledHTML;
+      }else{
+        productRow.innerHTML = compiledHTML; // Replace the content in the row
+      }
+  } else {
+      console.error('Data is not an array or is undefined:', data);
+  }
+};
+
+function fetchProductslists() {
+  const selectElement = document.querySelector('#productDropdown');
+  const buttonElement = document.querySelector('#productShowMore');
+  if (!selectElement || !buttonElement) return;
+
+
+  const apiUrl = buttonElement.getAttribute('data-api');
+  const limit = buttonElement.getAttribute('data-limit') || 0;
+  const offset = buttonElement.getAttribute('data-offset') || 0;
+  const productCatId = 1173;
+
+  const fullUrl = `${apiUrl}?productCatId=${productCatId}&limit=${limit}&offset=${offset}`;
+
+  // // Fetch data
+  fetchProducts(fullUrl, renderProductData);
+}
+
 function updateOffsetAndFetch() {
   const buttonElement = document.querySelector('#onlineShowMore');
-
   if (!buttonElement) return;
-
-  // Set showMoreClicked to true
-  // showMoreClicked = true;
-
-  // Get current limit and offset
   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
-
-  // Update offset by adding limit
   offset += limit;
-
-  // Update the offset in the HTML attribute
   buttonElement.setAttribute('data-offset', offset);
-
-  // Fetch data with the new offset
   fetchDataForSelectedOption();
+}
+
+function updateProductOffsetAndFetch() {
+  const buttonElement = document.querySelector('#productShowMore');
+  if (!buttonElement) return;
+  const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
+  let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
+  offset += limit;
+  buttonElement.setAttribute('data-offset', offset);
+  fetchProductslists();
 }
 
 function resetOffset() {
   const buttonElement = document.querySelector('#onlineShowMore');
+  if (buttonElement) {
+    // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
+    buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
+  }
+}
+
+function resetOffsetProducts() {
+  const buttonElement = document.querySelector('#productShowMore');
   if (buttonElement) {
     // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
     buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
@@ -146,6 +205,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const whatSlider = document.querySelector('.whatSlider') !== null;
   const searchInput = document.querySelector('#searchInpts');
   const selectElement = document.querySelector('.form-select');
+  const productListElement = document.querySelector('.productList');
+  const productDropdown = document.querySelector('#productDropdown');
+  const productButtonElement = document.querySelector('#productShowMore');
+  // const selectProductElement = document.querySelector('.form-select');
   const buttonElement = document.querySelector('#onlineShowMore');
   
   
@@ -155,6 +218,17 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('Slick slider elements not found in the DOM.');
   }
 
+  if (document.getElementById('filt-catSpc')) { // Replace with your actual Mapbox element ID
+    toogleBtn(); 
+  }
+
+  if (document.getElementById('price-range-slider')) { 
+    priceSliderInitialize();
+  }
+  if (document.getElementById('price-range-sliders')) { 
+    priceSliderInitialize();
+  }
+
   if (document.getElementById('mapFrame')) { // Replace with your actual Mapbox element ID
     initializeMapbox(); // Initialize Mapbox map
   }
@@ -162,10 +236,21 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('wheretobuyMapframe')) { // Replace with your actual Mapbox element ID
     initializeWhereToBuyMapbox(); // Initialize Mapbox map
   }
-
-  if (document.getElementById('filt-catSpc')) { // Replace with your actual Mapbox element ID
-    toogleBtn(); // Initialize Mapbox map
+  
+  if (productDropdown) {
+    fetchProductslists();
+    selectElement.addEventListener('change', ()=>{
+      showMoreClicked = false;
+      resetOffsetProducts();
+      fetchProductslists();
+    });
   }
+
+  productButtonElement.addEventListener('click', (event) => {
+    event.preventDefault();
+    showMoreClicked = true;
+    updateProductOffsetAndFetch();
+  });
 
   if (selectElement) {
     fetchDataForSelectedOption();
@@ -193,12 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   
-  if (document.getElementById('price-range-slider')) { 
-    priceSliderInitialize();
-  }
-  if (document.getElementById('price-range-sliders')) { 
-    priceSliderInitialize();
-  }
+  
   
 
   // Initialize search bar functionality
