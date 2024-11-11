@@ -20,9 +20,9 @@
                     <a href="#" class="btn filBtn" data-toggle="portfilter">Kids</a>
                 </div>
 
-                <select class="form-select">
-                    <option>Popular</option>
-                    <option>New</option>
+                <select id="productDropdown" class="form-select" >
+                    <option value="1287">Popular</option>
+                    <option value="1288">New</option>
                 </select>
             </div>
         </div>
@@ -30,114 +30,12 @@
 
         <div class="productList">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="list_prdct text-center" id="productdetails">
-                        <div class="pdctImg">
-                            <img src="./assets/images/products/list1.png" class="img-fluid prdctImg" alt="img">
-                        </div>
-                        <div class="prdctCont">
-                            <h4 class="titles">Chicken Griller</h4>
-                            <p class="dtls">203 Calories</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="list_prdct text-center">
-                        <div class="pdctImg">
-                            <img src="./assets/images/products/list1.png" class="img-fluid prdctImg" alt="img">
-                        </div>
-                        <div class="prdctCont">
-                            <h4 class="titles">Chicken Griller</h4>
-                            <p class="dtls">203 Calories</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="list_prdct text-center">
-                        <div class="pdctImg">
-                            <img src="./assets/images/products/list2.png" class="img-fluid prdctImg" alt="img">
-                        </div>
-                        <div class="prdctCont">
-                            <h4 class="titles">Chicken Griller</h4>
-                            <p class="dtls">203 Calories</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="list_prdct text-center">
-                        <div class="pdctImg">
-                            <img src="./assets/images/products/list3.png" class="img-fluid prdctImg" alt="img">
-                        </div>
-                        <div class="prdctCont">
-                            <h4 class="titles">Chicken Griller</h4>
-                            <p class="dtls">203 Calories</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="list_prdct text-center">
-                        <div class="pdctImg">
-                            <img src="./assets/images/products/list3.png" class="img-fluid prdctImg" alt="img">
-                        </div>
-                        <div class="prdctCont">
-                            <h4 class="titles">Chicken Griller</h4>
-                            <p class="dtls">203 Calories</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="list_prdct text-center">
-                        <div class="pdctImg">
-                            <img src="./assets/images/products/list4.png" class="img-fluid prdctImg" alt="img">
-                        </div>
-                        <div class="prdctCont">
-                            <h4 class="titles">Chicken Griller</h4>
-                            <p class="dtls">203 Calories</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="list_prdct text-center">
-                        <div class="pdctImg">
-                            <img src="./assets/images/products/list3.png" class="img-fluid prdctImg" alt="img">
-                        </div>
-                        <div class="prdctCont">
-                            <h4 class="titles">Chicken Griller</h4>
-                            <p class="dtls">203 Calories</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="list_prdct text-center">
-                        <div class="pdctImg">
-                            <img src="./assets/images/products/list5.png" class="img-fluid prdctImg" alt="img">
-                        </div>
-                        <div class="prdctCont">
-                            <h4 class="titles">Chicken Griller</h4>
-                            <p class="dtls">203 Calories</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="list_prdct text-center">
-                        <div class="pdctImg">
-                            <img src="./assets/images/products/list6.png" class="img-fluid prdctImg" alt="img">
-                        </div>
-                        <div class="prdctCont">
-                            <h4 class="titles">Chicken Griller</h4>
-                            <p class="dtls">203 Calories</p>
-                        </div>
-                    </div>
-                </div>
-
+                
             </div>
-
             <div class="btnSpace text-center">
-                <button class="btn btn-more">Show More Products</button>
+                <button id="productShowMore" data-api="/Umbraco/api/data/GetProductsPerCategory/" data-limit="1" data-offset="0" class="btn btn-more">Show More Products</button>
             </div>
-
         </div>
-
 
     </div>
 </section>

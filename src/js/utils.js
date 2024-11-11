@@ -9,7 +9,6 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb
 // Function to initialize Mapbox map
 const initializeMapbox = () => {
   try {
-    console.log('hhhh')
     // Initialize the Mapbox map
     const map = new mapboxgl.Map({
       container: 'mapFrame', // ID of the container element
@@ -49,7 +48,6 @@ const initializeMapbox = () => {
     const firstLocation = initialLocations[0].split(',').map(Number);
     map.setCenter(firstLocation); // Center map on the first city's coordinates
 
-    console.log('999')
     // Listen for dropdown selection change
     countryDropdown.addEventListener('change', () => {
       const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
@@ -111,7 +109,6 @@ const priceSliderInitialize = () => {
   }
 
   var slider = document.getElementById("slider-ranger");
-  console.log('slider',slider)
   if(slider){
     noUiSlider.create(slider, {
       start: 15, // Single initial value
@@ -132,7 +129,6 @@ const priceSliderInitialize = () => {
   }
 
   var slider = document.getElementById("slider-rangers");
-  console.log('slider2',slider)
   if(slider){
     noUiSlider.create(slider, {
       start: 15, // Single initial value
@@ -155,16 +151,13 @@ const priceSliderInitialize = () => {
   // Update the amount field with the single thumb value
   var amount = document.getElementById("amount");
   var amounts = document.getElementById("amounts");
-  console.log('slider',slider)
   if(slider && amount){
     slider.noUiSlider.on("update", function (values) {
-      console.log('111')
       amount.value = values[0]; // Display the single thumb value
     });
   }
   if(slider && amounts){
     slider.noUiSlider.on("update", function (values) {
-      console.log('111')
       amounts.value = values[0]; // Display the single thumb value
     });
   }
