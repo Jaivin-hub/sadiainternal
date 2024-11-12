@@ -769,3 +769,39 @@
 }
 
 // DETAIL-PAGE END
+
+
+
+// COOKING-PAGE START
+.cookingHacks{
+    .card{
+        margin-bottom: 45px;
+        .card-body{
+            padding-left: 0;
+            padding-right: 0;
+            .card-title{
+                padding-right: 10px;
+            }
+
+        }
+    }
+    .btnSpc{
+        margin-top: 0;
+    }
+
+}
+
+@media (max-width: 767px) {
+    .cookingHacks{
+        .card{
+            .card-body{
+                .card-title{
+                    padding-right: 20px;
+                }
+
+            }
+        }
+
+    }
+}
+// COOKING-PAGE END
