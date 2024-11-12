@@ -237,20 +237,20 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeWhereToBuyMapbox(); // Initialize Mapbox map
   }
   
-  if (productDropdown) {
-    fetchProductslists();
-    selectElement.addEventListener('change', ()=>{
-      showMoreClicked = false;
-      resetOffsetProducts();
-      fetchProductslists();
-    });
-  }
+  // if (productDropdown) {
+  //   fetchProductslists();
+  //   selectElement.addEventListener('change', ()=>{
+  //     showMoreClicked = false;
+  //     resetOffsetProducts();
+  //     fetchProductslists();
+  //   });
+  // }
 
-  productButtonElement.addEventListener('click', (event) => {
-    event.preventDefault();
-    showMoreClicked = true;
-    updateProductOffsetAndFetch();
-  });
+  // productButtonElement.addEventListener('click', (event) => {
+  //   event.preventDefault();
+  //   showMoreClicked = true;
+  //   updateProductOffsetAndFetch();
+  // });
 
   if (selectElement) {
     fetchDataForSelectedOption();

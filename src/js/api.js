@@ -25,28 +25,28 @@ const fetchAssets = (url, callback) => {
 };
 
 const fetchProducts = (url, callback) => {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true);
+  // const xhr = new XMLHttpRequest();
+  // xhr.open('GET', url, true);
 
-  xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      try {
-        const data = xhr.responseText;
-        callback(data); // Pass data to the callback
-      } catch (e) {
-        console.error('Failed to parse JSON for products:', e);
-        console.error('Response received (not JSON):', xhr.responseText);
-      }
-    } else {
-      console.error('Error fetching products:', xhr.status, xhr.statusText);
-    }
-  };
+  // xhr.onload = function () {
+  //   if (xhr.status >= 200 && xhr.status < 300) {
+  //     try {
+  //       const data = xhr.responseText;
+  //       callback(data); // Pass data to the callback
+  //     } catch (e) {
+  //       console.error('Failed to parse JSON for products:', e);
+  //       console.error('Response received (not JSON):', xhr.responseText);
+  //     }
+  //   } else {
+  //     console.error('Error fetching products:', xhr.status, xhr.statusText);
+  //   }
+  // };
 
-  xhr.onerror = function () {
-    console.error('Request for products failed', xhr.status, xhr.statusText);
-  };
+  // xhr.onerror = function () {
+  //   console.error('Request for products failed', xhr.status, xhr.statusText);
+  // };
 
-  xhr.send();
+  // xhr.send();
 };
 
 
