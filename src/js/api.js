@@ -32,6 +32,7 @@ const fetchStores = (url, selectedValue, callback) => {
   xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
       try {
+        console.log('xhr.responseText',xhr.responseText)
         const data = JSON.parse(xhr.responseText);
         console.log('response data',data)
         console.log(typeof data)

@@ -303,7 +303,6 @@ const initializeWhereToBuyMapbox = () => {
   const selectElement = document.querySelector('.form-select.countryDrops');
   const selectedValue = selectElement.value;
   const apiEndpoint = selectElement.getAttribute('data-url');
-  console.log('apiEndpoint',apiEndpoint)
 
   const initializeMapWithData = (storesList) => {
     const coordinatesArray = storesList.map(store => store.coordinates);
