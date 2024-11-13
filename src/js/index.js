@@ -208,6 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const productListElement = document.querySelector('.productList');
   const productDropdown = document.querySelector('#productDropdown');
   const productButtonElement = document.querySelector('#productShowMore');
+  const video = document.getElementById("myVideo");
+  const playButton = document.getElementById("playButton");
   // const selectProductElement = document.querySelector('.form-select');
   const buttonElement = document.querySelector('#onlineShowMore');
   
@@ -237,20 +239,20 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeWhereToBuyMapbox(); // Initialize Mapbox map
   }
   
-  if (productDropdown) {
-    fetchProductslists();
-    selectElement.addEventListener('change', ()=>{
-      showMoreClicked = false;
-      resetOffsetProducts();
-      fetchProductslists();
-    });
-  }
+  // if (productDropdown) {
+  //   fetchProductslists();
+  //   selectElement.addEventListener('change', ()=>{
+  //     showMoreClicked = false;
+  //     resetOffsetProducts();
+  //     fetchProductslists();
+  //   });
+  // }
 
-  productButtonElement.addEventListener('click', (event) => {
-    event.preventDefault();
-    showMoreClicked = true;
-    updateProductOffsetAndFetch();
-  });
+  // productButtonElement.addEventListener('click', (event) => {
+  //   event.preventDefault();
+  //   showMoreClicked = true;
+  //   updateProductOffsetAndFetch();
+  // });
 
   if (selectElement) {
     fetchDataForSelectedOption();
@@ -262,21 +264,52 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Call function on each keystroke in the search input
-  searchInput.addEventListener('input', ()=>{
-    if (searchInput.value.length >= 3) {
-      showMoreClicked = false;
-      fetchDataForSelectedOption();
-    }
-  });
+  if(searchInput){
+    searchInput.addEventListener('input', ()=>{
+      if (searchInput.value.length >= 3) {
+        showMoreClicked = false;
+        fetchDataForSelectedOption();
+      }
+    });
+  }
+
 
   // Call function when "Show More" button is clicked
-  buttonElement.addEventListener('click', (event) => {
-    event.preventDefault();
-    showMoreClicked = true;
-    updateOffsetAndFetch();
+  if(buttonElement){
+    buttonElement.addEventListener('click', (event) => {
+      event.preventDefault();
+      showMoreClicked = true;
+      updateOffsetAndFetch();
+    });
+  }
+ 
+
+// Check if elements exist before proceeding
+if (video && playButton) {
+  // Add click event listener for play button
+  playButton.addEventListener("click", () => {
+      playVideo();
   });
 
+  // Optional: Allow click on the video to play/pause
+  video.addEventListener("click", () => {
+      if (video.paused) {
+          playVideo();
+      } else {
+          video.pause();
+          playButton.style.display = "flex"; // Show play button when paused
+      }
+  });
 
+  function playVideo() {
+      video.play().then(() => {
+          playButton.style.display = "none"; // Hide play button when video starts playing
+      }).catch(error => {
+          console.error("Playback prevented:", error);
+          alert("Click to play was blocked by the browser.");
+      });
+  }
+}
   
   
   
@@ -470,38 +503,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+
 });
 
 
 
-// VIDEO-PLAYBUTTON START
-
-const video = document.getElementById("myVideo");
-    const playButton = document.getElementById("playButton");
-
-    // Add click event listener for play button
-    playButton.addEventListener("click", () => {
-        playVideo();
-    });
-
-    // Optional: Allow click on the video to play/pause
-    video.addEventListener("click", () => {
-        if (video.paused) {
-            playVideo();
-        } else {
-            video.pause();
-            playButton.style.display = "flex"; // Show play button when paused
-        }
-    });
-
-    function playVideo() {
-        video.play().then(() => {
-            playButton.style.display = "none"; // Hide play button when video starts playing
-        }).catch(error => {
-            console.error("Playback prevented:", error);
-            alert("Click to play was blocked by the browser.");
-        });
-    }
-
-
-// VIDEO-PLAYBUTTON END

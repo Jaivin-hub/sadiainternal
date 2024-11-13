@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { fetchStores } from './api';
 mapboxgl.accessToken = 'pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb3hwY21lY3p1eCJ9.7t6X_NQIGtIsI-FRLNPU6g';
 
 // Function to initialize Mapbox map
@@ -299,13 +300,19 @@ const initializeSlick = () => {
 };
 
 const initializeWhereToBuyMapbox = () => {
-  try {
+  const selectElement = document.querySelector('.form-select.countryDrops');
+  const selectedValue = selectElement.value;
+  const apiEndpoint = selectElement.getAttribute('data-url');
+
+  const initializeMapWithData = (storesList) => {
+    const coordinatesArray = storesList.map(store => store.coordinates);
+
     // Initialize the Mapbox map
     const map = new mapboxgl.Map({
-      container: 'wheretobuyMapframe', // ID of the container element
-      style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
-      center: [54.3773, 24.4539], // Default starting position for UAE (Abu Dhabi)
-      zoom: 5, // Starting zoom level
+      container: 'wheretobuyMapframe',
+      style: 'mapbox://styles/mapbox/dark-v11',
+      center: [54.3773, 24.4539], // Default position for UAE (Abu Dhabi)
+      zoom: 5,
     });
 
     let markers = [];
@@ -320,82 +327,71 @@ const initializeWhereToBuyMapbox = () => {
     const clearPopups = () => {
       markers.forEach(marker => {
         if (marker.getPopup() && marker.getPopup().isOpen()) {
-          marker.getPopup().remove(); // Close the currently open popup
+          marker.getPopup().remove();
         }
       });
     };
 
     // Function to add red location markers with popups
-    const addRedMarkers = (locations) => {
-      clearPopups(); // Clear any previously opened popups
+    const addRedMarkers = (data) => {
+      const { locations, storesList } = data;
+      clearPopups();
 
-      locations.forEach(location => {
-        const coordinates = location.split(',').map(Number); // Split coordinates and convert to numbers
+      locations.forEach((location, index) => {
+        const coordinates = location.split(',').map(Number);
+        const store = storesList[index];
 
-        // Create the popup content with an image and "Get Directions" button
+        // Dynamic popup content from storesList
         const popupContent = `
-            <div style="text-align: center; width: 300px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
-              <img src="./assets/images/others/image 141.png" alt="Location Image" style="width: 100%; height: auto; max-width: 100%; padding: 5px 0; border-radius: 8px;"/>
-              <br/>
-              <img src="./assets/images/others/image 75.png" alt="Location Image" style="width: 100%; height: auto; max-width: 100px; border-radius: 8px; margin: 0 auto; display: block;"/>
-              <br/>
-              <p style="font-size: 16px; font-weight: bold; color: #333; margin: 5px 0;">Park AI Karama - Dubai</p>
-              <button style="margin-top: 10px; padding: 10px 15px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;"
-                onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${coordinates[1]},${coordinates[0]}', '_blank')">
-                Get Directions
-              </button>
-            </div>
-          `;
+          <div style="text-align: center; width: 300px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+            <img src="${store.storeLogoUrl}" alt="${store.storeName} Logo" style="width: 100%; height: auto; max-width: 100%; padding: 5px 0; border-radius: 8px;"/>
+            <br/>
+            <p style="font-size: 16px; font-weight: bold; color: #333; margin: 5px 0;">${store.storeName}</p>
+            <button style="margin-top: 10px; padding: 10px 15px; background-color: red; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;"
+              onclick="window.open('${store.directionsUrl}', '_blank')">
+              Get Directions
+            </button>
+          </div>
+        `;
 
         // Create the popup and attach it to the marker
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent);
-
-        // Create the marker and attach the popup
         const marker = new mapboxgl.Marker({ color: 'red' })
           .setLngLat(coordinates)
-          .setPopup(popup) // Attach the popup to the marker
+          .setPopup(popup)
           .addTo(map);
 
-        markers.push(marker); // Store marker reference
+        markers.push(marker);
       });
     };
 
-    // Get the first option's data from the dropdown to initialize the map
-    const countryDropdown = document.querySelector('.countryDrops');
-    const firstOption = countryDropdown.options[0]; // Get the first option
-    const initialLocationsData = firstOption.getAttribute('data'); // Get the 'data' attribute from the first option
-    const initialLocations = initialLocationsData.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
+    // Add red markers for the initial selection
+    const objData = { "locations": coordinatesArray, "storesList": storesList };
+    addRedMarkers(objData);
 
-    // Add red markers for the first option's locations
-    addRedMarkers(initialLocations);
-    const firstLocation = initialLocations[0].split(',').map(Number);
-    map.setCenter(firstLocation); // Center map on the first city's coordinates
+    // Center map on the first location's coordinates
+    const firstLocation = coordinatesArray[0].split(',').map(Number);
+    map.setCenter(firstLocation);
 
     // Listen for dropdown selection change
-    countryDropdown.addEventListener('change', () => {
-      const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
-
-      const data = selectedOption.getAttribute('data'); // Get the 'data' attribute
-
-      if (data) {
-        const locations = data.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates
-
-        if (locations.length > 0) {
-          clearMarkers(); // Clear existing markers
-          addRedMarkers(locations); // Add new markers
-          const firstLocation = locations[0].split(',').map(Number); // Get the first location for centering
-          map.setCenter(firstLocation); // Center map on the first city's coordinates
-        } else {
-          console.warn('No locations found in the selected data.');
-        }
-      } else {
-        console.error('No data attribute found for the selected option.');
-      }
+    selectElement.addEventListener('change', () => {
+      const selectedValue = selectElement.value;
+      
+      // Fetch new data and update markers
+      fetchStores(apiEndpoint, selectedValue, (newData) => {
+        const newCoordinatesArray = newData.map(store => store.coordinates);
+        const objData = { "locations": newCoordinatesArray, "storesList": newData };
+        
+        clearMarkers();
+        addRedMarkers(objData);
+        const firstLocation = newCoordinatesArray[0].split(',').map(Number);
+        map.setCenter(firstLocation);
+      });
     });
+  };
 
-  } catch (error) {
-    console.error('Error initializing Mapbox:', error);
-  }
+  // Initial data fetch and map initialization
+  fetchStores(apiEndpoint, selectedValue, initializeMapWithData);
 };
 
 export { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn };
