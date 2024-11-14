@@ -791,6 +791,59 @@
 
 }
 
+.hacksDtl-title{
+    &.campTitles{
+        margin: 15px 0 70px;
+        padding: 0;
+        .mainTitle{
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+}
+.hacksDtl{
+    &.campaignBxWraper{
+        .contBoxs{
+            .subitle{
+                font-size: 27px;
+                line-height: 27px;
+                font-weight: 500;
+            }
+        }
+    } 
+    .numCount{
+        font-size: 14px;
+        line-height: 16px;
+        font-family: $primary-font;
+        font-weight: 600;
+        p{
+            background-color: #F7F7F7;
+            border-radius: 4px;
+            min-width: 50px;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: $primary-color;
+            font-weight: 600;
+        }
+    }
+}
+.relatedHacks-dtl{
+    padding-top: 140px;
+    .card{
+        .cardImg{
+            height: 258px;
+            img.mainImg{
+                min-height: 258px;
+            }
+        }
+    } 
+}
+
+
+
 @media (max-width: 767px) {
     .cookingHacks{
         .card{
@@ -803,5 +856,28 @@
         }
 
     }
+
+    .hacksDtl{
+        &.campaignBxWraper{
+            .contBoxs{
+                .subitle{
+                    font-size: 36px;
+                    line-height: 38px;
+                }
+            }
+        }
+        .numCount{
+            margin: 20px 0 0;
+            padding: 0;
+        }
+    }
+    .relatedHacks-dtl{
+        padding-top: 75px;
+        .card{
+            margin-bottom: 0;
+        }
+    }
+
+
 }
 // COOKING-PAGE END
