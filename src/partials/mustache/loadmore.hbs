@@ -1,0 +1,21 @@
+<script id="productlist-template" type="text/x-handlebars-template">
+<div class="productList">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list_prdct text-center">
+                <div class="pdctImg">
+                    <img src="\{{productThumbnailUrl}}" class="img-fluid prdctImg" alt="img">
+                </div>
+                <div class="prdctCont">
+                    <h4 class="titles">{{productTitle}}</h4>
+                    <p class="dtls">{{productCalories}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btnSpace text-center">
+        <button id="productShowMore" data-template="productlist-template" data-api="/Umbraco/api/data/GetProductsPerCategory/" data-limit="1" data-offset="0"
+            class="btn btn-more">Show More Products</button>
+    </div>
+</div>
+</script>

@@ -5,6 +5,7 @@ import '../scss/style.scss';
 import Handlebars from 'handlebars';
 import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
 import {fetchAssets, fetchProducts} from './api.js'
+import fetchAndRenderData from './fetchAndRenderData.js';
 
 const pulsingDotStyle = `
 <style>
@@ -101,61 +102,55 @@ function fetchDataForSelectedOption() {
   fetchAssets(fullUrl, renderData);
 }
 
-const renderProductData = (data) => {
-  // Check if data is a JSON string and parse it if necessary
-  if (typeof data === 'string') {
-      try {
-          data = JSON.parse(data);
-      } catch (e) {
-          console.error('Failed to parse JSON data:', e);
-          return;
-      }
-  }
-  if (Array.isArray(data)) {
-      const templateSource = `
-          <div class="col-md-4">
-              <div class="list_prdct text-center">
-                  <div class="pdctImg">
-                      <img src="{{productThumbnailUrl}}" class="img-fluid prdctImg" alt="img">
-                  </div>
-                  <div class="prdctCont">
-                      <h4 class="titles">{{productTitle}}</h4>
-                      <p class="dtls">{{productCalories}}</p>
-                  </div>
-              </div>
-          </div>
-      `;
-      const template = Handlebars.compile(templateSource);
-      const compiledHTML = data.map(item => template(item)).join('');
+// const renderProductData = (data) => {
+//   // Check if data is a JSON string and parse it if necessary
+//   if (typeof data === 'string') {
+//       try {
+//           data = JSON.parse(data);
+//       } catch (e) {
+//           console.error('Failed to parse JSON data:', e);
+//           return;
+//       }
+//   }
+//   if (Array.isArray(data)) {
+//       const templateSource = `
+//           <div class="col-md-4">
+//               <div class="list_prdct text-center">
+//                   <div class="pdctImg">
+//                       <img src="{{productThumbnailUrl}}" class="img-fluid prdctImg" alt="img">
+//                   </div>
+//                   <div class="prdctCont">
+//                       <h4 class="titles">{{productTitle}}</h4>
+//                       <p class="dtls">{{productCalories}}</p>
+//                   </div>
+//               </div>
+//           </div>
+//       `;
+//       const template = Handlebars.compile(templateSource);
+//       const compiledHTML = data.map(item => template(item)).join('');
 
-      // Find the row container where the products will be inserted
-      const productRow = document.querySelector('.productList .row');
-      if (showMoreClicked && productRow) {
-          // Insert the compiled HTML into the row
-          productRow.innerHTML += compiledHTML;
-      }else{
-        productRow.innerHTML = compiledHTML; // Replace the content in the row
-      }
-  } else {
-      console.error('Data is not an array or is undefined:', data);
-  }
-};
+//       // Find the row container where the products will be inserted
+//       const productRow = document.querySelector('.productList .row');
+//       if (showMoreClicked && productRow) {
+//           // Insert the compiled HTML into the row
+//           productRow.innerHTML += compiledHTML;
+//       }else{
+//         productRow.innerHTML = compiledHTML; // Replace the content in the row
+//       }
+//   } else {
+//       console.error('Data is not an array or is undefined:', data);
+//   }
+// };
 
 function fetchProductslists() {
-  const selectElement = document.querySelector('#productDropdown');
-  const buttonElement = document.querySelector('#productShowMore');
-  if (!selectElement || !buttonElement) return;
-
-
-  const apiUrl = buttonElement.getAttribute('data-api');
-  const limit = buttonElement.getAttribute('data-limit') || 0;
-  const offset = buttonElement.getAttribute('data-offset') || 0;
-  const productCatId = 1173;
-
-  const fullUrl = `${apiUrl}?productCatId=${productCatId}&limit=${limit}&offset=${offset}`;
-
-  // // Fetch data
-  fetchProducts(fullUrl, renderProductData);
+  console.log('fetchProductslists')
+  const dom = document.querySelector('.productList.row'); // Get the button element
+  console.log('dom',dom)
+  // const templateName = dom.getAttribute('data-template'); // Get the template ID from data-template attribute
+  const apiUrl = '/Umbraco/api/data/GetProductsPerCategory/';
+  const offset = '0';
+  const limit = '2';
+  fetchAndRenderData( apiUrl, offset, limit)
 }
 
 function updateOffsetAndFetch() {
@@ -199,6 +194,7 @@ function resetOffsetProducts() {
 
 // Event listener to ensure code runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('inside the document load')
   const imageSliderExists = document.querySelector('.image-slider') !== null;
   const thumbnailSliderExists = document.querySelector('.thumbnail-slider') !== null;
   const contentItem = document.querySelector('.content-item') !== null;
@@ -213,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // const selectProductElement = document.querySelector('.form-select');
   const buttonElement = document.querySelector('#onlineShowMore');
   
+  fetchProductslists();
   
   if (imageSliderExists || thumbnailSliderExists || contentItem || whatSlider) {
     initializeSlick(); // Initialize Slick sliders
@@ -240,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // if (productDropdown) {
-  //   fetchProductslists();
   //   selectElement.addEventListener('change', ()=>{
   //     showMoreClicked = false;
   //     resetOffsetProducts();
