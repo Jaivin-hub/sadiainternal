@@ -4,8 +4,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../scss/style.scss';
 import Handlebars from 'handlebars';
 import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
-import {fetchAssets, fetchProducts} from './api.js'
-import fetchAndRenderData from './fetchAndRenderData.js';
+import { fetchAssets, fetchProducts } from './api.js'
+import { fetchAndRenderData, fetchOnlineStore } from './fetchAndRenderData.js';
 
 const pulsingDotStyle = `
 <style>
@@ -43,64 +43,43 @@ const pulsingDotStyle = `
 `;
 document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 
-let showMoreClicked = false; // Global flag
-const renderData = (data) => {
-  if (data && Array.isArray(data)) {
-    const templateSource = `
-      <div class="card col-md-3">
-        <div class="logo-box">
-          <a href="{{this.onlineBuyUrl}}">
-            <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
-          </a>
-        </div>
-      </div>
-    `;
-    const template = Handlebars.compile(templateSource);
-    const compiledHTML = data.map(item => template(item)).join(''); // Join items into a single string of HTML
+// const renderData = (data) => {
+//   if (data && Array.isArray(data)) {
+//     const templateSource = `
+//       <div class="card col-md-3">
+//         <div class="logo-box">
+//           <a href="{{this.onlineBuyUrl}}">
+//             <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
+//           </a>
+//         </div>
+//       </div>
+//     `;
+//     const template = Handlebars.compile(templateSource);
+//     const compiledHTML = data.map(item => template(item)).join(''); // Join items into a single string of HTML
 
-    const container = document.getElementById('OnlineStoreCards'); // The container for the cards
-    const existingRow = container.querySelector('.row.shop_logos'); // Find the existing row
+//     const container = document.getElementById('OnlineStoreCards'); // The container for the cards
+//     const existingRow = container.querySelector('.row.shop_logos'); // Find the existing row
 
-    if (showMoreClicked && existingRow) {
-      // Append new items to the existing row if "Show More" was clicked
-      existingRow.innerHTML += compiledHTML;
-    } else {
-      // Replace content for dropdown change or initial load
-      if (existingRow) {
-        existingRow.innerHTML = compiledHTML; // Replace the content in the row
-      } else {
-        // Create the row if it doesn't exist
-        const newRow = document.createElement('div');
-        newRow.classList.add('row', 'shop_logos');
-        newRow.innerHTML = compiledHTML;
-        container.appendChild(newRow);
-      }
-    }
+//     if (showMoreClicked && existingRow) {
+//       // Append new items to the existing row if "Show More" was clicked
+//       existingRow.innerHTML += compiledHTML;
+//     } else {
+//       // Replace content for dropdown change or initial load
+//       if (existingRow) {
+//         existingRow.innerHTML = compiledHTML; // Replace the content in the row
+//       } else {
+//         // Create the row if it doesn't exist
+//         const newRow = document.createElement('div');
+//         newRow.classList.add('row', 'shop_logos');
+//         newRow.innerHTML = compiledHTML;
+//         container.appendChild(newRow);
+//       }
+//     }
 
-    // Reset the flag after rendering
-    showMoreClicked = false;
-  }
-};
-
-function fetchDataForSelectedOption() {
-  const selectElement = document.querySelector('.form-select');
-  const buttonElement = document.querySelector('#onlineShowMore');
-  const searchInput = document.querySelector('#searchInpts');
-
-  if (!selectElement || !buttonElement) return;
-
-  const apiUrl = buttonElement.getAttribute('data-api');
-  const limit = buttonElement.getAttribute('data-limit') || 0;
-  const offset = buttonElement.getAttribute('data-offset') || 0;
-  const selectedValue = selectElement.value;
-  const keyword = searchInput.value || '';
-
-  // Construct the full URL with all parameters
-  const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-
-  // Fetch data
-  fetchAssets(fullUrl, renderData);
-}
+//     // Reset the flag after rendering
+//     showMoreClicked = false;
+//   }
+// };
 
 // const renderProductData = (data) => {
 //   // Check if data is a JSON string and parse it if necessary
@@ -142,352 +121,508 @@ function fetchDataForSelectedOption() {
 //   }
 // };
 
-function fetchProductslists() {
-  console.log('fetchProductslists')
-  const dom = document.querySelector('.productList.row'); // Get the button element
-  console.log('dom',dom)
-  // const templateName = dom.getAttribute('data-template'); // Get the template ID from data-template attribute
-  const apiUrl = '/Umbraco/api/data/GetProductsPerCategory/';
-  const offset = '0';
-  const limit = '2';
-  fetchAndRenderData( apiUrl, offset, limit)
+// function fetchDataForSelectedOption() {
+//   const selectElement = document.querySelector('.form-select');
+//   const buttonElement = document.querySelector('#onlineShowMore');
+//   const searchInput = document.querySelector('#searchInpts');
+
+//   if (!selectElement || !buttonElement) return;
+
+//   const apiUrl = buttonElement.getAttribute('data-api');
+//   const limit = buttonElement.getAttribute('data-limit') || 0;
+//   const offset = buttonElement.getAttribute('data-offset') || 0;
+//   const selectedValue = selectElement.value;
+//   const keyword = searchInput.value || '';
+//   const container = document.querySelector('#onlinecontainer');
+
+//   // Construct the full URL with all parameters
+//   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
+//   fetchOnlineStore('online-template', fullUrl).then(html =>{
+//     container.innerHTML = html;
+//   })
+// }
+
+
+// function fetchProductslists(templateName, limit, offset, apiUrl, event) {
+//   const container = document.querySelector('#cardcontainer');
+//   fetchAndRenderData(templateName, apiUrl, offset, limit)
+//     .then(html => {
+//       if (event === 'showmore') {
+//         container.innerHTML += html;  // Append new content
+//       } else {
+//         container.innerHTML = html;   // Replace existing content
+//       }
+//     })
+//     .catch(error => console.error('Error populating data:', error));
+// }
+
+// function updateOffsetAndFetch() {
+//   const buttonElement = document.querySelector('#onlineShowMore');
+//   const selectElement = document.querySelector('.form-select');
+//   const searchInput = document.querySelector('#searchInpts');
+//   const apiUrl = buttonElement.getAttribute('data-api');
+//   const container = document.querySelector('#onlinecontainer');
+
+//   if (!buttonElement) return;
+
+//   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
+//   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
+
+//   const selectedValue = selectElement.value;
+//   offset += limit;
+//   buttonElement.setAttribute('data-offset', offset);
+//   const keyword = searchInput.value || '';
+//   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
+
+//   fetchOnlineStore('online-template', fullUrl).then(html => {
+//     container.innerHTML += html;
+//   })
+// }
+
+// function updateOffsetAndFetchList() {
+//   const buttonElement = document.querySelector('#onlineShowMore');
+//   const selectElement = document.querySelector('.form-select');
+//   const searchInput = document.querySelector('#searchInpts');
+
+//   if (!buttonElement) return;
+//   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
+//   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
+//   const apiUrl = buttonElement.getAttribute('data-api');
+//   const container = document.querySelector('#onlinecontainer');
+//   const selectedValue = selectElement.value;
+//   buttonElement.setAttribute('data-offset', offset);
+//   const keyword = searchInput.value || '';
+//   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
+//   fetchOnlineStore('online-template', fullUrl).then(html => {
+//     container.innerHTML = html;
+//   })
+// }
+
+
+// function updateProductOffsetAndFetch() {
+//   const buttonElement = document.querySelector('#productShowMore');
+//   if (!buttonElement) return;
+
+//   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
+//   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
+
+//   // Increase offset only if "Show More" was clicked
+//   if (showMoreClicked) offset += limit;
+
+//   buttonElement.setAttribute('data-offset', offset);
+
+//   // Fetch the product list with the current limit and offset
+//   const url = buttonElement.getAttribute('data-api');
+//   fetchProductslists('productlist-template', limit, offset, url, showMoreClicked ? 'showmore' : 'initial');
+// }
+
+// function resetOffset() {
+//   const buttonElement = document.querySelector('#onlineShowMore');
+//   if (buttonElement) {
+//     // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
+//     buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
+//   }
+// }
+
+// function resetOffsetProducts() {
+//   const buttonElement = document.querySelector('#productShowMore');
+//   if (buttonElement) {
+//     // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
+//     buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
+//   }
+// }
+
+let showMoreClicked = false; // Global flag
+
+
+function getProductList(template, url, limit, offset) {
+  fetchAndRenderData(template, url, offset, limit)
+    .then(html => {
+      const container = document.querySelector('#cardcontainer');
+      if (!container) {
+        console.warn('Container #cardcontainer not found.');
+        return;
+      }
+
+      if (showMoreClicked) {
+        container.innerHTML += html; // Append HTML for "Show More"
+      } else {
+        container.innerHTML = html; // Replace HTML for new selection
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching product list:', error);
+    });
 }
 
-function updateOffsetAndFetch() {
-  const buttonElement = document.querySelector('#onlineShowMore');
-  if (!buttonElement) return;
-  const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
-  let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
-  offset += limit;
-  buttonElement.setAttribute('data-offset', offset);
-  fetchDataForSelectedOption();
+function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, keyword) {
+  const url = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
+
+  fetchOnlineStore(templateName, selectedValue, url)
+    .then(html => {
+      const container = document.getElementById('onlinecontainers');
+      if (!container) {
+        console.warn('Container with ID "onlinecontainer" not found.');
+        return;
+      }
+
+      if (showMoreClicked) {
+        console.log('Appending HTML');
+        container.innerHTML += html;
+      } else {
+        console.log('Replacing HTML');
+        container.innerHTML = html;
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching/rendering online stores:', error);
+    });
 }
 
-function updateProductOffsetAndFetch() {
-  const buttonElement = document.querySelector('#productShowMore');
-  if (!buttonElement) return;
-  const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
-  let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
-  offset += limit;
-  buttonElement.setAttribute('data-offset', offset);
-  fetchProductslists();
-}
-
-function resetOffset() {
-  const buttonElement = document.querySelector('#onlineShowMore');
-  if (buttonElement) {
-    // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
-    buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
-  }
-}
-
-function resetOffsetProducts() {
-  const buttonElement = document.querySelector('#productShowMore');
-  if (buttonElement) {
-    // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
-    buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
-  }
-}
+// function fetchProductslists(templateName, limit, offset, apiUrl, event) {
+//   const container = document.querySelector('#cardcontainer');
+//   fetchAndRenderData(templateName, apiUrl, offset, limit)
+//   .then(html => {
+//     if (event === 'showmore') {
+//       container.innerHTML += html;  // Append new content
+//     } else {
+//       container.innerHTML = html;   // Replace existing content
+//     }
+//   })
+//     .catch(error => console.error('Error populating data:', error));
+// }
 
 
 
 
-// Event listener to ensure code runs after the DOM is fully loaded
+
+// Ensure code runs after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('inside the document load')
-  const imageSliderExists = document.querySelector('.image-slider') !== null;
-  const thumbnailSliderExists = document.querySelector('.thumbnail-slider') !== null;
-  const contentItem = document.querySelector('.content-item') !== null;
-  const whatSlider = document.querySelector('.whatSlider') !== null;
-  const searchInput = document.querySelector('#searchInpts');
-  const selectElement = document.querySelector('.form-select');
-  const productListElement = document.querySelector('.productList');
-  const productDropdown = document.querySelector('#productDropdown');
-  const productButtonElement = document.querySelector('#productShowMore');
-  const video = document.getElementById("myVideo");
-  const playButton = document.getElementById("playButton");
-  // const selectProductElement = document.querySelector('.form-select');
-  const buttonElement = document.querySelector('#onlineShowMore');
-  
-  fetchProductslists();
-  
-  if (imageSliderExists || thumbnailSliderExists || contentItem || whatSlider) {
-    initializeSlick(); // Initialize Slick sliders
+
+  // Cache commonly used elements
+  const elements = {
+    imageSlider: document.querySelector('.image-slider'),
+    thumbnailSlider: document.querySelector('.thumbnail-slider'),
+    contentItem: document.querySelector('.content-item'),
+    whatSlider: document.querySelector('.whatSlider'),
+    filtCatSpc: document.getElementById('filt-catSpc'),
+    priceRangeSlider: document.getElementById('price-range-slider'),
+    priceRangeSliders: document.getElementById('price-range-sliders'),
+    mapFrame: document.getElementById('mapFrame'),
+    whereToBuyMapFrame: document.getElementById('wheretobuyMapframe'),
+    searchInput: document.querySelector('#searchInpts'),
+    selectElement: document.querySelector('.form-select'),
+    productListElement: document.querySelector('.productList'),
+    productDropdown: document.querySelector('#productDropdown'),
+    productButton: document.querySelector('#productShowMore'),
+    video: document.getElementById("myVideo"),
+    playButton: document.getElementById("playButton"),
+    onlineShowMore: document.querySelector('#onlineShowMore'),
+    mainHeader: document.querySelector('.main-header')
+  };
+
+
+
+
+  // Initialize slick sliders if required elements are present
+  if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
+    initializeSlick();
   } else {
     console.warn('Slick slider elements not found in the DOM.');
   }
 
-  if (document.getElementById('filt-catSpc')) { // Replace with your actual Mapbox element ID
-    toogleBtn(); 
+  // Initialize other components if elements are present
+  if (elements.filtCatSpc) {
+    toogleBtn();
   }
-
-  if (document.getElementById('price-range-slider')) { 
+  if (elements.priceRangeSlider || elements.priceRangeSliders) {
     priceSliderInitialize();
   }
-  if (document.getElementById('price-range-sliders')) { 
-    priceSliderInitialize();
+  if (elements.mapFrame) {
+    initializeMapbox();
   }
 
-  if (document.getElementById('mapFrame')) { // Replace with your actual Mapbox element ID
-    initializeMapbox(); // Initialize Mapbox map
-  }
 
-  if (document.getElementById('wheretobuyMapframe')) { // Replace with your actual Mapbox element ID
-    initializeWhereToBuyMapbox(); // Initialize Mapbox map
-  }
-  
-  // if (productDropdown) {
-  //   selectElement.addEventListener('change', ()=>{
-  //     showMoreClicked = false;
-  //     resetOffsetProducts();
-  //     fetchProductslists();
-  //   });
-  // }
 
-  // productButtonElement.addEventListener('click', (event) => {
-  //   event.preventDefault();
-  //   showMoreClicked = true;
-  //   updateProductOffsetAndFetch();
-  // });
 
-  if (selectElement) {
-    fetchDataForSelectedOption();
-    selectElement.addEventListener('change', ()=>{
+  if (elements.productDropdown && elements.selectElement && elements.productButton) {
+    const url = elements.productButton.getAttribute('data-api');
+    const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
+    let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
+    showMoreClicked = false;
+    getProductList('productlist-template', url, limit, offset);
+    elements.selectElement.addEventListener('change', () => {
+      elements.productButton.setAttribute('data-offset', '0');
       showMoreClicked = false;
-      resetOffset();
-      fetchDataForSelectedOption();
+      offset = 0; // Reset offset variable
+      getProductList('productlist-template', url, limit, offset);
+    });
+    elements.productButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      showMoreClicked = true;
+      const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
+      let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
+      offset += limit;
+      elements.productButton.setAttribute('data-offset', offset);
+      getProductList('productlist-template', url, limit, offset);
     });
   }
 
-  // Call function on each keystroke in the search input
-  if(searchInput){
-    searchInput.addEventListener('input', ()=>{
-      if (searchInput.value.length >= 3) {
-        showMoreClicked = false;
-        fetchDataForSelectedOption();
-      }
+  if (elements.whereToBuyMapFrame) {
+    const selectElement = document.querySelector('.form-select.countryDrops');
+    const countryselect = document.querySelector('#countryselect');
+
+    const apiEndpoint = selectElement.getAttribute('data-url');
+    const buttonElement = document.querySelector('#onlineShowMore');
+    const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
+    let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
+    showMoreClicked = false;
+    const selectedValue = selectElement.value;
+    fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
+    // Event listener for dropdown change
+    countryselect.addEventListener('change', () => {
+      const selectedValue = selectElement.value;
+      offset = 0; // Reset offset
+      buttonElement.setAttribute('data-offset', '0');
+      showMoreClicked = false;
+      fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
     });
-  }
 
-
-  // Call function when "Show More" button is clicked
-  if(buttonElement){
+    // Event listener for "Show More" button
     buttonElement.addEventListener('click', (event) => {
       event.preventDefault();
       showMoreClicked = true;
-      updateOffsetAndFetch();
+      offset += limit;
+      buttonElement.setAttribute('data-offset', offset);
+      const selectedValue = selectElement.value;
+      fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
+    });
+
+    elements.searchInput.addEventListener('input', () => {
+      if (elements.searchInput.value.length >= 3) {
+    const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
+        showMoreClicked = false;
+        offset = 0; // Reset offset
+        const keyword = elements.searchInput.value;
+        const selectedValue = selectElement.value;
+        fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
+      }
     });
   }
- 
 
-// Check if elements exist before proceeding
-if (video && playButton) {
-  // Add click event listener for play button
-  playButton.addEventListener("click", () => {
-      playVideo();
-  });
 
-  // Optional: Allow click on the video to play/pause
-  video.addEventListener("click", () => {
-      if (video.paused) {
-          playVideo();
-      } else {
-          video.pause();
-          playButton.style.display = "flex"; // Show play button when paused
-      }
-  });
 
-  function playVideo() {
+
+
+  // // Product List Dropdown
+  // if (productDropdown && selectElement) {
+  //   selectElement.addEventListener('change', () => {
+  //     showMoreClicked = false;
+  //     resetOffsetProducts();
+  //     const url = productButtonElement.getAttribute('data-api');
+  //     const limit = parseInt(productButtonElement.getAttribute('data-limit'), 10) || 0;
+  //     let offset = parseInt(productButtonElement.getAttribute('data-offset'), 10) || 0;
+  //     fetchProductslists('productlist-template', limit, offset, url, 'initial');
+  //   });
+  // }
+
+  // // Product Show More Button
+  // if (productButtonElement) {
+  //   updateProductOffsetAndFetch();
+  //   productButtonElement.addEventListener('click', (event) => {
+  //     event.preventDefault();
+  //     showMoreClicked = true;
+  //     updateProductOffsetAndFetch();
+  //   });
+  // }
+
+  // // Select Element for Filtered Data Fetch
+  // if (selectElement) {
+  //   selectElement.addEventListener('change', () => {
+  //     showMoreClicked = false;
+  //     resetOffset();
+  //     updateOffsetAndFetchList()
+  //     // updateOffsetAndFetch();
+  //     // fetchDataForSelectedOption();
+  //   });
+  // }
+
+  // // Search Input with live filtering
+  // if (searchInput) {
+  //   searchInput.addEventListener('input', () => {
+  //     if (searchInput.value.length >= 3) {
+  //       showMoreClicked = false;
+  //       fetchDataForSelectedOption();
+  //     }
+  //   });
+  // }
+
+  // // Show More Button for Online Content
+  // if (buttonElement) {
+  //   buttonElement.addEventListener('click', (event) => {
+  //     event.preventDefault();
+  //     showMoreClicked = true;
+  //     updateOffsetAndFetch();
+  //   });
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Video Play Button Handling
+  if (elements.video && elements.playButton) {
+    playButton.addEventListener("click", playVideo);
+    video.addEventListener("click", toggleVideoPlayPause);
+
+    function playVideo() {
       video.play().then(() => {
-          playButton.style.display = "none"; // Hide play button when video starts playing
+        playButton.style.display = "none";
       }).catch(error => {
-          console.error("Playback prevented:", error);
-          alert("Click to play was blocked by the browser.");
+        console.error("Playback prevented:", error);
+        alert("Click to play was blocked by the browser.");
       });
-  }
-}
-  
-  
-  
+    }
 
-  // Initialize search bar functionality
-  $('.search-button').on('click', function () {
+    function toggleVideoPlayPause() {
+      if (video.paused) {
+        playVideo();
+      } else {
+        video.pause();
+        playButton.style.display = "flex";
+      }
+    }
+  }
+
+  // Search Bar Expand/Collapse Handlers
+  $('.search-button').on('click', () => {
     $('.search-form').addClass('expanded');
     $('.close-button').show();
     $('.search-button').hide();
   });
 
-  $('.close-button').on('click', function () {
+  $('.close-button').on('click', () => {
     $('.search-form').removeClass('expanded');
     $('.close-button').hide();
     $('.search-button').show();
     $('#searchBar').val('');
   });
-  // HEADER-SEARCH END
 
-
-  // Map search-bar
-  $('.serLoc').on('click', function () {
+  // Location Search Expand/Collapse Handlers
+  $('.serLoc').on('click', () => {
     $('.locatSearch').addClass('expanded');
     $('.cl_ser').show();
     $('.serLoc').hide();
   });
 
-  $('.cl_ser').on('click', function () {
+  $('.cl_ser').on('click', () => {
     $('.locatSearch').removeClass('expanded');
     $('.cl_ser').hide();
     $('.serLoc').show();
     $('.search-bar').val('');
   });
-  // Map search-bar eND
 
-  // Handle dropdowns for mobile
-  function isMobileViewport() {
-    return window.innerWidth <= 991; // Check if the viewport is 991px or below
-  }
-
-  document.querySelectorAll('.dropdown-toggle').forEach(function (dropdown) {
-    dropdown.addEventListener('click', function (event) {
-      if (isMobileViewport()) { // Only trigger for mobile view
-        const dropdownMenu = this.nextElementSibling;
-        if (dropdownMenu.classList.contains('show')) {
-          dropdownMenu.classList.remove('show');
-        } else {
-          document.querySelectorAll('.dropdown-menu').forEach(function (openDropdown) {
-            openDropdown.classList.remove('show');
-          });
-          dropdownMenu.classList.add('show');
-        }
-        event.stopPropagation();
+  // Mobile Dropdown Toggle
+  document.querySelectorAll('.dropdown-toggle').forEach(dropdown => {
+    dropdown.addEventListener('click', event => {
+      if (isMobileViewport()) {
+        const dropdownMenu = dropdown.nextElementSibling;
+        toggleDropdown(dropdownMenu, event);
       }
     });
   });
 
+  // Mobile Dropdown Close on Outside Click
+  document.addEventListener('click', () => {
+    if (isMobileViewport()) {
+      closeAllDropdowns();
+    }
+  });
 
-  // Close all dropdowns when clicking outside, only on mobile
-  document.addEventListener('click', function () {
-    if (isMobileViewport()) { // Only trigger for mobile view
-      document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
-        dropdown.classList.remove('show');
+  // Handle window resize to re-check mobile viewport and close dropdowns
+  window.addEventListener('resize', closeAllDropdowns);
+
+  function isMobileViewport() {
+    return window.innerWidth <= 991;
+  }
+
+  function toggleDropdown(dropdownMenu, event) {
+    if (dropdownMenu.classList.contains('show')) {
+      dropdownMenu.classList.remove('show');
+    } else {
+      closeAllDropdowns();
+      dropdownMenu.classList.add('show');
+    }
+    event.stopPropagation();
+  }
+
+  function closeAllDropdowns() {
+    document.querySelectorAll('.dropdown-menu').forEach(dropdown => dropdown.classList.remove('show'));
+  }
+
+  // Link Navigation Handlers
+  const links = {
+    viewMoreRecipes: 'recipe-details',
+    viewProduct: 'product-listing',
+    productdetails: 'product-details',
+    productnav: 'products',
+    aboutnav: 'about',
+    viewMoreHack: 'hack-listing',
+    cookwithsadianav: 'recipe-details',
+    whereToBuy: 'where-to-buy',
+    abtLink: 'about',
+  };
+
+  Object.keys(links).forEach(linkId => {
+    const element = document.getElementById(linkId);
+    if (element) {
+      element.addEventListener('click', event => {
+        event.preventDefault();
+        window.location.href = links[linkId];
       });
     }
   });
 
-
-
-  // Add event listeners with null checks
-  const viewMoreRecipes = document.getElementById('viewMoreRecipes');
-  if (viewMoreRecipes) {
-    viewMoreRecipes.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'recipe-details'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
-    });
-  }
-  const viewProduct = document.getElementById('viewProduct');
-  if (viewProduct) {
-    viewProduct.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'product-listing'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
-    });
-  }
-
-  const productDetail = document.getElementById('productdetails');
-  if (productDetail) {
-    productDetail.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'product-details'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
-    });
-  }
-
-  const products = document.getElementById('productnav');
-  if (products) {
-    products.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'products'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
-    });
-  }
-
-  const aboutnav = document.getElementById('aboutnav');
-  if (aboutnav) {
-    aboutnav.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'about'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
-    });
-  }
-
-  const viewMoreHack = document.getElementById('viewMoreHack');
-  if (viewMoreHack) {
-    viewMoreHack.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'hack-listing'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
-    });
-  }
-
-  const cookwithsadianav = document.getElementById('cookwithsadianav');
-  if (cookwithsadianav) {
-    cookwithsadianav.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'recipe-details'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
-    });
-  }
-
-  const viewCampaignButtons = document.querySelectorAll('.viewCampaign');
-  viewCampaignButtons.forEach(button => {
-    button.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      window.location.href = 'campaign'; // Navigate to the new page
+  document.querySelectorAll('.viewCampaign').forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      window.location.href = 'campaign';
     });
   });
 
-  const whereToBuy = document.getElementById('whereToBuy');
-  if (whereToBuy) {
-    whereToBuy.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'where-to-buy'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
-    });
-  }
-
-  const aboutlink = document.getElementById('abtLink');
-  if (aboutlink) {
-    aboutlink.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action of the link
-      this.href = 'about'; // Adjust the path as per your file structure
-      window.location.href = this.href; // Navigate to the new page
-    });
-  }
-
-  const wheretobuylinks = document.querySelectorAll('.where-to-buy');
-  wheretobuylinks.forEach(link => {
-    link.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent the default action
-      const targetUrl = 'where-to-buy'; // Adjust the path as per your file structure
-      window.location.href = targetUrl; // Navigate to the new page
+  document.querySelectorAll('.where-to-buy').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      window.location.href = 'where-to-buy';
     });
   });
 
-
-
-  // Re-check if on mobile when resizing the window
-  window.addEventListener('resize', function () {
-    if (!isMobileViewport()) {
-      // Close all dropdowns when switching to desktop view
-      document.querySelectorAll('.dropdown-menu').forEach(function (dropdown) {
-        dropdown.classList.remove('show');
-      });
-    }
-  });
-
-  
-
-  // Fix header visibility and scroll appearance
+  // Header Scroll Appearance
   const header = document.querySelector('.main-header');
   header.classList.add('visible');
 
@@ -498,8 +633,6 @@ if (video && playButton) {
       header.classList.remove('scrolled');
     }
   });
-
-
 });
 
 

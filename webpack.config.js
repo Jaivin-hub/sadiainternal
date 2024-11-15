@@ -3,6 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');  // Import webpack for DefinePlugin
+const productList = require('./src/assets/json/productlist.json')
+const onlineStoreList = require('./src/assets/json/onlinestore.json')
+
 
 module.exports = {
   entry: './src/js/index.js', // Entry point for JavaScript
@@ -65,6 +68,7 @@ module.exports = {
       template: 'src/layouts/product-listing.hbs',  // Template for product listing page
       inject: true,
       filename: 'product-listing.html',
+      data: productList
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/hack-listing.hbs',  // Template for hack listing page
@@ -85,6 +89,7 @@ module.exports = {
       template: 'src/layouts/where-to-buy.hbs',  // Template for about page
       inject: true,
       filename: 'where-to-buy.html',
+      data: onlineStoreList
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/product.hbs',  // Template for product page
