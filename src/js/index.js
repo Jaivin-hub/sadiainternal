@@ -503,4 +503,17 @@ if (video && playButton) {
 });
 
 
+// COUNTRY-DROPDOWN START
+  const dropdownItems = document.querySelectorAll('.dropdown-item');
+  const dropdownButton = document.getElementById('countryDropdown');
 
+  dropdownItems.forEach(item => {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+      const selectedValue = this.getAttribute('data-value');
+      const flagImg = this.querySelector('img').outerHTML;
+      dropdownButton.innerHTML = `${flagImg} <span class="codes">${selectedValue}</span>`;
+    });
+  });
+
+// COUNTRY-DROPDOWN END
