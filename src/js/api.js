@@ -26,16 +26,12 @@ const fetchAssets = (url, callback) => {
 
 const fetchStores = (url, selectedValue, callback) => {
   const apiUrl = `${url}?countryId=${selectedValue}`
-  console.log('apiUrl',apiUrl);
   const xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
       try {
-        console.log('xhr.responseText',xhr.responseText)
         const data = JSON.parse(xhr.responseText);
-        console.log('response data',data)
-        console.log(typeof data)
 
 
 
