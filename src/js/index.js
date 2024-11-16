@@ -235,8 +235,8 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 let showMoreClicked = false; // Global flag
 
 
-function getProductList(template, url, limit, offset) {
-  fetchAndRenderData(template, url, offset, limit)
+function getProductList(template, url, productCatId, limit, offset) {
+  fetchAndRenderData(template, url, productCatId, offset, limit)
     .then(html => {
       const container = document.querySelector('#cardcontainer');
       if (!container) {
@@ -318,7 +318,9 @@ document.addEventListener('DOMContentLoaded', () => {
     video: document.getElementById("myVideo"),
     playButton: document.getElementById("playButton"),
     onlineShowMore: document.querySelector('#onlineShowMore'),
-    mainHeader: document.querySelector('.main-header')
+    mainHeader: document.querySelector('.main-header'),
+    productCatId: document.querySelector('.categ_filter.filBtn')
+
   };
 
 
@@ -347,15 +349,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (elements.productDropdown && elements.selectElement && elements.productButton) {
     const url = elements.productButton.getAttribute('data-api');
+    
+    // Initial call with the first product category
+    const initialProductCatId = elements.productCatId?.getAttribute('data-umb-id') || 0;
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
     showMoreClicked = false;
-    getProductList('productlist-template', url, limit, offset);
+    getProductList('productlist-template', url, initialProductCatId, limit, offset);
     elements.selectElement.addEventListener('change', () => {
       elements.productButton.setAttribute('data-offset', '0');
       showMoreClicked = false;
       offset = 0; // Reset offset variable
-      getProductList('productlist-template', url, limit, offset);
+      getProductList('productlist-template', url, initialProductCatId, limit, offset);
     });
     elements.productButton.addEventListener('click', (event) => {
       event.preventDefault();
@@ -364,8 +369,24 @@ document.addEventListener('DOMContentLoaded', () => {
       let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
       offset += limit;
       elements.productButton.setAttribute('data-offset', offset);
-      getProductList('productlist-template', url, limit, offset);
+      getProductList('productlist-template', url, initialProductCatId, limit, offset);
     });
+
+    // Event listener for button clicks
+    document.querySelectorAll('[data-umb-id]').forEach((button) => {
+      button.addEventListener('click', (event) => {
+          event.preventDefault();
+          showMoreClicked = true;
+
+          const productCatId = button.getAttribute('data-umb-id');
+          console.log('Clicked productCatId:', productCatId);
+          // Update offset and call API
+          elements.productButton.setAttribute('data-offset', '0'); // Reset offset to the current limit value
+          const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
+          let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
+          getProductList('productlist-template', url, productCatId, limit, offset);
+      });
+  });
   }
 
   if (elements.whereToBuyMapFrame) {
