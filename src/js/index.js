@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (elements.whereToBuyMapFrame) {
-    const selectElement = document.querySelector('.form-select.countryDrops');
+    const selectElement = document.querySelector('.form-select#countryselect');
     const countryselect = document.querySelector('#countryselect');
 
     const apiEndpoint = selectElement.getAttribute('data-url');
