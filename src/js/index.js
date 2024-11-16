@@ -348,12 +348,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.productDropdown && elements.selectElement && elements.productButton) {
+    console.log('inside the product section')
     const url = elements.productButton.getAttribute('data-api');
     
     // Initial call with the first product category
     const initialProductCatId = elements.productCatId?.getAttribute('data-umb-id') || 0;
+    console.log('initialProductCatId',initialProductCatId)
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
+    console.log('limit',limit)
     let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
+    console.log('offset',offset)
     showMoreClicked = false;
     getProductList('productlist-template', url, initialProductCatId, limit, offset);
     elements.selectElement.addEventListener('change', () => {
