@@ -53,8 +53,9 @@ async function fetchInstore(templateName, apiUrl, offset, limit, more) {
 async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
     try {
 
-        // const response = await fetch(apiUrl);
-        // const data = await response.json();
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        console.log('data response',data)
         // Get the template source
         const template = document.getElementById('online-template')?.innerHTML;
         if (!template) {
@@ -62,9 +63,9 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
         }   
         // const template = document.getElementById(templateName).innerHTML;
 
-        // // // Generate the HTML for all items
+        // // // // Generate the HTML for all items
         let html = '';
-        onlineStoreList.forEach(item => {
+        data.forEach(item => {
             html += Mustache.render(template, item);
         });
         return html;
