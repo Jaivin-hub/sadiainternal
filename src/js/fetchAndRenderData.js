@@ -4,9 +4,10 @@ import instoreList from '../assets/json/instore.json';
 import onlineStoreList from '../assets/json/onlinestore.json';
 
 
-async function fetchAndRenderData(templateName, apiUrl, productCatId, offset, limit) {
+async function fetchAndRenderData(templateName, apiUrl, selectedValue, productCatId, offset, limit) {
     try {
-        const url = `${apiUrl}?productCatId=${productCatId}?limit=${limit}&offset=${offset}`;
+        console.log('from the api limit',limit)
+        const url = `${apiUrl}?productCatId=${productCatId}&limit=${limit}&offset=${offset}&filter=${selectedValue}`;
         // console.log('url',url)
         const response = await fetch(url);
         if (!response.ok) {
@@ -18,10 +19,9 @@ async function fetchAndRenderData(templateName, apiUrl, productCatId, offset, li
         if (!template) {
             throw new Error(`Template with ID '${templateName}' not found.`);
         }
-
+        console.log('productsList',productsList)
         // // Generate HTML for each item in productList
         let html = '';
-        console.log('productList',productList)
         productsList.forEach(item => {
             html += Mustache.render(template, item); // Using Mustache template rendering
         });

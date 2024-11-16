@@ -235,8 +235,9 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 let showMoreClicked = false; // Global flag
 
 
-function getProductList(template, url, productCatId, limit, offset) {
-  fetchAndRenderData(template, url, productCatId, offset, limit)
+function getProductList(template, url, selectedValue, productCatId, offset, limit) {
+  console.log('limit-- --',limit)
+  fetchAndRenderData(template, url, selectedValue, productCatId, offset,limit)
     .then(html => {
       const container = document.querySelector('#cardcontainer');
       if (!container) {
@@ -348,50 +349,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.productDropdown && elements.selectElement && elements.productButton) {
-    console.log('inside the product section')
+    console.log('Inside the product section');
+
     const url = elements.productButton.getAttribute('data-api');
-    
-    // Initial call with the first product category
-    const initialProductCatId = elements.productCatId?.getAttribute('data-umb-id') || 0;
-    console.log('initialProductCatId',initialProductCatId)
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
-    console.log('limit',limit)
     let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
-    console.log('offset',offset)
+    let selectedValue = productDropdown.value; // Initial selected value
+    console.log('Initial selectedValue:', selectedValue);
+
+    // Find the initial active button and get its `data-umb-id`
+    let productCatId;
+    const activeButton = document.querySelector('.categ_filter .filBtn.active');
+    if (activeButton) {
+        productCatId = activeButton.getAttribute('data-umb-id');
+    } else {
+        productCatId = 0; // Default to 0 if no active button is found
+    }
+    console.log('Initial productCatId:', productCatId);
+
     showMoreClicked = false;
-    getProductList('productlist-template', url, initialProductCatId, limit, offset);
+
+    // Initial call to fetch products
+    getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
+
+    // Event listener for dropdown changes
     elements.selectElement.addEventListener('change', () => {
-      elements.productButton.setAttribute('data-offset', '0');
-      showMoreClicked = false;
-      offset = 0; // Reset offset variable
-      getProductList('productlist-template', url, initialProductCatId, limit, offset);
+        console.log('Dropdown changed');
+        elements.productButton.setAttribute('data-offset', '0');
+        offset = 0; // Reset offset variable
+        selectedValue = productDropdown.value; // Update selected value
+        console.log('Updated selectedValue:', selectedValue);
+        showMoreClicked = false;
+        getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
     });
+
+    // Event listener for category button clicks
+    document.querySelectorAll('.categ_filter .filBtn').forEach((button) => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            document.querySelectorAll('.categ_filter .filBtn').forEach((btn) => btn.classList.remove('active')); // Remove active class
+            button.classList.add('active'); // Add active class to clicked button
+            productCatId = button.getAttribute('data-umb-id'); // Update productCatId
+            console.log('Updated productCatId:', productCatId);
+            offset = 0; // Reset offset variable
+            elements.productButton.setAttribute('data-offset', '0');
+            showMoreClicked = false;
+            getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
+        });
+    });
+
+    // Event listener for "Show More" button clicks
     elements.productButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      showMoreClicked = true;
-      const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
-      let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
-      offset += limit;
-      elements.productButton.setAttribute('data-offset', offset);
-      getProductList('productlist-template', url, initialProductCatId, limit, offset);
+        event.preventDefault();
+        showMoreClicked = true;
+
+        offset += limit; // Increment offset
+        elements.productButton.setAttribute('data-offset', offset);
+        console.log('Load more - Offset:', offset);
+        getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
     });
+}
 
-    // Event listener for button clicks
-    document.querySelectorAll('[data-umb-id]').forEach((button) => {
-      button.addEventListener('click', (event) => {
-          event.preventDefault();
-          showMoreClicked = true;
-
-          const productCatId = button.getAttribute('data-umb-id');
-          console.log('Clicked productCatId:', productCatId);
-          // Update offset and call API
-          elements.productButton.setAttribute('data-offset', '0'); // Reset offset to the current limit value
-          const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
-          let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
-          getProductList('productlist-template', url, productCatId, limit, offset);
-      });
-  });
-  }
 
   if (elements.whereToBuyMapFrame) {
     const selectElement = document.querySelector('.form-select#countryselect');
