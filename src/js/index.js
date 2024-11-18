@@ -352,67 +352,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// Default selectedValue to empty string if productDropdown is not found
+let selectedValue = elements.productDropdown ? elements.productDropdown.value : '';
 
-  if (elements.productButton) {
+// Find the initial active button and get its `data-umb-id`
+let productCatId;
+const activeButton = document.querySelector('.categ_filter .filBtn.active');
+if (activeButton) {
+    productCatId = activeButton.getAttribute('data-umb-id');
+} else {
+    productCatId = 0; // Default to 0 if no active button is found
+}
 
-    const url = elements.productButton.getAttribute('data-api');
-    const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
-    let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
-    let selectedValue = productDropdown.value; // Initial selected value
-    console.log('Initial selectedValue:', selectedValue);
+const url = elements.productButton.getAttribute('data-api');
+const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
+let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
 
-    // Find the initial active button and get its `data-umb-id`
-    let productCatId;
-    const activeButton = document.querySelector('.categ_filter .filBtn.active');
-    if (activeButton) {
-        productCatId = activeButton.getAttribute('data-umb-id');
-    } else {
-        productCatId = 0; // Default to 0 if no active button is found
-    }
-    console.log('Initial productCatId:', productCatId);
+showMoreClicked = false;
 
-    showMoreClicked = false;
+// Initial call to fetch products
+getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
 
-    // Initial call to fetch products
-    getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
-
-    // Event listener for dropdown changes
-    elements.selectElement.addEventListener('change', () => {
-        console.log('Dropdown changed');
+// Add event listener for dropdown only if it exists
+if (elements.productDropdown) {
+    elements.productDropdown.addEventListener('change', () => {
         elements.productButton.setAttribute('data-offset', '0');
         offset = 0; // Reset offset variable
-        selectedValue = productDropdown.value; // Update selected value
-        console.log('Updated selectedValue:', selectedValue);
+        selectedValue = elements.productDropdown.value; // Update selected value
         showMoreClicked = false;
         getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
     });
-
-    // Event listener for category button clicks
-    // document.querySelectorAll('.categ_filter .filBtn').forEach((button) => {
-    //     button.addEventListener('click', (event) => {
-    //         event.preventDefault();
-    //         document.querySelectorAll('.categ_filter .filBtn').forEach((btn) => btn.classList.remove('active')); // Remove active class
-    //         button.classList.add('active'); // Add active class to clicked button
-    //         productCatId = button.getAttribute('data-umb-id'); // Update productCatId
-    //         console.log('Updated productCatId:', productCatId);
-    //         offset = 0; // Reset offset variable
-    //         elements.productButton.setAttribute('data-offset', '0');
-    //         showMoreClicked = false;
-    //         getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
-    //     });
-    // });
-
-    // Event listener for "Show More" button clicks
-    elements.productButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        showMoreClicked = true;
-
-        offset += limit; // Increment offset
-        elements.productButton.setAttribute('data-offset', offset);
-        console.log('Load more - Offset:', offset);
-        getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
-    });
 }
+
+// Event listener for "Show More" button clicks
+elements.productButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    showMoreClicked = true;
+    offset += limit; // Increment offset
+    elements.productButton.setAttribute('data-offset', offset);
+    getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
+});
 
 
   if (elements.whereToBuyMapFrame) {
