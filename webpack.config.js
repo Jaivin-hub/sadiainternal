@@ -3,6 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');  // Import webpack for DefinePlugin
+const productList = require('./src/assets/json/productlist.json')
+const onlineStoreList = require('./src/assets/json/onlinestore.json')
+
 
 module.exports = {
   entry: './src/js/index.js', // Entry point for JavaScript
@@ -65,6 +68,7 @@ module.exports = {
       template: 'src/layouts/product-listing.hbs',  // Template for product listing page
       inject: true,
       filename: 'product-listing.html',
+      data: productList
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/hack-listing.hbs',  // Template for hack listing page
@@ -85,6 +89,7 @@ module.exports = {
       template: 'src/layouts/where-to-buy.hbs',  // Template for about page
       inject: true,
       filename: 'where-to-buy.html',
+      data: onlineStoreList
     }),
     new HtmlWebpackPlugin({
       template: 'src/layouts/product.hbs',  // Template for product page
@@ -116,6 +121,11 @@ module.exports = {
       inject: true,
       filename: 'contact.html',
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/searchresult.hbs',  // Template for recipe listing page
+      inject: true,
+      filename: 'searchresult.html',
+    }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/style.css',  // Output CSS to assets folder
     }),
@@ -139,6 +149,7 @@ module.exports = {
         { from: /^\/recipe-category-listing/, to: '/recipe-category-listing.html' },
         { from: /^\/recipe-listing/, to: '/recipe-listing.html' },
         { from: /^\/product-listing/, to: '/product-listing.html' },
+        { from: /^\/searchresult/, to: '/searchresult.html' },
         { from: /^\/hack-listing/, to: '/hack-listing.html' },
         { from: /^\/product-details/, to: '/product-details.html' },
         { from: /^\/cooking-hacks-details/, to: '/cooking-hacks-details.html' },

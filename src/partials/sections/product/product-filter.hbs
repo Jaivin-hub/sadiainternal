@@ -9,15 +9,15 @@
 
             <div class="filterWrap catgSpc">
                 <div class="categ_filter">
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">All</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Whole Chicken</a>
-                    <a href="#" class="btn filBtn active" data-toggle="portfilter">Chicken Parts</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Breaded</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Burger Patties</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Vegetables</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Fires</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Franks & Shawerma</a>
-                    <a href="#" class="btn filBtn" data-toggle="portfilter">Kids</a>
+                    <a href="#" data-umb-id="0" class="btn filBtn" data-toggle="portfilter">All</a>
+                    <a href="#" data-umb-id="1173" class="btn filBtn active" data-toggle="portfilter">Whole Chicken</a>
+                    <a href="#" data-umb-id="2" class="btn filBtn" data-toggle="portfilter">Chicken Parts</a>
+                    <a href="#" data-umb-id="3" class="btn filBtn" data-toggle="portfilter">Breaded</a>
+                    <a href="#" data-umb-id="4" class="btn filBtn" data-toggle="portfilter">Burger Patties</a>
+                    <a href="#" data-umb-id="5" class="btn filBtn" data-toggle="portfilter">Vegetables</a>
+                    <a href="#" data-umb-id="6" class="btn filBtn" data-toggle="portfilter">Fires</a>
+                    <a href="#" data-umb-id="7" class="btn filBtn" data-toggle="portfilter">Franks & Shawerma</a>
+                    <a href="#" data-umb-id="8" class="btn filBtn" data-toggle="portfilter">Kids</a>
                 </div>
 
                 <select id="productDropdown" class="form-select" >
@@ -29,21 +29,14 @@
         {{!-- FILTER-END --}}
 
         <div class="productList">
-            <div class="row">
-                <div class="col-md-4">
-              <div class="list_prdct text-center">
-                  <div class="pdctImg">
-                      <img src="" class="img-fluid prdctImg" alt="img">
-                  </div>
-                  <div class="prdctCont">
-                      <h4 class="titles">testing</h4>
-                      <p class="dtls">testing</p>
-                  </div>
-              </div>
+            <div class="row" id="cardcontainer">
+                {{!-- {{#each htmlWebpackPlugin.options.data }}
+                {{> ../mustache/loadmore}}
+                {{/each}} --}}
           </div>
             </div>
             <div class="btnSpace text-center">
-                <button id="productShowMore" data-api="/Umbraco/api/data/GetProductsPerCategory/" data-limit="1" data-offset="0" class="btn btn-more">Show More Products</button>
+                <button id="productShowMore" data-api="https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetProductsPerCategory" data-limit="1" data-offset="0" class="btn btn-more">Show More Products</button>
             </div>
         </div>
 

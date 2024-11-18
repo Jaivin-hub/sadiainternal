@@ -1,0 +1,28 @@
+[
+    {
+      "productThumbnailUrl": "https://example.com/images/product1.jpg",
+      "productTitle": "Organic Apple",
+      "productCalories": "52 calories per 100g"
+    },
+    {
+      "productThumbnailUrl": "https://example.com/images/product2.jpg",
+      "productTitle": "Banana",
+      "productCalories": "89 calories per 100g"
+    },
+    {
+      "productThumbnailUrl": "https://example.com/images/product3.jpg",
+      "productTitle": "Carrot",
+      "productCalories": "41 calories per 100g"
+    },
+    {
+      "productThumbnailUrl": "https://example.com/images/product4.jpg",
+      "productTitle": "Broccoli",
+      "productCalories": "55 calories per 100g"
+    },
+    {
+      "productThumbnailUrl": "https://example.com/images/product5.jpg",
+      "productTitle": "Almonds",
+      "productCalories": "576 calories per 100g"
+    }
+  ]
+  
