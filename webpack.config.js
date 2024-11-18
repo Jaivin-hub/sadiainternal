@@ -121,6 +121,11 @@ module.exports = {
       inject: true,
       filename: 'contact.html',
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/searchresult.hbs',  // Template for recipe listing page
+      inject: true,
+      filename: 'searchresult.html',
+    }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/style.css',  // Output CSS to assets folder
     }),
@@ -144,6 +149,7 @@ module.exports = {
         { from: /^\/recipe-category-listing/, to: '/recipe-category-listing.html' },
         { from: /^\/recipe-listing/, to: '/recipe-listing.html' },
         { from: /^\/product-listing/, to: '/product-listing.html' },
+        { from: /^\/searchresult/, to: '/searchresult.html' },
         { from: /^\/hack-listing/, to: '/hack-listing.html' },
         { from: /^\/product-details/, to: '/product-details.html' },
         { from: /^\/cooking-hacks-details/, to: '/cooking-hacks-details.html' },
