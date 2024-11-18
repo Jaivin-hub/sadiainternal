@@ -75,7 +75,7 @@
                 {{!-- FILTER-START --}}
                 <div class="filterSection postDiv" id="filterSection">
                     <div class="dropdown-container">
-                        <select class="form-select countryDrops" data-url="https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetInStores"
+                        <select class="form-select countryDrops" id="countryDrops" data-url="https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetInStores"
                             id="filterinstore">
                             <option
                                 data="Abu Dhabi-24.4539, 54.3773 | Dubai-25.2048, 55.2708 | Sharjah-25.3463, 55.4209 | Al Ain-24.1302, 55.8023"
@@ -114,7 +114,9 @@
 
                 <div class="mapWraper">
                     <div id="mapContainer">
-                        <div id="wheretobuyMapframe"></div>
+                        <div id="wheretobuyMapframe">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -123,3 +125,4 @@
 
     </div>
 </section>
+

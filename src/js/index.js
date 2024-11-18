@@ -280,6 +280,11 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
     });
 }
 
+function fetchMapData(templateName, selectedValue, apiUrl, keyword){
+  const url = `${apiUrl}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
+
+}
+
 // function fetchProductslists(templateName, limit, offset, apiUrl, event) {
 //   const container = document.querySelector('#cardcontainer');
 //   fetchAndRenderData(templateName, apiUrl, offset, limit)
@@ -451,6 +456,42 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
       }
     });
+
+    const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+    const countryElement = document.querySelector('#countryDrops');
+    console.log('wheretobuyElement',wheretobuyElement)
+    const inStoreApi = wheretobuyElement.getAttribute('data-url');
+    const selectedCountry = wheretobuyElement.value;
+    const fullFormedApi = `${inStoreApi}?countryId=${selectedCountry}`
+
+    // console.log('inStoreApi',wheretobuyElement.value)
+
+
+    if(wheretobuyElement){
+      initializeWhereToBuyMapbox(fullFormedApi)
+
+    // fetchMapData('online-template', selectedCountry, inStoreApi);
+    
+    countryElement.addEventListener('change', () => {
+      const selectedValue = selectElement.value;
+      offset = 0; // Reset offset
+      wheretobuyElement.setAttribute('data-offset', '0');
+      showMoreClicked = false;
+      console.log('apiEndpoint',apiEndpoint)
+      console.log('selectedValue',selectedValue)
+      const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`
+      // initializeWhereToBuyMapbox(fullApiUrl)
+
+      // fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
+    });
+    }
+
+
+
+
+
+
+
   }
 
 
@@ -508,34 +549,6 @@ document.addEventListener('DOMContentLoaded', () => {
   //     updateOffsetAndFetch();
   //   });
   // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   // Video Play Button Handling
