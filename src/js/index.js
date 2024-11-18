@@ -353,8 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  if (elements.productDropdown && elements.selectElement && elements.productButton) {
-    console.log('Inside the product section');
+  if (elements.productButton) {
 
     const url = elements.productButton.getAttribute('data-api');
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
