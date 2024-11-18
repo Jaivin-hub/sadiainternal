@@ -166,6 +166,36 @@ const priceSliderInitialize = () => {
 
 
 
+// TAG-SEARCH START
+const tagInput = document.getElementById('tag-input');
+const tagContainer = document.getElementById('tag-container');
+
+tagInput.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter' || event.key === ',') {
+    event.preventDefault();
+    const tagText = tagInput.value.trim();
+    if (tagText) {
+      addTag(tagText);
+      tagInput.value = '';
+    }
+  }
+});
+
+function addTag(text) {
+  const tag = document.createElement('div');
+  tag.className = 'tag';
+  tag.textContent = text;
+
+  // Add click event to remove the tag
+  tag.addEventListener('click', () => {
+    tagContainer.removeChild(tag);
+  });
+
+  tagContainer.insertBefore(tag, tagInput);
+}
+
+// TAG-SEARCH END
+
 
 
 // SIDEBAR-COLLPASE START

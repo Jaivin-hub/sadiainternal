@@ -241,11 +241,12 @@
         .card-body{
             .card-title{
                 margin: 0 0 5px;
+                padding-right: 5%;
             }
             .card-text{
                 color: #adadad;
                 font-size: 14px;
-                font-weight: 400
+                font-weight: 400;
                 span{
                     color: #d7282f;
                     padding-left: 5px
@@ -261,6 +262,14 @@
 @media (max-width: 767px) {
 
     .trendingWraper{
+        .card{
+            .card-body{
+                .card-title{
+                    padding-right: 0;
+                }
+            }
+        }
+        
         .row.horizontal-scroll{
             margin: 0;
             .scrlWidth{
