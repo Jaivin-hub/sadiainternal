@@ -149,8 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeMapbox();
   }
 
-
-
   if (elements.productButton) {
     // Default selectedValue to empty string if productDropdown is not found
     let selectedValue = elements.productDropdown ? elements.productDropdown.value : '';
@@ -194,15 +192,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+
+
   const closeButton = document.querySelector('#instoreclose');
   const onlineCloseButton = document.querySelector('#onlinestoreclose');
 
 
   if (closeButton) {
     closeButton.addEventListener('click', (event) => {
+      console.log('instore search')
       const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+      console.log('element',wheretobuyElement)
       const target = event.target.closest('#instoreclose');
       const inStoreApi = wheretobuyElement.getAttribute('data-url');
+      console.log('inStoreApi',inStoreApi)
       showMoreClicked = false;
       if (target) {
       const selectedCountry = wheretobuyElement.value;
@@ -215,9 +219,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if(onlineCloseButton){
     onlineCloseButton.addEventListener('click', (event) => {
+      console.log('online search')
       const wheretobuyElement = document.querySelector('.form-select#countryselect');
+      console.log('element',wheretobuyElement)
       const target = event.target.closest('#onlinestoreclose');
       const inStoreApi = wheretobuyElement.getAttribute('data-url');
+      console.log('online api', inStoreApi)
       const buttonElement = document.querySelector('#onlineShowMore');
       const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
       let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
@@ -230,6 +237,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+  // if(){
+
+  // }
 
   if (elements.whereToBuyMapFrame) {
     const selectElement = document.querySelector('.form-select#countryselect');
