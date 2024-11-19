@@ -170,7 +170,7 @@ const priceSliderInitialize = () => {
 const tagInput = document.getElementById('tag-input');
 const tagContainer = document.getElementById('tag-container');
 
-tagInput.addEventListener('keydown', function (event) {
+tagInput?.addEventListener('keydown', function (event) {
   if (event.key === 'Enter' || event.key === ',') {
     event.preventDefault();
     const tagText = tagInput.value.trim();

@@ -102,10 +102,10 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
     });
 }
 
-
+console.log('outside the function')
 // Ensure code runs after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-
+  console.log('document loaded')
   // Cache commonly used elements
   const elements = {
     imageSlider: document.querySelector('.image-slider'),
@@ -129,8 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     productCatId: document.querySelector('.categ_filter.filBtn')
 
   };
-
-
 
 
   // Initialize slick sliders if required elements are present
@@ -196,9 +194,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const closeButton = document.querySelector('button.btn.btn-outline.cl_ser');
+
+  if (closeButton) {
+    document.addEventListener('click', (event) => {
+    const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+      const target = event.target.closest('button.btn.btn-outline.cl_ser');
+      const inStoreApi = wheretobuyElement.getAttribute('data-url');
+      if (target) {
+      const selectedCountry = wheretobuyElement.value;
+      const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
+      initializeWhereToBuyMapbox(fullApiUrl);
+      }
+    });
+  }
+
 
 
   if (elements.whereToBuyMapFrame) {
+    console.log(44444)
     const selectElement = document.querySelector('.form-select#countryselect');
     const countryselect = document.querySelector('#countryselect');
     const apiEndpoint = selectElement.getAttribute('data-url');
@@ -251,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize the map with the full API URL
     initializeWhereToBuyMapbox(fullApiUrl);
-
     // Event listener for country dropdown change
     // countryElement.addEventListener('change', () => {
     //   console.log(222)
