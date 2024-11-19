@@ -375,10 +375,14 @@ const initializeWhereToBuyMapbox = (url) => {
 
     // Listen for dropdown selection change
     selectElement.addEventListener('change', () => {
-      const selectedValue = selectElement.value;
+    const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+    const inStoreApi = wheretobuyElement.getAttribute('data-url');
+    const selectedValue = selectElement.value;
+    const fetchUrl = `${inStoreApi}?countryId=${selectedValue}`
+
       
       // Fetch new data and update markers
-      fetchStores(apiEndpoint, selectedValue, (newData) => {
+      fetchStores(fetchUrl, selectedValue, (newData) => {
         const newCoordinatesArray = newData.map(store => store.coordinates);
         const objData = { "locations": newCoordinatesArray, "storesList": newData };
         

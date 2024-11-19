@@ -228,7 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     elements.searchInput.addEventListener('input', () => {
-      console.log('insididnsilfsk')
       if (elements.searchInput.value.length >= 3) {
         const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
         showMoreClicked = false;
@@ -242,37 +241,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const wheretobuyElement = document.querySelector('.form-select#countryDrops');
     const countryElement = document.querySelector('#countryDrops');
     const inStoreApi = wheretobuyElement.getAttribute('data-url');
+    const searchInput = document.querySelector('#inStoreSearchInpts');
+
+    // Get selected country from the dropdown initially
     const selectedCountry = wheretobuyElement.value;
-    console.log('selectedCountry',selectedCountry)
-    const fullFormedApi = `${inStoreApi}?countryId=${selectedCountry}`
 
+    // Form the full API URL
+    const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
 
+    // Initialize the map with the full API URL
+    initializeWhereToBuyMapbox(fullApiUrl);
 
-    if (wheretobuyElement) {
-      const searchInput = document.querySelector('#inStoreSearchInpts')
-      initializeWhereToBuyMapbox(fullFormedApi)
+    // Event listener for country dropdown change
+    // countryElement.addEventListener('change', () => {
+    //   console.log(222)
+    //   const selectedCountry = wheretobuyElement.value;
+    //   const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
+    //   console.log('API call on country change:', fullApiUrl);
+    //   initializeWhereToBuyMapbox(fullApiUrl);
+    // });
 
-      countryElement.addEventListener('change', () => {
-        const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+    // Event listener for search input change
+    searchInput.addEventListener('input', () => {
+      const keyword = searchInput.value;
+
+      // Only make the API call if the keyword length is greater than or equal to 3
+      if (keyword.length >= 3) {
         const selectedCountry = wheretobuyElement.value;
-        offset = 0; // Reset offset
-        wheretobuyElement.setAttribute('data-offset', '0');
-        showMoreClicked = false;
-        const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`
-        initializeWhereToBuyMapbox(fullApiUrl)
-      });
-
-      searchInput.addEventListener('input', () => {
-        if (searchInput.value.length >= 3) {
-          const selectedCountry = wheretobuyElement.value;
-          showMoreClicked = false;
-          const keyword = searchInput.value;
-        const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}&keyword=${encodeURIComponent(keyword)}`
-        initializeWhereToBuyMapbox(fullApiUrl)
-        }
-      });
-      
-    }
+        const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}&keyword=${encodeURIComponent(keyword)}`;
+        console.log('API call on search input change:', fullApiUrl);
+        initializeWhereToBuyMapbox(fullApiUrl);
+      }
+    });
   }
 
   // Video Play Button Handling
