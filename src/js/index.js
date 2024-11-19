@@ -194,17 +194,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const closeButton = document.querySelector('button.btn.btn-outline.cl_ser');
+  const closeButton = document.querySelector('#instoreclose');
+  const onlineCloseButton = document.querySelector('#onlinestoreclose');
+
 
   if (closeButton) {
-    document.addEventListener('click', (event) => {
-    const wheretobuyElement = document.querySelector('.form-select#countryDrops');
-      const target = event.target.closest('button.btn.btn-outline.cl_ser');
+    closeButton.addEventListener('click', (event) => {
+      const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+      const target = event.target.closest('#instoreclose');
       const inStoreApi = wheretobuyElement.getAttribute('data-url');
+      showMoreClicked = false;
       if (target) {
       const selectedCountry = wheretobuyElement.value;
       const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
+      console.log('fullApiUrl',fullApiUrl)
       initializeWhereToBuyMapbox(fullApiUrl);
+      }
+    });
+  }
+
+  if(onlineCloseButton){
+    onlineCloseButton.addEventListener('click', (event) => {
+      const wheretobuyElement = document.querySelector('.form-select#countryselect');
+      const target = event.target.closest('#onlinestoreclose');
+      const inStoreApi = wheretobuyElement.getAttribute('data-url');
+      const buttonElement = document.querySelector('#onlineShowMore');
+      const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
+      let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
+      showMoreClicked = false;
+      if (target) {
+      const selectedCountry = wheretobuyElement.value;
+      fetchOnlineStores('online-template', selectedCountry, inStoreApi, limit, offset, '');
       }
     });
   }
@@ -212,7 +232,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.whereToBuyMapFrame) {
-    console.log(44444)
     const selectElement = document.querySelector('.form-select#countryselect');
     const countryselect = document.querySelector('#countryselect');
     const apiEndpoint = selectElement.getAttribute('data-url');
@@ -263,17 +282,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Form the full API URL
     const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
 
-    // Initialize the map with the full API URL
     initializeWhereToBuyMapbox(fullApiUrl);
-    // Event listener for country dropdown change
-    // countryElement.addEventListener('change', () => {
-    //   console.log(222)
-    //   const selectedCountry = wheretobuyElement.value;
-    //   const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
-    //   console.log('API call on country change:', fullApiUrl);
-    //   initializeWhereToBuyMapbox(fullApiUrl);
-    // });
-
+    
     // Event listener for search input change
     searchInput.addEventListener('input', () => {
       const keyword = searchInput.value;
@@ -282,7 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (keyword.length >= 3) {
         const selectedCountry = wheretobuyElement.value;
         const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}&keyword=${encodeURIComponent(keyword)}`;
-        console.log('API call on search input change:', fullApiUrl);
         initializeWhereToBuyMapbox(fullApiUrl);
       }
     });
