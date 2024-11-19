@@ -102,10 +102,8 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
     });
 }
 
-console.log('outside the function')
 // Ensure code runs after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('document loaded')
   // Cache commonly used elements
   const elements = {
     imageSlider: document.querySelector('.image-slider'),
@@ -201,17 +199,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (closeButton) {
     closeButton.addEventListener('click', (event) => {
-      console.log('instore search')
       const wheretobuyElement = document.querySelector('.form-select#countryDrops');
-      console.log('element',wheretobuyElement)
       const target = event.target.closest('#instoreclose');
       const inStoreApi = wheretobuyElement.getAttribute('data-url');
-      console.log('inStoreApi',inStoreApi)
       showMoreClicked = false;
       if (target) {
       const selectedCountry = wheretobuyElement.value;
       const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
-      console.log('fullApiUrl',fullApiUrl)
       initializeWhereToBuyMapbox(fullApiUrl);
       }
     });
@@ -219,15 +213,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if(onlineCloseButton){
     onlineCloseButton.addEventListener('click', (event) => {
-      console.log('online search')
       const wheretobuyElement = document.querySelector('.form-select#countryselect');
-      console.log('element',wheretobuyElement)
       const target = event.target.closest('#onlinestoreclose');
       const inStoreApi = wheretobuyElement.getAttribute('data-url');
-      console.log('online api', inStoreApi)
       const buttonElement = document.querySelector('#onlineShowMore');
       const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
-      let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
+      let offset = 0;
       showMoreClicked = false;
       if (target) {
       const selectedCountry = wheretobuyElement.value;
