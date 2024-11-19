@@ -43,202 +43,13 @@ const pulsingDotStyle = `
 `;
 document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 
-// const renderData = (data) => {
-//   if (data && Array.isArray(data)) {
-//     const templateSource = `
-//       <div class="card col-md-3">
-//         <div class="logo-box">
-//           <a href="{{this.onlineBuyUrl}}">
-//             <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
-//           </a>
-//         </div>
-//       </div>
-//     `;
-//     const template = Handlebars.compile(templateSource);
-//     const compiledHTML = data.map(item => template(item)).join(''); // Join items into a single string of HTML
-
-//     const container = document.getElementById('OnlineStoreCards'); // The container for the cards
-//     const existingRow = container.querySelector('.row.shop_logos'); // Find the existing row
-
-//     if (showMoreClicked && existingRow) {
-//       // Append new items to the existing row if "Show More" was clicked
-//       existingRow.innerHTML += compiledHTML;
-//     } else {
-//       // Replace content for dropdown change or initial load
-//       if (existingRow) {
-//         existingRow.innerHTML = compiledHTML; // Replace the content in the row
-//       } else {
-//         // Create the row if it doesn't exist
-//         const newRow = document.createElement('div');
-//         newRow.classList.add('row', 'shop_logos');
-//         newRow.innerHTML = compiledHTML;
-//         container.appendChild(newRow);
-//       }
-//     }
-
-//     // Reset the flag after rendering
-//     showMoreClicked = false;
-//   }
-// };
-
-// const renderProductData = (data) => {
-//   // Check if data is a JSON string and parse it if necessary
-//   if (typeof data === 'string') {
-//       try {
-//           data = JSON.parse(data);
-//       } catch (e) {
-//           console.error('Failed to parse JSON data:', e);
-//           return;
-//       }
-//   }
-//   if (Array.isArray(data)) {
-//       const templateSource = `
-//           <div class="col-md-4">
-//               <div class="list_prdct text-center">
-//                   <div class="pdctImg">
-//                       <img src="{{productThumbnailUrl}}" class="img-fluid prdctImg" alt="img">
-//                   </div>
-//                   <div class="prdctCont">
-//                       <h4 class="titles">{{productTitle}}</h4>
-//                       <p class="dtls">{{productCalories}}</p>
-//                   </div>
-//               </div>
-//           </div>
-//       `;
-//       const template = Handlebars.compile(templateSource);
-//       const compiledHTML = data.map(item => template(item)).join('');
-
-//       // Find the row container where the products will be inserted
-//       const productRow = document.querySelector('.productList .row');
-//       if (showMoreClicked && productRow) {
-//           // Insert the compiled HTML into the row
-//           productRow.innerHTML += compiledHTML;
-//       }else{
-//         productRow.innerHTML = compiledHTML; // Replace the content in the row
-//       }
-//   } else {
-//       console.error('Data is not an array or is undefined:', data);
-//   }
-// };
-
-// function fetchDataForSelectedOption() {
-//   const selectElement = document.querySelector('.form-select');
-//   const buttonElement = document.querySelector('#onlineShowMore');
-//   const searchInput = document.querySelector('#searchInpts');
-
-//   if (!selectElement || !buttonElement) return;
-
-//   const apiUrl = buttonElement.getAttribute('data-api');
-//   const limit = buttonElement.getAttribute('data-limit') || 0;
-//   const offset = buttonElement.getAttribute('data-offset') || 0;
-//   const selectedValue = selectElement.value;
-//   const keyword = searchInput.value || '';
-//   const container = document.querySelector('#onlinecontainer');
-
-//   // Construct the full URL with all parameters
-//   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-//   fetchOnlineStore('online-template', fullUrl).then(html =>{
-//     container.innerHTML = html;
-//   })
-// }
-
-
-// function fetchProductslists(templateName, limit, offset, apiUrl, event) {
-//   const container = document.querySelector('#cardcontainer');
-//   fetchAndRenderData(templateName, apiUrl, offset, limit)
-//     .then(html => {
-//       if (event === 'showmore') {
-//         container.innerHTML += html;  // Append new content
-//       } else {
-//         container.innerHTML = html;   // Replace existing content
-//       }
-//     })
-//     .catch(error => console.error('Error populating data:', error));
-// }
-
-// function updateOffsetAndFetch() {
-//   const buttonElement = document.querySelector('#onlineShowMore');
-//   const selectElement = document.querySelector('.form-select');
-//   const searchInput = document.querySelector('#searchInpts');
-//   const apiUrl = buttonElement.getAttribute('data-api');
-//   const container = document.querySelector('#onlinecontainer');
-
-//   if (!buttonElement) return;
-
-//   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
-//   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
-
-//   const selectedValue = selectElement.value;
-//   offset += limit;
-//   buttonElement.setAttribute('data-offset', offset);
-//   const keyword = searchInput.value || '';
-//   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-
-//   fetchOnlineStore('online-template', fullUrl).then(html => {
-//     container.innerHTML += html;
-//   })
-// }
-
-// function updateOffsetAndFetchList() {
-//   const buttonElement = document.querySelector('#onlineShowMore');
-//   const selectElement = document.querySelector('.form-select');
-//   const searchInput = document.querySelector('#searchInpts');
-
-//   if (!buttonElement) return;
-//   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
-//   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
-//   const apiUrl = buttonElement.getAttribute('data-api');
-//   const container = document.querySelector('#onlinecontainer');
-//   const selectedValue = selectElement.value;
-//   buttonElement.setAttribute('data-offset', offset);
-//   const keyword = searchInput.value || '';
-//   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-//   fetchOnlineStore('online-template', fullUrl).then(html => {
-//     container.innerHTML = html;
-//   })
-// }
-
-
-// function updateProductOffsetAndFetch() {
-//   const buttonElement = document.querySelector('#productShowMore');
-//   if (!buttonElement) return;
-
-//   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
-//   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
-
-//   // Increase offset only if "Show More" was clicked
-//   if (showMoreClicked) offset += limit;
-
-//   buttonElement.setAttribute('data-offset', offset);
-
-//   // Fetch the product list with the current limit and offset
-//   const url = buttonElement.getAttribute('data-api');
-//   fetchProductslists('productlist-template', limit, offset, url, showMoreClicked ? 'showmore' : 'initial');
-// }
-
-// function resetOffset() {
-//   const buttonElement = document.querySelector('#onlineShowMore');
-//   if (buttonElement) {
-//     // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
-//     buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
-//   }
-// }
-
-// function resetOffsetProducts() {
-//   const buttonElement = document.querySelector('#productShowMore');
-//   if (buttonElement) {
-//     // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
-//     buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
-//   }
-// }
-
 let showMoreClicked = false; // Global flag
 
 
 function getProductList(template, url, selectedValue, productCatId, offset, limit) {
-  console.log('limit-- --',limit)
-  fetchAndRenderData(template, url, selectedValue, productCatId, offset,limit)
-    .then(html => {
+  fetchAndRenderData(template, url, selectedValue, productCatId, offset, limit)
+    .then(obj => {
+      const { html, isEmpty } = obj;
       const container = document.querySelector('#cardcontainer');
       if (!container) {
         console.warn('Container #cardcontainer not found.');
@@ -250,6 +61,12 @@ function getProductList(template, url, selectedValue, productCatId, offset, limi
       } else {
         container.innerHTML = html; // Replace HTML for new selection
       }
+      const showMoreButton = document.getElementById("productShowMore");
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+      }
     })
     .catch(error => {
       console.error('Error fetching product list:', error);
@@ -260,7 +77,8 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
   const url = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
 
   fetchOnlineStore(templateName, selectedValue, url)
-    .then(html => {
+    .then(obj => {
+      const { html, isEmpty } = obj;
       const container = document.getElementById('onlinecontainers');
       if (!container) {
         console.warn('Container with ID "onlinecontainer" not found.');
@@ -268,38 +86,21 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
       }
 
       if (showMoreClicked) {
-        console.log('Appending HTML');
         container.innerHTML += html;
       } else {
-        console.log('Replacing HTML');
         container.innerHTML = html;
+      }
+      const showMoreButton = document.querySelector('#onlineShowMore');
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
       }
     })
     .catch(error => {
       console.error('Error fetching/rendering online stores:', error);
     });
 }
-
-function fetchMapData(templateName, selectedValue, apiUrl, keyword){
-  const url = `${apiUrl}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
-
-}
-
-// function fetchProductslists(templateName, limit, offset, apiUrl, event) {
-//   const container = document.querySelector('#cardcontainer');
-//   fetchAndRenderData(templateName, apiUrl, offset, limit)
-//   .then(html => {
-//     if (event === 'showmore') {
-//       container.innerHTML += html;  // Append new content
-//     } else {
-//       container.innerHTML = html;   // Replace existing content
-//     }
-//   })
-//     .catch(error => console.error('Error populating data:', error));
-// }
-
-
-
 
 
 // Ensure code runs after DOM is fully loaded
@@ -352,52 +153,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// Default selectedValue to empty string if productDropdown is not found
-let selectedValue = elements.productDropdown ? elements.productDropdown.value : '';
+  if (elements.productButton) {
+    // Default selectedValue to empty string if productDropdown is not found
+    let selectedValue = elements.productDropdown ? elements.productDropdown.value : '';
 
-// Find the initial active button and get its `data-umb-id`
-let productCatId;
-const activeButton = document.querySelector('.categ_filter .filBtn.active');
-if (activeButton) {
-    productCatId = activeButton.getAttribute('data-umb-id');
-} else {
-    productCatId = 0; // Default to 0 if no active button is found
-}
+    // Find the initial active button and get its `data-umb-id`
+    let productCatId;
+    const activeButton = document.querySelector('.categ_filter .filBtn.active');
+    if (activeButton) {
+      productCatId = activeButton.getAttribute('data-umb-id');
+    } else {
+      productCatId = 0; // Default to 0 if no active button is found
+    }
 
-const url = elements.productButton.getAttribute('data-api');
-const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
-let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
+    const url = elements.productButton.getAttribute('data-api');
+    const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
+    let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
 
-showMoreClicked = false;
+    showMoreClicked = false;
 
-// Initial call to fetch products
-getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
+    // Initial call to fetch products
+    getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
 
-// Add event listener for dropdown only if it exists
-if (elements.productDropdown) {
-    elements.productDropdown.addEventListener('change', () => {
+    // Add event listener for dropdown only if it exists
+    if (elements.productDropdown) {
+      elements.productDropdown.addEventListener('change', () => {
         elements.productButton.setAttribute('data-offset', '0');
         offset = 0; // Reset offset variable
         selectedValue = elements.productDropdown.value; // Update selected value
         showMoreClicked = false;
         getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
-    });
-}
+      });
+    }
 
-// Event listener for "Show More" button clicks
-elements.productButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    showMoreClicked = true;
-    offset += limit; // Increment offset
-    elements.productButton.setAttribute('data-offset', offset);
-    getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
-});
+    // Event listener for "Show More" button clicks
+    elements.productButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      showMoreClicked = true;
+      offset += limit; // Increment offset
+      elements.productButton.setAttribute('data-offset', offset);
+      getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
+    });
+  }
+
 
 
   if (elements.whereToBuyMapFrame) {
     const selectElement = document.querySelector('.form-select#countryselect');
     const countryselect = document.querySelector('#countryselect');
-
     const apiEndpoint = selectElement.getAttribute('data-url');
     const buttonElement = document.querySelector('#onlineShowMore');
     const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
@@ -425,8 +228,9 @@ elements.productButton.addEventListener('click', (event) => {
     });
 
     elements.searchInput.addEventListener('input', () => {
+      console.log('insididnsilfsk')
       if (elements.searchInput.value.length >= 3) {
-    const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
+        const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
         showMoreClicked = false;
         offset = 0; // Reset offset
         const keyword = elements.searchInput.value;
@@ -437,106 +241,48 @@ elements.productButton.addEventListener('click', (event) => {
 
     const wheretobuyElement = document.querySelector('.form-select#countryDrops');
     const countryElement = document.querySelector('#countryDrops');
-    console.log('wheretobuyElement',wheretobuyElement)
     const inStoreApi = wheretobuyElement.getAttribute('data-url');
     const selectedCountry = wheretobuyElement.value;
+    console.log('selectedCountry',selectedCountry)
     const fullFormedApi = `${inStoreApi}?countryId=${selectedCountry}`
 
-    // console.log('inStoreApi',wheretobuyElement.value)
 
 
-    if(wheretobuyElement){
+    if (wheretobuyElement) {
+      const searchInput = document.querySelector('#inStoreSearchInpts')
       initializeWhereToBuyMapbox(fullFormedApi)
 
-    // fetchMapData('online-template', selectedCountry, inStoreApi);
-    
-    countryElement.addEventListener('change', () => {
-      const selectedValue = selectElement.value;
-      offset = 0; // Reset offset
-      wheretobuyElement.setAttribute('data-offset', '0');
-      showMoreClicked = false;
-      console.log('apiEndpoint',apiEndpoint)
-      console.log('selectedValue',selectedValue)
-      const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`
-      // initializeWhereToBuyMapbox(fullApiUrl)
+      countryElement.addEventListener('change', () => {
+        const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+        const selectedCountry = wheretobuyElement.value;
+        offset = 0; // Reset offset
+        wheretobuyElement.setAttribute('data-offset', '0');
+        showMoreClicked = false;
+        const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`
+        initializeWhereToBuyMapbox(fullApiUrl)
+      });
 
-      // fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
-    });
+      searchInput.addEventListener('input', () => {
+        if (searchInput.value.length >= 3) {
+          const selectedCountry = wheretobuyElement.value;
+          showMoreClicked = false;
+          const keyword = searchInput.value;
+        const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}&keyword=${encodeURIComponent(keyword)}`
+        initializeWhereToBuyMapbox(fullApiUrl)
+        }
+      });
+      
     }
-
-
-
-
-
-
-
   }
-
-
-
-
-
-  // // Product List Dropdown
-  // if (productDropdown && selectElement) {
-  //   selectElement.addEventListener('change', () => {
-  //     showMoreClicked = false;
-  //     resetOffsetProducts();
-  //     const url = productButtonElement.getAttribute('data-api');
-  //     const limit = parseInt(productButtonElement.getAttribute('data-limit'), 10) || 0;
-  //     let offset = parseInt(productButtonElement.getAttribute('data-offset'), 10) || 0;
-  //     fetchProductslists('productlist-template', limit, offset, url, 'initial');
-  //   });
-  // }
-
-  // // Product Show More Button
-  // if (productButtonElement) {
-  //   updateProductOffsetAndFetch();
-  //   productButtonElement.addEventListener('click', (event) => {
-  //     event.preventDefault();
-  //     showMoreClicked = true;
-  //     updateProductOffsetAndFetch();
-  //   });
-  // }
-
-  // // Select Element for Filtered Data Fetch
-  // if (selectElement) {
-  //   selectElement.addEventListener('change', () => {
-  //     showMoreClicked = false;
-  //     resetOffset();
-  //     updateOffsetAndFetchList()
-  //     // updateOffsetAndFetch();
-  //     // fetchDataForSelectedOption();
-  //   });
-  // }
-
-  // // Search Input with live filtering
-  // if (searchInput) {
-  //   searchInput.addEventListener('input', () => {
-  //     if (searchInput.value.length >= 3) {
-  //       showMoreClicked = false;
-  //       fetchDataForSelectedOption();
-  //     }
-  //   });
-  // }
-
-  // // Show More Button for Online Content
-  // if (buttonElement) {
-  //   buttonElement.addEventListener('click', (event) => {
-  //     event.preventDefault();
-  //     showMoreClicked = true;
-  //     updateOffsetAndFetch();
-  //   });
-  // }
-
 
   // Video Play Button Handling
   if (elements.video && elements.playButton) {
-    playButton.addEventListener("click", playVideo);
-    video.addEventListener("click", toggleVideoPlayPause);
+    elements.playButton.addEventListener("click", playVideo);
+    elements.video.addEventListener("click", toggleVideoPlayPause);
 
     function playVideo() {
-      video.play().then(() => {
-        playButton.style.display = "none";
+      elements.video.play().then(() => {
+        elements.playButton.style.display = "none";
       }).catch(error => {
         console.error("Playback prevented:", error);
         alert("Click to play was blocked by the browser.");
@@ -544,11 +290,11 @@ elements.productButton.addEventListener('click', (event) => {
     }
 
     function toggleVideoPlayPause() {
-      if (video.paused) {
+      if (elements.video.paused) {
         playVideo();
       } else {
-        video.pause();
-        playButton.style.display = "flex";
+        elements.video.pause();
+        elements.playButton.style.display = "flex";
       }
     }
   }
@@ -619,43 +365,6 @@ elements.productButton.addEventListener('click', (event) => {
     document.querySelectorAll('.dropdown-menu').forEach(dropdown => dropdown.classList.remove('show'));
   }
 
-  // Link Navigation Handlers
-  const links = {
-    viewMoreRecipes: 'recipe-details',
-    viewProduct: 'product-listing',
-    productdetails: 'product-details',
-    productnav: 'products',
-    aboutnav: 'about',
-    viewMoreHack: 'hack-listing',
-    cookwithsadianav: 'recipe-details',
-    whereToBuy: 'where-to-buy',
-    abtLink: 'about',
-  };
-
-  Object.keys(links).forEach(linkId => {
-    const element = document.getElementById(linkId);
-    if (element) {
-      element.addEventListener('click', event => {
-        event.preventDefault();
-        window.location.href = links[linkId];
-      });
-    }
-  });
-
-  document.querySelectorAll('.viewCampaign').forEach(button => {
-    button.addEventListener('click', event => {
-      event.preventDefault();
-      window.location.href = 'campaign';
-    });
-  });
-
-  document.querySelectorAll('.where-to-buy').forEach(link => {
-    link.addEventListener('click', event => {
-      event.preventDefault();
-      window.location.href = 'where-to-buy';
-    });
-  });
-
   // Header Scroll Appearance
   const header = document.querySelector('.main-header');
   header.classList.add('visible');
@@ -671,16 +380,16 @@ elements.productButton.addEventListener('click', (event) => {
 
 
 // COUNTRY-DROPDOWN START
-  const dropdownItems = document.querySelectorAll('.dropdown-item');
-  const dropdownButton = document.getElementById('countryDropdown');
+const dropdownItems = document.querySelectorAll('.dropdown-item');
+const dropdownButton = document.getElementById('countryDropdown');
 
-  dropdownItems.forEach(item => {
-    item.addEventListener('click', function (e) {
-      e.preventDefault();
-      const selectedValue = this.getAttribute('data-value');
-      const flagImg = this.querySelector('img').outerHTML;
-      dropdownButton.innerHTML = `${flagImg} <span class="codes">${selectedValue}</span>`;
-    });
+dropdownItems.forEach(item => {
+  item.addEventListener('click', function (e) {
+    e.preventDefault();
+    const selectedValue = this.getAttribute('data-value');
+    const flagImg = this.querySelector('img').outerHTML;
+    dropdownButton.innerHTML = `${flagImg} <span class="codes">${selectedValue}</span>`;
   });
+});
 
 // COUNTRY-DROPDOWN END

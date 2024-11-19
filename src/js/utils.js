@@ -302,8 +302,7 @@ const initializeSlick = () => {
 const initializeWhereToBuyMapbox = (url) => {
   const selectElement = document.querySelector('.form-select.countryDrops');
   const selectedValue = selectElement.value;
-  const apiEndpoint = url;
-  console.log('apiEndpoint---++',apiEndpoint)
+  const apiEndpoint = url
 
   const initializeMapWithData = (storesList) => {
     const coordinatesArray = storesList.map(store => store.coordinates);
