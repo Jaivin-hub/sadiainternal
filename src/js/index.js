@@ -5,7 +5,7 @@ import '../scss/style.scss';
 import Handlebars from 'handlebars';
 import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
 import { fetchAssets, fetchProducts } from './api.js'
-import { fetchAndRenderData, fetchOnlineStore } from './fetchAndRenderData.js';
+import { fetchAndRenderData, fetchOnlineStore, fetchRecipes } from './fetchAndRenderData.js';
 
 const pulsingDotStyle = `
 <style>
@@ -43,202 +43,13 @@ const pulsingDotStyle = `
 `;
 document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 
-// const renderData = (data) => {
-//   if (data && Array.isArray(data)) {
-//     const templateSource = `
-//       <div class="card col-md-3">
-//         <div class="logo-box">
-//           <a href="{{this.onlineBuyUrl}}">
-//             <img src="{{this.storeLogoUrl}}" class="img-fluid bxImg" alt="img">
-//           </a>
-//         </div>
-//       </div>
-//     `;
-//     const template = Handlebars.compile(templateSource);
-//     const compiledHTML = data.map(item => template(item)).join(''); // Join items into a single string of HTML
-
-//     const container = document.getElementById('OnlineStoreCards'); // The container for the cards
-//     const existingRow = container.querySelector('.row.shop_logos'); // Find the existing row
-
-//     if (showMoreClicked && existingRow) {
-//       // Append new items to the existing row if "Show More" was clicked
-//       existingRow.innerHTML += compiledHTML;
-//     } else {
-//       // Replace content for dropdown change or initial load
-//       if (existingRow) {
-//         existingRow.innerHTML = compiledHTML; // Replace the content in the row
-//       } else {
-//         // Create the row if it doesn't exist
-//         const newRow = document.createElement('div');
-//         newRow.classList.add('row', 'shop_logos');
-//         newRow.innerHTML = compiledHTML;
-//         container.appendChild(newRow);
-//       }
-//     }
-
-//     // Reset the flag after rendering
-//     showMoreClicked = false;
-//   }
-// };
-
-// const renderProductData = (data) => {
-//   // Check if data is a JSON string and parse it if necessary
-//   if (typeof data === 'string') {
-//       try {
-//           data = JSON.parse(data);
-//       } catch (e) {
-//           console.error('Failed to parse JSON data:', e);
-//           return;
-//       }
-//   }
-//   if (Array.isArray(data)) {
-//       const templateSource = `
-//           <div class="col-md-4">
-//               <div class="list_prdct text-center">
-//                   <div class="pdctImg">
-//                       <img src="{{productThumbnailUrl}}" class="img-fluid prdctImg" alt="img">
-//                   </div>
-//                   <div class="prdctCont">
-//                       <h4 class="titles">{{productTitle}}</h4>
-//                       <p class="dtls">{{productCalories}}</p>
-//                   </div>
-//               </div>
-//           </div>
-//       `;
-//       const template = Handlebars.compile(templateSource);
-//       const compiledHTML = data.map(item => template(item)).join('');
-
-//       // Find the row container where the products will be inserted
-//       const productRow = document.querySelector('.productList .row');
-//       if (showMoreClicked && productRow) {
-//           // Insert the compiled HTML into the row
-//           productRow.innerHTML += compiledHTML;
-//       }else{
-//         productRow.innerHTML = compiledHTML; // Replace the content in the row
-//       }
-//   } else {
-//       console.error('Data is not an array or is undefined:', data);
-//   }
-// };
-
-// function fetchDataForSelectedOption() {
-//   const selectElement = document.querySelector('.form-select');
-//   const buttonElement = document.querySelector('#onlineShowMore');
-//   const searchInput = document.querySelector('#searchInpts');
-
-//   if (!selectElement || !buttonElement) return;
-
-//   const apiUrl = buttonElement.getAttribute('data-api');
-//   const limit = buttonElement.getAttribute('data-limit') || 0;
-//   const offset = buttonElement.getAttribute('data-offset') || 0;
-//   const selectedValue = selectElement.value;
-//   const keyword = searchInput.value || '';
-//   const container = document.querySelector('#onlinecontainer');
-
-//   // Construct the full URL with all parameters
-//   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-//   fetchOnlineStore('online-template', fullUrl).then(html =>{
-//     container.innerHTML = html;
-//   })
-// }
-
-
-// function fetchProductslists(templateName, limit, offset, apiUrl, event) {
-//   const container = document.querySelector('#cardcontainer');
-//   fetchAndRenderData(templateName, apiUrl, offset, limit)
-//     .then(html => {
-//       if (event === 'showmore') {
-//         container.innerHTML += html;  // Append new content
-//       } else {
-//         container.innerHTML = html;   // Replace existing content
-//       }
-//     })
-//     .catch(error => console.error('Error populating data:', error));
-// }
-
-// function updateOffsetAndFetch() {
-//   const buttonElement = document.querySelector('#onlineShowMore');
-//   const selectElement = document.querySelector('.form-select');
-//   const searchInput = document.querySelector('#searchInpts');
-//   const apiUrl = buttonElement.getAttribute('data-api');
-//   const container = document.querySelector('#onlinecontainer');
-
-//   if (!buttonElement) return;
-
-//   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
-//   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
-
-//   const selectedValue = selectElement.value;
-//   offset += limit;
-//   buttonElement.setAttribute('data-offset', offset);
-//   const keyword = searchInput.value || '';
-//   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-
-//   fetchOnlineStore('online-template', fullUrl).then(html => {
-//     container.innerHTML += html;
-//   })
-// }
-
-// function updateOffsetAndFetchList() {
-//   const buttonElement = document.querySelector('#onlineShowMore');
-//   const selectElement = document.querySelector('.form-select');
-//   const searchInput = document.querySelector('#searchInpts');
-
-//   if (!buttonElement) return;
-//   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
-//   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
-//   const apiUrl = buttonElement.getAttribute('data-api');
-//   const container = document.querySelector('#onlinecontainer');
-//   const selectedValue = selectElement.value;
-//   buttonElement.setAttribute('data-offset', offset);
-//   const keyword = searchInput.value || '';
-//   const fullUrl = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-//   fetchOnlineStore('online-template', fullUrl).then(html => {
-//     container.innerHTML = html;
-//   })
-// }
-
-
-// function updateProductOffsetAndFetch() {
-//   const buttonElement = document.querySelector('#productShowMore');
-//   if (!buttonElement) return;
-
-//   const limit = parseInt(buttonElement.getAttribute('data-limit'), 10) || 0;
-//   let offset = parseInt(buttonElement.getAttribute('data-offset'), 10) || 0;
-
-//   // Increase offset only if "Show More" was clicked
-//   if (showMoreClicked) offset += limit;
-
-//   buttonElement.setAttribute('data-offset', offset);
-
-//   // Fetch the product list with the current limit and offset
-//   const url = buttonElement.getAttribute('data-api');
-//   fetchProductslists('productlist-template', limit, offset, url, showMoreClicked ? 'showmore' : 'initial');
-// }
-
-// function resetOffset() {
-//   const buttonElement = document.querySelector('#onlineShowMore');
-//   if (buttonElement) {
-//     // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
-//     buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
-//   }
-// }
-
-// function resetOffsetProducts() {
-//   const buttonElement = document.querySelector('#productShowMore');
-//   if (buttonElement) {
-//     // const limit = buttonElement.getAttribute('data-limit') || '0'; // Get the current limit value
-//     buttonElement.setAttribute('data-offset', '0'); // Reset offset to the current limit value
-//   }
-// }
-
 let showMoreClicked = false; // Global flag
 
 
 function getProductList(template, url, selectedValue, productCatId, offset, limit) {
-  console.log('limit-- --',limit)
-  fetchAndRenderData(template, url, selectedValue, productCatId, offset,limit)
-    .then(html => {
+  fetchAndRenderData(template, url, selectedValue, productCatId, offset, limit)
+    .then(obj => {
+      const { html, isEmpty } = obj;
       const container = document.querySelector('#cardcontainer');
       if (!container) {
         console.warn('Container #cardcontainer not found.');
@@ -250,6 +61,12 @@ function getProductList(template, url, selectedValue, productCatId, offset, limi
       } else {
         container.innerHTML = html; // Replace HTML for new selection
       }
+      const showMoreButton = document.getElementById("productShowMore");
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+      }
     })
     .catch(error => {
       console.error('Error fetching product list:', error);
@@ -260,7 +77,8 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
   const url = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
 
   fetchOnlineStore(templateName, selectedValue, url)
-    .then(html => {
+    .then(obj => {
+      const { html, isEmpty } = obj;
       const container = document.getElementById('onlinecontainers');
       if (!container) {
         console.warn('Container with ID "onlinecontainer" not found.');
@@ -268,11 +86,15 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
       }
 
       if (showMoreClicked) {
-        console.log('Appending HTML');
         container.innerHTML += html;
       } else {
-        console.log('Replacing HTML');
         container.innerHTML = html;
+      }
+      const showMoreButton = document.querySelector('#onlineShowMore');
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
       }
     })
     .catch(error => {
@@ -280,26 +102,60 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
     });
 }
 
-// function fetchProductslists(templateName, limit, offset, apiUrl, event) {
-//   const container = document.querySelector('#cardcontainer');
-//   fetchAndRenderData(templateName, apiUrl, offset, limit)
-//   .then(html => {
-//     if (event === 'showmore') {
-//       container.innerHTML += html;  // Append new content
-//     } else {
-//       container.innerHTML = html;   // Replace existing content
-//     }
-//   })
-//     .catch(error => console.error('Error populating data:', error));
-// }
+const contactForms = async () => {
+  const form = document.querySelector('.contactForms');
+  if (form) {
+      form.addEventListener('submit', function (e) {
+          e.preventDefault();
 
+          let valid = true;
 
+          // Full Name Validation
+          const fullName = document.querySelector('input[placeholder="Enter Full Name"]');
+          if (!fullName.value.trim()) {
+              alert("Full Name is required.");
+              valid = false;
+          }
 
+          // Email Validation
+          const email = document.querySelector('input[type="email"]');
+          if (!email.value.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
+              alert("Please enter a valid email address.");
+              valid = false;
+          }
 
+          // Phone Number Validation
+          const phone = document.querySelector('#mobileNumber');
+          if (!phone.value.trim() || !/^\d{10,12}$/.test(phone.value)) {
+              alert("Please enter a valid phone number (10-12 digits).");
+              valid = false;
+          }
+
+          // Dropdown Validation
+          const subject = document.querySelector('select');
+          if (!subject.value) {
+              alert("Please select a subject.");
+              valid = false;
+          }
+
+          // Message Validation
+          const message = document.querySelector('textarea');
+          if (!message.value.trim() || message.value.trim().length < 10) {
+              alert("Please enter a message with at least 10 characters.");
+              valid = false;
+          }
+
+          // If form is valid, submit it
+          if (valid) {
+              this.submit();
+          }
+      });
+  }
+}
 
 // Ensure code runs after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-
+  
   // Cache commonly used elements
   const elements = {
     imageSlider: document.querySelector('.image-slider'),
@@ -315,106 +171,471 @@ document.addEventListener('DOMContentLoaded', () => {
     selectElement: document.querySelector('.form-select'),
     productListElement: document.querySelector('.productList'),
     productDropdown: document.querySelector('#productDropdown'),
+    recipeDropdown: document.querySelector('#recipeDropdown'),
     productButton: document.querySelector('#productShowMore'),
+    recipeButton: document.querySelector('#recipeshowmore'),
     video: document.getElementById("myVideo"),
     playButton: document.getElementById("playButton"),
     onlineShowMore: document.querySelector('#onlineShowMore'),
     mainHeader: document.querySelector('.main-header'),
     productCatId: document.querySelector('.categ_filter.filBtn')
-
+    // productCatId: document.querySelector('.categ_filter.filBtn')
   };
 
+  let selectedDifficulty = null;
+  let selectedPrepTime = null;
 
-
-
-  // Initialize slick sliders if required elements are present
   if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
     initializeSlick();
   } else {
     console.warn('Slick slider elements not found in the DOM.');
   }
 
+  if (elements.recipeDropdown) {
+    
+  let selectedMealType = null;
+  let selectedCuisine = null;
+  let selectedIngredients = null;
+  let selectedDietaryNeeds = null;
+  let selectedOccasion = null;
+  let selectedSeason = null;
+
+
+  document.querySelectorAll('.filBtn').forEach(button => {
+    button.addEventListener('click', (event) => {
+      selectedMealType = event.target.getAttribute('data-id');
+    });
+  });
+
+  const cuisineSelect = document.querySelector('#cuisineselect');
+  cuisineSelect.addEventListener('change', (event) => {
+    selectedCuisine = event.target.value;
+  });
+
+  const productIngredientSelect = document.querySelector('#product-ingredients');
+  productIngredientSelect.addEventListener('change', (event) => {
+    selectedIngredients = event.target.value;
+  });
+
+  const dietaryNeedsSelect = document.querySelector('#dietary-needs');
+  dietaryNeedsSelect.addEventListener('change', (event) => {
+    selectedDietaryNeeds = event.target.value;
+  });
+
+  const occasionSelect = document.querySelector('#occasion');
+  occasionSelect.addEventListener('change', (event) => {
+    selectedOccasion = event.target.value;
+  });
+
+  document.getElementById('resetButton').addEventListener('click', () => {
+    window.location.reload();
+});
+document.getElementById('resettopbutton').addEventListener('click', () => {
+  window.location.reload();
+});
+
+
+  const seasonSelect = document.querySelector('#season');
+  seasonSelect.addEventListener('change', (event) => {
+    selectedSeason = event.target.value;
+  });
+
+  let recipeCatId;
+  const activeButton = document.querySelector('.categ_filter .filBtn.active');
+  if (activeButton) {
+    recipeCatId = activeButton.getAttribute('data-umb-id');
+  } else {
+    recipeCatId = 0; // Default to 0 if no active button is found
+  }
+
+  // Event listener for the submit button
+  let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
+  const url = elements.recipeButton.getAttribute('data-api');
+  const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
+  let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
+  const submitButton = document.querySelector('#submit-button');
+  console.log('limit------',limit)
+  const data = {
+    mealType: selectedMealType,
+    cuisine: selectedCuisine,
+    ingredients: selectedIngredients,
+    dietaryNeeds: selectedDietaryNeeds,
+    occasion: selectedOccasion,
+    season: selectedSeason,
+    difficulty: selectedDifficulty,
+    prepTime: selectedPrepTime,
+    recipeCatId: recipeCatId,
+    recipeSelectedValue: recipeSelectedValue,
+    url: url,
+    limit: limit,
+    offset: offset,
+    keyword:''
+  }
+
+  fetchRecipes('recipelist-template', data).then(obj => {
+    const { html, isEmpty } = obj;
+    const container = document.getElementById('recipecontainer');
+    if (!container) {
+      console.warn('Container with ID "onlinecontainer" not found.');
+      return;
+    }
+
+    if (showMoreClicked) {
+      container.innerHTML += html;
+    } else {
+      container.innerHTML = html;
+    }
+    const showMoreButton = document.querySelector('#recipeshowmore');
+    if (isEmpty) {
+      showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+    } else {
+      showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+    }
+  }).catch(error => {
+    console.error('Error fetching/rendering online stores:', error);
+  });
+
+    elements.recipeDropdown.addEventListener('change', () => {
+      elements.recipeDropdown.setAttribute('data-offset', '0');
+      offset = 0; // Reset offset variable
+      const selectedValue = elements.recipeDropdown.value; // Update selected value
+      showMoreClicked = false;
+      data.offset = 0;
+      fetchRecipes('recipelist-template', data).then(obj => {
+        const { html, isEmpty } = obj;
+        const container = document.getElementById('recipecontainer');
+        if (!container) {
+          console.warn('Container with ID "onlinecontainer" not found.');
+          return;
+        }
+  
+        if (showMoreClicked) {
+          container.innerHTML += html;
+        } else {
+          container.innerHTML = html;
+        }
+        const showMoreButton = document.querySelector('#recipeshowmore');
+        if (isEmpty) {
+          showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+        } else {
+          showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+        }
+      })
+        .catch(error => {
+          console.error('Error fetching/rendering online stores:', error);
+        });
+      // getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
+    });
+
+    elements.searchInput.addEventListener('input', () => {
+      if (elements.searchInput.value.length >= 3) {
+        data.limit = parseInt(elements.recipeButton?.getAttribute('data-limit'), 10) || 0;
+        showMoreClicked = false;
+        data.keyword = elements.searchInput.value;
+        data.offset = 0; // Reset offset
+        fetchRecipes('recipelist-template', data).then(obj => {
+          const { html, isEmpty } = obj;
+          const container = document.getElementById('recipecontainer');
+          if (!container) {
+            console.warn('Container with ID "onlinecontainer" not found.');
+            return;
+          }
+    
+          if (showMoreClicked) {
+            container.innerHTML += html;
+          } else {
+            container.innerHTML = html;
+          }
+          const showMoreButton = document.querySelector('#recipeshowmore');
+          if (isEmpty) {
+            showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+          } else {
+            showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+          }
+        })
+          .catch(error => {
+            console.error('Error fetching/rendering online stores:', error);
+          });
+        // fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
+      }
+    });
+
+    submitButton.addEventListener('click', () => {
+      let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
+      const url = elements.recipeButton.getAttribute('data-api');
+      const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
+      showMoreClicked = true;
+      let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
+      const data = {
+        mealType: selectedMealType,
+        cuisine: selectedCuisine,
+        ingredients: selectedIngredients,
+        dietaryNeeds: selectedDietaryNeeds,
+        occasion: selectedOccasion,
+        season: selectedSeason,
+        difficulty: selectedDifficulty,
+        prepTime: selectedPrepTime,
+        recipeCatId: recipeCatId,
+        recipeSelectedValue: recipeSelectedValue,
+        url: url,
+        limit: limit,
+        offset: offset,
+      };
+      fetchRecipes('recipelist-template', data).then(obj => {
+        const { html, isEmpty } = obj;
+        const container = document.getElementById('recipecontainer');
+        if (!container) {
+          console.warn('Container with ID "onlinecontainer" not found.');
+          return;
+        }
+  
+        if (showMoreClicked) {
+          container.innerHTML += html;
+        } else {
+          container.innerHTML = html;
+        }
+        const showMoreButton = document.querySelector('#recipeshowmore');
+        // if (isEmpty) {
+        //   showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+        // } else {
+        //   showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+        // }
+      })
+        .catch(error => {
+          console.error('Error fetching/rendering online stores:', error);
+        });
+    });
+
+    elements.recipeButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      showMoreClicked = true;
+      data.offset = offset += limit; // Increment offset
+      elements.recipeButton.setAttribute('data-offset', offset);
+      fetchRecipes('recipelist-template', data).then(obj => {
+        const { html, isEmpty } = obj;
+        const container = document.getElementById('recipecontainer');
+        if (!container) {
+          console.warn('Container with ID "onlinecontainer" not found.');
+          return;
+        }
+  
+        if (showMoreClicked) {
+          container.innerHTML += html;
+        } else {
+          container.innerHTML = html;
+        }
+        const showMoreButton = document.querySelector('#recipeshowmore');
+        if (isEmpty) {
+          showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+        } else {
+          showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+        }
+      })
+        .catch(error => {
+          console.error('Error fetching/rendering online stores:', error);
+        });
+    });
+
+  const closeButton = document.querySelector('#recipeclose');
+  if(closeButton){
+    closeButton.addEventListener('click', (event) => {
+      const target = event.target.closest('#recipeclose');
+      showMoreClicked = false;
+      if (target) {
+        fetchRecipes('recipelist-template', data).then(obj => {
+          const { html, isEmpty } = obj;
+          const container = document.getElementById('recipecontainer');
+          if (!container) {
+            console.warn('Container with ID "onlinecontainer" not found.');
+            return;
+          }
+    
+          if (showMoreClicked) {
+            container.innerHTML += html;
+          } else {
+            container.innerHTML = html;
+          }
+          const showMoreButton = document.querySelector('#recipeshowmore');
+          if (isEmpty) {
+            showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+          } else {
+            showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+          }
+        })
+          .catch(error => {
+            console.error('Error fetching/rendering online stores:', error);
+          });
+      }
+    });
+  }
+
+  }
+
+
+
+  contactForms()
+
+
+  // Define the fetchRecipes function
+  // const fetchRecipes = (data) => {
+  //   // Add your logic to fetch recipes using mealType and cuisine
+  // };
+
+  // Initialize slick sliders if required elements are present
+  
+
   // Initialize other components if elements are present
   if (elements.filtCatSpc) {
     toogleBtn();
-  }
-  if (elements.priceRangeSlider || elements.priceRangeSliders) {
-    priceSliderInitialize();
   }
   if (elements.mapFrame) {
     initializeMapbox();
   }
 
 
+  if (elements.priceRangeSlider || elements.priceRangeSliders) {
+    // priceSliderInitialize(handleSliderUpdate);
+    const difficultySlider = document.getElementById("slider-ranges");
 
+if (difficultySlider) {
+  // Map difficulty levels to their corresponding data-ids
+  const difficulties = [
+    { id: 1526, label: "Easy" },
+    { id: 1527, label: "Medium" },
+    { id: 1528, label: "Hard" },
+  ];
 
-  if (elements.productDropdown && elements.selectElement && elements.productButton) {
-    console.log('Inside the product section');
+  noUiSlider.create(difficultySlider, {
+    start: 0, // Start at "Easy" (index 0)
+    connect: [true, false],
+    range: {
+      min: 0,
+      max: difficulties.length - 1, // Adjust max based on array length
+    },
+    step: 1,
+    format: {
+      to: (value) => difficulties[Math.round(value)].id, // Return the data-id
+      from: (value) =>
+        difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)),
+    },
+  });
 
-    const url = elements.productButton.getAttribute('data-api');
-    const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
-    let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
-    let selectedValue = productDropdown.value; // Initial selected value
-    console.log('Initial selectedValue:', selectedValue);
+  difficultySlider.noUiSlider.on("update", (values) => {
+    const selectedId = values[0]; // Get the selected data-id
+    selectedDifficulty = selectedId;
+    console.log("Selected difficulty ID:", selectedId);
+  });
+} else {
+  console.error("Difficulty slider not found in DOM");
+}
+
+    // Preparation Time Slider
+    const prepTimeSlider = document.getElementById("slider-range");
+    if (prepTimeSlider) {
+      noUiSlider.create(prepTimeSlider, {
+        start: 1,
+        connect: [true, false],
+        range: {
+          min: 5,
+          max: 60,
+        },
+        format: {
+          to: (value) => `${value.toFixed(0)} mins`,
+          from: (value) => Number(value.replace(" mins", "")),
+        },
+      });
+
+      prepTimeSlider.noUiSlider.on("update", (values) => {
+        const prepTime = values[0];
+        selectedPrepTime = prepTime;
+      });
+    } else {
+      console.error('Preparation time slider not found in DOM');
+    }
+  }
+
+  if (elements.productButton) {
+    // Default selectedValue to empty string if productDropdown is not found
+    let selectedValue = elements.productDropdown ? elements.productDropdown.value : '';
 
     // Find the initial active button and get its `data-umb-id`
     let productCatId;
     const activeButton = document.querySelector('.categ_filter .filBtn.active');
     if (activeButton) {
-        productCatId = activeButton.getAttribute('data-umb-id');
+      productCatId = activeButton.getAttribute('data-umb-id');
     } else {
-        productCatId = 0; // Default to 0 if no active button is found
+      productCatId = 0; // Default to 0 if no active button is found
     }
-    console.log('Initial productCatId:', productCatId);
+
+    const url = elements.productButton.getAttribute('data-api');
+    const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
+    let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
 
     showMoreClicked = false;
 
     // Initial call to fetch products
     getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
 
-    // Event listener for dropdown changes
-    elements.selectElement.addEventListener('change', () => {
-        console.log('Dropdown changed');
+    // Add event listener for dropdown only if it exists
+    if (elements.productDropdown) {
+      elements.productDropdown.addEventListener('change', () => {
         elements.productButton.setAttribute('data-offset', '0');
         offset = 0; // Reset offset variable
-        selectedValue = productDropdown.value; // Update selected value
-        console.log('Updated selectedValue:', selectedValue);
+        selectedValue = elements.productDropdown.value; // Update selected value
         showMoreClicked = false;
         getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
-    });
-
-    // Event listener for category button clicks
-    document.querySelectorAll('.categ_filter .filBtn').forEach((button) => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            document.querySelectorAll('.categ_filter .filBtn').forEach((btn) => btn.classList.remove('active')); // Remove active class
-            button.classList.add('active'); // Add active class to clicked button
-            productCatId = button.getAttribute('data-umb-id'); // Update productCatId
-            console.log('Updated productCatId:', productCatId);
-            offset = 0; // Reset offset variable
-            elements.productButton.setAttribute('data-offset', '0');
-            showMoreClicked = false;
-            getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
-        });
-    });
+      });
+    }
 
     // Event listener for "Show More" button clicks
     elements.productButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        showMoreClicked = true;
-
-        offset += limit; // Increment offset
-        elements.productButton.setAttribute('data-offset', offset);
-        console.log('Load more - Offset:', offset);
-        getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
+      event.preventDefault();
+      showMoreClicked = true;
+      offset += limit; // Increment offset
+      elements.productButton.setAttribute('data-offset', offset);
+      getProductList('productlist-template', url, selectedValue, productCatId, offset, limit);
     });
-}
+  }
+
+
+  const closeButton = document.querySelector('#instoreclose');
+  const onlineCloseButton = document.querySelector('#onlinestoreclose');
+
+
+  if (closeButton) {
+    closeButton.addEventListener('click', (event) => {
+      const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+      const target = event.target.closest('#instoreclose');
+      const inStoreApi = wheretobuyElement.getAttribute('data-url');
+      showMoreClicked = false;
+      if (target) {
+        const selectedCountry = wheretobuyElement.value;
+        const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
+        initializeWhereToBuyMapbox(fullApiUrl);
+      }
+    });
+  }
+
+  if (onlineCloseButton) {
+    onlineCloseButton.addEventListener('click', (event) => {
+      const wheretobuyElement = document.querySelector('.form-select#countryselect');
+      const target = event.target.closest('#onlinestoreclose');
+      const inStoreApi = wheretobuyElement.getAttribute('data-url');
+      const buttonElement = document.querySelector('#onlineShowMore');
+      const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
+      let offset = 0;
+      showMoreClicked = false;
+      if (target) {
+        const selectedCountry = wheretobuyElement.value;
+        fetchOnlineStores('online-template', selectedCountry, inStoreApi, limit, offset, '');
+      }
+    });
+  }
 
 
   if (elements.whereToBuyMapFrame) {
     const selectElement = document.querySelector('.form-select#countryselect');
     const countryselect = document.querySelector('#countryselect');
-
     const apiEndpoint = selectElement.getAttribute('data-url');
     const buttonElement = document.querySelector('#onlineShowMore');
     const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
@@ -443,7 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     elements.searchInput.addEventListener('input', () => {
       if (elements.searchInput.value.length >= 3) {
-    const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
+        const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
         showMoreClicked = false;
         offset = 0; // Reset offset
         const keyword = elements.searchInput.value;
@@ -451,101 +672,41 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
       }
     });
+
+    const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+    const countryElement = document.querySelector('#countryDrops');
+    const inStoreApi = wheretobuyElement.getAttribute('data-url');
+    const searchInput = document.querySelector('#inStoreSearchInpts');
+
+    // Get selected country from the dropdown initially
+    const selectedCountry = wheretobuyElement.value;
+
+    // Form the full API URL
+    const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
+
+    initializeWhereToBuyMapbox(fullApiUrl);
+
+    // Event listener for search input change
+    searchInput.addEventListener('input', () => {
+      const keyword = searchInput.value;
+
+      // Only make the API call if the keyword length is greater than or equal to 3
+      if (keyword.length >= 3) {
+        const selectedCountry = wheretobuyElement.value;
+        const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}&keyword=${encodeURIComponent(keyword)}`;
+        initializeWhereToBuyMapbox(fullApiUrl);
+      }
+    });
   }
-
-
-
-
-
-  // // Product List Dropdown
-  // if (productDropdown && selectElement) {
-  //   selectElement.addEventListener('change', () => {
-  //     showMoreClicked = false;
-  //     resetOffsetProducts();
-  //     const url = productButtonElement.getAttribute('data-api');
-  //     const limit = parseInt(productButtonElement.getAttribute('data-limit'), 10) || 0;
-  //     let offset = parseInt(productButtonElement.getAttribute('data-offset'), 10) || 0;
-  //     fetchProductslists('productlist-template', limit, offset, url, 'initial');
-  //   });
-  // }
-
-  // // Product Show More Button
-  // if (productButtonElement) {
-  //   updateProductOffsetAndFetch();
-  //   productButtonElement.addEventListener('click', (event) => {
-  //     event.preventDefault();
-  //     showMoreClicked = true;
-  //     updateProductOffsetAndFetch();
-  //   });
-  // }
-
-  // // Select Element for Filtered Data Fetch
-  // if (selectElement) {
-  //   selectElement.addEventListener('change', () => {
-  //     showMoreClicked = false;
-  //     resetOffset();
-  //     updateOffsetAndFetchList()
-  //     // updateOffsetAndFetch();
-  //     // fetchDataForSelectedOption();
-  //   });
-  // }
-
-  // // Search Input with live filtering
-  // if (searchInput) {
-  //   searchInput.addEventListener('input', () => {
-  //     if (searchInput.value.length >= 3) {
-  //       showMoreClicked = false;
-  //       fetchDataForSelectedOption();
-  //     }
-  //   });
-  // }
-
-  // // Show More Button for Online Content
-  // if (buttonElement) {
-  //   buttonElement.addEventListener('click', (event) => {
-  //     event.preventDefault();
-  //     showMoreClicked = true;
-  //     updateOffsetAndFetch();
-  //   });
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // Video Play Button Handling
   if (elements.video && elements.playButton) {
-    playButton.addEventListener("click", playVideo);
-    video.addEventListener("click", toggleVideoPlayPause);
+    elements.playButton.addEventListener("click", playVideo);
+    elements.video.addEventListener("click", toggleVideoPlayPause);
 
     function playVideo() {
-      video.play().then(() => {
-        playButton.style.display = "none";
+      elements.video.play().then(() => {
+        elements.playButton.style.display = "none";
       }).catch(error => {
         console.error("Playback prevented:", error);
         alert("Click to play was blocked by the browser.");
@@ -553,11 +714,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleVideoPlayPause() {
-      if (video.paused) {
+      if (elements.video.paused) {
         playVideo();
       } else {
-        video.pause();
-        playButton.style.display = "flex";
+        elements.video.pause();
+        elements.playButton.style.display = "flex";
       }
     }
   }
@@ -628,43 +789,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.dropdown-menu').forEach(dropdown => dropdown.classList.remove('show'));
   }
 
-  // Link Navigation Handlers
-  const links = {
-    viewMoreRecipes: 'recipe-details',
-    viewProduct: 'product-listing',
-    productdetails: 'product-details',
-    productnav: 'products',
-    aboutnav: 'about',
-    viewMoreHack: 'hack-listing',
-    cookwithsadianav: 'recipe-details',
-    whereToBuy: 'where-to-buy',
-    abtLink: 'about',
-  };
-
-  Object.keys(links).forEach(linkId => {
-    const element = document.getElementById(linkId);
-    if (element) {
-      element.addEventListener('click', event => {
-        event.preventDefault();
-        window.location.href = links[linkId];
-      });
-    }
-  });
-
-  document.querySelectorAll('.viewCampaign').forEach(button => {
-    button.addEventListener('click', event => {
-      event.preventDefault();
-      window.location.href = 'campaign';
-    });
-  });
-
-  document.querySelectorAll('.where-to-buy').forEach(link => {
-    link.addEventListener('click', event => {
-      event.preventDefault();
-      window.location.href = 'where-to-buy';
-    });
-  });
-
   // Header Scroll Appearance
   const header = document.querySelector('.main-header');
   header.classList.add('visible');
@@ -680,16 +804,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // COUNTRY-DROPDOWN START
-  const dropdownItems = document.querySelectorAll('.dropdown-item');
-  const dropdownButton = document.getElementById('countryDropdown');
+const dropdownItems = document.querySelectorAll('.dropdown-item');
+const dropdownButton = document.getElementById('countryDropdown');
 
-  dropdownItems.forEach(item => {
-    item.addEventListener('click', function (e) {
-      e.preventDefault();
-      const selectedValue = this.getAttribute('data-value');
-      const flagImg = this.querySelector('img').outerHTML;
-      dropdownButton.innerHTML = `${flagImg} <span class="codes">${selectedValue}</span>`;
-    });
+dropdownItems.forEach(item => {
+  item.addEventListener('click', function (e) {
+    e.preventDefault();
+    const selectedValue = this.getAttribute('data-value');
+    const flagImg = this.querySelector('img').outerHTML;
+    dropdownButton.innerHTML = `${flagImg} <span class="codes">${selectedValue}</span>`;
   });
+});
 
 // COUNTRY-DROPDOWN END

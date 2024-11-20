@@ -1,10 +1,9 @@
-
 <section class="sideFilter">
 
     <div class="topArea">
         <h6 class="filTxt">Filter by:</h6>
-        
-        <button class="btn resetBtn">
+
+        <button class="btn resetBtn" id="resettopbutton">
             Reset <img src="./assets/images/icons/reset.svg" class="img-fluid" alt="img">
         </button>
     </div>
@@ -12,10 +11,10 @@
     <div class="filterWrap catgSpc">
         <label class="subTitles">Meal Type</label>
         <div class="categ_filter filterWrap">
-            <a href="#" class="btn filBtn">Breakfast</a>
-            <a href="#" class="btn filBtn">Lunch</a>
-            <a href="#" class="btn filBtn">Dinner</a>
-            <a href="#" class="btn filBtn">Snacks</a>
+            <a data-id="1543" class="btn filBtn">Breakfast</a>
+            <a data-id="1544" class="btn filBtn">Lunch</a>
+            <a data-id="1545" class="btn filBtn">Dinner</a>
+            <a data-id="1546" class="btn filBtn">Snacks</a>
         </div>
     </div>
 
@@ -24,94 +23,95 @@
         <div class="range-filter">
             <label class="subTitles">Difficulty</label>
             <div class="price-range-slider" id="price-range-sliders">
-                {{!-- <p class="range-value">
+                <p class="range-value">
                     <input type="text" id="amount" readonly>
-                </p> --}}
+                </p>
                 <div id="slider-ranges" class="range-bar"></div>
                 <div class="range-labels">
-                    <span class="names">Easy</span>
-                    <span class="names">Medium</span>
-                    <span class="names">Hard</span>
-                </div> 
+                    <span data-id="1526" class="names">Easy</span>
+                    <span data-id="1527" class="names">Medium</span>
+                    <span data-id="1528" class="names">Hard</span>
+                </div>
             </div>
         </div>
 
         <div class="range-filter">
             <label class="subTitles">Preparation Time</label>
             <div class="price-range-slider" id="price-range-slider">
-                <p class="range-value">
+                {{!-- <p class="range-value">
                     <input type="text" id="amount" readonly>Mins
-                </p>
+                </p> --}}
                 <div id="slider-range" class="range-bar"></div>
                 <div class="range-labels">
                     <span class="names">5 Mins</span>
                     <span class="names">30 Mins</span>
                     <span class="names">60 Mins</span>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="subTitles">Cuisine</label>
-        <select class="form-select">
-            <option>Select Cuisine</option>
-            <option>International</option>
-            <option>American</option>
-            <option>Arabic</option>
-            <option>Italian</option>
-            <option>Mexican</option>
-            <option>Chinese</option>
-            <option>Indian</option>
-            <option>Pakistani</option>
-            <option>Korean</option>
+        <select class="form-select" id="cuisineselect">
+            <option value="1514">Select Cuisine</option>
+            <option value="1515">International</option>
+            <option value="1516">American</option>
+            <option value="1517">Arabic</option>
+            <option value="1518">Italian</option>
+            <option value="1519">Mexican</option>
+            <option value="1520">Chinese</option>
+            <option value="1521">Indian</option>
+            <option value="1522">Pakistani</option>
+            <option value="1523">Korean</option>
         </select>
     </div>
 
     <div class="form-group">
-        <label class="subTitles">Product Ingredients</label>
-        <select class="form-select">
-            <option>Select Ingredient</option>
-            <option>Products</option>
+        <label class="subTitles" for="product-ingredients">Product Ingredients</label>
+        <select class="form-select" id="product-ingredients">
+            <option value="1524">Select Ingredient</option>
+            <option value="1525">Products</option>
         </select>
     </div>
 
     <div class="form-group">
-        <label class="subTitles">Dietary Needs</label>
-        <select class="form-select">
-            <option>Select Dietary Needs</option>
-            <option>Chicken</option>
-            <option>Beef</option>
-            <option>Vegetarian</option>
-            <option>Vegan</option>
+        <label class="subTitles" for="dietary-needs">Dietary Needs</label>
+        <select class="form-select" id="dietary-needs">
+            <option value="1526">Select Dietary Needs</option>
+            <option value="1527">Chicken</option>
+            <option value="1528">Beef</option>
+            <option value="1514">Vegetarian</option>
+            <option value="1514">Vegan</option>
         </select>
     </div>
 
     <div class="form-group">
-        <label class="subTitles">Occasion</label>
-        <select class="form-select">
-            <option>Select Occasion</option>
-            <option>Ramadan</option>
-            <option>Eid</option>
-            <option>Back to School</option>
-            <option>Diwali / Christmas</option>
-            <option>TBC</option>
-            <option>Special moments</option>
+        <label class="subTitles" for="occasion">Occasion</label>
+        <select class="form-select" id="occasion">
+            <option value="1529">Select Occasion</option>
+            <option value="1530">Ramadan</option>
+            <option value="1531">Eid</option>
+            <option value="1532">Back to School</option>
+            <option value="1533">Diwali / Christmas</option>
+            <option value="1534">TBC</option>
+            <option value="1535">Special moments</option>
         </select>
     </div>
 
     <div class="form-group">
-        <label class="subTitles">Season</label>
-        <select class="form-select">
-            <option>Select Season</option>
-            <option>Ramadan</option>
-            <option>Eid</option>
-            <option>Back to School</option>
-            <option>Diwali / Christmas</option>
-            <option>TBC</option>
-            <option>Special moments</option>
+        <label class="subTitles" for="season">Season</label>
+        <select class="form-select" id="season">
+            <option value="1536">Select Season</option>
+            <option value="1537">Ramadan</option>
+            <option value="1538">Eid</option>
+            <option value="1539">Back to School</option>
+            <option value="1540">Diwali / Christmas</option>
+            <option value="1541">TBC</option>
+            <option value="1542">Special moments</option>
         </select>
     </div>
+
 
     {{!-- <div class="cookBox">
         <div class="imgIcon">
@@ -126,12 +126,12 @@
     </div> --}}
 
     <div class="btnSpace">
-        <button class="btn resetBtn">
+        <button class="btn resetBtn" id="resetButton">
             Reset <img src="./assets/images/icons/reset.svg" class="img-fluid" alt="img">
         </button>
-        <button class="btn resetBtn submit"> Submit</button>
+        <button id="submit-button" class="btn resetBtn submit"> Submit</button>
     </div>
 
-   
+
 
 </section>

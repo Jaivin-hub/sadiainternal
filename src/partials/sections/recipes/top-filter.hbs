@@ -13,18 +13,19 @@
                         </button>
                     </div>
 
-                    <a href="#" class="btn filBtn active">All</a>
-                    <a href="#" class="btn filBtn">Airfryer</a>
-                    <a href="#" class="btn filBtn">Quick & Easy</a>
-                    <a href="#" class="btn filBtn">Regional</a>
-                    <a href="#" class="btn filBtn">Instant pot</a>
-                    <a href="#" class="btn filBtn">Top Searched</a>
+                    <a href="#" data-umb-id="0" class="btn filBtn">All</a>
+                    <a href="#" data-umb-id="1198" class="btn filBtn active">Airfryer</a>
+                    <a href="#" data-umb-id="2" class="btn filBtn">Quick & Easy</a>
+                    <a href="#" data-umb-id="3" class="btn filBtn">Regional</a>
+                    <a href="#" data-umb-id="4" class="btn filBtn">Instant pot</a>
+                    <a href="#" data-umb-id="5" class="btn filBtn">Top Searched</a>
                 </div>
 
                 <div class="filterSection postDiv">
-                    <select class="form-select">
-                        <option>Popular</option>
-                        <option>New</option>
+                    <select id="recipeDropdown" class="form-select">
+                        <option value="">Select filter</option>
+                        <option value="IsPopular">Popular</option>
+                        <option value="IsNew">New</option>
                     </select>
 
                     <!-- Search bar section Start -->
@@ -34,7 +35,7 @@
                             <button class="btn btn-outline serLoc" type="button">
                                 <img src="./assets/images/icons/Search.svg" loading="lazy" alt="Search">
                             </button>
-                            <button class="btn btn-outline cl_ser" type="button" style="display: none;"><img src="./assets/images/icons/s_close.svg" loading="lazy" alt="Search"></button> 
+                            <button id="recipeclose" class="btn btn-outline cl_ser" type="button" style="display: none;"><img src="./assets/images/icons/s_close.svg" loading="lazy" alt="Search"></button> 
                         </form>
                     </div>
                     <!-- Search bar section End-->

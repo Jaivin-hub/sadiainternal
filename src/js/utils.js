@@ -68,101 +68,9 @@ const initializeMapbox = () => {
   }
 };
 
-const priceSliderInitialize = () => {
-  var slider = document.getElementById("slider-ranges");
-  if(slider){
-    noUiSlider.create(slider, {
-      start: 15, // Single initial value
-      connect: [true, false], // Connect the bar from the start to the thumb position
-      range: {
-        min: 5,
-        max: 60
-      },
-      format: {
-        to: function (value) {
-          return " " + value.toFixed(0);
-        },
-        from: function (value) {
-          return Number(value.replace('', ''));
-        }
-      }
-    });
-  }
+const priceSliderInitialize = (onUpdate) => {
 
-  var slider = document.getElementById("slider-range");
-  if(slider){
-    noUiSlider.create(slider, {
-      start: 15, // Single initial value
-      connect: [true, false], // Connect the bar from the start to the thumb position
-      range: {
-        min: 5,
-        max: 60
-      },
-      format: {
-        to: function (value) {
-          return " " + value.toFixed(0);
-        },
-        from: function (value) {
-          return Number(value.replace('', ''));
-        }
-      }
-    });
-  }
-
-  var slider = document.getElementById("slider-ranger");
-  if(slider){
-    noUiSlider.create(slider, {
-      start: 15, // Single initial value
-      connect: [true, false], // Connect the bar from the start to the thumb position
-      range: {
-        min: 5,
-        max: 60
-      },
-      format: {
-        to: function (value) {
-          return " " + value.toFixed(0);
-        },
-        from: function (value) {
-          return Number(value.replace('', ''));
-        }
-      }
-    });
-  }
-
-  var slider = document.getElementById("slider-rangers");
-  if(slider){
-    noUiSlider.create(slider, {
-      start: 15, // Single initial value
-      connect: [true, false], // Connect the bar from the start to the thumb position
-      range: {
-        min: 5,
-        max: 60
-      },
-      format: {
-        to: function (value) {
-          return " " + value.toFixed(0);
-        },
-        from: function (value) {
-          return Number(value.replace('', ''));
-        }
-      }
-    });
-  }
-  
-  // Update the amount field with the single thumb value
-  var amount = document.getElementById("amount");
-  var amounts = document.getElementById("amounts");
-  if(slider && amount){
-    slider.noUiSlider.on("update", function (values) {
-      amount.value = values[0]; // Display the single thumb value
-    });
-  }
-  if(slider && amounts){
-    slider.noUiSlider.on("update", function (values) {
-      amounts.value = values[0]; // Display the single thumb value
-    });
-  }
-}
+};
 
 
 
@@ -170,7 +78,7 @@ const priceSliderInitialize = () => {
 const tagInput = document.getElementById('tag-input');
 const tagContainer = document.getElementById('tag-container');
 
-tagInput.addEventListener('keydown', function (event) {
+tagInput?.addEventListener('keydown', function (event) {
   if (event.key === 'Enter' || event.key === ',') {
     event.preventDefault();
     const tagText = tagInput.value.trim();
@@ -194,61 +102,62 @@ function addTag(text) {
   tagContainer.insertBefore(tag, tagInput);
 }
 
+
 // TAG-SEARCH END
 
 
 
 // CONTACT-FORM START
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.querySelector('.contactForms');
-  if (form) {
-      form.addEventListener('submit', function (e) {
-          e.preventDefault();
+// document.addEventListener('DOMContentLoaded', function () {
+//   const form = document.querySelector('.contactForms');
+//   if (form) {
+//       form.addEventListener('submit', function (e) {
+//           e.preventDefault();
 
-          let valid = true;
+//           let valid = true;
 
-          // Full Name Validation
-          const fullName = document.querySelector('input[placeholder="Enter Full Name"]');
-          if (!fullName.value.trim()) {
-              alert("Full Name is required.");
-              valid = false;
-          }
+//           // Full Name Validation
+//           const fullName = document.querySelector('input[placeholder="Enter Full Name"]');
+//           if (!fullName.value.trim()) {
+//               alert("Full Name is required.");
+//               valid = false;
+//           }
 
-          // Email Validation
-          const email = document.querySelector('input[type="email"]');
-          if (!email.value.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
-              alert("Please enter a valid email address.");
-              valid = false;
-          }
+//           // Email Validation
+//           const email = document.querySelector('input[type="email"]');
+//           if (!email.value.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
+//               alert("Please enter a valid email address.");
+//               valid = false;
+//           }
 
-          // Phone Number Validation
-          const phone = document.querySelector('#mobileNumber');
-          if (!phone.value.trim() || !/^\d{10,12}$/.test(phone.value)) {
-              alert("Please enter a valid phone number (10-12 digits).");
-              valid = false;
-          }
+//           // Phone Number Validation
+//           const phone = document.querySelector('#mobileNumber');
+//           if (!phone.value.trim() || !/^\d{10,12}$/.test(phone.value)) {
+//               alert("Please enter a valid phone number (10-12 digits).");
+//               valid = false;
+//           }
 
-          // Dropdown Validation
-          const subject = document.querySelector('select');
-          if (!subject.value) {
-              alert("Please select a subject.");
-              valid = false;
-          }
+//           // Dropdown Validation
+//           const subject = document.querySelector('select');
+//           if (!subject.value) {
+//               alert("Please select a subject.");
+//               valid = false;
+//           }
 
-          // Message Validation
-          const message = document.querySelector('textarea');
-          if (!message.value.trim() || message.value.trim().length < 10) {
-              alert("Please enter a message with at least 10 characters.");
-              valid = false;
-          }
+//           // Message Validation
+//           const message = document.querySelector('textarea');
+//           if (!message.value.trim() || message.value.trim().length < 10) {
+//               alert("Please enter a message with at least 10 characters.");
+//               valid = false;
+//           }
 
-          // If form is valid, submit it
-          if (valid) {
-              this.submit();
-          }
-      });
-  }
-});
+//           // If form is valid, submit it
+//           if (valid) {
+//               this.submit();
+//           }
+//       });
+//   }
+// });
 
 
 // CONTACT-FORM END
@@ -389,10 +298,10 @@ const initializeSlick = () => {
   }
 };
 
-const initializeWhereToBuyMapbox = () => {
+const initializeWhereToBuyMapbox = (url) => {
   const selectElement = document.querySelector('.form-select.countryDrops');
   const selectedValue = selectElement.value;
-  const apiEndpoint = selectElement.getAttribute('data-url');
+  const apiEndpoint = url
 
   const initializeMapWithData = (storesList) => {
     const coordinatesArray = storesList.map(store => store.coordinates);
@@ -465,13 +374,17 @@ const initializeWhereToBuyMapbox = () => {
 
     // Listen for dropdown selection change
     selectElement.addEventListener('change', () => {
+      const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+      const inStoreApi = wheretobuyElement.getAttribute('data-url');
       const selectedValue = selectElement.value;
-      
+      const fetchUrl = `${inStoreApi}?countryId=${selectedValue}`
+
+
       // Fetch new data and update markers
-      fetchStores(apiEndpoint, selectedValue, (newData) => {
+      fetchStores(fetchUrl, selectedValue, (newData) => {
         const newCoordinatesArray = newData.map(store => store.coordinates);
         const objData = { "locations": newCoordinatesArray, "storesList": newData };
-        
+
         clearMarkers();
         addRedMarkers(objData);
         const firstLocation = newCoordinatesArray[0].split(',').map(Number);
