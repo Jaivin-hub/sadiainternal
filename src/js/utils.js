@@ -68,101 +68,9 @@ const initializeMapbox = () => {
   }
 };
 
-const priceSliderInitialize = () => {
-  var slider = document.getElementById("slider-ranges");
-  if(slider){
-    noUiSlider.create(slider, {
-      start: 15, // Single initial value
-      connect: [true, false], // Connect the bar from the start to the thumb position
-      range: {
-        min: 5,
-        max: 60
-      },
-      format: {
-        to: function (value) {
-          return " " + value.toFixed(0);
-        },
-        from: function (value) {
-          return Number(value.replace('', ''));
-        }
-      }
-    });
-  }
+const priceSliderInitialize = (onUpdate) => {
 
-  var slider = document.getElementById("slider-range");
-  if(slider){
-    noUiSlider.create(slider, {
-      start: 15, // Single initial value
-      connect: [true, false], // Connect the bar from the start to the thumb position
-      range: {
-        min: 5,
-        max: 60
-      },
-      format: {
-        to: function (value) {
-          return " " + value.toFixed(0);
-        },
-        from: function (value) {
-          return Number(value.replace('', ''));
-        }
-      }
-    });
-  }
-
-  var slider = document.getElementById("slider-ranger");
-  if(slider){
-    noUiSlider.create(slider, {
-      start: 15, // Single initial value
-      connect: [true, false], // Connect the bar from the start to the thumb position
-      range: {
-        min: 5,
-        max: 60
-      },
-      format: {
-        to: function (value) {
-          return " " + value.toFixed(0);
-        },
-        from: function (value) {
-          return Number(value.replace('', ''));
-        }
-      }
-    });
-  }
-
-  var slider = document.getElementById("slider-rangers");
-  if(slider){
-    noUiSlider.create(slider, {
-      start: 15, // Single initial value
-      connect: [true, false], // Connect the bar from the start to the thumb position
-      range: {
-        min: 5,
-        max: 60
-      },
-      format: {
-        to: function (value) {
-          return " " + value.toFixed(0);
-        },
-        from: function (value) {
-          return Number(value.replace('', ''));
-        }
-      }
-    });
-  }
-  
-  // Update the amount field with the single thumb value
-  var amount = document.getElementById("amount");
-  var amounts = document.getElementById("amounts");
-  if(slider && amount){
-    slider.noUiSlider.on("update", function (values) {
-      amount.value = values[0]; // Display the single thumb value
-    });
-  }
-  if(slider && amounts){
-    slider.noUiSlider.on("update", function (values) {
-      amounts.value = values[0]; // Display the single thumb value
-    });
-  }
-}
+};
 
 
 
@@ -193,6 +101,7 @@ function addTag(text) {
 
   tagContainer.insertBefore(tag, tagInput);
 }
+
 
 // TAG-SEARCH END
 
@@ -405,17 +314,17 @@ const initializeWhereToBuyMapbox = (url) => {
 
     // Listen for dropdown selection change
     selectElement.addEventListener('change', () => {
-    const wheretobuyElement = document.querySelector('.form-select#countryDrops');
-    const inStoreApi = wheretobuyElement.getAttribute('data-url');
-    const selectedValue = selectElement.value;
-    const fetchUrl = `${inStoreApi}?countryId=${selectedValue}`
+      const wheretobuyElement = document.querySelector('.form-select#countryDrops');
+      const inStoreApi = wheretobuyElement.getAttribute('data-url');
+      const selectedValue = selectElement.value;
+      const fetchUrl = `${inStoreApi}?countryId=${selectedValue}`
 
-      
+
       // Fetch new data and update markers
       fetchStores(fetchUrl, selectedValue, (newData) => {
         const newCoordinatesArray = newData.map(store => store.coordinates);
         const objData = { "locations": newCoordinatesArray, "storesList": newData };
-        
+
         clearMarkers();
         addRedMarkers(objData);
         const firstLocation = newCoordinatesArray[0].split(',').map(Number);

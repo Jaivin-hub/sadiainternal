@@ -80,4 +80,75 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
     }
 }
 
-export {fetchInstore, fetchAndRenderData, fetchOnlineStore}
+async function fetchRecipes(templateName, data){
+    try{
+        let isEmpty = false;
+        const formdata = {
+            "recipeCatId": data.recipeCatId,
+            "mealTypeId": [Number(data.mealType)],
+            "difficultyLevelId": [1526],
+            "preparationTime": data.prepTime,
+            "cuisineId": [Number(data.cuisine)],
+            "dietaryId": [Number(data.dietaryNeeds)],
+            "occasionId": [Number(data.occasion)],
+            "preparationStyleId": [],
+            "filter": data.recipeSelectedValue,
+            "keyword": data.keyword,
+            "limit": data.limit,
+            "offset": data.offset
+          }
+          console.log('formdata',formdata)
+        //   console.log('obj--consoled--',obj)
+        // const formdata = {
+        //     "recipeCatId": 0,
+        //     "mealTypeId": [],
+        //     "difficultyLevelId": [1526],
+        //     "preparationTime": null,
+        //     "cuisineId": [1514],
+        //     "dietaryId": [],
+        //     "occasionId": [],
+        //     "preparationStyleId": [],
+        //     "filter": null,
+        //     "keyword": null,
+        //     "limit": 9,
+        //     "offset": 0
+        //   }
+
+          
+
+          const response = await fetch(data.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formdata),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if(result.length === 0){
+            isEmpty = true;
+        }
+
+        const template = document.getElementById(templateName)?.innerHTML;
+        if (!template) {
+            throw new Error(`Template with ID '${templateName}' not found.`);
+        }
+
+        let html = '';
+        result.forEach(item => {
+            html += Mustache.render(template, item);
+        });
+        const obj = {html, isEmpty}
+        return obj;
+          
+    }catch(err){
+        console.error('Error fetching recipes:', err);
+    }
+}
+
+export {fetchInstore, fetchAndRenderData, fetchOnlineStore, fetchRecipes}

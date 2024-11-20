@@ -26,7 +26,6 @@ const fetchAssets = (url, callback) => {
 
 const fetchStores = async (url, selectedValue, callback) => {
   try{
-    console.log('url--url--',url)
     const response = await fetch(url);
     const data = await response.json();
     callback(data)
