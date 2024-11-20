@@ -107,6 +107,66 @@ function addTag(text) {
 
 
 
+// CONTACT-FORM START
+// document.addEventListener('DOMContentLoaded', function () {
+//   const form = document.querySelector('.contactForms');
+//   if (form) {
+//       form.addEventListener('submit', function (e) {
+//           e.preventDefault();
+
+//           let valid = true;
+
+//           // Full Name Validation
+//           const fullName = document.querySelector('input[placeholder="Enter Full Name"]');
+//           if (!fullName.value.trim()) {
+//               alert("Full Name is required.");
+//               valid = false;
+//           }
+
+//           // Email Validation
+//           const email = document.querySelector('input[type="email"]');
+//           if (!email.value.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
+//               alert("Please enter a valid email address.");
+//               valid = false;
+//           }
+
+//           // Phone Number Validation
+//           const phone = document.querySelector('#mobileNumber');
+//           if (!phone.value.trim() || !/^\d{10,12}$/.test(phone.value)) {
+//               alert("Please enter a valid phone number (10-12 digits).");
+//               valid = false;
+//           }
+
+//           // Dropdown Validation
+//           const subject = document.querySelector('select');
+//           if (!subject.value) {
+//               alert("Please select a subject.");
+//               valid = false;
+//           }
+
+//           // Message Validation
+//           const message = document.querySelector('textarea');
+//           if (!message.value.trim() || message.value.trim().length < 10) {
+//               alert("Please enter a message with at least 10 characters.");
+//               valid = false;
+//           }
+
+//           // If form is valid, submit it
+//           if (valid) {
+//               this.submit();
+//           }
+//       });
+//   }
+// });
+
+
+// CONTACT-FORM END
+
+
+
+
+
+
 // SIDEBAR-COLLPASE START
 const toogleBtn = () => {
   // Select the toggle button and sidebar frame elements
