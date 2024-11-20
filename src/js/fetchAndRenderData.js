@@ -152,4 +152,5 @@ async function fetchRecipes(templateName, data){
     }
 }
 
+
 export {fetchInstore, fetchAndRenderData, fetchOnlineStore, fetchRecipes}

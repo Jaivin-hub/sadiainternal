@@ -185,6 +185,67 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedDifficulty = null;
   let selectedPrepTime = null;
 
+  if (elements.priceRangeSlider || elements.priceRangeSliders) {
+    // priceSliderInitialize(handleSliderUpdate);
+    const difficultySlider = document.getElementById("slider-ranges");
+
+    if (difficultySlider) {
+      // Map difficulty levels to their corresponding data-ids
+      const difficulties = [
+        { id: 1526, label: "Easy" },
+        { id: 1527, label: "Medium" },
+        { id: 1528, label: "Hard" },
+      ];
+
+      noUiSlider.create(difficultySlider, {
+        start: 0, // Start at "Easy" (index 0)
+        connect: [true, false],
+        range: {
+          min: 0,
+          max: difficulties.length - 1, // Adjust max based on array length
+        },
+        step: 1,
+        format: {
+          to: (value) => difficulties[Math.round(value)].id, // Return the data-id
+          from: (value) =>
+            difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)),
+        },
+      });
+
+      difficultySlider.noUiSlider.on("update", (values) => {
+        const selectedId = values[0]; // Get the selected data-id
+        selectedDifficulty = selectedId;
+        console.log("Selected difficulty ID:", selectedId);
+      });
+    } else {
+      console.error("Difficulty slider not found in DOM");
+    }
+
+    // Preparation Time Slider
+    const prepTimeSlider = document.getElementById("slider-range");
+    if (prepTimeSlider) {
+      noUiSlider.create(prepTimeSlider, {
+        start: 1,
+        connect: [true, false],
+        range: {
+          min: 5,
+          max: 60,
+        },
+        format: {
+          to: (value) => `${value.toFixed(0)} mins`,
+          from: (value) => Number(value.replace(" mins", "")),
+        },
+      });
+
+      prepTimeSlider.noUiSlider.on("update", (values) => {
+        const prepTime = values[0];
+        selectedPrepTime = prepTime;
+      });
+    } else {
+      console.error('Preparation time slider not found in DOM');
+    }
+  }
+
   if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
     initializeSlick();
   } else {
@@ -248,6 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for the submit button
     let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
+    console.log('recipeSelectedValue',recipeSelectedValue)
     const url = elements.recipeButton.getAttribute('data-api');
     const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
@@ -292,10 +354,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     elements.recipeDropdown.addEventListener('change', () => {
       elements.recipeDropdown.setAttribute('data-offset', '0');
+    let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
+
       offset = 0; // Reset offset variable
+      data.recipeSelectedValue=recipeSelectedValue
       const selectedValue = elements.recipeDropdown.value; // Update selected value
       showMoreClicked = false;
       data.offset = 0;
+      data.filter = recipeSelectedValue;
       fetchRecipes('recipelist-template', data).then(obj => {
         const { html, isEmpty } = obj;
         const container = document.getElementById('recipecontainer');
@@ -355,11 +421,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    document.querySelectorAll('.filBtn').forEach(button => {
+      button.addEventListener('click', (event) => {
+        // Remove the 'active' class from all buttons
+        document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
+        
+        // Add the 'active' class to the clicked button
+        event.target.classList.add('active');
+      });
+    });
+
     submitButton.addEventListener('click', () => {
       let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
       const url = elements.recipeButton.getAttribute('data-api');
       const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
-      showMoreClicked = true;
+      showMoreClicked = false;
       let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
       const data = {
         mealType: selectedMealType,
@@ -371,6 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
         prepTime: selectedPrepTime,
         recipeCatId: recipeCatId,
         recipeSelectedValue: recipeSelectedValue,
+        preparationStyle:preparationStyle,
         url: url,
         limit: limit,
         offset: offset,
@@ -487,66 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  if (elements.priceRangeSlider || elements.priceRangeSliders) {
-    // priceSliderInitialize(handleSliderUpdate);
-    const difficultySlider = document.getElementById("slider-ranges");
-
-    if (difficultySlider) {
-      // Map difficulty levels to their corresponding data-ids
-      const difficulties = [
-        { id: 1526, label: "Easy" },
-        { id: 1527, label: "Medium" },
-        { id: 1528, label: "Hard" },
-      ];
-
-      noUiSlider.create(difficultySlider, {
-        start: 0, // Start at "Easy" (index 0)
-        connect: [true, false],
-        range: {
-          min: 0,
-          max: difficulties.length - 1, // Adjust max based on array length
-        },
-        step: 1,
-        format: {
-          to: (value) => difficulties[Math.round(value)].id, // Return the data-id
-          from: (value) =>
-            difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)),
-        },
-      });
-
-      difficultySlider.noUiSlider.on("update", (values) => {
-        const selectedId = values[0]; // Get the selected data-id
-        selectedDifficulty = selectedId;
-        console.log("Selected difficulty ID:", selectedId);
-      });
-    } else {
-      console.error("Difficulty slider not found in DOM");
-    }
-
-    // Preparation Time Slider
-    const prepTimeSlider = document.getElementById("slider-range");
-    if (prepTimeSlider) {
-      noUiSlider.create(prepTimeSlider, {
-        start: 1,
-        connect: [true, false],
-        range: {
-          min: 5,
-          max: 60,
-        },
-        format: {
-          to: (value) => `${value.toFixed(0)} mins`,
-          from: (value) => Number(value.replace(" mins", "")),
-        },
-      });
-
-      prepTimeSlider.noUiSlider.on("update", (values) => {
-        const prepTime = values[0];
-        selectedPrepTime = prepTime;
-      });
-    } else {
-      console.error('Preparation time slider not found in DOM');
-    }
-  }
+  
 
   if (elements.productButton) {
     // Default selectedValue to empty string if productDropdown is not found
