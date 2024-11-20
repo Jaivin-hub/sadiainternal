@@ -195,10 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedMealType = null;
     let selectedCuisine = null;
-    let selectedIngredients = null;
+    // let selectedIngredients = null;
     let selectedDietaryNeeds = null;
     let selectedOccasion = null;
     let selectedSeason = null;
+    let preparationStyle = null;
 
 
     document.querySelectorAll('.filBtn').forEach(button => {
@@ -206,6 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedMealType = event.target.getAttribute('data-id');
       });
     });
+
+    console.log('selectedMealType',selectedMealType)
 
     const cuisineSelect = document.querySelector('#cuisineselect');
     cuisineSelect.addEventListener('change', (event) => {
@@ -230,9 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    const seasonSelect = document.querySelector('#season');
-    seasonSelect.addEventListener('change', (event) => {
-      selectedSeason = event.target.value;
+    const preparationSelect = document.querySelector('#preparation-style');
+    preparationSelect.addEventListener('change', (event) => {
+      preparationStyle = event.target.value;
     });
 
     let recipeCatId;
@@ -249,24 +252,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
     const submitButton = document.querySelector('#submit-button');
-    console.log('limit------', limit)
     const data = {
       mealType: selectedMealType,
       cuisine: selectedCuisine,
-      ingredients: selectedIngredients,
       dietaryNeeds: selectedDietaryNeeds,
       occasion: selectedOccasion,
-      season: selectedSeason,
       difficulty: selectedDifficulty,
       prepTime: selectedPrepTime,
       recipeCatId: recipeCatId,
       recipeSelectedValue: recipeSelectedValue,
+      preparationStyle:preparationStyle,
       url: url,
       limit: limit,
       offset: offset,
       keyword: ''
     }
-
     fetchRecipes('recipelist-template', data).then(obj => {
       const { html, isEmpty } = obj;
       const container = document.getElementById('recipecontainer');
@@ -364,7 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = {
         mealType: selectedMealType,
         cuisine: selectedCuisine,
-        ingredients: selectedIngredients,
         dietaryNeeds: selectedDietaryNeeds,
         occasion: selectedOccasion,
         season: selectedSeason,

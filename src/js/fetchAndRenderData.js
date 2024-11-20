@@ -83,21 +83,22 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
 async function fetchRecipes(templateName, data){
     try{
         let isEmpty = false;
+        console.log('data=====',data)
         const formdata = {
             "recipeCatId": data.recipeCatId,
-            "mealTypeId": [Number(data.mealType)],
-            "difficultyLevelId": [1526],
+            "mealTypeId": data.mealType == null?[]:[Number(data.mealType)],
+            "difficultyLevelId": data.difficulty == null ? [] : [Number(data.difficulty)],
             "preparationTime": data.prepTime,
-            "cuisineId": [Number(data.cuisine)],
-            "dietaryId": [Number(data.dietaryNeeds)],
-            "occasionId": [Number(data.occasion)],
-            "preparationStyleId": [],
+            "cuisineId": data.cuisine == null ? [] : [Number(data.cuisine)],
+            "dietaryId": data.dietaryNeeds == null ? [] : [Number(data.dietaryNeeds)],
+            "occasionId": data.occasion == null ? [] : [Number(data.occasion)],
+            "preparationStyleId": data.preparationStyle == null? [] : [Number(data.preparationStyle)],
             "filter": data.recipeSelectedValue,
             "keyword": data.keyword,
             "limit": data.limit,
             "offset": data.offset
           }
-          console.log('formdata',formdata)
+          console.log('formdata----====',formdata)
         //   console.log('obj--consoled--',obj)
         // const formdata = {
         //     "recipeCatId": 0,
