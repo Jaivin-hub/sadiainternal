@@ -105,57 +105,57 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
 const contactForms = async () => {
   const form = document.querySelector('.contactForms');
   if (form) {
-      form.addEventListener('submit', function (e) {
-          e.preventDefault();
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-          let valid = true;
+      let valid = true;
 
-          // Full Name Validation
-          const fullName = document.querySelector('input[placeholder="Enter Full Name"]');
-          if (!fullName.value.trim()) {
-              alert("Full Name is required.");
-              valid = false;
-          }
+      // Full Name Validation
+      const fullName = document.querySelector('input[placeholder="Enter Full Name"]');
+      if (!fullName.value.trim()) {
+        alert("Full Name is required.");
+        valid = false;
+      }
 
-          // Email Validation
-          const email = document.querySelector('input[type="email"]');
-          if (!email.value.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
-              alert("Please enter a valid email address.");
-              valid = false;
-          }
+      // Email Validation
+      const email = document.querySelector('input[type="email"]');
+      if (!email.value.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
+        alert("Please enter a valid email address.");
+        valid = false;
+      }
 
-          // Phone Number Validation
-          const phone = document.querySelector('#mobileNumber');
-          if (!phone.value.trim() || !/^\d{10,12}$/.test(phone.value)) {
-              alert("Please enter a valid phone number (10-12 digits).");
-              valid = false;
-          }
+      // Phone Number Validation
+      const phone = document.querySelector('#mobileNumber');
+      if (!phone.value.trim() || !/^\d{10,12}$/.test(phone.value)) {
+        alert("Please enter a valid phone number (10-12 digits).");
+        valid = false;
+      }
 
-          // Dropdown Validation
-          const subject = document.querySelector('select');
-          if (!subject.value) {
-              alert("Please select a subject.");
-              valid = false;
-          }
+      // Dropdown Validation
+      const subject = document.querySelector('select');
+      if (!subject.value) {
+        alert("Please select a subject.");
+        valid = false;
+      }
 
-          // Message Validation
-          const message = document.querySelector('textarea');
-          if (!message.value.trim() || message.value.trim().length < 10) {
-              alert("Please enter a message with at least 10 characters.");
-              valid = false;
-          }
+      // Message Validation
+      const message = document.querySelector('textarea');
+      if (!message.value.trim() || message.value.trim().length < 10) {
+        alert("Please enter a message with at least 10 characters.");
+        valid = false;
+      }
 
-          // If form is valid, submit it
-          if (valid) {
-              this.submit();
-          }
-      });
+      // If form is valid, submit it
+      if (valid) {
+        this.submit();
+      }
+    });
   }
 }
 
 // Ensure code runs after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  
+
   // Cache commonly used elements
   const elements = {
     imageSlider: document.querySelector('.image-slider'),
@@ -182,125 +182,196 @@ document.addEventListener('DOMContentLoaded', () => {
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
 
-  let selectedDifficulty = null;
-  let selectedPrepTime = null;
-
   if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
     initializeSlick();
   } else {
     console.warn('Slick slider elements not found in the DOM.');
   }
 
+  let selectedDifficulty = null;
+  let selectedPrepTime = null;
+
+  if (elements.priceRangeSlider || elements.priceRangeSliders) {
+
+    // Difficulty Slider
+    const difficultySlider = document.getElementById("slider-ranges");
+    if (difficultySlider) {
+      // Dynamically read difficulties from HTML
+      const difficultyElements = Array.from(document.querySelectorAll(".range-labels span.names"));
+      const difficulties = difficultyElements.map((el) => ({
+        id: parseInt(el.getAttribute("data-id")), // Read the data-id
+        label: el.textContent.trim(), // Read the label
+      }));
+
+      noUiSlider.create(difficultySlider, {
+        start: 0, // Start at the first difficulty
+        connect: [true, false],
+        range: {
+          min: 0,
+          max: difficulties.length - 1, // Max based on number of difficulties
+        },
+        step: 1,
+        format: {
+          to: (value) => difficulties[Math.round(value)].id, // Map slider value to data-id
+          from: (value) =>
+            difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)), // Find index by data-id
+        },
+      });
+
+      difficultySlider.noUiSlider.on("update", (values) => {
+        const selectedId = parseInt(values[0]); // Get the selected data-id
+        console.log('selectedDifficulty', selectedId)
+        selectedDifficulty = selectedId;
+        console.log("Selected difficulty ID:", selectedDifficulty);
+      });
+    } else {
+      console.error("Difficulty slider not found in DOM");
+    }
+
+    // Preparation Time Slider
+    const prepTimeSlider = document.getElementById("slider-range");
+    if (prepTimeSlider) {
+      // Dynamically read preparation times from HTML
+      const prepTimeElements = Array.from(document.querySelectorAll("#price-range-slider .range-labels span.names"));
+      const prepTimes = prepTimeElements.map((el) => parseInt(el.getAttribute("data-id")));
+
+      noUiSlider.create(prepTimeSlider, {
+        start: prepTimes[0], // Start at the first preparation time
+        connect: [true, false],
+        range: {
+          min: Math.min(...prepTimes),
+          max: Math.max(...prepTimes),
+        },
+        step: 1,
+        format: {
+          to: (value) => `${value.toFixed(0)} mins`,
+          from: (value) => Number(value.replace(" mins", "")),
+        },
+      });
+
+      prepTimeSlider.noUiSlider.on("update", (values) => {
+        const prepTime = parseInt(values[0]); // Get the selected preparation time
+        console.log('prepTime', prepTime)
+        selectedPrepTime = prepTime;
+        console.log("Selected preparation time:", selectedPrepTime);
+      });
+    } else {
+      console.error("Preparation time slider not found in DOM");
+    }
+  }
+
+
   if (elements.recipeDropdown) {
-    
-  let selectedMealType = null;
-  let selectedCuisine = null;
-  let selectedIngredients = null;
-  let selectedDietaryNeeds = null;
-  let selectedOccasion = null;
-  let selectedSeason = null;
+
+    let selectedMealType = null;
+    let selectedCuisine = null;
+    // let selectedIngredients = null;
+    let selectedDietaryNeeds = null;
+    let selectedOccasion = null;
+    let selectedSeason = null;
+    let preparationStyle = null;
 
 
-  document.querySelectorAll('.filBtn').forEach(button => {
-    button.addEventListener('click', (event) => {
-      selectedMealType = event.target.getAttribute('data-id');
+    document.querySelectorAll('.filBtn').forEach(button => {
+      button.addEventListener('click', (event) => {
+        selectedMealType = event.target.getAttribute('data-id');
+      });
     });
-  });
 
-  const cuisineSelect = document.querySelector('#cuisineselect');
-  cuisineSelect.addEventListener('change', (event) => {
-    selectedCuisine = event.target.value;
-  });
+    console.log('selectedMealType', selectedMealType)
 
-  const productIngredientSelect = document.querySelector('#product-ingredients');
-  productIngredientSelect.addEventListener('change', (event) => {
-    selectedIngredients = event.target.value;
-  });
+    const cuisineSelect = document.querySelector('#cuisineselect');
+    cuisineSelect.addEventListener('change', (event) => {
+      selectedCuisine = event.target.value;
+    });
 
-  const dietaryNeedsSelect = document.querySelector('#dietary-needs');
-  dietaryNeedsSelect.addEventListener('change', (event) => {
-    selectedDietaryNeeds = event.target.value;
-  });
+    const dietaryNeedsSelect = document.querySelector('#dietary-needs');
+    dietaryNeedsSelect.addEventListener('change', (event) => {
+      selectedDietaryNeeds = event.target.value;
+    });
 
-  const occasionSelect = document.querySelector('#occasion');
-  occasionSelect.addEventListener('change', (event) => {
-    selectedOccasion = event.target.value;
-  });
+    const occasionSelect = document.querySelector('#occasion');
+    occasionSelect.addEventListener('change', (event) => {
+      selectedOccasion = event.target.value;
+    });
 
-  document.getElementById('resetButton').addEventListener('click', () => {
-    window.location.reload();
-});
-document.getElementById('resettopbutton').addEventListener('click', () => {
-  window.location.reload();
-});
+    document.getElementById('resetButton').addEventListener('click', () => {
+      window.location.reload();
+    });
+    document.getElementById('resettopbutton').addEventListener('click', () => {
+      window.location.reload();
+    });
 
 
-  const seasonSelect = document.querySelector('#season');
-  seasonSelect.addEventListener('change', (event) => {
-    selectedSeason = event.target.value;
-  });
+    const preparationSelect = document.querySelector('#preparation-style');
+    preparationSelect.addEventListener('change', (event) => {
 
-  let recipeCatId;
-  const activeButton = document.querySelector('.categ_filter .filBtn.active');
-  if (activeButton) {
-    recipeCatId = activeButton.getAttribute('data-umb-id');
-  } else {
-    recipeCatId = 0; // Default to 0 if no active button is found
-  }
+      preparationStyle = event.target.value;
+    });
 
-  // Event listener for the submit button
-  let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
-  const url = elements.recipeButton.getAttribute('data-api');
-  const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
-  let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
-  const submitButton = document.querySelector('#submit-button');
-  console.log('limit------',limit)
-  const data = {
-    mealType: selectedMealType,
-    cuisine: selectedCuisine,
-    ingredients: selectedIngredients,
-    dietaryNeeds: selectedDietaryNeeds,
-    occasion: selectedOccasion,
-    season: selectedSeason,
-    difficulty: selectedDifficulty,
-    prepTime: selectedPrepTime,
-    recipeCatId: recipeCatId,
-    recipeSelectedValue: recipeSelectedValue,
-    url: url,
-    limit: limit,
-    offset: offset,
-    keyword:''
-  }
-
-  fetchRecipes('recipelist-template', data).then(obj => {
-    const { html, isEmpty } = obj;
-    const container = document.getElementById('recipecontainer');
-    if (!container) {
-      console.warn('Container with ID "onlinecontainer" not found.');
-      return;
-    }
-
-    if (showMoreClicked) {
-      container.innerHTML += html;
+    let recipeCatId;
+    const activeButton = document.querySelector('.categ_filter .filBtn.active');
+    if (activeButton) {
+      recipeCatId = activeButton.getAttribute('data-umb-id');
     } else {
-      container.innerHTML = html;
+      recipeCatId = 0; // Default to 0 if no active button is found
     }
-    const showMoreButton = document.querySelector('#recipeshowmore');
-    if (isEmpty) {
-      showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
-    } else {
-      showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+
+    // Event listener for the submit button
+    let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
+    const url = elements.recipeButton.getAttribute('data-api');
+    const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
+    let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
+    const submitButton = document.querySelector('#submit-button');
+    const data = {
+      mealType: selectedMealType,
+      cuisine: selectedCuisine,
+      dietaryNeeds: selectedDietaryNeeds,
+      occasion: selectedOccasion,
+      difficulty: selectedDifficulty,
+      prepTime: selectedPrepTime,
+      recipeCatId: recipeCatId,
+      recipeSelectedValue: recipeSelectedValue,
+      preparationStyle: preparationStyle,
+      url: url,
+      limit: limit,
+      offset: offset,
+      keyword: ''
     }
-  }).catch(error => {
-    console.error('Error fetching/rendering online stores:', error);
-  });
+    console.log('data=====----------', data)
+    fetchRecipes('recipelist-template', data).then(obj => {
+      const { html, isEmpty } = obj;
+      const container = document.getElementById('recipecontainer');
+      if (!container) {
+        console.warn('Container with ID "onlinecontainer" not found.');
+        return;
+      }
+
+      if (showMoreClicked) {
+        container.innerHTML += html;
+      } else {
+        container.innerHTML = html;
+      }
+      const showMoreButton = document.querySelector('#recipeshowmore');
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+      }
+    }).catch(error => {
+      console.error('Error fetching/rendering online stores:', error);
+    });
 
     elements.recipeDropdown.addEventListener('change', () => {
       elements.recipeDropdown.setAttribute('data-offset', '0');
+      let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
+
       offset = 0; // Reset offset variable
+      data.recipeSelectedValue = recipeSelectedValue
       const selectedValue = elements.recipeDropdown.value; // Update selected value
       showMoreClicked = false;
       data.offset = 0;
+      data.filter = recipeSelectedValue;
       fetchRecipes('recipelist-template', data).then(obj => {
         const { html, isEmpty } = obj;
         const container = document.getElementById('recipecontainer');
@@ -308,7 +379,7 @@ document.getElementById('resettopbutton').addEventListener('click', () => {
           console.warn('Container with ID "onlinecontainer" not found.');
           return;
         }
-  
+
         if (showMoreClicked) {
           container.innerHTML += html;
         } else {
@@ -340,7 +411,7 @@ document.getElementById('resettopbutton').addEventListener('click', () => {
             console.warn('Container with ID "onlinecontainer" not found.');
             return;
           }
-    
+
           if (showMoreClicked) {
             container.innerHTML += html;
           } else {
@@ -360,16 +431,25 @@ document.getElementById('resettopbutton').addEventListener('click', () => {
       }
     });
 
+    document.querySelectorAll('.filBtn').forEach(button => {
+      button.addEventListener('click', (event) => {
+        // Remove the 'active' class from all buttons
+        document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
+
+        // Add the 'active' class to the clicked button
+        event.target.classList.add('active');
+      });
+    });
+
     submitButton.addEventListener('click', () => {
       let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
       const url = elements.recipeButton.getAttribute('data-api');
       const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
-      showMoreClicked = true;
+      showMoreClicked = false;
       let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
       const data = {
         mealType: selectedMealType,
         cuisine: selectedCuisine,
-        ingredients: selectedIngredients,
         dietaryNeeds: selectedDietaryNeeds,
         occasion: selectedOccasion,
         season: selectedSeason,
@@ -377,9 +457,11 @@ document.getElementById('resettopbutton').addEventListener('click', () => {
         prepTime: selectedPrepTime,
         recipeCatId: recipeCatId,
         recipeSelectedValue: recipeSelectedValue,
+        preparationStyle: preparationStyle,
         url: url,
         limit: limit,
         offset: offset,
+        keyword: ''
       };
       fetchRecipes('recipelist-template', data).then(obj => {
         const { html, isEmpty } = obj;
@@ -388,7 +470,7 @@ document.getElementById('resettopbutton').addEventListener('click', () => {
           console.warn('Container with ID "onlinecontainer" not found.');
           return;
         }
-  
+
         if (showMoreClicked) {
           container.innerHTML += html;
         } else {
@@ -418,7 +500,7 @@ document.getElementById('resettopbutton').addEventListener('click', () => {
           console.warn('Container with ID "onlinecontainer" not found.');
           return;
         }
-  
+
         if (showMoreClicked) {
           container.innerHTML += html;
         } else {
@@ -436,38 +518,38 @@ document.getElementById('resettopbutton').addEventListener('click', () => {
         });
     });
 
-  const closeButton = document.querySelector('#recipeclose');
-  if(closeButton){
-    closeButton.addEventListener('click', (event) => {
-      const target = event.target.closest('#recipeclose');
-      showMoreClicked = false;
-      if (target) {
-        fetchRecipes('recipelist-template', data).then(obj => {
-          const { html, isEmpty } = obj;
-          const container = document.getElementById('recipecontainer');
-          if (!container) {
-            console.warn('Container with ID "onlinecontainer" not found.');
-            return;
-          }
-    
-          if (showMoreClicked) {
-            container.innerHTML += html;
-          } else {
-            container.innerHTML = html;
-          }
-          const showMoreButton = document.querySelector('#recipeshowmore');
-          if (isEmpty) {
-            showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
-          } else {
-            showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
-          }
-        })
-          .catch(error => {
-            console.error('Error fetching/rendering online stores:', error);
-          });
-      }
-    });
-  }
+    const closeButton = document.querySelector('#recipeclose');
+    if (closeButton) {
+      closeButton.addEventListener('click', (event) => {
+        const target = event.target.closest('#recipeclose');
+        showMoreClicked = false;
+        if (target) {
+          fetchRecipes('recipelist-template', data).then(obj => {
+            const { html, isEmpty } = obj;
+            const container = document.getElementById('recipecontainer');
+            if (!container) {
+              console.warn('Container with ID "onlinecontainer" not found.');
+              return;
+            }
+
+            if (showMoreClicked) {
+              container.innerHTML += html;
+            } else {
+              container.innerHTML = html;
+            }
+            const showMoreButton = document.querySelector('#recipeshowmore');
+            if (isEmpty) {
+              showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+            } else {
+              showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+            }
+          })
+            .catch(error => {
+              console.error('Error fetching/rendering online stores:', error);
+            });
+        }
+      });
+    }
 
   }
 
@@ -482,7 +564,7 @@ document.getElementById('resettopbutton').addEventListener('click', () => {
   // };
 
   // Initialize slick sliders if required elements are present
-  
+
 
   // Initialize other components if elements are present
   if (elements.filtCatSpc) {
@@ -493,66 +575,7 @@ document.getElementById('resettopbutton').addEventListener('click', () => {
   }
 
 
-  if (elements.priceRangeSlider || elements.priceRangeSliders) {
-    // priceSliderInitialize(handleSliderUpdate);
-    const difficultySlider = document.getElementById("slider-ranges");
 
-if (difficultySlider) {
-  // Map difficulty levels to their corresponding data-ids
-  const difficulties = [
-    { id: 1526, label: "Easy" },
-    { id: 1527, label: "Medium" },
-    { id: 1528, label: "Hard" },
-  ];
-
-  noUiSlider.create(difficultySlider, {
-    start: 0, // Start at "Easy" (index 0)
-    connect: [true, false],
-    range: {
-      min: 0,
-      max: difficulties.length - 1, // Adjust max based on array length
-    },
-    step: 1,
-    format: {
-      to: (value) => difficulties[Math.round(value)].id, // Return the data-id
-      from: (value) =>
-        difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)),
-    },
-  });
-
-  difficultySlider.noUiSlider.on("update", (values) => {
-    const selectedId = values[0]; // Get the selected data-id
-    selectedDifficulty = selectedId;
-    console.log("Selected difficulty ID:", selectedId);
-  });
-} else {
-  console.error("Difficulty slider not found in DOM");
-}
-
-    // Preparation Time Slider
-    const prepTimeSlider = document.getElementById("slider-range");
-    if (prepTimeSlider) {
-      noUiSlider.create(prepTimeSlider, {
-        start: 1,
-        connect: [true, false],
-        range: {
-          min: 5,
-          max: 60,
-        },
-        format: {
-          to: (value) => `${value.toFixed(0)} mins`,
-          from: (value) => Number(value.replace(" mins", "")),
-        },
-      });
-
-      prepTimeSlider.noUiSlider.on("update", (values) => {
-        const prepTime = values[0];
-        selectedPrepTime = prepTime;
-      });
-    } else {
-      console.error('Preparation time slider not found in DOM');
-    }
-  }
 
   if (elements.productButton) {
     // Default selectedValue to empty string if productDropdown is not found
