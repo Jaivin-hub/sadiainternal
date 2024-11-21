@@ -153,6 +153,65 @@ const contactForms = async () => {
   }
 }
 
+// function toggleRecipeSections() {
+//   // const listingSection = document.getElementById("listing");
+//   // const categoryListingSection = document.getElementById("categorylisting");
+
+//   // // Hide the listing section
+//   // listingSection.style.display = "none";
+
+//   // // Show the categorylisting section
+//   // categoryListingSection.style.display = "block";
+//   const submitButton = document.querySelector('#submit-button');
+//   submitButton.addEventListener('click', () => {
+//     console.log('this is calling properly')
+//     // let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
+//     // const url = elements.recipeButton.getAttribute('data-api');
+//     // const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
+//     // showMoreClicked = false;
+//     // let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
+//     // const data = {
+//     //   mealType: selectedMealType,
+//     //   cuisine: selectedCuisine,
+//     //   dietaryNeeds: selectedDietaryNeeds,
+//     //   occasion: selectedOccasion,
+//     //   season: selectedSeason,
+//     //   difficulty: selectedDifficulty,
+//     //   prepTime: selectedPrepTime,
+//     //   recipeCatId: recipeCatId,
+//     //   recipeSelectedValue: recipeSelectedValue,
+//     //   preparationStyle: preparationStyle,
+//     //   url: url,
+//     //   limit: limit,
+//     //   offset: offset,
+//     //   keyword: ''
+//     // };
+//     // fetchRecipes('recipelist-template', data).then(obj => {
+//     //   const { html, isEmpty } = obj;
+//     //   const container = document.getElementById('recipecontainer');
+//     //   if (!container) {
+//     //     console.warn('Container with ID "onlinecontainer" not found.');
+//     //     return;
+//     //   }
+
+//     //   if (showMoreClicked) {
+//     //     container.innerHTML += html;
+//     //   } else {
+//     //     container.innerHTML = html;
+//     //   }
+//     //   const showMoreButton = document.querySelector('#recipeshowmore');
+//     //   if (isEmpty) {
+//     //     showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+//     //   } else {
+//     //     showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+//     //   }
+//     // })
+//     //   .catch(error => {
+//     //     console.error('Error fetching/rendering online stores:', error);
+//     //   });
+//   });
+// }
+
 // Ensure code runs after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -182,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
 
+
   if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
     initializeSlick();
   } else {
@@ -195,16 +255,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Difficulty Slider
     const difficultySlider = document.getElementById("difficulty-range");
-    console.log('difficultySlider',difficultySlider)
     if (difficultySlider) {
       // Dynamically read difficulties from HTML
       const difficultyElements = Array.from(document.querySelectorAll(".range-labels span.names"));
-      console.log('difficultyElements',difficultyElements)
       const difficulties = difficultyElements.map((el) => ({
         id: parseInt(el.getAttribute("data-id")), // Read the data-id
         label: el.textContent.trim(), // Read the label
       }));
-      console.log('difficulties',difficulties)
 
       noUiSlider.create(difficultySlider, {
         start: 0, // Start at the first difficulty
@@ -223,9 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       difficultySlider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
-        console.log('selectedDifficulty', selectedId)
         selectedDifficulty = selectedId;
-        console.log("Selected difficulty ID:", selectedDifficulty);
       });
     } else {
       console.error("Difficulty slider not found in DOM");
@@ -254,9 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       prepTimeSlider.noUiSlider.on("update", (values) => {
         const prepTime = parseInt(values[0]); // Get the selected preparation time
-        console.log('prepTime', prepTime)
         selectedPrepTime = prepTime;
-        console.log("Selected preparation time:", selectedPrepTime);
       });
     } else {
       console.error("Preparation time slider not found in DOM");
@@ -281,7 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    console.log('selectedMealType', selectedMealType)
 
     const cuisineSelect = document.querySelector('#cuisineselect');
     cuisineSelect.addEventListener('change', (event) => {
@@ -341,7 +393,6 @@ document.addEventListener('DOMContentLoaded', () => {
       offset: offset,
       keyword: ''
     }
-    console.log('data=====----------', data)
     fetchRecipes('recipelist-template', data).then(obj => {
       const { html, isEmpty } = obj;
       const container = document.getElementById('recipecontainer');
@@ -480,11 +531,11 @@ document.addEventListener('DOMContentLoaded', () => {
           container.innerHTML = html;
         }
         const showMoreButton = document.querySelector('#recipeshowmore');
-        // if (isEmpty) {
-        //   showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
-        // } else {
-        //   showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
-        // }
+        if (isEmpty) {
+          showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+        } else {
+          showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+        }
       })
         .catch(error => {
           console.error('Error fetching/rendering online stores:', error);
