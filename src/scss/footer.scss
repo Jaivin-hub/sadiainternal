@@ -70,6 +70,9 @@ footer {
             margin: 0;
             padding: 0;
             display: flex;
+            li{
+                margin-right: 25px;
+            }
             a{
                 &:hover{
                     img{
