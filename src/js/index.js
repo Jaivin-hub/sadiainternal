@@ -163,8 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
     contentItem: document.querySelector('.content-item'),
     whatSlider: document.querySelector('.whatSlider'),
     filtCatSpc: document.getElementById('filt-catSpc'),
-    priceRangeSlider: document.getElementById('price-range-slider'),
-    priceRangeSliders: document.getElementById('price-range-sliders'),
+    priceRangeSlider: document.getElementById('preparation-range-slider'),
+    priceRangeSliders: document.getElementById('difficulty-range-sliders'),
     mapFrame: document.getElementById('mapFrame'),
     whereToBuyMapFrame: document.getElementById('wheretobuyMapframe'),
     searchInput: document.querySelector('#searchInpts'),
@@ -194,14 +194,17 @@ document.addEventListener('DOMContentLoaded', () => {
   if (elements.priceRangeSlider || elements.priceRangeSliders) {
 
     // Difficulty Slider
-    const difficultySlider = document.getElementById("slider-ranges");
+    const difficultySlider = document.getElementById("difficulty-range");
+    console.log('difficultySlider',difficultySlider)
     if (difficultySlider) {
       // Dynamically read difficulties from HTML
       const difficultyElements = Array.from(document.querySelectorAll(".range-labels span.names"));
+      console.log('difficultyElements',difficultyElements)
       const difficulties = difficultyElements.map((el) => ({
         id: parseInt(el.getAttribute("data-id")), // Read the data-id
         label: el.textContent.trim(), // Read the label
       }));
+      console.log('difficulties',difficulties)
 
       noUiSlider.create(difficultySlider, {
         start: 0, // Start at the first difficulty
@@ -229,10 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Preparation Time Slider
-    const prepTimeSlider = document.getElementById("slider-range");
+    const prepTimeSlider = document.getElementById("preparation-range");
     if (prepTimeSlider) {
       // Dynamically read preparation times from HTML
-      const prepTimeElements = Array.from(document.querySelectorAll("#price-range-slider .range-labels span.names"));
+      const prepTimeElements = Array.from(document.querySelectorAll("#preparation-range-slider .range-labels span.names"));
       const prepTimes = prepTimeElements.map((el) => parseInt(el.getAttribute("data-id")));
 
       noUiSlider.create(prepTimeSlider, {
