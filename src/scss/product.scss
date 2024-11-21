@@ -342,6 +342,9 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        .categ_filter{
+            margin-right: 25px;
+        }
     }
     .filterSec{
         .titleWrap{
