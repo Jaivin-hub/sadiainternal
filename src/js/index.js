@@ -182,40 +182,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
 
+  if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
+    initializeSlick();
+  } else {
+    console.warn('Slick slider elements not found in the DOM.');
+  }
+
   let selectedDifficulty = null;
   let selectedPrepTime = null;
 
   if (elements.priceRangeSlider || elements.priceRangeSliders) {
-    // priceSliderInitialize(handleSliderUpdate);
-    const difficultySlider = document.getElementById("slider-ranges");
 
+    // Difficulty Slider
+    const difficultySlider = document.getElementById("slider-ranges");
     if (difficultySlider) {
-      // Map difficulty levels to their corresponding data-ids
-      const difficulties = [
-        { id: 1526, label: "Easy" },
-        { id: 1527, label: "Medium" },
-        { id: 1528, label: "Hard" },
-      ];
+      // Dynamically read difficulties from HTML
+      const difficultyElements = Array.from(document.querySelectorAll(".range-labels span.names"));
+      const difficulties = difficultyElements.map((el) => ({
+        id: parseInt(el.getAttribute("data-id")), // Read the data-id
+        label: el.textContent.trim(), // Read the label
+      }));
 
       noUiSlider.create(difficultySlider, {
-        start: 0, // Start at "Easy" (index 0)
+        start: 0, // Start at the first difficulty
         connect: [true, false],
         range: {
           min: 0,
-          max: difficulties.length - 1, // Adjust max based on array length
+          max: difficulties.length - 1, // Max based on number of difficulties
         },
         step: 1,
         format: {
-          to: (value) => difficulties[Math.round(value)].id, // Return the data-id
+          to: (value) => difficulties[Math.round(value)].id, // Map slider value to data-id
           from: (value) =>
-            difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)),
+            difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)), // Find index by data-id
         },
       });
 
       difficultySlider.noUiSlider.on("update", (values) => {
-        const selectedId = values[0]; // Get the selected data-id
+        const selectedId = parseInt(values[0]); // Get the selected data-id
+        console.log('selectedDifficulty', selectedId)
         selectedDifficulty = selectedId;
-        console.log("Selected difficulty ID:", selectedId);
+        console.log("Selected difficulty ID:", selectedDifficulty);
       });
     } else {
       console.error("Difficulty slider not found in DOM");
@@ -224,13 +231,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Preparation Time Slider
     const prepTimeSlider = document.getElementById("slider-range");
     if (prepTimeSlider) {
+      // Dynamically read preparation times from HTML
+      const prepTimeElements = Array.from(document.querySelectorAll("#price-range-slider .range-labels span.names"));
+      const prepTimes = prepTimeElements.map((el) => parseInt(el.getAttribute("data-id")));
+
       noUiSlider.create(prepTimeSlider, {
-        start: 1,
+        start: prepTimes[0], // Start at the first preparation time
         connect: [true, false],
         range: {
-          min: 5,
-          max: 60,
+          min: Math.min(...prepTimes),
+          max: Math.max(...prepTimes),
         },
+        step: 1,
         format: {
           to: (value) => `${value.toFixed(0)} mins`,
           from: (value) => Number(value.replace(" mins", "")),
@@ -238,19 +250,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       prepTimeSlider.noUiSlider.on("update", (values) => {
-        const prepTime = values[0];
+        const prepTime = parseInt(values[0]); // Get the selected preparation time
+        console.log('prepTime', prepTime)
         selectedPrepTime = prepTime;
+        console.log("Selected preparation time:", selectedPrepTime);
       });
     } else {
-      console.error('Preparation time slider not found in DOM');
+      console.error("Preparation time slider not found in DOM");
     }
   }
 
-  if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
-    initializeSlick();
-  } else {
-    console.warn('Slick slider elements not found in the DOM.');
-  }
 
   if (elements.recipeDropdown) {
 
@@ -269,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    console.log('selectedMealType',selectedMealType)
+    console.log('selectedMealType', selectedMealType)
 
     const cuisineSelect = document.querySelector('#cuisineselect');
     cuisineSelect.addEventListener('change', (event) => {
@@ -296,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const preparationSelect = document.querySelector('#preparation-style');
     preparationSelect.addEventListener('change', (event) => {
+
       preparationStyle = event.target.value;
     });
 
@@ -309,7 +319,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for the submit button
     let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
-    console.log('recipeSelectedValue',recipeSelectedValue)
     const url = elements.recipeButton.getAttribute('data-api');
     const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
@@ -323,12 +332,13 @@ document.addEventListener('DOMContentLoaded', () => {
       prepTime: selectedPrepTime,
       recipeCatId: recipeCatId,
       recipeSelectedValue: recipeSelectedValue,
-      preparationStyle:preparationStyle,
+      preparationStyle: preparationStyle,
       url: url,
       limit: limit,
       offset: offset,
       keyword: ''
     }
+    console.log('data=====----------', data)
     fetchRecipes('recipelist-template', data).then(obj => {
       const { html, isEmpty } = obj;
       const container = document.getElementById('recipecontainer');
@@ -354,10 +364,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     elements.recipeDropdown.addEventListener('change', () => {
       elements.recipeDropdown.setAttribute('data-offset', '0');
-    let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
+      let recipeSelectedValue = elements.recipeDropdown ? elements.recipeDropdown.value : '';
 
       offset = 0; // Reset offset variable
-      data.recipeSelectedValue=recipeSelectedValue
+      data.recipeSelectedValue = recipeSelectedValue
       const selectedValue = elements.recipeDropdown.value; // Update selected value
       showMoreClicked = false;
       data.offset = 0;
@@ -425,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
       button.addEventListener('click', (event) => {
         // Remove the 'active' class from all buttons
         document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
-        
+
         // Add the 'active' class to the clicked button
         event.target.classList.add('active');
       });
@@ -447,10 +457,11 @@ document.addEventListener('DOMContentLoaded', () => {
         prepTime: selectedPrepTime,
         recipeCatId: recipeCatId,
         recipeSelectedValue: recipeSelectedValue,
-        preparationStyle:preparationStyle,
+        preparationStyle: preparationStyle,
         url: url,
         limit: limit,
         offset: offset,
+        keyword: ''
       };
       fetchRecipes('recipelist-template', data).then(obj => {
         const { html, isEmpty } = obj;
@@ -564,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  
+
 
   if (elements.productButton) {
     // Default selectedValue to empty string if productDropdown is not found
