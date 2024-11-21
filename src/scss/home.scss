@@ -513,6 +513,9 @@ p{
 
     .social-scroll{
         .juicer-feed{
+            .j-poster{
+                display: none !important;
+            }
             h1.referral{
                 display: none !important;
                 opacity: 0 !important;
@@ -527,17 +530,32 @@ p{
                 }
             }
             .j-stacker-wrapper{
+                margin: 0 !important;
                 .j-stacker{
                     overflow-x: auto;
                     overflow-y: hidden;
                     white-space: nowrap;
                     display: flex;
-                    ul.j-stack{
+                    margin: 0 !important;
+
+                    &::-webkit-scrollbar {
+                        height: 5px;
+                        background-color: transparent;
+                    }
+                    &::-webkit-scrollbar-track {
+                        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background-color: #a2a0a0;
+                        border-radius: 30px;
+                    }
+
+
+                    ul.j-stack, .slick-track{
                         flex-wrap: nowrap !important;
                         width: 100% !important;
                         padding: 0 !important;
-                        grid-template-columns: repeat(3, 1fr);
-                        display: grid !important;
+                        display: flex !important;
                         .j-image{
                             border-radius: 8px;
                             overflow: hidden;
@@ -551,6 +569,10 @@ p{
                         
                         li.feed-item{
                             border: 0;
+                            flex: 0 0 30.333333% !important;
+                            margin: 0 10px !important;
+                            padding: 0;
+                            box-sizing: border-box; 
                             .j-text{
                                 flex-direction: column-reverse;
                                 display: flex;
@@ -569,12 +591,22 @@ p{
                                         }
                                     }
                                 }
-                                .j-message, .j-poster {
+                                .j-message {
                                     color: $black-color;
                                     line-height: 22px;
                                     font-size: 16px;
                                     font-weight: 300;
                                     font-family: $primary-font;
+                                }
+                                .j-poster{
+                                    padding: 10px 5px;
+                                    color: $black-color;
+                                    line-height: 22px;
+                                    font-size: 16px;
+                                    font-weight: 300;
+                                    font-family: $primary-font;
+
+                                   
                                 }
                             }
                             
@@ -648,6 +680,25 @@ p{
 @media (max-width: 767px) {
 
     .whats-on-sadia{
+        .social-scroll{
+            .juicer-feed{
+                .j-stacker-wrapper{
+                    margin: 0 0px !important;
+                    .j-stacker{
+                        ul.j-stack{
+                            .j-image{
+                                .j-content-image{
+                                    height: 240px !important;
+                                }
+                            } 
+                            li.feed-item{
+                                flex: 0 0 84.333333% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }     
         .scrl_cards {
             .slick-slide {
                 max-width: 82vw !important;
