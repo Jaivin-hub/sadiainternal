@@ -509,6 +509,84 @@ p{
 /* WHATS-ON START */
 
 .whats-on-sadia {
+
+
+    .social-scroll{
+        .juicer-feed{
+            h1.referral{
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                color: #FFF !important;
+                font-size: 0 !important;
+                margin: 0 !important;
+                a{
+                    &::after{
+                        display: none !important;
+                    }
+                }
+            }
+            .j-stacker-wrapper{
+                .j-stacker{
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    display: flex;
+                    ul.j-stack{
+                        flex-wrap: nowrap !important;
+                        width: 100% !important;
+                        padding: 0 !important;
+                        grid-template-columns: repeat(3, 1fr);
+                        display: grid !important;
+                        .j-image{
+                            border-radius: 8px;
+                            overflow: hidden;
+                            .j-content-image{
+                                border-radius: 8px;
+                                height: 354px !important;
+                                object-fit: cover;
+                                width: 100% !important;
+                            }
+                        }
+                        
+                        li.feed-item{
+                            border: 0;
+                            .j-text{
+                                flex-direction: column-reverse;
+                                display: flex;
+                                .j-meta{
+                                    margin: 0 0 10px;
+                                    .j-link-container{
+                                        ul{
+                                            li{
+                                                a.heart{
+                                                    color: $black-color;
+                                                    &:before{
+                                                        color: $primary-color;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                .j-message, .j-poster {
+                                    color: $black-color;
+                                    line-height: 22px;
+                                    font-size: 16px;
+                                    font-weight: 300;
+                                    font-family: $primary-font;
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+
+        }
+    }
+
     .scrl_cards{
         .slick-slide {
             max-width: 28.5vw !important;
