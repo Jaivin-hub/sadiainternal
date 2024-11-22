@@ -217,7 +217,8 @@
             .titles {
                 font-size: 36px;
                 line-height: 38px;
-                left: 15px;
+                padding: 0 15px;
+                left: 0;
                 bottom: 15px;
             }
             .imgWraper{
@@ -227,7 +228,16 @@
         }
     }  
 }
+@media (max-width: 580px) {
+    .ourPrdcts{
+        .imgDiv{
+            .titles {
+                max-width: 162px;
+            }
+        }
+    }
 
+}
 
 
 
