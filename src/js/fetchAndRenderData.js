@@ -95,9 +95,9 @@ async function fetchRecipes(templateName, data){
             "filter": data.recipeSelectedValue,
             "keyword": data.keyword,
             "limit": data.limit,
-            "offset": data.offset
+            "offset": data.offset,
+            "lang":data.lang
           }
-          console.log('formdata----',formdata)   
 
           const response = await fetch(data.url, {
             method: 'POST',
@@ -145,7 +145,8 @@ async function fetchCookingHacks(templateName, data){
             "filter": data.filter,
             "keyword": data.keyword,
             "limit": data.limit,
-            "offset": data.offset
+            "offset": data.offset,
+            "lang": data.lang
         }
           console.log('formdata----',formdata)   
 
