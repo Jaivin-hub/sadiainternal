@@ -173,6 +173,13 @@ function toggleRecipeSections() {
 
   recipeCatId = activeButton ? activeButton.getAttribute('data-umb-id') : 0;
 
+  document.querySelectorAll('.filBtn').forEach(button => {
+    button.addEventListener('click', function() {
+        document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
   // Helper function to prepare request data
   function prepareRequestData(keyword = '', filter = '') {
     return {
@@ -258,7 +265,7 @@ function toggleRecipeSections() {
 
   // Hide specific sections
   function hideSections() {
-    ['mostsearched', 'airfryer', 'maintitle'].forEach(id => {
+    ['allsections'].forEach(id => {
       const section = document.getElementById(id);
       if (section) section.style.display = 'none';
     });
