@@ -273,25 +273,28 @@
     }
 
     .yearSlider {
-        .slick-slider {
-            position: relative;
-            .slick-track{
-                display: flex;
-                align-items: center;
-            }
-        }
-
+        position: relative;
         .content-item {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s;
-            visibility: hidden;
+            // display: none;
+            // opacity: 0;
+            // visibility: hidden;
+            // transition: opacity 0.5s;
+            
             transition: all ease 0.5s;
 
             &.active {
                 display: block;
                 opacity: 1;
                 visibility: visible;
+            }
+        }
+        &.thumbnail-slider{
+            .slick-slider {
+                position: relative;
+                .slick-track{
+                    display: flex;
+                    align-items: center;
+                }
             }
         }
     }
@@ -472,7 +475,6 @@
         }
 
         .yearSlider {
-
             .slick-slider {
                 padding: 0;
                 margin: 0;
