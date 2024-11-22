@@ -134,5 +134,54 @@ async function fetchRecipes(templateName, data){
     }
 }
 
+async function fetchCookingHacks(templateName, data){
+    try{
+        let isEmpty = false;
+        const formdata = {
+            "cookingHackCatId": data.cookingHackCatId,
+            "occasionId": data.occasionId == null || undefined ? [] : [Number(data.occasionId)],
+            "recipeId": data.recipeId == null || undefined ? [] : [Number(data.recipeId)],
+            "productId": data.productId == null || undefined ? [] : [Number(data.productId)],
+            "filter": data.filter,
+            "keyword": data.keyword,
+            "limit": data.limit,
+            "offset": data.offset
+        }
+          console.log('formdata----',formdata)   
 
-export {fetchInstore, fetchAndRenderData, fetchOnlineStore, fetchRecipes}
+          const response = await fetch(data.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formdata),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if(result.length === 0){
+            isEmpty = true;
+        }
+
+        const template = document.getElementById(templateName)?.innerHTML;
+        if (!template) {
+            throw new Error(`Template with ID '${templateName}' not found.`);
+        }
+
+        let html = '';
+        result.forEach(item => {
+            html += Mustache.render(template, item);
+        });
+        const obj = {html, isEmpty}
+        return obj;
+          
+    }catch(err){
+        console.error('Error fetching recipes:', err);
+    }
+}
+
+export {fetchInstore, fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks}

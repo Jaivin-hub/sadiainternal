@@ -5,7 +5,7 @@ import '../scss/style.scss';
 import Handlebars from 'handlebars';
 import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
 import { fetchAssets, fetchProducts } from './api.js'
-import { fetchAndRenderData, fetchOnlineStore, fetchRecipes } from './fetchAndRenderData.js';
+import { fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks } from './fetchAndRenderData.js';
 
 const pulsingDotStyle = `
 <style>
@@ -268,10 +268,206 @@ function toggleRecipeSections() {
   bindEventListeners();
 }
 
+const cookingHacksSection = () => {
+  let selectedOccasion, selectedRecipe, selectedProduct, activeId;
+  const occasionSelect = document.querySelector('#occasionselect');
+  const productSelect = document.querySelector('#productselect');
+  const recipeSelect = document.querySelector('#recipeselect');
+  const activeButton = document.querySelector('.categ_filter .filBtn.active');
+  const recipeDropdown = document.querySelector('#recipeDropdown');
+  activeId = activeButton ? activeButton.getAttribute('data-umb-id') : 0;
+  const submitButton = document.querySelector('#submit-button');
+  const dropdown = document.querySelector('#recipeDropdown');
+  const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
+  let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
+  const url = submitButton.getAttribute('data-api');
+  const searchInput = document.querySelector('#searchInpts');
+
+  document.getElementById('resetButton').addEventListener('click', () => {
+    window.location.reload();
+  });
+
+
+
+  occasionSelect.addEventListener('change', (event) => {
+    selectedOccasion = event.target.value;
+  });
+
+  recipeSelect.addEventListener('change', (event) => {
+    selectedRecipe = event.target.value;
+  });
+
+  productSelect.addEventListener('change', (event) => {
+    console.log('event.target.value',event.target.value)
+    selectedProduct = event.target.value;
+  });
+
+  const data = {
+    cookingHackCatId: activeId,
+    occasionId: selectedOccasion,
+    recipeId: selectedRecipe,
+    productId: selectedProduct,
+    filter: '',
+    keyword: null,
+    limit: limit,
+    offset: offset,
+    url: url
+  }
+
+  fetchCookingHacks('hack-template', data).then(obj => {
+    const { html, isEmpty } = obj;
+    const container = document.getElementById('hackcontainer');
+    if (!container) {
+      console.warn('Container with ID "onlinecontainer" not found.');
+      return;
+    }
+
+    if (showMoreClicked) {
+      container.innerHTML += html;
+    } else {
+      container.innerHTML = html;
+    }
+    const showMoreButton = document.querySelector('#hackshowmore');
+    if (isEmpty) {
+      showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+    } else {
+      showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+    }
+  }).catch(error => {
+      console.error('Error fetching/rendering online stores:', error);
+    });
+
+
+
+  submitButton.addEventListener('click', () => {
+    let recipeSelectedValue = dropdown ? dropdown.value : '';
+    const url = submitButton.getAttribute('data-api');
+    const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
+    let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
+    showMoreClicked = false;
+
+    const data = {
+      cookingHackCatId: activeId,
+      occasionId: selectedOccasion,
+      recipeId: selectedRecipe,
+      productId: selectedProduct,
+      filter: recipeSelectedValue,
+      keyword: null,
+      limit: limit,
+      offset: offset,
+      url: url
+    }
+
+    fetchCookingHacks('hack-template', data).then(obj => {
+      const { html, isEmpty } = obj;
+      const container = document.getElementById('hackcontainer');
+      if (!container) {
+        console.warn('Container with ID "onlinecontainer" not found.');
+        return;
+      }
+
+      if (showMoreClicked) {
+        container.innerHTML += html;
+      } else {
+        container.innerHTML = html;
+      }
+      const showMoreButton = document.querySelector('#hackshowmore');
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+      }
+    })
+      .catch(error => {
+        console.error('Error fetching/rendering online stores:', error);
+      });
+  });
+
+  recipeDropdown.addEventListener('change', () => {
+    let recipeSelectedValue = recipeDropdown ? recipeDropdown.value : '';
+    showMoreClicked = false;
+
+    const data = {
+      cookingHackCatId: activeId,
+      occasionId: selectedOccasion,
+      recipeId: selectedRecipe,
+      productId: selectedProduct,
+      filter: recipeSelectedValue,
+      keyword: null,
+      limit: limit,
+      offset: 0,
+      url: url
+    }
+
+    fetchCookingHacks('hack-template', data).then(obj => {
+      const { html, isEmpty } = obj;
+      const container = document.getElementById('hackcontainer');
+      if (!container) {
+        console.warn('Container with ID "onlinecontainer" not found.');
+        return;
+      }
+
+      if (showMoreClicked) {
+        container.innerHTML += html;
+      } else {
+        container.innerHTML = html;
+      }
+      const showMoreButton = document.querySelector('#hackshowmore');
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+      }
+    })
+      .catch(error => {
+        console.error('Error fetching/rendering online stores:', error);
+      });
+  });
+
+  searchInput.addEventListener('input', () => {
+    if (searchInput.value.length >= 3) {
+      showMoreClicked = false;
+      const data = {
+        cookingHackCatId: activeId,
+        occasionId: selectedOccasion,
+        recipeId: selectedRecipe,
+        productId: selectedProduct,
+        filter: '',
+        keyword: searchInput.value,
+        limit: limit,
+        offset: 0,
+        url: url
+      }
+      fetchRecipes('hack-template', data).then(obj => {
+        const { html, isEmpty } = obj;
+        const container = document.getElementById('hackcontainer');
+        if (!container) {
+          console.warn('Container with ID "onlinecontainer" not found.');
+          return;
+        }
+
+        if (showMoreClicked) {
+          container.innerHTML += html;
+        } else {
+          container.innerHTML = html;
+        }
+        const showMoreButton = document.querySelector('#hackshowmore');
+        if (isEmpty) {
+          showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+        } else {
+          showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+        }
+      })
+        .catch(error => {
+          console.error('Error fetching/rendering online stores:', error);
+        });
+    }
+  });
+}
+
 // Ensure code runs after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
 
-  console.log('here first')
   // Cache commonly used elements
   const elements = {
     imageSlider: document.querySelector('.image-slider'),
@@ -298,8 +494,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
 
-  console.log('second')
-
 
   if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
     initializeSlick();
@@ -307,7 +501,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('Slick slider elements not found in the DOM.');
   }
 
-  console.log('third')
 
   // Search Bar Expand/Collapse Handlers
   $('.search-button').on('click', () => {
@@ -338,9 +531,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const recipeListing = document.getElementById("recipe-listing");
+  const cookingHack = document.getElementById("cooking-hack");
 
-  if(recipeListing){
-      toggleRecipeSections()
+  if (recipeListing) {
+    toggleRecipeSections()
+  }
+
+  if (cookingHack) {
+    cookingHacksSection()
   }
 
 
@@ -721,7 +919,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeMapbox();
   }
 
-  
+
 
 
 
