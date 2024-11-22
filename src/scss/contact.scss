@@ -47,7 +47,7 @@
             padding: 5px 15px;
             outline: 0;
             box-shadow: inherit;
-            // color: #3F3F3A;
+            // color: $black-light;
             color: #ADADAD;
             &::placeholder{
                 color: #ADADAD;
@@ -182,7 +182,7 @@
             padding: 0;
         }
         .descp{
-            color: #3F3F3A;
+            color: $black-light;
             font-size: 16px;
             line-height: 22px;
         }
@@ -205,7 +205,7 @@
                 }
                
                 a{
-                    color: #3F3F3A;
+                    color: $black-light;
                 }
             }
             
@@ -341,7 +341,7 @@
             }
         }
         .accordion-body{
-            color: #3F3F3A;
+            color: $black-light;
             font-size: 16px;
             line-height: 22px;
             padding: 22px 0;

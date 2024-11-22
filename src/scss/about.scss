@@ -24,7 +24,7 @@
 
         .contBoxs {
             .descp {
-                color: #3F3F3A;
+                color: $black-light;
             }
         }
 
@@ -33,7 +33,7 @@
 
     .contBoxs {
         .descp {
-            color: #3F3F3A;
+            color: $black-light;
             font-size: 16px;
             line-height: 22px;
         }
@@ -110,7 +110,7 @@
             }
 
             .descp {
-                color: #3F3F3A;
+                color: $black-light;
                 font-size: 16px;
                 line-height: 22px;
             }
@@ -275,6 +275,10 @@
     .yearSlider {
         .slick-slider {
             position: relative;
+            .slick-track{
+                display: flex;
+                align-items: center;
+            }
         }
 
         .content-item {
@@ -304,7 +308,7 @@
             }
 
             .descp {
-                color: #3F3F3A;
+                color: $black-light;
                 font-size: 16px;
                 line-height: 22px;
                 max-width: 420px;
