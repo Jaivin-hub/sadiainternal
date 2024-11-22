@@ -1,0 +1,30 @@
+<script id="all-recipelist-template" type="text/x-handlebars-template">
+        <div class="col-md-4">
+                <div class="card">
+                    <div class="cardImg">
+                        <a href="\{{url}}"><img src="\{{imageUrl}}" loading="lazy" class="mainImg"
+                                alt="Popular Recipe 1"></a>
+                    </div>
+                    <div class="card-body">
+                        <a href="#">
+                            <div class="card-title">
+                                <p>\{{recipeTitle}}</p>
+                            </div>
+                        </a>
+                        <p class="card-text">By<span>\{{chiefName}}</span></p>
+                        <div class="moreDtls">
+                            <div class="icCont">
+                                <span class="icons"><img src="./assets/images/icons/clock.svg" loading="lazy"
+                                        class="img-fluid" alt="clock"></span>
+                                <p>\{{preparationTime}}</p>
+                            </div>
+                            <div class="icCont">
+                                <span class="icons"><img src="./assets/images/icons/people-group.svg" loading="lazy"
+                                        class="img-fluid" alt="clock"></span>
+                                <p>\{{serving}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+</script>

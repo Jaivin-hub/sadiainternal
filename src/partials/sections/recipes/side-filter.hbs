@@ -22,11 +22,11 @@
     <div class="spDivs">
         <div class="range-filter">
             <label class="subTitles">Difficulty</label>
-            <div class="price-range-slider" id="price-range-sliders">
+            <div class="price-range-slider" id="difficulty-range-sliders">
                 <p class="range-value">
                     <input type="text" id="amount" readonly>
                 </p>
-                <div id="slider-ranges" class="range-bar"></div>
+                <div id="difficulty-range" class="range-bar"></div>
                 <div class="range-labels">
                     <span data-id="1526" class="names">Easy</span>
                     <span data-id="1527" class="names">Medium</span>
@@ -37,8 +37,8 @@
 
         <div class="range-filter">
             <label class="subTitles">Preparation Time</label>
-            <div class="price-range-slider" id="price-range-slider">
-                <div id="slider-range" class="range-bar"></div>
+            <div class="price-range-slider" id="preparation-range-slider">
+                <div id="preparation-range" class="range-bar"></div>
                 <div class="range-labels">
                     <span data-id="5" class="names">5 Mins</span>
                     <span data-id="30" class="names">30 Mins</span>
@@ -118,7 +118,7 @@
         <button class="btn resetBtn" id="resetButton">
             Reset <img src="./assets/images/icons/reset.svg" class="img-fluid" alt="img">
         </button>
-        <button id="submit-button" class="btn resetBtn submit"> Submit</button>
+        <button id="submit-button" data-api="https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetRecipes" data-offset="0" data-limit="1" class="btn resetBtn submit"> Submit</button>
     </div>
 
 

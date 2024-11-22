@@ -2,35 +2,41 @@
 <section class="sideFilter">
     <div class="form-group">
         <label class="subTitles">Recipe</label>
-        <select class="form-select">
-            <option>Select Recipe</option>
+        <select class="form-select" id="recipeselect">
+            <option value="">Select Recipe</option>
+            <option value="4587">Recipe 1</option>
+            <option value="4888">Recipe 2</option>
+
         </select>
     </div>
 
     <div class="form-group">
         <label class="subTitles">Occasion</label>
-        <select class="form-select">
-            <option>Select Occasion</option>
-            <option>Ramadan</option>
-            <option>Eid</option>
-            <option>Back to School</option>
-            <option>Diwali / Christmas</option>
-            <option>TBC</option>
-            <option>Special moments</option>
+        <select class="form-select" id="occasionselect">
+            <option value="">Select Occasion</option>
+            <option value="1514">Ramadan</option>
+            <option value="1514">Eid</option>
+            <option value="1514">Back to School</option>
+            <option value="1514">Diwali / Christmas</option>
+            <option value="1514">TBC</option>
+            <option value="1514">Special moments</option>
         </select>
     </div>
 
     <div class="form-group">
         <label class="subTitles">Product</label>
-        <select class="form-select">
-            <option>Select Product</option>
+        <select class="form-select" id="productselect">
+            <option value="">Select Product</option>
+            <option value="1514">product 1</option>
+            <option value="1514">product 2</option>
+
         </select>
     </div>
 
     <div class="btnSpace">
-        <button class="btn resetBtn">
+        <button class="btn resetBtn" id="resetButton">
             Reset <img src="./assets/images/icons/reset.svg" class="img-fluid" alt="img">
         </button>
-        <button class="btn resetBtn submit"> Submit</button>
+        <button id="submit-button" data-api="https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetCookingHacks" data-offset="0" data-limit="1" class="btn resetBtn submit"> Submit</button>
     </div>
 </section>

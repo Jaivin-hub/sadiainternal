@@ -1,44 +1,46 @@
 [
-  {
-      "onlineStoreId": 1314,
-      "storeName": "Amazon",
-      "storeLogoUrl": "/media/vuqoydd1/logo1.png",
-      "onlineBuyUrl": "https://www.amazon.ae"
-  },
-  {
-      "onlineStoreId": 1396,
-      "storeName": "Lulu Mall",
-      "storeLogoUrl": "/media/uxlfneqg/logo3.png",
-      "onlineBuyUrl": "https://lulu.com/ae"
-  },
-  {
-      "onlineStoreId": 1397,
-      "storeName": "Eat Easy",
-      "storeLogoUrl": "/media/ojtl2343/logo8.png",
-      "onlineBuyUrl": "https://eat.easy.ae"
-  },
-  {
-      "onlineStoreId": 1450,
-      "storeName": "Carrefour",
-      "storeLogoUrl": "/media/laznsf1p/logo2.png",
-      "onlineBuyUrl": "https://www.amazon.ae"
-  },
-  {
-      "onlineStoreId": 1451,
-      "storeName": "Spinneys",
-      "storeLogoUrl": "/media/ynkpcyna/logo4.png",
-      "onlineBuyUrl": "https://lulu.com/ae"
-  },
-  {
-      "onlineStoreId": 1452,
-      "storeName": "talabat",
-      "storeLogoUrl": "/media/u5pkruhf/logo5.png",
-      "onlineBuyUrl": "https://lulu.com/ae"
-  },
-  {
-      "onlineStoreId": 1453,
-      "storeName": "Union Coop",
-      "storeLogoUrl": "/media/hxmhjdmw/logo6.png",
-      "onlineBuyUrl": "https://lulu.com/ae"
-  }
+    {
+        "nodeId": 1199,
+        "url": "/en/recipes/recipes-category/back-to-school/tikka-masala/",
+        "imageUrl": "/media/pdhdhr0g/recipes_1.png",
+        "imageAlt": "",
+        "recipeTitle": "Tikka Masala",
+        "chiefName": "Diana Disoza",
+        "preparationTime": "14 Mins",
+        "serving": "2-4 Persons",
+        "by": "By"
+    },
+    {
+        "nodeId": 1199,
+        "url": "/en/recipes/recipes-category/back-to-school/tikka-masala/",
+        "imageUrl": "/media/pdhdhr0g/recipes_1.png",
+        "imageAlt": "",
+        "recipeTitle": "Tikka Masala",
+        "chiefName": "Diana Disoza",
+        "preparationTime": "14 Mins",
+        "serving": "2-4 Persons",
+        "by": "By"
+    },
+    {
+        "nodeId": 1199,
+        "url": "/en/recipes/recipes-category/back-to-school/tikka-masala/",
+        "imageUrl": "/media/pdhdhr0g/recipes_1.png",
+        "imageAlt": "",
+        "recipeTitle": "Tikka Masala",
+        "chiefName": "Diana Disoza",
+        "preparationTime": "14 Mins",
+        "serving": "2-4 Persons",
+        "by": "By"
+    },
+    {
+        "nodeId": 1199,
+        "url": "/en/recipes/recipes-category/back-to-school/tikka-masala/",
+        "imageUrl": "/media/pdhdhr0g/recipes_1.png",
+        "imageAlt": "",
+        "recipeTitle": "Tikka Masala",
+        "chiefName": "Diana Disoza",
+        "preparationTime": "14 Mins",
+        "serving": "2-4 Persons",
+        "by": "By"
+    }
 ]

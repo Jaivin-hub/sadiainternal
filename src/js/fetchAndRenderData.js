@@ -83,39 +83,21 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
 async function fetchRecipes(templateName, data){
     try{
         let isEmpty = false;
-        console.log('data=====',data)
         const formdata = {
             "recipeCatId": data.recipeCatId,
-            "mealTypeId": data.mealType == null?[]:[Number(data.mealType)],
-            "difficultyLevelId": data.difficulty == null ? [] : [Number(data.difficulty)],
-            "preparationTime": data.prepTime,
-            "cuisineId": data.cuisine == null ? [] : [Number(data.cuisine)],
-            "dietaryId": data.dietaryNeeds == null ? [] : [Number(data.dietaryNeeds)],
-            "occasionId": data.occasion == null ? [] : [Number(data.occasion)],
-            "preparationStyleId": data.preparationStyle == null? [] : [Number(data.preparationStyle)],
+            "mealTypeId": data.mealType == null || undefined ?[]:[Number(data.mealType)],
+            "difficultyLevelId": data.difficulty == null || undefined  ? [] : [Number(data.difficulty)],
+            "preparationTime": data.prepTime == null || undefined  ? "" : data.prepTime,
+            "cuisineId": data.cuisine == null || undefined  ? [] : [Number(data.cuisine)],
+            "dietaryId": data.dietaryNeeds == null || undefined  ? [] : [Number(data.dietaryNeeds)],
+            "occasionId": data.occasion == null || undefined  ? [] : [Number(data.occasion)],
+            "preparationStyleId": data.preparationStyle == null || undefined ? [] : [Number(data.preparationStyle)],
             "filter": data.recipeSelectedValue,
             "keyword": data.keyword,
             "limit": data.limit,
-            "offset": data.offset
+            "offset": data.offset,
+            "lang":data.lang
           }
-          console.log('formdata----====',formdata)
-        //   console.log('obj--consoled--',obj)
-        // const formdata = {
-        //     "recipeCatId": 0,
-        //     "mealTypeId": [],
-        //     "difficultyLevelId": [1526],
-        //     "preparationTime": null,
-        //     "cuisineId": [1514],
-        //     "dietaryId": [],
-        //     "occasionId": [],
-        //     "preparationStyleId": [],
-        //     "filter": null,
-        //     "keyword": null,
-        //     "limit": 9,
-        //     "offset": 0
-        //   }
-
-          
 
           const response = await fetch(data.url, {
             method: 'POST',
@@ -152,5 +134,55 @@ async function fetchRecipes(templateName, data){
     }
 }
 
+async function fetchCookingHacks(templateName, data){
+    try{
+        let isEmpty = false;
+        const formdata = {
+            "cookingHackCatId": data.cookingHackCatId,
+            "occasionId": data.occasionId == null || undefined ? [] : [Number(data.occasionId)],
+            "recipeId": data.recipeId == null || undefined ? [] : [Number(data.recipeId)],
+            "productId": data.productId == null || undefined ? [] : [Number(data.productId)],
+            "filter": data.filter,
+            "keyword": data.keyword,
+            "limit": data.limit,
+            "offset": data.offset,
+            "lang": data.lang
+        }
+          console.log('formdata----',formdata)   
 
-export {fetchInstore, fetchAndRenderData, fetchOnlineStore, fetchRecipes}
+          const response = await fetch(data.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formdata),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if(result.length === 0){
+            isEmpty = true;
+        }
+
+        const template = document.getElementById(templateName)?.innerHTML;
+        if (!template) {
+            throw new Error(`Template with ID '${templateName}' not found.`);
+        }
+
+        let html = '';
+        result.forEach(item => {
+            html += Mustache.render(template, item);
+        });
+        const obj = {html, isEmpty}
+        return obj;
+          
+    }catch(err){
+        console.error('Error fetching recipes:', err);
+    }
+}
+
+export {fetchInstore, fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks}

@@ -5,7 +5,7 @@ import '../scss/style.scss';
 import Handlebars from 'handlebars';
 import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
 import { fetchAssets, fetchProducts } from './api.js'
-import { fetchAndRenderData, fetchOnlineStore, fetchRecipes } from './fetchAndRenderData.js';
+import { fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks } from './fetchAndRenderData.js';
 
 const pulsingDotStyle = `
 <style>
@@ -153,6 +153,380 @@ const contactForms = async () => {
   }
 }
 
+let selectedDifficulty = null;
+let selectedPrepTime = null;
+
+
+function toggleRecipeSections() {
+  let selectedMealType, selectedCuisine, selectedDietaryNeeds, selectedOccasion, recipeCatId, preparationStyle;
+  let showMoreClicked = false;
+  const submitButton = document.querySelector('#submit-button');
+  const recipeDropdown = document.querySelector('#recipeDropdown');
+  const cuisineSelect = document.querySelector('#cuisineselect');
+  const dietaryNeedsSelect = document.querySelector('#dietary-needs');
+  const occasionSelect = document.querySelector('#occasion');
+  const activeButton = document.querySelector('.categ_filter .filBtn.active');
+  const preparationSelect = document.querySelector('#preparation-style');
+  const searchInput = document.querySelector('#searchInpts');
+  const showMoreButton = document.querySelector('#listingShowMore');
+  const closeButton = document.querySelector('#recipeclose');
+  const url = submitButton.getAttribute('data-api');
+  const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
+  let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
+  const lang = document.body.getAttribute('umb-lang');
+
+  recipeCatId = activeButton ? activeButton.getAttribute('data-umb-id') : 0;
+
+  document.querySelectorAll('.filBtn').forEach(button => {
+    button.addEventListener('click', function () {
+      document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Helper function to prepare request data
+  function prepareRequestData(keyword = '', filter = '') {
+    return {
+      mealType: selectedMealType,
+      cuisine: selectedCuisine,
+      dietaryNeeds: selectedDietaryNeeds,
+      occasion: selectedOccasion,
+      season: '',
+      difficulty: selectedDifficulty,
+      prepTime: selectedPrepTime,
+      recipeCatId: recipeCatId,
+      recipeSelectedValue: recipeDropdown ? recipeDropdown.value : '',
+      preparationStyle: preparationStyle,
+      url: url,
+      limit: limit,
+      offset: offset,
+      keyword: keyword,
+      filter: filter,
+      lang: lang
+    };
+  }
+
+  // Helper function to update recipe list
+  function updateRecipeList(data) {
+    fetchRecipes('all-recipelist-template', data)
+      .then(({ html, isEmpty }) => {
+        const container = document.getElementById('defaultlistspace');
+        if (!container) {
+          console.warn('Container with ID "defaultlistspace" not found.');
+          return;
+        }
+        if (showMoreClicked) {
+          container.innerHTML += html;
+        } else {
+          container.innerHTML = html;
+        }
+        if (isEmpty) {
+          showMoreButton.style.visibility = "hidden";
+        } else {
+          showMoreButton.style.visibility = "visible";
+        }
+      })
+      .catch(error => console.error('Error fetching/rendering recipes:', error));
+  }
+
+  // Function to handle the 'Show More' button
+  function handleShowMoreButton() {
+    if (!showMoreButton) return;
+    showMoreButton.addEventListener('click', (event) => {
+      showMoreClicked = true;
+      event.preventDefault();
+      offset += limit; // Increment offset
+      showMoreButton.setAttribute('data-offset', offset);
+
+      const data = prepareRequestData();
+      updateRecipeList(data);
+    });
+  }
+
+  // Function to handle the close button
+  function handleCloseButton() {
+    if (!closeButton) return;
+    closeButton.addEventListener('click', (event) => {
+      const target = event.target.closest('#recipeclose');
+      showMoreClicked = false;
+      if (target) {
+      const data = prepareRequestData();
+      updateRecipeList(data);
+      }
+    });
+  }
+
+  // Bind event listeners
+  function bindEventListeners() {
+    document.querySelectorAll('.filBtn').forEach(button => {
+      button.addEventListener('click', (event) => {
+        selectedMealType = event.target.getAttribute('data-id');
+      });
+    });
+
+    cuisineSelect.addEventListener('change', (event) => {
+      selectedCuisine = event.target.value;
+    });
+
+    dietaryNeedsSelect.addEventListener('change', (event) => {
+      selectedDietaryNeeds = event.target.value;
+    });
+
+    occasionSelect.addEventListener('change', (event) => {
+      selectedOccasion = event.target.value;
+    });
+
+    preparationSelect.addEventListener('change', (event) => {
+      preparationStyle = event.target.value;
+    });
+
+    recipeDropdown.addEventListener('change', () => {
+      submitButton.setAttribute('data-offset', '0');
+      offset = 0;
+      updateRecipeList(prepareRequestData('', recipeDropdown.value));
+    });
+
+    searchInput.addEventListener('input', () => {
+      if (searchInput.value.length >= 3) {
+        offset = 0;
+        showMoreClicked = false;
+        updateRecipeList(prepareRequestData(searchInput.value));
+      }
+    });
+
+    submitButton.addEventListener('click', () => {
+      offset = 0;
+      const data = prepareRequestData();
+      updateRecipeList(data);
+      hideSections();
+    });
+
+    handleShowMoreButton();
+    handleCloseButton();
+  }
+
+  // Hide specific sections
+  function hideSections() {
+    ['allsections'].forEach(id => {
+      const section = document.getElementById(id);
+      if (section) section.style.display = 'none';
+    });
+    ['listingShowMore'].forEach(id => {
+      const section = document.getElementById(id);
+      if (section) section.style.visibility = 'visible';
+    });
+  }
+
+  // Initialize
+  bindEventListeners();
+}
+
+
+
+const cookingHacksSection = () => {
+  let selectedOccasion, selectedRecipe, selectedProduct, activeId;
+  const occasionSelect = document.querySelector('#occasionselect');
+  const productSelect = document.querySelector('#productselect');
+  const recipeSelect = document.querySelector('#recipeselect');
+  const activeButton = document.querySelector('.categ_filter .filBtn.active');
+  const recipeDropdown = document.querySelector('#recipeDropdown');
+  activeId = activeButton ? activeButton.getAttribute('data-umb-id') : 0;
+  const submitButton = document.querySelector('#submit-button');
+  const dropdown = document.querySelector('#recipeDropdown');
+  const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
+  let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
+  const url = submitButton.getAttribute('data-api');
+  const searchInput = document.querySelector('#searchInpts');
+  const lang = document.body.getAttribute('umb-lang');
+
+  document.getElementById('resetButton').addEventListener('click', () => {
+    window.location.reload();
+  });
+
+
+
+  occasionSelect.addEventListener('change', (event) => {
+    selectedOccasion = event.target.value;
+  });
+
+  recipeSelect.addEventListener('change', (event) => {
+    selectedRecipe = event.target.value;
+  });
+
+  productSelect.addEventListener('change', (event) => {
+    console.log('event.target.value', event.target.value)
+    selectedProduct = event.target.value;
+  });
+
+  const data = {
+    cookingHackCatId: activeId,
+    occasionId: selectedOccasion,
+    recipeId: selectedRecipe,
+    productId: selectedProduct,
+    filter: '',
+    keyword: null,
+    limit: limit,
+    offset: offset,
+    url: url,
+    lang: lang
+  }
+
+  fetchCookingHacks('hack-template', data).then(obj => {
+    const { html, isEmpty } = obj;
+    const container = document.getElementById('hackcontainer');
+    if (!container) {
+      console.warn('Container with ID "onlinecontainer" not found.');
+      return;
+    }
+
+    if (showMoreClicked) {
+      container.innerHTML += html;
+    } else {
+      container.innerHTML = html;
+    }
+    const showMoreButton = document.querySelector('#hackshowmore');
+    if (isEmpty) {
+      showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+    } else {
+      showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+    }
+  }).catch(error => {
+    console.error('Error fetching/rendering online stores:', error);
+  });
+
+
+
+  submitButton.addEventListener('click', () => {
+    let recipeSelectedValue = dropdown ? dropdown.value : '';
+    const url = submitButton.getAttribute('data-api');
+    const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
+    let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
+    const lang = document.body.getAttribute('umb-lang');
+    showMoreClicked = false;
+
+    const data = {
+      cookingHackCatId: activeId,
+      occasionId: selectedOccasion,
+      recipeId: selectedRecipe,
+      productId: selectedProduct,
+      filter: recipeSelectedValue,
+      keyword: null,
+      limit: limit,
+      offset: offset,
+      url: url,
+      lang:lang
+    }
+
+    fetchCookingHacks('hack-template', data).then(obj => {
+      const { html, isEmpty } = obj;
+      const container = document.getElementById('hackcontainer');
+      if (!container) {
+        console.warn('Container with ID "onlinecontainer" not found.');
+        return;
+      }
+
+      if (showMoreClicked) {
+        container.innerHTML += html;
+      } else {
+        container.innerHTML = html;
+      }
+      const showMoreButton = document.querySelector('#hackshowmore');
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+      }
+    })
+      .catch(error => {
+        console.error('Error fetching/rendering online stores:', error);
+      });
+  });
+
+  recipeDropdown.addEventListener('change', () => {
+    let recipeSelectedValue = recipeDropdown ? recipeDropdown.value : '';
+    showMoreClicked = false;
+    const lang = document.body.getAttribute('umb-lang');
+
+    const data = {
+      cookingHackCatId: activeId,
+      occasionId: selectedOccasion,
+      recipeId: selectedRecipe,
+      productId: selectedProduct,
+      filter: recipeSelectedValue,
+      keyword: null,
+      limit: limit,
+      offset: 0,
+      url: url,
+      lang: lang
+    }
+
+    fetchCookingHacks('hack-template', data).then(obj => {
+      const { html, isEmpty } = obj;
+      const container = document.getElementById('hackcontainer');
+      if (!container) {
+        console.warn('Container with ID "onlinecontainer" not found.');
+        return;
+      }
+
+      if (showMoreClicked) {
+        container.innerHTML += html;
+      } else {
+        container.innerHTML = html;
+      }
+      const showMoreButton = document.querySelector('#hackshowmore');
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+      }
+    })
+      .catch(error => {
+        console.error('Error fetching/rendering online stores:', error);
+      });
+  });
+
+  searchInput.addEventListener('input', () => {
+    if (searchInput.value.length >= 3) {
+      showMoreClicked = false;
+      const data = {
+        cookingHackCatId: activeId,
+        occasionId: selectedOccasion,
+        recipeId: selectedRecipe,
+        productId: selectedProduct,
+        filter: '',
+        keyword: searchInput.value,
+        limit: limit,
+        offset: 0,
+        url: url,
+        lang: lang
+      }
+      fetchRecipes('hack-template', data).then(obj => {
+        const { html, isEmpty } = obj;
+        const container = document.getElementById('hackcontainer');
+        if (!container) {
+          console.warn('Container with ID "onlinecontainer" not found.');
+          return;
+        }
+
+        if (showMoreClicked) {
+          container.innerHTML += html;
+        } else {
+          container.innerHTML = html;
+        }
+        const showMoreButton = document.querySelector('#hackshowmore');
+        if (isEmpty) {
+          showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+        } else {
+          showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+        }
+      })
+        .catch(error => {
+          console.error('Error fetching/rendering online stores:', error);
+        });
+    }
+  });
+}
+
 // Ensure code runs after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -163,8 +537,8 @@ document.addEventListener('DOMContentLoaded', () => {
     contentItem: document.querySelector('.content-item'),
     whatSlider: document.querySelector('.whatSlider'),
     filtCatSpc: document.getElementById('filt-catSpc'),
-    priceRangeSlider: document.getElementById('price-range-slider'),
-    priceRangeSliders: document.getElementById('price-range-sliders'),
+    priceRangeSlider: document.getElementById('preparation-range-slider'),
+    priceRangeSliders: document.getElementById('difficulty-range-sliders'),
     mapFrame: document.getElementById('mapFrame'),
     whereToBuyMapFrame: document.getElementById('wheretobuyMapframe'),
     searchInput: document.querySelector('#searchInpts'),
@@ -182,19 +556,58 @@ document.addEventListener('DOMContentLoaded', () => {
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
 
+
   if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
     initializeSlick();
   } else {
     console.warn('Slick slider elements not found in the DOM.');
   }
 
-  let selectedDifficulty = null;
-  let selectedPrepTime = null;
+
+  // Search Bar Expand/Collapse Handlers
+  $('.search-button').on('click', () => {
+    $('.search-form').addClass('expanded');
+    $('.close-button').show();
+    $('.search-button').hide();
+  });
+
+  $('.close-button').on('click', () => {
+    $('.search-form').removeClass('expanded');
+    $('.close-button').hide();
+    $('.search-button').show();
+    $('#searchBar').val('');
+  });
+
+  // Location Search Expand/Collapse Handlers
+  $('.serLoc').on('click', () => {
+    $('.locatSearch').addClass('expanded');
+    $('.cl_ser').show();
+    $('.serLoc').hide();
+  });
+
+  $('.cl_ser').on('click', () => {
+    $('.locatSearch').removeClass('expanded');
+    $('.cl_ser').hide();
+    $('.serLoc').show();
+    $('.search-bar').val('');
+  });
+
+  const recipeListing = document.getElementById("recipe-listing");
+  const cookingHack = document.getElementById("cooking-hack");
+
+  if (recipeListing) {
+    toggleRecipeSections()
+  }
+
+  if (cookingHack) {
+    cookingHacksSection()
+  }
+
 
   if (elements.priceRangeSlider || elements.priceRangeSliders) {
 
     // Difficulty Slider
-    const difficultySlider = document.getElementById("slider-ranges");
+    const difficultySlider = document.getElementById("difficulty-range");
     if (difficultySlider) {
       // Dynamically read difficulties from HTML
       const difficultyElements = Array.from(document.querySelectorAll(".range-labels span.names"));
@@ -220,19 +633,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       difficultySlider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
-        console.log('selectedDifficulty', selectedId)
         selectedDifficulty = selectedId;
-        console.log("Selected difficulty ID:", selectedDifficulty);
       });
     } else {
       console.error("Difficulty slider not found in DOM");
     }
 
     // Preparation Time Slider
-    const prepTimeSlider = document.getElementById("slider-range");
+    const prepTimeSlider = document.getElementById("preparation-range");
     if (prepTimeSlider) {
       // Dynamically read preparation times from HTML
-      const prepTimeElements = Array.from(document.querySelectorAll("#price-range-slider .range-labels span.names"));
+      const prepTimeElements = Array.from(document.querySelectorAll("#preparation-range-slider .range-labels span.names"));
       const prepTimes = prepTimeElements.map((el) => parseInt(el.getAttribute("data-id")));
 
       noUiSlider.create(prepTimeSlider, {
@@ -251,24 +662,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
       prepTimeSlider.noUiSlider.on("update", (values) => {
         const prepTime = parseInt(values[0]); // Get the selected preparation time
-        console.log('prepTime', prepTime)
         selectedPrepTime = prepTime;
-        console.log("Selected preparation time:", selectedPrepTime);
       });
     } else {
       console.error("Preparation time slider not found in DOM");
     }
   }
 
+  // recipe-category-listing
+  const recipeCategoryListing = document.getElementById("recipe-category-listing");
 
-  if (elements.recipeDropdown) {
+
+  if (recipeCategoryListing) {
 
     let selectedMealType = null;
     let selectedCuisine = null;
-    // let selectedIngredients = null;
     let selectedDietaryNeeds = null;
     let selectedOccasion = null;
-    let selectedSeason = null;
     let preparationStyle = null;
 
 
@@ -278,7 +688,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    console.log('selectedMealType', selectedMealType)
 
     const cuisineSelect = document.querySelector('#cuisineselect');
     cuisineSelect.addEventListener('change', (event) => {
@@ -305,7 +714,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const preparationSelect = document.querySelector('#preparation-style');
     preparationSelect.addEventListener('change', (event) => {
-
       preparationStyle = event.target.value;
     });
 
@@ -323,22 +731,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
     const submitButton = document.querySelector('#submit-button');
+    const lang = document.body.getAttribute('umb-lang');
+
     const data = {
       mealType: selectedMealType,
       cuisine: selectedCuisine,
       dietaryNeeds: selectedDietaryNeeds,
       occasion: selectedOccasion,
-      difficulty: selectedDifficulty,
-      prepTime: selectedPrepTime,
+      difficulty: null,
+      prepTime: null,
       recipeCatId: recipeCatId,
       recipeSelectedValue: recipeSelectedValue,
       preparationStyle: preparationStyle,
       url: url,
       limit: limit,
       offset: offset,
-      keyword: ''
+      keyword: '',
+      lang: lang
+
     }
-    console.log('data=====----------', data)
     fetchRecipes('recipelist-template', data).then(obj => {
       const { html, isEmpty } = obj;
       const container = document.getElementById('recipecontainer');
@@ -447,12 +858,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const limit = parseInt(elements.recipeButton.getAttribute('data-limit'), 10) || 0;
       showMoreClicked = false;
       let offset = parseInt(elements.recipeButton.getAttribute('data-offset'), 10) || 0;
+      const lang = document.body.getAttribute('umb-lang');
+
       const data = {
         mealType: selectedMealType,
         cuisine: selectedCuisine,
         dietaryNeeds: selectedDietaryNeeds,
         occasion: selectedOccasion,
-        season: selectedSeason,
+        season: '',
         difficulty: selectedDifficulty,
         prepTime: selectedPrepTime,
         recipeCatId: recipeCatId,
@@ -461,7 +874,8 @@ document.addEventListener('DOMContentLoaded', () => {
         url: url,
         limit: limit,
         offset: offset,
-        keyword: ''
+        keyword: '',
+        lang:lang
       };
       fetchRecipes('recipelist-template', data).then(obj => {
         const { html, isEmpty } = obj;
@@ -477,11 +891,11 @@ document.addEventListener('DOMContentLoaded', () => {
           container.innerHTML = html;
         }
         const showMoreButton = document.querySelector('#recipeshowmore');
-        // if (isEmpty) {
-        //   showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
-        // } else {
-        //   showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
-        // }
+        if (isEmpty) {
+          showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+        } else {
+          showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+        }
       })
         .catch(error => {
           console.error('Error fetching/rendering online stores:', error);
@@ -573,6 +987,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (elements.mapFrame) {
     initializeMapbox();
   }
+
+
 
 
 
@@ -746,33 +1162,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Search Bar Expand/Collapse Handlers
-  $('.search-button').on('click', () => {
-    $('.search-form').addClass('expanded');
-    $('.close-button').show();
-    $('.search-button').hide();
-  });
-
-  $('.close-button').on('click', () => {
-    $('.search-form').removeClass('expanded');
-    $('.close-button').hide();
-    $('.search-button').show();
-    $('#searchBar').val('');
-  });
-
-  // Location Search Expand/Collapse Handlers
-  $('.serLoc').on('click', () => {
-    $('.locatSearch').addClass('expanded');
-    $('.cl_ser').show();
-    $('.serLoc').hide();
-  });
-
-  $('.cl_ser').on('click', () => {
-    $('.locatSearch').removeClass('expanded');
-    $('.cl_ser').hide();
-    $('.serLoc').show();
-    $('.search-bar').val('');
-  });
 
   // Mobile Dropdown Toggle
   document.querySelectorAll('.dropdown-toggle').forEach(dropdown => {
