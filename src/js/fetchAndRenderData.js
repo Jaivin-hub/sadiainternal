@@ -83,39 +83,21 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
 async function fetchRecipes(templateName, data){
     try{
         let isEmpty = false;
-        console.log('data=====',data)
         const formdata = {
             "recipeCatId": data.recipeCatId,
-            "mealTypeId": data.mealType == null?[]:[Number(data.mealType)],
-            "difficultyLevelId": data.difficulty == null ? [] : [Number(data.difficulty)],
-            "preparationTime": data.prepTime,
-            "cuisineId": data.cuisine == null ? [] : [Number(data.cuisine)],
-            "dietaryId": data.dietaryNeeds == null ? [] : [Number(data.dietaryNeeds)],
-            "occasionId": data.occasion == null ? [] : [Number(data.occasion)],
-            "preparationStyleId": data.preparationStyle == null? [] : [Number(data.preparationStyle)],
+            "mealTypeId": data.mealType == null || undefined ?[]:[Number(data.mealType)],
+            "difficultyLevelId": data.difficulty == null || undefined  ? [] : [Number(data.difficulty)],
+            "preparationTime": data.prepTime == null || undefined  ? "" : data.prepTime,
+            "cuisineId": data.cuisine == null || undefined  ? [] : [Number(data.cuisine)],
+            "dietaryId": data.dietaryNeeds == null || undefined  ? [] : [Number(data.dietaryNeeds)],
+            "occasionId": data.occasion == null || undefined  ? [] : [Number(data.occasion)],
+            "preparationStyleId": data.preparationStyle == null || undefined ? [] : [Number(data.preparationStyle)],
             "filter": data.recipeSelectedValue,
             "keyword": data.keyword,
             "limit": data.limit,
             "offset": data.offset
           }
-          console.log('formdata----====',formdata)
-        //   console.log('obj--consoled--',obj)
-        // const formdata = {
-        //     "recipeCatId": 0,
-        //     "mealTypeId": [],
-        //     "difficultyLevelId": [1526],
-        //     "preparationTime": null,
-        //     "cuisineId": [1514],
-        //     "dietaryId": [],
-        //     "occasionId": [],
-        //     "preparationStyleId": [],
-        //     "filter": null,
-        //     "keyword": null,
-        //     "limit": 9,
-        //     "offset": 0
-        //   }
-
-          
+          console.log('formdata----',formdata)   
 
           const response = await fetch(data.url, {
             method: 'POST',
