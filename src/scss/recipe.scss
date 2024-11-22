@@ -427,6 +427,14 @@
                     }
                 }
             } 
+            .noUi-handle{
+                background: url(../assets/images/icons/picker.svg);
+                background-repeat: no-repeat;
+                background-position: center center;
+                height: 18px;
+                width: 10px;
+                top: -8px;
+            }
             .range-bar{
                 background: linear-gradient(90deg, #478D01 0%, #F00000 100%);
             

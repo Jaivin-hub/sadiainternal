@@ -122,7 +122,71 @@
     
 }
 
-  
+.searchResults{
+    border-top: 1px solid $border-color;
+    padding-top: 45px;
+    margin: 35px 0 20px;
+    .bor-box{
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        padding: 24px 30px 24px 24px;
+        float: left;
+        width: 100%;
+    }
+    .listStyle{
+        margin: 12px 0;
+        .imgSpace{
+            width: 197px;
+            height: 197px;
+            border-radius: 8px;
+            overflow: hidden;
+            float: left;
+            margin-right: 30px;
+            img{
+                max-width: 100%;
+                min-width: 197px;
+                min-height: 197px;
+                object-fit: cover;
+            }
+        }
+        .listitle{
+            color: $secondary-color;
+            font-size: 27px;
+            line-height: 27px;
+            // font-family: $title-font;
+            font-family: 'bebas-font', sans-serif;
+            font-weight: 400;
+            margin: 0 0 20px 0;
+        }
+        .descp{
+            color: #3F3F3A;
+            font-size: 16px;
+            line-height: 22px;
+            font-weight: 400;
+            p{
+                margin: 0;
+                padding: 0;
+                strong{
+                    color: $primary-color;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+    .btnSapce{
+        margin: 55px 0 10px;
+        padding: 0;
+        float: left;
+        width: 100%;
+        .btn-more{
+            &.btnBor{
+                background-color: $white-color;
+                color: $black-color;
+                border-color: $primary-color;
+            }
+        } 
+    }
+}
 
 
   
@@ -181,6 +245,23 @@
        
     }
    
+    .searchResults{
+        .bor-box {
+            padding: 20px;
+            .imgSpace{
+                float: left;
+                width: 100%;
+                margin: 0 0 25px;
+                img{
+                    width: 100%;
+                }
+            }
+            .contSpace{
+                float: left;
+                width: 100%;
+            }
+        }
+    } 
 
 
 }

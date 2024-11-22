@@ -24,7 +24,7 @@
 
         .contBoxs {
             .descp {
-                color: #3F3F3A;
+                color: $black-light;
             }
         }
 
@@ -33,7 +33,7 @@
 
     .contBoxs {
         .descp {
-            color: #3F3F3A;
+            color: $black-light;
             font-size: 16px;
             line-height: 22px;
         }
@@ -110,7 +110,7 @@
             }
 
             .descp {
-                color: #3F3F3A;
+                color: $black-light;
                 font-size: 16px;
                 line-height: 22px;
             }
@@ -273,21 +273,28 @@
     }
 
     .yearSlider {
-        .slick-slider {
-            position: relative;
-        }
-
+        position: relative;
         .content-item {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s;
-            visibility: hidden;
+            // display: none;
+            // opacity: 0;
+            // visibility: hidden;
+            // transition: opacity 0.5s;
+            
             transition: all ease 0.5s;
 
             &.active {
                 display: block;
                 opacity: 1;
                 visibility: visible;
+            }
+        }
+        &.thumbnail-slider{
+            .slick-slider {
+                position: relative;
+                .slick-track{
+                    display: flex;
+                    align-items: center;
+                }
             }
         }
     }
@@ -304,7 +311,7 @@
             }
 
             .descp {
-                color: #3F3F3A;
+                color: $black-light;
                 font-size: 16px;
                 line-height: 22px;
                 max-width: 420px;
@@ -468,7 +475,6 @@
         }
 
         .yearSlider {
-
             .slick-slider {
                 padding: 0;
                 margin: 0;

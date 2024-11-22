@@ -513,6 +513,34 @@ p{
 
     .social-scroll{
         .juicer-feed{
+            .j-meta{
+                position: relative;
+                .j-link-container{
+                    li{
+                        font-size: 18px;
+                    }
+                }
+                nav {
+                    border: 0;
+                    background: $primary-color;
+                    position: relative;
+                    width: 48px;
+                    height: 48px;
+                    color: $white-color;
+                    position: absolute;
+                    left: 0;
+                    top: -83px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 60px;
+                    a{
+                        &::before{
+                            margin: 0;
+                        }
+                    }
+                }
+            }
             .j-poster{
                 display: none !important;
             }
@@ -537,7 +565,7 @@ p{
                     white-space: nowrap;
                     display: flex;
                     margin: 0 !important;
-
+        
                     &::-webkit-scrollbar {
                         height: 5px;
                         background-color: transparent;
@@ -549,8 +577,8 @@ p{
                         background-color: #a2a0a0;
                         border-radius: 30px;
                     }
-
-
+        
+        
                     ul.j-stack, .slick-track{
                         flex-wrap: nowrap !important;
                         width: 100% !important;
@@ -573,6 +601,7 @@ p{
                             margin: 0 10px !important;
                             padding: 0;
                             box-sizing: border-box; 
+                            
                             .j-text{
                                 flex-direction: column-reverse;
                                 display: flex;
@@ -595,8 +624,13 @@ p{
                                     color: $black-color;
                                     line-height: 22px;
                                     font-size: 16px;
-                                    font-weight: 300;
+                                    font-weight: 400;
                                     font-family: $primary-font;
+
+                                    display: -webkit-box;
+                                    -webkit-line-clamp: 3;
+                                    -webkit-box-orient: vertical;  
+                                    overflow: hidden;
                                 }
                                 .j-poster{
                                     padding: 10px 5px;
@@ -605,8 +639,6 @@ p{
                                     font-size: 16px;
                                     font-weight: 300;
                                     font-family: $primary-font;
-
-                                   
                                 }
                             }
                             
@@ -615,9 +647,12 @@ p{
                 }
             }
             
-
+        
         }
+        
     }
+       
+    
 
     .scrl_cards{
         .slick-slide {
