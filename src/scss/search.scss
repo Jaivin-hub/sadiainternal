@@ -188,7 +188,15 @@
     }
 }
 
+.cookingHacks{
+    &.searchPart{
+        .card{
+            margin: 0;
+            width: 100%;
+        }
 
+    }
+}
   
 
 
@@ -206,8 +214,11 @@
     }
 
     .searchList{
+        .titleWrap{
+            margin-top: 35px;
+        }
         .btnSapce{
-            margin-bottom: 0;
+            margin-bottom: 10px;
         }
         .titleWrap{
             .titleWrap{
@@ -243,6 +254,15 @@
         }
        
        
+    }
+    .cookingHacks{   
+        &.searchPart{
+            .card{
+                .card-title {
+                    font-size: 21px;
+                }
+            }
+        }  
     }
    
     .searchResults{
