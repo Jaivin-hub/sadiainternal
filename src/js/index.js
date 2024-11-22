@@ -284,6 +284,7 @@ function toggleRecipeSections() {
       submitButton.setAttribute('data-offset', '0');
       offset = 0;
       updateRecipeList(prepareRequestData('', recipeDropdown.value));
+      hideSections()
     });
 
     searchInput.addEventListener('input', () => {
@@ -291,11 +292,13 @@ function toggleRecipeSections() {
         offset = 0;
         showMoreClicked = false;
         updateRecipeList(prepareRequestData(searchInput.value));
+        hideSections()
       }
     });
 
     submitButton.addEventListener('click', () => {
       offset = 0;
+      showMoreClicked = false;
       const data = prepareRequestData();
       updateRecipeList(data);
       hideSections();
