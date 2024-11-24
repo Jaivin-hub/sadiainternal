@@ -148,7 +148,7 @@ async function fetchCookingHacks(templateName, data){
             "offset": data.offset,
             "lang": data.lang
         }
-          console.log('formdata----',formdata)   
+  
 
           const response = await fetch(data.url, {
             method: 'POST',

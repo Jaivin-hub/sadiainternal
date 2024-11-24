@@ -387,7 +387,6 @@ function initializeRecipeFilter() {
 
   // Helper function to update the recipe list
   function updateRecipeList(data) {
-    console.log('data',data)
     fetchRecipes('recipelist-template', data)
       .then(({ html, isEmpty }) => {
         if (showMoreClicked) {
@@ -434,7 +433,6 @@ function initializeRecipeFilter() {
   }
 
   function handleRecipeDropdown(event){
-    console.log('selectedFilter')
     offset = 0;
     showMoreClicked = false;
     const keyword = searchInput.value.length >= 3 ? searchInput.value : '';
@@ -444,7 +442,6 @@ function initializeRecipeFilter() {
 
   function handleCloseButton() {
     if (!closeButton) return;
-    console.log('jjj')
       const target = event.target.closest('#recipeclose');
       
       showMoreClicked = false;
@@ -527,7 +524,6 @@ const cookingHacksSection = () => {
   });
 
   productSelect.addEventListener('change', (event) => {
-    console.log('event.target.value', event.target.value)
     selectedProduct = event.target.value;
   });
 
@@ -726,7 +722,9 @@ document.addEventListener('DOMContentLoaded', () => {
     onlineShowMore: document.querySelector('#onlineShowMore'),
     mainHeader: document.querySelector('.main-header'),
     productCatId: document.querySelector('.categ_filter.filBtn'),
+    searchBar: document.querySelector('#search-bar-container'),
 
+    
 
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
@@ -739,67 +737,67 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-//   document.getElementById('chickenpartsbutton').addEventListener('click', function () {
-//     const section = document.getElementById("chickenpartssection");
-//     const button = document.getElementById('chickenpartsbutton');
-//     if (section.style.visibility === "hidden") {
-//       section.style.visibility = "visible";
-//       section.style.height = "auto";
-//       section.style.overflow = "visible";
-//       button.style.display = "none"; // Hides the button
-//   } else {
-//       section.style.visibility = "hidden";
-//       section.style.height = "0";
-//       section.style.overflow = "hidden";
-//   }
-//  });
+if(elements.searchBar){
+  document.getElementById('chickenpartsbutton').addEventListener('click', function () {
+    const section = document.getElementById("chickenpartssection");
+    const button = document.getElementById('chickenpartsbutton');
+    if (section.style.visibility === "hidden") {
+      section.style.visibility = "visible";
+      section.style.height = "auto";
+      section.style.overflow = "visible";
+      button.style.display = "none"; // Hides the button
+  } else {
+      section.style.visibility = "hidden";
+      section.style.height = "0";
+      section.style.overflow = "hidden";
+  }
+ });
 
-// document.getElementById('breadedbutton').addEventListener('click', function () {
-//   const section = document.getElementById("breadedsection");
-//   const button = document.getElementById('breadedbutton');
-//   if (section.style.visibility === "hidden") {
-//     section.style.visibility = "visible";
-//     section.style.height = "auto";
-//     section.style.overflow = "visible";
-//     button.style.display = "none"; // Hides the button
-// } else {
-//     section.style.visibility = "hidden";
-//     section.style.height = "0";
-//     section.style.overflow = "hidden";
-// }
-// });
+document.getElementById('breadedbutton').addEventListener('click', function () {
+  const section = document.getElementById("breadedsection");
+  const button = document.getElementById('breadedbutton');
+  if (section.style.visibility === "hidden") {
+    section.style.visibility = "visible";
+    section.style.height = "auto";
+    section.style.overflow = "visible";
+    button.style.display = "none"; // Hides the button
+} else {
+    section.style.visibility = "hidden";
+    section.style.height = "0";
+    section.style.overflow = "hidden";
+}
+});
 
-// document.getElementById('recipebtn').addEventListener('click', function () {
-//   const section = document.getElementById("recipessection");
-//   const button = document.getElementById('recipebtn');
-//   if (section.style.visibility === "hidden") {
-//     section.style.visibility = "visible";
-//     section.style.height = "auto";
-//     section.style.overflow = "visible";
-//     button.style.display = "none"; // Hides the button
-// } else {
-//     section.style.visibility = "hidden";
-//     section.style.height = "0";
-//     section.style.overflow = "hidden";
-// }
-// });
+document.getElementById('recipebtn').addEventListener('click', function () {
+  const section = document.getElementById("recipessection");
+  const button = document.getElementById('recipebtn');
+  if (section.style.visibility === "hidden") {
+    section.style.visibility = "visible";
+    section.style.height = "auto";
+    section.style.overflow = "visible";
+    button.style.display = "none"; // Hides the button
+} else {
+    section.style.visibility = "hidden";
+    section.style.height = "0";
+    section.style.overflow = "hidden";
+}
+});
 
-// document.getElementById('cookingbtn').addEventListener('click', function () {
-//   const section = document.getElementById("cookingsection");
-//   const button = document.getElementById('cookingbtn');
-//   if (section.style.visibility === "hidden") {
-//     section.style.visibility = "visible";
-//     section.style.height = "auto";
-//     section.style.overflow = "visible";
-//     button.style.display = "none"; // Hides the button
-// } else {
-//     section.style.visibility = "hidden";
-//     section.style.height = "0";
-//     section.style.overflow = "hidden";
-// }
-// });
-
-
+document.getElementById('cookingbtn').addEventListener('click', function () {
+  const section = document.getElementById("cookingsection");
+  const button = document.getElementById('cookingbtn');
+  if (section.style.visibility === "hidden") {
+    section.style.visibility = "visible";
+    section.style.height = "auto";
+    section.style.overflow = "visible";
+    button.style.display = "none"; // Hides the button
+} else {
+    section.style.visibility = "hidden";
+    section.style.height = "0";
+    section.style.overflow = "hidden";
+}
+});
+}
 
   // Search Bar Expand/Collapse Handlers
   $('.search-button').on('click', () => {
