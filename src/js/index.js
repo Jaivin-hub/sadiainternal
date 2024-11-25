@@ -210,6 +210,7 @@ function toggleRecipeSections() {
 
   // Helper function to update recipe list
   function updateRecipeList(data) {
+    console.log('updateREcipe')
     fetchRecipes('all-recipelist-template', data)
       .then(({ html, isEmpty }) => {
         const container = document.getElementById('defaultlistspace');
@@ -385,6 +386,25 @@ function initializeRecipeFilter() {
     };
   }
 
+  function initialRequestData(keyword = '', recipeSelectedValue = '') {
+    return {
+      mealType: selectedMealType,
+      cuisine: selectedCuisine,
+      difficulty: null,
+      prepTime: '',
+      dietaryNeeds: selectedDietaryNeeds,
+      occasion: selectedOccasion,
+      preparationStyle: preparationStyle,
+      recipeCatId: recipeCatId,
+      url,
+      limit,
+      offset,
+      keyword,
+      recipeSelectedValue,
+      lang,
+    };
+  }
+
   // Helper function to update the recipe list
   function updateRecipeList(data) {
     fetchRecipes('recipelist-template', data)
@@ -457,6 +477,12 @@ function initializeRecipeFilter() {
     updateRecipeList(prepareRequestData());
   }
 
+  function initialFetch() {
+    offset = 0;
+    showMoreClicked = false;
+    updateRecipeList(initialRequestData());
+  }
+
   function handleShowMoreButtonClick() {
     showMoreClicked = true;
     offset += limit;
@@ -478,7 +504,8 @@ function initializeRecipeFilter() {
     occasionSelect.addEventListener('change', event => handleDropdownChange(event, 'occasion'));
     preparationSelect.addEventListener('change', event => handleDropdownChange(event, 'preparation'));
 
-    handleSubmitButtonClick()
+    initialFetch()
+    
     searchInput.addEventListener('input', handleSearchInput);
     submitButton.addEventListener('click', handleSubmitButtonClick);
     showMoreButton.addEventListener('click', handleShowMoreButtonClick);
