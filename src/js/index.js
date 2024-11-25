@@ -130,16 +130,13 @@ const contactForms = () => {
     }
   };
 
-  const formData = new FormData();
-  let selectedFilt;
+  let selectedFile;
+
   // Update file name when a file is selected
   fileInput.addEventListener('change', () => {
     fileNameText.textContent = fileInput.files.length > 0 ? fileInput.files[0].name : 'Upload attachment';
-    console.log('fileInput.files[0]',fileInput.files[0])
-    formData.append('file',fileInput.files[0]) 
-    selectedFilt = fileInput.files[0];
+    selectedFile = fileInput.files[0];
   });
-  
 
   // Handle form submission
   form.addEventListener('submit', (e) => {
@@ -157,30 +154,33 @@ const contactForms = () => {
 
     if (valid) {
       const lang = document.body.getAttribute('umb-lang');
+      const nodeIdInput = document.querySelector('#formNodeId');
+      const nodeId = nodeIdInput ? nodeIdInput.value : null;
+      // Prepare form data
+      const formData = new FormData();
+      formData.append('fullName', document.querySelector('#fullName').value);
+      formData.append('email', document.querySelector('#email').value);
+      formData.append('phoneNumber', document.querySelector('#mobileNumber').value);
+      formData.append('subject', document.querySelector('#subject').value);
+      formData.append('message', document.querySelector('#message').value);
+      formData.append('nodeId', nodeId);
+      formData.append('lang', lang);
+      console.log('selectedFile',selectedFile)
+      // Append the file only if one is selected
+      if (selectedFile) {
+        formData.append('file', selectedFile);
+      }
 
-      const dataObj = {
-        fullName: document.querySelector('#fullName').value,
-        email: document.querySelector('#email').value,
-        phoneNumber: document.querySelector('#mobileNumber').value,
-        subject: document.querySelector('#subject').value,
-        message: document.querySelector('#message').value,
-        file: selectedFilt, // Include formData only if a file is selected
-        nodeId: 1637,
-        lang: lang,
-      };
-
-      console.log('dataObj',dataObj)
+      console.log('Form Data:', formData);
 
       const submitButton = document.querySelector('.subBtn');
       const apiUrl = submitButton.getAttribute('data-url');
 
-      console.log('Form Data:', dataObj);
-      console.log('apiUrl', apiUrl);
+      console.log('apiUrl:', apiUrl);
 
       fetch(apiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dataObj),
+        body: formData, // Use FormData directly
       })
         .then((response) => {
           if (!response.ok) {
@@ -197,6 +197,7 @@ const contactForms = () => {
     }
   });
 };
+
 
 let selectedDifficulty = null;
 let selectedPrepTime = null;
