@@ -352,6 +352,15 @@ p{
         }
         
     }
+    .horizontal-scroll{
+        .card{
+            &.me-4{
+                &:last-child{
+                    margin-right: 0 !important;
+                }
+            }
+        }
+    }
 
     
 }
@@ -1675,7 +1684,36 @@ p{
     }
 
 }
+@media (max-width: 380px) {
 
+    .trueFram_wraper{
+        .blkBox{
+            .halalTitle{
+                font-size: 31px;
+                line-height: 31px;
+                margin: 0 0 25px;
+                img.logHalal {
+                    max-width: 31px;
+                }
+            }
+        }  
+    }
+    .your-favorite{
+        .slider-wrapper{
+            .content-section{
+                .content-item{
+                    .lists{
+                        li {
+                            font-size: 24px;
+                            line-height: 28px;
+                        }
+                    }
+                }
+            }
+        }
+    }    
+
+}
 
 // TRULY_FARM END
 
