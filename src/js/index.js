@@ -130,10 +130,14 @@ const contactForms = () => {
     }
   };
 
+  const formData = new FormData();
   // Update file name when a file is selected
   fileInput.addEventListener('change', () => {
     fileNameText.textContent = fileInput.files.length > 0 ? fileInput.files[0].name : 'Upload attachment';
+    console.log('fileInput.files[0]',fileInput.files[0])
+    formData.append('file',fileInput.files[0]) 
   });
+  
 
   // Handle form submission
   form.addEventListener('submit', (e) => {
@@ -150,29 +154,29 @@ const contactForms = () => {
     valid &= validateField(document.querySelector('#message'), '#messageError');
 
     if (valid) {
-    const lang = document.body.getAttribute('umb-lang');
+      const lang = document.body.getAttribute('umb-lang');
 
-      const formData = {
+      const dataObj = {
         fullName: document.querySelector('#fullName').value,
         email: document.querySelector('#email').value,
         phoneNumber: document.querySelector('#mobileNumber').value,
         subject: document.querySelector('#subject').value,
         message: document.querySelector('#message').value,
-        file: fileInput.files[0]?.name || null,
+        file: formData || null, // Include formData only if a file is selected
         nodeId: 1637,
         lang: lang,
       };
-    
+
       const submitButton = document.querySelector('.subBtn');
       const apiUrl = submitButton.getAttribute('data-url');
-    
-      console.log('Form Data:', formData);
-      console.log('apiUrl',apiUrl)
-    
+
+      console.log('Form Data:', dataObj);
+      console.log('apiUrl', apiUrl);
+
       fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataObj),
       })
         .then((response) => {
           if (!response.ok) {
