@@ -522,9 +522,120 @@ p{
 
     .social-scroll{
         .juicer-feed{
+            &.slider{
+                .slick-arrow{
+                    display: none !important;
+                }
+                .slick-list{
+                    margin: 0 -20px 0 0;
+                }
+                ul.slick-track{
+                    li.feed-item{
+                        &:first-child{
+                            margin-left: 0;
+                        }
+                        margin: 0 0 0 20px;
+                        box-sizing: border-box; 
+                        &.juicer.image-post.juicer-about.slick-slide{
+                            display: none !important;
+                            visibility: hidden !important;
+                            opacity: 0 !important;
+                        }
+                    }
+                }
+                
+                .slick-track{
+                    height: auto !important;
+                    .j-meta{
+                        position: relative;
+                        margin: 0 0 10px;
+                        padding: 0;
+                        .j-link-container{
+                            ul{
+                                margin: 0;
+                                padding: 0;
+                                li{
+                                    font-size: 18px;
+                                    a:before {
+                                        margin-right: 10px;
+                                    }
+                                    a.heart{
+                                        color: $black-color;
+                                        &:before{
+                                            color: $primary-color;
+                                        }
+                                    }
+                                }
+                            }
+                           
+                        }
+                        nav {
+                            border: 0;
+                            background: $primary-color;
+                            position: relative;
+                            width: 48px;
+                            height: 48px;
+                            color: $white-color;
+                            position: absolute;
+                            left: 7px;
+                            top: -85px;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 60px;
+                            a{
+                                &::before{
+                                    margin: 0;
+                                    &:hover{
+                                        color: $white-color;
+                                    }
+                                }
+                                &:hover{
+                                    color: $white-color;
+                                    &::before{
+                                        color: $white-color;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .j-instagram-bg{
+                        background-color: transparent !important; 
+                    }
+                    .j-text{
+                        visibility: visible !important;
+                        opacity: 1 !important; 
+                        position: relative !important;
+                        background: transparent !important;
+                        color: $black-color;
+                        font-family: $primary-font;
+                        text-align: left;
+                        overflow: inherit !important;
+                        flex-direction: column-reverse;
+                        display: flex;
+                        padding: 20px 10px 10px;
+                        p{
+                            color: $black-color;
+                            line-height: 22px;
+                            font-size: 16px;
+                            font-weight: 300;
+                        }
+                    }
+                    .j-image{
+                        border-radius: 8px;
+                        overflow: hidden;
+                        height: 354px !important;
+                        width: 100% !important;
+                        .j-content-image{
+                            height: 354px !important;
+                            object-fit: cover;
+                            width: 100% !important;
+                        }
+                    }
+                }
+            } 
             .j-meta{
                 position: relative;
-                
                 .j-link-container{
                     li{
                         font-size: 18px;
@@ -672,8 +783,7 @@ p{
             
         
         }
-        
-    }
+    } 
        
     
 
@@ -737,9 +847,22 @@ p{
 }
 @media (max-width: 767px) {
 
+
+     
+
     .whats-on-sadia{
         .social-scroll{
             .juicer-feed{
+                &.slider{
+                    .slick-track{
+                        .j-image{
+                            height: 240px !important;
+                            .j-content-image {
+                                height: 240px !important;
+                            }
+                        }
+                    }
+                }
                 .j-stacker-wrapper{
                     margin: 0 0px !important;
                     .j-stacker{
@@ -1157,6 +1280,7 @@ p{
                         line-height: 50px;
                         padding: 0px 0 48px 48px;
                         margin: -53px 0 0 0;
+                        justify-content: left;
                     } 
                     z-index: 10;
 
@@ -1187,6 +1311,7 @@ p{
                         margin-bottom: 10px;
                         min-height: 65px;
                         position: relative;
+                        justify-content: left;
                         .animateIc{
                             position: absolute;
                             right: 0px;
@@ -1299,7 +1424,7 @@ p{
                         height: 50%;
                         
                         .iconPart{
-                            width: 142px;
+                            width: 110px;
                             position: relative;
                             display: inline-flex;
                             justify-content: center;
@@ -1336,6 +1461,7 @@ p{
                         line-height: 50px;
                         font-family: $title-font;
                         color: $white-color;
+                        margin-bottom: 10px;
                         a{
                             color: $white-color;
                             text-decoration: none;
