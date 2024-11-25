@@ -112,18 +112,20 @@
 
 
 <div class="contactForms">
-    <form id="contactForm">
+    <form id="contactForm" novalidate>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Full Name" required>
+                    <input type="text" class="form-control" id="fullName" placeholder="Enter Full Name">
+                    <span class="error-message" id="nameError" style="display: none;">Full Name is required.</span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control" placeholder="yourname@email.com" required>
+                    <input type="email" class="form-control" id="email" placeholder="yourname@email.com">
+                    <span class="error-message" id="emailError" style="display: none;">Please enter a valid email address.</span>
                 </div>
             </div>
             <div class="col-md-6">
@@ -136,8 +138,7 @@
                                 type="button"
                                 id="countryDropdown"
                                 data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
+                                aria-expanded="false">
                                 <img src="./assets/images/icons/flag.svg" alt="flag" class="me-2" width="20">
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="countryDropdown">
@@ -158,34 +159,36 @@
                                 </li>
                             </ul>
                         </div>
-                        <input type="tel" class="form-control mobileWidth" id="mobileNumber" placeholder="971 XXX XXX XXX" required>
+                        <input type="tel" class="form-control mobileWidth" id="mobileNumber" placeholder="971 XXX XXX XXX">
+                        <span class="error-message" id="phoneError" style="display: none;">Please enter a valid phone number (10-12 digits).</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">Select Subject</label>
-                    <select class="form-control" required>
+                    <select class="form-control" id="subject">
                         <option disabled selected value="">Select</option>
                         <option value="1">Inquiry</option>
                         <option value="2">Support</option>
                     </select>
+                    <span class="error-message" id="subjectError" style="display: none;">Please select a subject.</span>
                 </div>
             </div>
             <div class="col-md-12">
-                <textarea class="form-control" placeholder="Leave a message.." minlength="10" required></textarea>
+                <textarea class="form-control" id="message" placeholder="Leave a message.." minlength="10"></textarea>
+                <span class="error-message" id="messageError" style="display: none;">Please enter a message with at least 10 characters.</span>
             </div>
 
             <div class="col-md-12">
                 <div class="form-group uploadSection">
                     <label for="formFileLg" class="form-label">Got something to share?</label>
-                    <!-- Custom file upload button -->
                     <label class="custom-file-upload form-control form-control-lg" for="formFileLg">
                         <img src="./assets/images/icons/paperclip.svg" loading="lazy" class="upIcon" alt="icon">
-                        <span class="fileNameText">Upload attachment</span> <!-- Default text -->
+                        <span class="fileNameText" id="fileNameText">Upload attachment</span>
                     </label>
-                    <!-- Hidden file input -->
                     <input class="form-control-file" id="formFileLg" type="file" style="display: none;">
+                    <span class="error-message" id="fileError" style="display: none;">Please upload a file.</span>
                 </div>
             </div>
 
@@ -197,13 +200,14 @@
                         </div>
                     </div>
                     <div class="col-md-5 text-end">
-                        <button type="submit" class="btn subBtn">SUBMIT</button>
+                        <button type="submit" class="btn subBtn" data-url="https://sadialife-dev.azurewebsites.net/Umbraco/api/ContactForm/Submit">SUBMIT</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
+
 
 
             </div>

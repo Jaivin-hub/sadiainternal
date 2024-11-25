@@ -102,56 +102,93 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
     });
 }
 
-const contactForms = async () => {
-  const form = document.querySelector('.contactForms');
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+const contactForms = () => {
+  const form = document.querySelector('#contactForm');
+  const fileInput = document.querySelector('#formFileLg');
+  const fileNameText = document.querySelector('#fileNameText');
 
-      let valid = true;
-
-      // Full Name Validation
-      const fullName = document.querySelector('input[placeholder="Enter Full Name"]');
-      if (!fullName.value.trim()) {
-        alert("Full Name is required.");
-        valid = false;
-      }
-
-      // Email Validation
-      const email = document.querySelector('input[type="email"]');
-      if (!email.value.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
-        alert("Please enter a valid email address.");
-        valid = false;
-      }
-
-      // Phone Number Validation
-      const phone = document.querySelector('#mobileNumber');
-      if (!phone.value.trim() || !/^\d{10,12}$/.test(phone.value)) {
-        alert("Please enter a valid phone number (10-12 digits).");
-        valid = false;
-      }
-
-      // Dropdown Validation
-      const subject = document.querySelector('select');
-      if (!subject.value) {
-        alert("Please select a subject.");
-        valid = false;
-      }
-
-      // Message Validation
-      const message = document.querySelector('textarea');
-      if (!message.value.trim() || message.value.trim().length < 10) {
-        alert("Please enter a message with at least 10 characters.");
-        valid = false;
-      }
-
-      // If form is valid, submit it
-      if (valid) {
-        this.submit();
-      }
+  // Hide all error messages initially
+  const hideAllErrors = () => {
+    const errors = form.querySelectorAll('.error-message');
+    errors.forEach((error) => {
+      error.style.display = 'none';
     });
-  }
-}
+  };
+
+  // Validate a single field
+  const validateField = (input, errorSelector) => {
+    const error = document.querySelector(errorSelector);
+    const message = error?.textContent || 'Invalid input';
+
+    if (!input.value.trim() || (input.type === 'email' && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input.value))) {
+      error.textContent = message; // Use existing error message from HTML
+      error.style.display = 'block';
+      return false;
+    } else {
+      error.style.display = 'none';
+      return true;
+    }
+  };
+
+  // Update file name when a file is selected
+  fileInput.addEventListener('change', () => {
+    fileNameText.textContent = fileInput.files.length > 0 ? fileInput.files[0].name : 'Upload attachment';
+  });
+
+  // Handle form submission
+  form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent default form submission
+    hideAllErrors(); // Reset all error messages
+
+    let valid = true;
+
+    // Validate each field dynamically
+    valid &= validateField(document.querySelector('#fullName'), '#nameError');
+    valid &= validateField(document.querySelector('#email'), '#emailError');
+    valid &= validateField(document.querySelector('#mobileNumber'), '#phoneError');
+    valid &= validateField(document.querySelector('#subject'), '#subjectError');
+    valid &= validateField(document.querySelector('#message'), '#messageError');
+
+    if (valid) {
+    const lang = document.body.getAttribute('umb-lang');
+
+      const formData = {
+        fullName: document.querySelector('#fullName').value,
+        email: document.querySelector('#email').value,
+        phoneNumber: document.querySelector('#mobileNumber').value,
+        subject: document.querySelector('#subject').value,
+        message: document.querySelector('#message').value,
+        file: fileInput.files[0]?.name || null,
+        nodeId: 1637,
+        lang: lang,
+      };
+    
+      const submitButton = document.querySelector('.subBtn');
+      const apiUrl = submitButton.getAttribute('data-url');
+    
+      console.log('Form Data:', formData);
+      console.log('apiUrl',apiUrl)
+    
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('API Response:', data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+  });
+};
 
 let selectedDifficulty = null;
 let selectedPrepTime = null;
