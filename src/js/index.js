@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $, { error } from 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../scss/style.scss';
@@ -252,8 +252,8 @@ function toggleRecipeSections() {
       const target = event.target.closest('#recipeclose');
       showMoreClicked = false;
       if (target) {
-      const data = prepareRequestData();
-      updateRecipeList(data);
+        const data = prepareRequestData();
+        updateRecipeList(data);
       }
     });
   }
@@ -358,7 +358,7 @@ function initializeRecipeFilter() {
   const closeButton = document.querySelector('#recipeclose');
 
 
-  
+
   // Configurations
   const url = submitButton.getAttribute('data-api');
   const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
@@ -370,8 +370,8 @@ function initializeRecipeFilter() {
     return {
       mealType: selectedMealType,
       cuisine: selectedCuisine,
-      difficulty:selectedDifficulty,
-      prepTime:selectedPrepTime,
+      difficulty: selectedDifficulty,
+      prepTime: selectedPrepTime,
       dietaryNeeds: selectedDietaryNeeds,
       occasion: selectedOccasion,
       preparationStyle: preparationStyle,
@@ -432,7 +432,7 @@ function initializeRecipeFilter() {
     }
   }
 
-  function handleRecipeDropdown(event){
+  function handleRecipeDropdown(event) {
     offset = 0;
     showMoreClicked = false;
     const keyword = searchInput.value.length >= 3 ? searchInput.value : '';
@@ -442,13 +442,13 @@ function initializeRecipeFilter() {
 
   function handleCloseButton() {
     if (!closeButton) return;
-      const target = event.target.closest('#recipeclose');
-      
-      showMoreClicked = false;
-      if (target) {
+    const target = event.target.closest('#recipeclose');
+
+    showMoreClicked = false;
+    if (target) {
       const data = prepareRequestData('', recipeDropdown.value);
       updateRecipeList(data);
-      }
+    }
   }
 
   function handleSubmitButtonClick() {
@@ -482,8 +482,8 @@ function initializeRecipeFilter() {
     searchInput.addEventListener('input', handleSearchInput);
     submitButton.addEventListener('click', handleSubmitButtonClick);
     showMoreButton.addEventListener('click', handleShowMoreButtonClick);
-    recipeDropdown.addEventListener('change',handleRecipeDropdown);
-    closeButton.addEventListener('click',handleCloseButton)
+    recipeDropdown.addEventListener('change', handleRecipeDropdown);
+    closeButton.addEventListener('click', handleCloseButton)
     resetButtons.forEach(button => button.addEventListener('click', handleResetButtonsClick));
   }
 
@@ -507,7 +507,16 @@ const cookingHacksSection = () => {
   let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
   const url = submitButton.getAttribute('data-api');
   const searchInput = document.querySelector('#searchInpts');
+  const hackshowmore = document.querySelector('#hackshowmore');
   const lang = document.body.getAttribute('umb-lang');
+  const closeButton = document.querySelector('#recipeclose');
+
+
+
+
+
+  closeButton.addEventListener('click', handleCloseButton)
+  hackshowmore.addEventListener('click', handleShowMoreButtonClick);
 
   document.getElementById('resetButton').addEventListener('click', () => {
     window.location.reload();
@@ -540,6 +549,53 @@ const cookingHacksSection = () => {
     lang: lang
   }
 
+  function handleShowMoreButtonClick() {
+    const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
+    let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
+    console.log('offset', offset)
+    // console.log('limit',limit)
+    // let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
+    let recipeSelectedValue = dropdown ? dropdown.value : '';
+    showMoreClicked = true;
+    offset += limit;
+    const dataObj = {
+      cookingHackCatId: activeId,
+      occasionId: selectedOccasion,
+      recipeId: selectedRecipe,
+      productId: selectedProduct,
+      filter: recipeSelectedValue,
+      keyword: searchInput.value,
+      limit: limit,
+      offset: offset,
+      url: url,
+      lang: lang
+    }
+    console.log('inside the showmore', dataObj)
+    submitButton.setAttribute('data-offset', offset);
+    fetchCookingHacks('hack-template', dataObj).then((res) => {
+      const { html, isEmpty } = res;
+      const container = document.getElementById('hackcontainer');
+      if (!container) {
+        console.warn('Container with ID "onlinecontainer" not found.');
+        return;
+      }
+
+      if (showMoreClicked) {
+        container.innerHTML += html;
+      } else {
+        container.innerHTML = html;
+      }
+      const showMoreButton = document.querySelector('#hackshowmore');
+      if (isEmpty) {
+        showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+      } else {
+        showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+      }
+    }).catch(error => {
+      console.log('inside the catch error', error)
+    })
+  }
+  console.log('data consoling---', data)
   fetchCookingHacks('hack-template', data).then(obj => {
     const { html, isEmpty } = obj;
     const container = document.getElementById('hackcontainer');
@@ -571,6 +627,7 @@ const cookingHacksSection = () => {
     const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
     const lang = document.body.getAttribute('umb-lang');
+    const searchInput = document.querySelector('#searchInpts');
     showMoreClicked = false;
 
     const data = {
@@ -579,12 +636,13 @@ const cookingHacksSection = () => {
       recipeId: selectedRecipe,
       productId: selectedProduct,
       filter: recipeSelectedValue,
-      keyword: null,
+      keyword: searchInput.value,
       limit: limit,
-      offset: offset,
+      offset: 0,
       url: url,
-      lang:lang
+      lang: lang
     }
+    submitButton.setAttribute('data-offset', '0');
 
     fetchCookingHacks('hack-template', data).then(obj => {
       const { html, isEmpty } = obj;
@@ -622,13 +680,13 @@ const cookingHacksSection = () => {
       recipeId: selectedRecipe,
       productId: selectedProduct,
       filter: recipeSelectedValue,
-      keyword: null,
+      keyword: searchInput.value,
       limit: limit,
       offset: 0,
       url: url,
       lang: lang
     }
-
+    submitButton.setAttribute('data-offset', '0');
     fetchCookingHacks('hack-template', data).then(obj => {
       const { html, isEmpty } = obj;
       const container = document.getElementById('hackcontainer');
@@ -655,6 +713,8 @@ const cookingHacksSection = () => {
   });
 
   searchInput.addEventListener('input', () => {
+    let recipeSelectedValue = recipeDropdown ? recipeDropdown.value : '';
+
     if (searchInput.value.length >= 3) {
       showMoreClicked = false;
       const data = {
@@ -662,14 +722,15 @@ const cookingHacksSection = () => {
         occasionId: selectedOccasion,
         recipeId: selectedRecipe,
         productId: selectedProduct,
-        filter: '',
+        filter: recipeSelectedValue,
         keyword: searchInput.value,
         limit: limit,
         offset: 0,
         url: url,
         lang: lang
       }
-      fetchRecipes('hack-template', data).then(obj => {
+      submitButton.setAttribute('data-offset', offset);
+      fetchCookingHacks('hack-template', data).then(obj => {
         const { html, isEmpty } = obj;
         const container = document.getElementById('hackcontainer');
         if (!container) {
@@ -694,6 +755,49 @@ const cookingHacksSection = () => {
         });
     }
   });
+
+  function handleCloseButton(event) {
+      let recipeSelectedValue = recipeDropdown ? recipeDropdown.value : '';
+      const target = event.target.closest('#recipeclose');
+      showMoreClicked = false;
+      if (target) {
+        const data = {
+          cookingHackCatId: activeId,
+          occasionId: selectedOccasion,
+          recipeId: selectedRecipe,
+          productId: selectedProduct,
+          filter: recipeSelectedValue,
+          keyword: searchInput.value,
+          limit: limit,
+          offset: 0,
+          url: url,
+          lang: lang
+        }
+        fetchCookingHacks('hack-template', data).then(obj => {
+          const { html, isEmpty } = obj;
+          const container = document.getElementById('hackcontainer');
+          if (!container) {
+            console.warn('Container with ID "onlinecontainer" not found.');
+            return;
+          }
+    
+          if (showMoreClicked) {
+            container.innerHTML += html;
+          } else {
+            container.innerHTML = html;
+          }
+          const showMoreButton = document.querySelector('#hackshowmore');
+          if (isEmpty) {
+            showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+          } else {
+            showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+          }
+        })
+          .catch(error => {
+            console.error('Error fetching/rendering online stores:', error);
+          });
+      }
+  }
 }
 
 // Ensure code runs after DOM is fully loaded
@@ -724,7 +828,7 @@ document.addEventListener('DOMContentLoaded', () => {
     productCatId: document.querySelector('.categ_filter.filBtn'),
     searchBar: document.querySelector('#search-bar-container'),
 
-    
+
 
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
@@ -737,67 +841,67 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-if(elements.searchBar){
-  document.getElementById('chickenpartsbutton').addEventListener('click', function () {
-    const section = document.getElementById("chickenpartssection");
-    const button = document.getElementById('chickenpartsbutton');
-    if (section.style.visibility === "hidden") {
-      section.style.visibility = "visible";
-      section.style.height = "auto";
-      section.style.overflow = "visible";
-      button.style.display = "none"; // Hides the button
-  } else {
-      section.style.visibility = "hidden";
-      section.style.height = "0";
-      section.style.overflow = "hidden";
+  if (elements.searchBar) {
+    document.getElementById('chickenpartsbutton').addEventListener('click', function () {
+      const section = document.getElementById("chickenpartssection");
+      const button = document.getElementById('chickenpartsbutton');
+      if (section.style.visibility === "hidden") {
+        section.style.visibility = "visible";
+        section.style.height = "auto";
+        section.style.overflow = "visible";
+        button.style.display = "none"; // Hides the button
+      } else {
+        section.style.visibility = "hidden";
+        section.style.height = "0";
+        section.style.overflow = "hidden";
+      }
+    });
+
+    document.getElementById('breadedbutton').addEventListener('click', function () {
+      const section = document.getElementById("breadedsection");
+      const button = document.getElementById('breadedbutton');
+      if (section.style.visibility === "hidden") {
+        section.style.visibility = "visible";
+        section.style.height = "auto";
+        section.style.overflow = "visible";
+        button.style.display = "none"; // Hides the button
+      } else {
+        section.style.visibility = "hidden";
+        section.style.height = "0";
+        section.style.overflow = "hidden";
+      }
+    });
+
+    document.getElementById('recipebtn').addEventListener('click', function () {
+      const section = document.getElementById("recipessection");
+      const button = document.getElementById('recipebtn');
+      if (section.style.visibility === "hidden") {
+        section.style.visibility = "visible";
+        section.style.height = "auto";
+        section.style.overflow = "visible";
+        button.style.display = "none"; // Hides the button
+      } else {
+        section.style.visibility = "hidden";
+        section.style.height = "0";
+        section.style.overflow = "hidden";
+      }
+    });
+
+    document.getElementById('cookingbtn').addEventListener('click', function () {
+      const section = document.getElementById("cookingsection");
+      const button = document.getElementById('cookingbtn');
+      if (section.style.visibility === "hidden") {
+        section.style.visibility = "visible";
+        section.style.height = "auto";
+        section.style.overflow = "visible";
+        button.style.display = "none"; // Hides the button
+      } else {
+        section.style.visibility = "hidden";
+        section.style.height = "0";
+        section.style.overflow = "hidden";
+      }
+    });
   }
- });
-
-document.getElementById('breadedbutton').addEventListener('click', function () {
-  const section = document.getElementById("breadedsection");
-  const button = document.getElementById('breadedbutton');
-  if (section.style.visibility === "hidden") {
-    section.style.visibility = "visible";
-    section.style.height = "auto";
-    section.style.overflow = "visible";
-    button.style.display = "none"; // Hides the button
-} else {
-    section.style.visibility = "hidden";
-    section.style.height = "0";
-    section.style.overflow = "hidden";
-}
-});
-
-document.getElementById('recipebtn').addEventListener('click', function () {
-  const section = document.getElementById("recipessection");
-  const button = document.getElementById('recipebtn');
-  if (section.style.visibility === "hidden") {
-    section.style.visibility = "visible";
-    section.style.height = "auto";
-    section.style.overflow = "visible";
-    button.style.display = "none"; // Hides the button
-} else {
-    section.style.visibility = "hidden";
-    section.style.height = "0";
-    section.style.overflow = "hidden";
-}
-});
-
-document.getElementById('cookingbtn').addEventListener('click', function () {
-  const section = document.getElementById("cookingsection");
-  const button = document.getElementById('cookingbtn');
-  if (section.style.visibility === "hidden") {
-    section.style.visibility = "visible";
-    section.style.height = "auto";
-    section.style.overflow = "visible";
-    button.style.display = "none"; // Hides the button
-} else {
-    section.style.visibility = "hidden";
-    section.style.height = "0";
-    section.style.overflow = "hidden";
-}
-});
-}
 
   // Search Bar Expand/Collapse Handlers
   $('.search-button').on('click', () => {
