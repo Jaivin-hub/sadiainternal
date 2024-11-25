@@ -342,6 +342,8 @@ function initializeRecipeFilter() {
   let selectedOccasion = null;
   let preparationStyle = null;
   let showMoreClicked = false;
+  let difficulties = null;
+  let timeTaken = null;
   let offset = 0;
 
   // DOM Elements
@@ -371,8 +373,8 @@ function initializeRecipeFilter() {
     return {
       mealType: selectedMealType,
       cuisine: selectedCuisine,
-      difficulty: selectedDifficulty,
-      prepTime: selectedPrepTime,
+      difficulty: difficulties,
+      prepTime: timeTaken,
       dietaryNeeds: selectedDietaryNeeds,
       occasion: selectedOccasion,
       preparationStyle: preparationStyle,
@@ -472,6 +474,8 @@ function initializeRecipeFilter() {
   }
 
   function handleSubmitButtonClick() {
+    difficulties = selectedDifficulty;
+    timeTaken = selectedPrepTime;
     offset = 0;
     showMoreClicked = false;
     updateRecipeList(prepareRequestData());
