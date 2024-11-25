@@ -1078,16 +1078,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // recipe-category-listing
   const recipeCategoryListing = document.getElementById("recipe-category-listing");
+  const contactForm = document.getElementById("contactForm");
+
 
 
   if (recipeCategoryListing) {
     initializeRecipeFilter();
   }
 
-
-
+  if(contactForm){
   contactForms()
-
+  }
 
   // Define the fetchRecipes function
   // const fetchRecipes = (data) => {
