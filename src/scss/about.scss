@@ -383,12 +383,20 @@
     }
 
     .yearWidth {
-        max-width: 250px;
+        max-width: 280px;
         width: 100%;
 
         position: absolute;
-        bottom: 60px;
-        left: 105px;
+        bottom: 40px;
+        left: 125px;
+
+        .slick-list{
+            .slick-track {
+                display: flex;
+                align-items: center;
+            }
+        }
+      
 
         .slick-slide {
             // width: 80px !important;
@@ -396,12 +404,12 @@
         }
 
         .slick-current {
-            .thumbnail {
+            &.slick-active{
                 .title {
-                    color: $black-color;
+                        color: $black-color;
                 }
-
             }
+            
         }
 
         .thumbnail {
