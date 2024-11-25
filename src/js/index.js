@@ -131,11 +131,13 @@ const contactForms = () => {
   };
 
   const formData = new FormData();
+  let selectedFilt;
   // Update file name when a file is selected
   fileInput.addEventListener('change', () => {
     fileNameText.textContent = fileInput.files.length > 0 ? fileInput.files[0].name : 'Upload attachment';
     console.log('fileInput.files[0]',fileInput.files[0])
     formData.append('file',fileInput.files[0]) 
+    selectedFilt = fileInput.files[0];
   });
   
 
@@ -162,10 +164,12 @@ const contactForms = () => {
         phoneNumber: document.querySelector('#mobileNumber').value,
         subject: document.querySelector('#subject').value,
         message: document.querySelector('#message').value,
-        file: formData || null, // Include formData only if a file is selected
+        file: selectedFilt, // Include formData only if a file is selected
         nodeId: 1637,
         lang: lang,
       };
+
+      console.log('dataObj',dataObj)
 
       const submitButton = document.querySelector('.subBtn');
       const apiUrl = submitButton.getAttribute('data-url');
