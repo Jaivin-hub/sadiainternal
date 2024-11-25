@@ -276,6 +276,9 @@
             .card-body{
                 .card-title{
                     padding-right: 0;
+                    min-height: 52px;
+                    align-items: center;
+                    display: flex;
                 }
             }
         }
@@ -452,11 +455,12 @@
         .productList{
             .list_prdct{
                 padding: 20px 10px 0;
-                .prdctCont .titles {
-                    font-size: 16px;
-                    line-height: 22px;
+                .prdctCont{
+                    .titles {
+                        font-size: 16px;
+                        line-height: 22px;
+                    }
                 }
-                
             } 
             .btnSpace{
                 margin: 20px 0 0;
@@ -465,7 +469,15 @@
                 }
             }
         }  
-    } 
+    }
+    .rldPrdct-slider{
+        .productList{
+            .prdctCont{
+                min-height: 113px;
+            }
+        }
+    }
+   
 
 
 }

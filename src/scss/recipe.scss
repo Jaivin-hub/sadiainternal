@@ -33,7 +33,7 @@
             }
         }
        
-        .titleStyle{
+        .titleStyle, .subitle{
             position: absolute;
             left: 0;
             top: 0;
@@ -48,6 +48,7 @@
             align-items: center;
             justify-content: center;
             height: 100%;
+            margin: 0;
         }
     }
 }
@@ -514,7 +515,13 @@
 
     .rptBoxs-des{
         .listSpace{
-            margin-bottom: 45px;
+            margin-bottom: 25px;
+            .col-md-4{
+                .card{
+                    margin-bottom: 20px;
+                }
+            }
+            
         }
         .card{
             .card-body{
