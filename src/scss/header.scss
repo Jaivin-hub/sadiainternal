@@ -50,6 +50,8 @@ header {
 		li.nav-item{
 			padding: 0;
 			margin: 0 10px;
+			display: flex;
+			align-items: center;
 			&.country{
 				margin:0 0 0 12px;
 				.nav-link{
@@ -120,6 +122,12 @@ header {
 			margin: 0;
 			display: inline-flex;
     		align-items: center;
+			&.spaceR{
+				padding-right: 0 !important;
+			}
+			&.spaceL{
+				padding-left: 0 !important;
+			}
 			&.dropdown-toggle::after{
 				background-image: url(../assets/images/icons/drop-down.svg);
 				border: 0;
@@ -493,6 +501,7 @@ header {
 					padding: 0;
 					margin: 0 0 16px;
 					width: 100%;
+					flex-direction: column;
 					&.country{
 						.navBox{
 							min-height: 120px;
@@ -500,6 +509,12 @@ header {
 					} 
 					&:last-child{
 						margin-bottom: 0;
+					}
+					.singleDiv{
+						width: 100%;
+						flex-direction: row;
+        				justify-content: space-between;
+						display: flex;
 					}
 					.nav-link{
 						font-size: 36px;
@@ -513,6 +528,18 @@ header {
 						align-items: center;
 						justify-content: space-between;
 						background-color:$white-color;
+						&.spaceL{
+							padding-left: 0 !important;
+							justify-content: end;
+							position: absolute;
+							right: 0;
+							top: 0;
+							float: right;
+							width: 60px;
+						}
+						&.spaceR{
+							padding-right: 0 !important;
+						}
 						
 					}
 					.dropdown-toggle::after{
