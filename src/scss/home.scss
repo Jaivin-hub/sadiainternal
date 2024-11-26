@@ -619,6 +619,11 @@ p{
                             line-height: 22px;
                             font-size: 16px;
                             font-weight: 300;
+
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3;
+                            -webkit-box-orient: vertical;  
+                            overflow: hidden;
                         }
                     }
                     .j-image{
