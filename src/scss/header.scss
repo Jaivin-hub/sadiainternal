@@ -3,7 +3,14 @@
 header {
 	padding: 0;
 	margin: 0;
-	
+	.redirection-bt{
+		background: transparent !important;
+		border: 0 !important;
+		box-shadow: inherit !important;
+		outline: 0 !important;
+		padding: 0 !important;
+		margin: 0 !important;
+	}
 	.navbar-nav {
 		&.navRights{
 			li.nav-item {
@@ -131,6 +138,12 @@ header {
 					background-size: auto;
 					background-repeat: no-repeat;
 					background-position: center center;
+				}
+				.redirection-bt{
+					color: $white-color;
+				}
+				&.show{
+					color: $white-color;
 				}
 			}
 			&.show{

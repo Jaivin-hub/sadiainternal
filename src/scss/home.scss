@@ -619,6 +619,11 @@ p{
                             line-height: 22px;
                             font-size: 16px;
                             font-weight: 300;
+
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3;
+                            -webkit-box-orient: vertical;  
+                            overflow: hidden;
                         }
                     }
                     .j-image{
@@ -1655,9 +1660,9 @@ p{
                 &.blkBox{
                     .firstBox{
                         .halalTitle {
-                            padding: 0px 20px;
+                            padding: 0px 0 30px 30px;
                             margin: 0;
-                            height: 100%;
+                            height: auto;
                         }
     
                     } 
@@ -1702,6 +1707,7 @@ p{
 @media (max-width: 767px) {
 
     .trueFram_wraper{
+      
         .grid.truBoxs{
             height: 390px;
             figure{
@@ -1718,12 +1724,19 @@ p{
                 } 
                 figcaption{
                     .linkStr{
+                        bottom: -65px;
                         .iconPart{
                             width: 70px;
                         }
                         
                         .textPart{
                             padding-left: 10px;
+                            .descp {
+                                max-width: 100%;
+                                letter-spacing: 0px;
+                                font-size: 14px;
+                                line-height: 19px;
+                            }
                         }
 
                     }
@@ -1777,6 +1790,8 @@ p{
                         .halalTitle{
                             font-size: 36px;
                             line-height: 40px;
+                            bottom: 40px;
+                            padding: 0px 0 35px 35px;
                         }
                     }
 
