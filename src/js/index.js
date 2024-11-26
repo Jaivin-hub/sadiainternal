@@ -1049,9 +1049,10 @@ document.addEventListener('DOMContentLoaded', () => {
             difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)), // Find index by data-id
         },
       });
-      console.log(' created')
+      console.log(' created',noUiSlider)
       difficultySlider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
+        console.log('selectedId',selectedId)
         selectedDifficulty = selectedId;
       });
     } else {
