@@ -192,6 +192,10 @@ const contactForms = () => {
         })
         .then((data) => {
           console.log('API Response:', data);
+          if(data){
+            document.querySelector('.contactForms').style.display = 'none';
+            document.querySelector('.thanksWraper').style.display = 'block';
+          }
         })
         .catch((error) => {
           console.error('Error:', error);
