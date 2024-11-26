@@ -131,6 +131,11 @@ module.exports = {
       inject: true,
       filename: '404.html',
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/thankyou.hbs',  // Template for recipe listing page
+      inject: true,
+      filename: 'thankyou.html',
+    }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/style.css',  // Output CSS to assets folder
     }),
@@ -156,6 +161,7 @@ module.exports = {
         { from: /^\/product-listing/, to: '/product-listing.html' },
         { from: /^\/searchresult/, to: '/searchresult.html' },
         { from: /^\/hack-listing/, to: '/hack-listing.html' },
+        { from: /^\/thankyou/, to: '/thankyou.html' },
         { from: /^\/product-details/, to: '/product-details.html' },
         { from: /^\/cooking-hacks-details/, to: '/cooking-hacks-details.html' },
         { from: /^\/notfound/, to: '/404.html' },
