@@ -3,6 +3,21 @@
 
 
 .contactWraper{
+
+    .error-message {
+        width: auto;
+        position: absolute;
+        bottom: -21px;
+        font-size: 12px;
+        color: #d7282f;
+    }
+    .col-md-12{
+        .error-message{
+            position: relative;
+            bottom: -11px;
+        }
+    }
+
     .alignConts{
         display: flex;
         align-items: center;
@@ -19,6 +34,7 @@
         .form-group{
             margin: 0 0 22px;
             padding: 0;
+            position: relative;
         }
         .form-label {
             font-size: 14px;
@@ -458,3 +474,6 @@
         }
     }
 }
+
+
+
