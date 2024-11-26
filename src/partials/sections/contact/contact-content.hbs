@@ -1,209 +1,142 @@
-
 <section class="contactWraper">
     <div class="container">
         <div class="row alignConts">
             <div class="col-md-4 contactSect">
                 <h2 class="mainTitle">GET IN TOUCH</h2>
                 <p class="descp">
-                    If you have a query or concern, simply write to us, and we will get back to you regarding your personal or business queries. We are all ears.
+                    If you have a query or concern, simply write to us, and we will get back to you regarding your
+                    personal or business queries. We are all ears.
                 </p>
 
                 <ul class="contInfo">
                     <li>
-                        <span class="icons"><img src="./assets/images/icons/mail.svg" class="cont-icon" alt="icon"> </span>
+                        <span class="icons"><img src="./assets/images/icons/mail.svg" class="cont-icon" alt="icon">
+                        </span>
                         <p><a href="mailto:customercare@brf.com">customercare@brf.com</a></p>
                     </li>
                     <li>
-                        <span class="icons"><img src="./assets/images/icons/phone.svg" class="cont-icon" alt="icon"> </span>
+                        <span class="icons"><img src="./assets/images/icons/phone.svg" class="cont-icon" alt="icon">
+                        </span>
                         <p><strong>(UAE)</strong> +800 723 42 &nbsp;|&nbsp; <strong>(+971)</strong> 4 366 2177</p>
                     </li>
                 </ul>
             </div>
             <div class="col-md-8">
-                {{!-- <div class="contactForms">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-control" placeholder="Enter Full Name">
+                <div class="contactForms">
+                    <form id="contactForm" novalidate>
+                        <div class="row">
+                            <input type="hidden" id="formNodeId" value="1637" >
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" placeholder="Enter Full Name">
+                                    <span class="error-message" id="nameError" style="display: none;">Full Name is
+                                        required.</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-control" placeholder="yourname@email.com">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email"
+                                        placeholder="yourname@email.com">
+                                    <span class="error-message" id="emailError" style="display: none;">Please enter a
+                                        valid email address.</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="countryCode" class="form-label">Phone Number</label>
-                                <div class="numberSect">
-                                    <div class="dropdown countrCodes">
-                                        <button
-                                        class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center"
-                                        type="button"
-                                        id="countryDropdown"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                        >
-                                            <img src="./assets/images/icons/flag.svg" alt="flag" class="me-2" width="20">
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="countryDropdown">
-                                        <li>
-                                            <a class="dropdown-item d-flex align-items-center" href="#" data-value="+1">
-                                                <img src="./assets/images/icons/flag.svg" alt="flag" class="me-2" width="20">
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item d-flex align-items-center" href="#" data-value="+44">
-                                                <img src="./assets/images/icons/flag_ksa.svg" alt="flag" class="me-2" width="20">
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item d-flex align-items-center" href="#" data-value="+50">
-                                                <img src="./assets/images/icons/flag_qatar.svg" alt="flag" class="me-2" width="20">
-                                            </a>
-                                        </li>
-                                        </ul>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="countryCode" class="form-label">Phone Number</label>
+                                    <div class="numberSect">
+                                        <div class="dropdown countrCodes">
+                                            <button
+                                                class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center"
+                                                type="button" id="countryDropdown" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <img src="./assets/images/icons/flag.svg" alt="flag" class="me-2"
+                                                    width="20">
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="countryDropdown">
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#"
+                                                        data-value="+1">
+                                                        <img src="./assets/images/icons/flag.svg" alt="flag"
+                                                            class="me-2" width="20"> +1
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#"
+                                                        data-value="+44">
+                                                        <img src="./assets/images/icons/flag_ksa.svg" alt="flag"
+                                                            class="me-2" width="20"> +44
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center" href="#"
+                                                        data-value="+50">
+                                                        <img src="./assets/images/icons/flag_qatar.svg" alt="flag"
+                                                            class="me-2" width="20"> +50
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <input type="tel" class="form-control mobileWidth" id="mobileNumber"
+                                            placeholder="971 XXX XXX XXX">
                                     </div>
-                                    <input type="tel" class="form-control mobileWidth" id="mobileNumber" placeholder="971 XXX XXX XXX">
+                                    <span class="error-message" id="phoneError" style="display: none;">Please enter
+                                            a valid phone number (10-12 digits).</span>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Select Subject</label>
-                                <select class="form-control">
-                                    <option disabled selected>Select</option>
-                                    <option>Select</option>
-                                </select>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Select Subject</label>
+                                    <select class="form-control" id="subject">
+                                        <option disabled selected value="">Select</option>
+                                        <option value="1">Inquiry</option>
+                                        <option value="2">Support</option>
+                                    </select>
+                                    <span class="error-message" id="subjectError" style="display: none;">Please select a
+                                        subject.</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <textarea class="form-control" placeholder="Leave a message.."></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group uploadSection">
-                                <label for="formFileLg" class="form-label">Got something to share?</label>
-                                <label class="custom-file-upload form-control form-control-lg" for="formFileLg">
-                                    <img src="./assets/images/icons/paperclip.svg" loading="lazy" class="upIcon" alt="icon"> Upload attachment
-                                </label>
-                                <input class="form-control-file" id="formFileLg" type="file" style="display: none;">
+                            <div class="col-md-12">
+                                <textarea class="form-control" id="message" placeholder="Leave a message.."
+                                    minlength="10"></textarea>
+                                <span class="error-message" id="messageError" style="display: none;">Please enter a
+                                    message with at least 10 characters.</span>
                             </div>
 
-                        </div>
-                        <div class="col-md-12 btmSpaces">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <div class="info">
-                                        <p>By submitting the form, I understand that Sadia will protect my data as outlined in the <a href="#">Privacy Notice.</a> </p>
+                            <div class="col-md-12">
+                                <div class="form-group uploadSection">
+                                    <label for="formFileLg" class="form-label">Got something to share?</label>
+                                    <label class="custom-file-upload form-control form-control-lg" for="formFileLg">
+                                        <img src="./assets/images/icons/paperclip.svg" loading="lazy" class="upIcon"
+                                            alt="icon">
+                                        <span class="fileNameText" id="fileNameText">Upload attachment</span>
+                                    </label>
+                                    <input class="form-control-file" id="formFileLg" type="file" style="display: none;">
+                                    <span class="error-message" id="fileError" style="display: none;">Please upload a
+                                        file.</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 btmSpaces">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="info">
+                                            <p>By submitting the form, I understand that Sadia will protect my data as
+                                                outlined in the <a href="#">Privacy Notice.</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 text-end">
+                                        <button type="submit" class="btn subBtn"
+                                            data-url="https://sadialife-dev.azurewebsites.net/Umbraco/api/ContactForm/Submit">SUBMIT</button>
                                     </div>
                                 </div>
-                                <div class="col-md-5 text-end">
-                                    <button type="submit" class="btn subBtn">SUBMIT</button>
-                                </div>
                             </div>
                         </div>
-                    </div>
-                </div> --}}
+                    </form>
+                </div>
 
-
-<div class="contactForms">
-    <form id="contactForm">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Full Name" required>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control" placeholder="yourname@email.com" required>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="countryCode" class="form-label">Phone Number</label>
-                    <div class="numberSect">
-                        <div class="dropdown countrCodes">
-                            <button
-                                class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center"
-                                type="button"
-                                id="countryDropdown"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                <img src="./assets/images/icons/flag.svg" alt="flag" class="me-2" width="20">
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="countryDropdown">
-                                <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="#" data-value="+1">
-                                        <img src="./assets/images/icons/flag.svg" alt="flag" class="me-2" width="20"> +1
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="#" data-value="+44">
-                                        <img src="./assets/images/icons/flag_ksa.svg" alt="flag" class="me-2" width="20"> +44
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-flex align-items-center" href="#" data-value="+50">
-                                        <img src="./assets/images/icons/flag_qatar.svg" alt="flag" class="me-2" width="20"> +50
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <input type="tel" class="form-control mobileWidth" id="mobileNumber" placeholder="971 XXX XXX XXX" required>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="form-label">Select Subject</label>
-                    <select class="form-control" required>
-                        <option disabled selected value="">Select</option>
-                        <option value="1">Inquiry</option>
-                        <option value="2">Support</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <textarea class="form-control" placeholder="Leave a message.." minlength="10" required></textarea>
-            </div>
-
-            <div class="col-md-12">
-                <div class="form-group uploadSection">
-                    <label for="formFileLg" class="form-label">Got something to share?</label>
-                    <!-- Custom file upload button -->
-                    <label class="custom-file-upload form-control form-control-lg" for="formFileLg">
-                        <img src="./assets/images/icons/paperclip.svg" loading="lazy" class="upIcon" alt="icon">
-                        <span class="fileNameText">Upload attachment</span> <!-- Default text -->
-                    </label>
-                    <!-- Hidden file input -->
-                    <input class="form-control-file" id="formFileLg" type="file" style="display: none;">
-                </div>
-            </div>
-
-            <div class="col-md-12 btmSpaces">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="info">
-                            <p>By submitting the form, I understand that Sadia will protect my data as outlined in the <a href="#">Privacy Notice.</a></p>
-                        </div>
-                    </div>
-                    <div class="col-md-5 text-end">
-                        <button type="submit" class="btn subBtn">SUBMIT</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
 
 
             </div>
