@@ -9,7 +9,7 @@
         position: absolute;
         bottom: -21px;
         font-size: 12px;
-        color: #d7282f;
+        color: $primary-color;
     }
     .col-md-12{
         .error-message{
@@ -73,6 +73,7 @@
             &.form-control{
                 height: 145px;
                 padding: 15px;
+                margin: 3px 0 0;
             }
         }
         .numberSect{
