@@ -1021,12 +1021,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.priceRangeSlider || elements.priceRangeSliders) {
+    console.log('inside the slider condision')
 
     // Difficulty Slider
     const difficultySlider = document.getElementById("difficulty-range");
     if (difficultySlider) {
+      console.log('difficultySlider')
       // Dynamically read difficulties from HTML
       const difficultyElements = Array.from(document.querySelectorAll(".range-labels span.names"));
+      console.log('difficultyElements',difficultyElements)
       const difficulties = difficultyElements.map((el) => ({
         id: parseInt(el.getAttribute("data-id")), // Read the data-id
         label: el.textContent.trim(), // Read the label
@@ -1046,7 +1049,7 @@ document.addEventListener('DOMContentLoaded', () => {
             difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)), // Find index by data-id
         },
       });
-
+      console.log(' created')
       difficultySlider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
         selectedDifficulty = selectedId;
@@ -1058,6 +1061,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Preparation Time Slider
     const prepTimeSlider = document.getElementById("preparation-range");
     if (prepTimeSlider) {
+      console.log('preptimeslider')
       // Dynamically read preparation times from HTML
       const prepTimeElements = Array.from(document.querySelectorAll("#preparation-range-slider .range-labels span.names"));
       const prepTimes = prepTimeElements.map((el) => parseInt(el.getAttribute("data-id")));
@@ -1075,7 +1079,7 @@ document.addEventListener('DOMContentLoaded', () => {
           from: (value) => Number(value.replace(" mins", "")),
         },
       });
-
+      console.log('created')
       prepTimeSlider.noUiSlider.on("update", (values) => {
         const prepTime = parseInt(values[0]); // Get the selected preparation time
         selectedPrepTime = prepTime;
