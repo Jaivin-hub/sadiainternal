@@ -501,6 +501,7 @@ header {
 					padding: 0;
 					margin: 0 0 16px;
 					width: 100%;
+					flex-direction: column;
 					&.country{
 						.navBox{
 							min-height: 120px;
@@ -508,6 +509,12 @@ header {
 					} 
 					&:last-child{
 						margin-bottom: 0;
+					}
+					.singleDiv{
+						width: 100%;
+						flex-direction: row;
+        				justify-content: space-between;
+						display: flex;
 					}
 					.nav-link{
 						font-size: 36px;
@@ -521,6 +528,18 @@ header {
 						align-items: center;
 						justify-content: space-between;
 						background-color:$white-color;
+						&.spaceL{
+							padding-left: 0 !important;
+							justify-content: end;
+							position: absolute;
+							right: 0;
+							top: 0;
+							float: right;
+							width: 60px;
+						}
+						&.spaceR{
+							padding-right: 0 !important;
+						}
 						
 					}
 					.dropdown-toggle::after{
