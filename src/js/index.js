@@ -167,7 +167,6 @@ const contactForms = () => {
       formData.append('message', document.querySelector('#message').value);
       formData.append('nodeId', nodeId);
       formData.append('lang', lang);
-      console.log('selectedFile',selectedFile)
       // Append the file only if one is selected
       if (selectedFile) {
         formData.append('file', selectedFile);
@@ -192,7 +191,7 @@ const contactForms = () => {
         })
         .then((data) => {
           console.log('API Response:', data);
-          if(data){
+          if (data) {
             document.querySelector('.contactForms').style.display = 'none';
             document.querySelector('.thanksWraper').style.display = 'block';
           }
@@ -561,7 +560,7 @@ function initializeRecipeFilter() {
     preparationSelect.addEventListener('change', event => handleDropdownChange(event, 'preparation'));
 
     initialFetch()
-    
+
     searchInput.addEventListener('input', handleSearchInput);
     submitButton.addEventListener('click', handleSubmitButtonClick);
     showMoreButton.addEventListener('click', handleShowMoreButtonClick);
@@ -840,46 +839,46 @@ const cookingHacksSection = () => {
   });
 
   function handleCloseButton(event) {
-      let recipeSelectedValue = recipeDropdown ? recipeDropdown.value : '';
-      const target = event.target.closest('#recipeclose');
-      showMoreClicked = false;
-      if (target) {
-        const data = {
-          cookingHackCatId: activeId,
-          occasionId: selectedOccasion,
-          recipeId: selectedRecipe,
-          productId: selectedProduct,
-          filter: recipeSelectedValue,
-          keyword: searchInput.value,
-          limit: limit,
-          offset: 0,
-          url: url,
-          lang: lang
-        }
-        fetchCookingHacks('hack-template', data).then(obj => {
-          const { html, isEmpty } = obj;
-          const container = document.getElementById('hackcontainer');
-          if (!container) {
-            console.warn('Container with ID "onlinecontainer" not found.');
-            return;
-          }
-    
-          if (showMoreClicked) {
-            container.innerHTML += html;
-          } else {
-            container.innerHTML = html;
-          }
-          const showMoreButton = document.querySelector('#hackshowmore');
-          if (isEmpty) {
-            showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
-          } else {
-            showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
-          }
-        })
-          .catch(error => {
-            console.error('Error fetching/rendering online stores:', error);
-          });
+    let recipeSelectedValue = recipeDropdown ? recipeDropdown.value : '';
+    const target = event.target.closest('#recipeclose');
+    showMoreClicked = false;
+    if (target) {
+      const data = {
+        cookingHackCatId: activeId,
+        occasionId: selectedOccasion,
+        recipeId: selectedRecipe,
+        productId: selectedProduct,
+        filter: recipeSelectedValue,
+        keyword: searchInput.value,
+        limit: limit,
+        offset: 0,
+        url: url,
+        lang: lang
       }
+      fetchCookingHacks('hack-template', data).then(obj => {
+        const { html, isEmpty } = obj;
+        const container = document.getElementById('hackcontainer');
+        if (!container) {
+          console.warn('Container with ID "onlinecontainer" not found.');
+          return;
+        }
+
+        if (showMoreClicked) {
+          container.innerHTML += html;
+        } else {
+          container.innerHTML = html;
+        }
+        const showMoreButton = document.querySelector('#hackshowmore');
+        if (isEmpty) {
+          showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+        } else {
+          showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+        }
+      })
+        .catch(error => {
+          console.error('Error fetching/rendering online stores:', error);
+        });
+    }
   }
 }
 
@@ -1027,38 +1026,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.priceRangeSlider || elements.priceRangeSliders) {
-    console.log('inside the slider condision')
 
     // Difficulty Slider
     const difficultySlider = document.getElementById("difficulty-range");
     if (difficultySlider) {
-      console.log('difficultySlider')
+
       // Dynamically read difficulties from HTML
-      const difficultyElements = Array.from(document.querySelectorAll(".range-labels span.names"));
-      console.log('difficultyElements',difficultyElements)
+      const difficultyElements = Array.from(
+        document.querySelectorAll(".range-labels span.names")
+      );
       const difficulties = difficultyElements.map((el) => ({
         id: parseInt(el.getAttribute("data-id")), // Read the data-id
         label: el.textContent.trim(), // Read the label
       }));
+
+      // Create Difficulty Slider with three stops: start, middle, end
+      const totalStops = 3; // Number of stops: start, middle, end
+      const maxValue = difficulties.length - 1; // Last index in difficulties
+      const step = maxValue / (totalStops - 1); // Calculate step size
 
       noUiSlider.create(difficultySlider, {
         start: 0, // Start at the first difficulty
         connect: [true, false],
         range: {
           min: 0,
-          max: difficulties.length - 1, // Max based on number of difficulties
+          max: maxValue,
         },
-        step: 1,
+        step: step, // Enforce stops at start, middle, end
+        pips: false,
         format: {
-          to: (value) => difficulties[Math.round(value)].id, // Map slider value to data-id
+          to: (value) => difficulties[Math.round(value / step)].id, // Map slider value to data-id
           from: (value) =>
             difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)), // Find index by data-id
         },
       });
-      console.log(' created',noUiSlider)
+
+
+      // Handle updates
       difficultySlider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
-        console.log('selectedId',selectedId)
         selectedDifficulty = selectedId;
       });
     } else {
@@ -1068,11 +1074,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Preparation Time Slider
     const prepTimeSlider = document.getElementById("preparation-range");
     if (prepTimeSlider) {
-      console.log('preptimeslider')
-      // Dynamically read preparation times from HTML
-      const prepTimeElements = Array.from(document.querySelectorAll("#preparation-range-slider .range-labels span.names"));
-      const prepTimes = prepTimeElements.map((el) => parseInt(el.getAttribute("data-id")));
 
+      // Dynamically read preparation times from HTML
+      const prepTimeElements = Array.from(
+        document.querySelectorAll(
+          "#preparation-range-slider .range-labels span.names"
+        )
+      );
+      const prepTimes = prepTimeElements.map((el) =>
+        parseInt(el.getAttribute("data-id"))
+      );
       noUiSlider.create(prepTimeSlider, {
         start: prepTimes[0], // Start at the first preparation time
         connect: [true, false],
@@ -1080,13 +1091,11 @@ document.addEventListener('DOMContentLoaded', () => {
           min: Math.min(...prepTimes),
           max: Math.max(...prepTimes),
         },
-        step: 1,
-        format: {
-          to: (value) => `${value.toFixed(0)} mins`,
-          from: (value) => Number(value.replace(" mins", "")),
-        },
+        step: (Math.max(...prepTimes) - Math.min(...prepTimes)) / (prepTimes.length - 1), // Step based on evenly distributed points
+        pips: false,
       });
-      console.log('created')
+
+
       prepTimeSlider.noUiSlider.on("update", (values) => {
         const prepTime = parseInt(values[0]); // Get the selected preparation time
         selectedPrepTime = prepTime;
@@ -1106,8 +1115,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeRecipeFilter();
   }
 
-  if(contactForm){
-  contactForms()
+  if (contactForm) {
+    contactForms()
   }
 
   // Define the fetchRecipes function
