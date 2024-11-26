@@ -6,6 +6,8 @@ import Handlebars from 'handlebars';
 import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
 import { fetchAssets, fetchProducts } from './api.js'
 import { fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks } from './fetchAndRenderData.js';
+import noUiSlider from 'nouislider';
+import 'nouislider/dist/nouislider.css';
 
 const pulsingDotStyle = `
 <style>
@@ -190,6 +192,10 @@ const contactForms = () => {
         })
         .then((data) => {
           console.log('API Response:', data);
+          if(data){
+            document.querySelector('.contactForms').style.display = 'none';
+            document.querySelector('.thanksWraper').style.display = 'block';
+          }
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -1021,12 +1027,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.priceRangeSlider || elements.priceRangeSliders) {
+    console.log('inside the slider condision')
 
     // Difficulty Slider
     const difficultySlider = document.getElementById("difficulty-range");
     if (difficultySlider) {
+      console.log('difficultySlider')
       // Dynamically read difficulties from HTML
       const difficultyElements = Array.from(document.querySelectorAll(".range-labels span.names"));
+      console.log('difficultyElements',difficultyElements)
       const difficulties = difficultyElements.map((el) => ({
         id: parseInt(el.getAttribute("data-id")), // Read the data-id
         label: el.textContent.trim(), // Read the label
@@ -1046,9 +1055,10 @@ document.addEventListener('DOMContentLoaded', () => {
             difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)), // Find index by data-id
         },
       });
-
+      console.log(' created',noUiSlider)
       difficultySlider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
+        console.log('selectedId',selectedId)
         selectedDifficulty = selectedId;
       });
     } else {
@@ -1058,6 +1068,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Preparation Time Slider
     const prepTimeSlider = document.getElementById("preparation-range");
     if (prepTimeSlider) {
+      console.log('preptimeslider')
       // Dynamically read preparation times from HTML
       const prepTimeElements = Array.from(document.querySelectorAll("#preparation-range-slider .range-labels span.names"));
       const prepTimes = prepTimeElements.map((el) => parseInt(el.getAttribute("data-id")));
@@ -1075,7 +1086,7 @@ document.addEventListener('DOMContentLoaded', () => {
           from: (value) => Number(value.replace(" mins", "")),
         },
       });
-
+      console.log('created')
       prepTimeSlider.noUiSlider.on("update", (values) => {
         const prepTime = parseInt(values[0]); // Get the selected preparation time
         selectedPrepTime = prepTime;
