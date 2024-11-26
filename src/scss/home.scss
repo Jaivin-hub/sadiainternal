@@ -1274,12 +1274,16 @@ p{
             }
             &.blkBox {
                 .firstBox{
-                    min-height: 100vh;
+                    // min-height: 100vh;
+                    height: 430px;
                     .halalTitle {
                         font-size: 47px;
                         line-height: 50px;
                         padding: 0px 0 48px 48px;
-                        margin: -53px 0 0 0;
+                        margin: 0 0;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
                         justify-content: left;
                     } 
                     z-index: 10;
@@ -1419,7 +1423,7 @@ p{
                         position: absolute;
                         bottom: 0;
                         left: 0;
-                        padding: 2em;
+                        padding: 3em 2em 0;
                         width: 100%;
                         height: 50%;
                         
@@ -1953,8 +1957,9 @@ p{
 
 .errorWraper{
     padding: 15px 0;
+    margin: 30px 0 0 0;
     text-align: center;
-    min-height: 75vh;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1992,7 +1997,7 @@ p{
 @media (max-width: 767px) {
 
     .errorWraper{
-        min-height: 92vh;
+        min-height: 60vh;
         .contArea{
             .titles{
                 font-size: 61px;

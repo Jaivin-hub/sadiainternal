@@ -382,3 +382,68 @@
 }
 
 // FAQ-END
+
+
+
+
+
+
+
+
+.thanksWraper{
+    padding: 15px 0;
+    margin: 50px 0 0 0;
+    text-align: center;
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .contArea{
+      .titles{
+        font-family: $title-font;
+        font-size: 47px;
+        line-height: 50px;
+        color: $black-color;
+        margin: 30px 0;
+        padding: 0;
+      }
+      .descp{
+        &.btm{
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 60px;
+        }
+        font-size: 18px;
+        line-height: 24px;
+        color: $bg-color;
+        margin: 0;
+        padding: 0;
+        font-weight: 400;
+      }
+    }
+    .btnSpace{
+        margin: 20px 0;
+        .btn-more{
+            min-width: 190px;
+            letter-spacing: 0.8px;
+          }
+      }
+}
+
+
+@media (max-width: 767px) {
+
+    .thanksWraper{
+        padding: 0;
+        margin: 30px 0 0 0;
+        min-height: 50vh;
+        .contArea{
+            .titles{
+                font-size: 40px;
+            }
+            .descp.btm {
+                margin-top: 40px;
+            }
+        }
+    }
+}
