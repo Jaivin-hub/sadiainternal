@@ -172,12 +172,10 @@ const contactForms = () => {
         formData.append('file', selectedFile);
       }
 
-      console.log('Form Data:', formData);
 
       const submitButton = document.querySelector('.subBtn');
       const apiUrl = submitButton.getAttribute('data-url');
 
-      console.log('apiUrl:', apiUrl);
 
       fetch(apiUrl, {
         method: 'POST',
@@ -190,7 +188,6 @@ const contactForms = () => {
           return response.json();
         })
         .then((data) => {
-          console.log('API Response:', data);
           if (data) {
             document.querySelector('.contactForms').style.display = 'none';
             document.querySelector('.thanksWraper').style.display = 'block';
@@ -261,7 +258,6 @@ function toggleRecipeSections() {
 
   // Helper function to update recipe list
   function updateRecipeList(data) {
-    console.log('updateREcipe')
     fetchRecipes('all-recipelist-template', data)
       .then(({ html, isEmpty }) => {
         const container = document.getElementById('defaultlistspace');
@@ -634,8 +630,6 @@ const cookingHacksSection = () => {
   function handleShowMoreButtonClick() {
     const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
-    console.log('offset', offset)
-    // console.log('limit',limit)
     // let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
     let recipeSelectedValue = dropdown ? dropdown.value : '';
     showMoreClicked = true;
@@ -652,7 +646,6 @@ const cookingHacksSection = () => {
       url: url,
       lang: lang
     }
-    console.log('inside the showmore', dataObj)
     submitButton.setAttribute('data-offset', offset);
     fetchCookingHacks('hack-template', dataObj).then((res) => {
       const { html, isEmpty } = res;
@@ -677,7 +670,6 @@ const cookingHacksSection = () => {
       console.log('inside the catch error', error)
     })
   }
-  console.log('data consoling---', data)
   fetchCookingHacks('hack-template', data).then(obj => {
     const { html, isEmpty } = obj;
     const container = document.getElementById('hackcontainer');
@@ -1088,7 +1080,6 @@ searchBar.addEventListener('keydown', (event) => {
       // Handle updates
       slider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
-        console.log(`${sliderType} selected ID: ${selectedId}`);
       });
     };
   
