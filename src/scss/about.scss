@@ -62,7 +62,7 @@
 
             .contBoxs {
                 .subitle {
-                    max-width: 82%;
+                    max-width: 100%;
                 }
             }
         }
@@ -78,19 +78,22 @@
 // HOW-WE START
 
 .how_weSect {
-    padding: 115px 0 144px;
+    &.secSpace{
+        padding: 115px 0 144px;
+    }
+   
 
     .titleWrap {
         margin-bottom: 60px;
 
         .mainTitle {
-            font-size: 47px;
-            line-height: 50px;
+            font-size: 27px;
+            line-height: 27px;
         }
     }
 
     .card {
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
 
         .cardBox {
             .cardImg {
@@ -265,8 +268,9 @@
 .storyWraper {
     .sliderTitle {
         color: #111110;
-        font-size: 47px;
-        line-height: 50px;
+        font-size: 27px;
+        line-height: 27px;
+        text-transform: uppercase;
         font-family: $title-font;
         margin: 0;
         padding: 0;
@@ -305,9 +309,10 @@
 
             .title {
                 color: $border-color;
-                font-size: 300px;
-                line-height: 294px;
+                font-size: 215px;
+                line-height: 260px;
                 font-family: $title-font;
+                letter-spacing: 0;
             }
 
             .descp {
@@ -430,8 +435,8 @@
         .contWrapper {
             .spaceBx {
                 .title {
-                    font-size: 226px;
-                    line-height: 250px;
+                    font-size: 210px;
+                    line-height: 210px;
                 }
             }
         }

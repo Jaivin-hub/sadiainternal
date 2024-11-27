@@ -7,11 +7,14 @@
             padding: 0;
         }
     }
+    .search-results-form{
+        margin: 0 0 20px;
+    }
     .titleWrap{
         margin: 25px 0 30px;
         .mainTitle{
-            font-size: 47px;
-            line-height: 50px;
+            font-size: 27px;
+            line-height: 27px;
             span{
                 color: $primary-color;
             }
@@ -92,8 +95,8 @@
     .titleWrap{
         margin: 25px 0;
         .mainTitle{
-            font-size: 27px;
-            line-height: 27px;
+            font-size: 21px;
+            line-height: 21px;
             text-align: left;
         }
     }
@@ -150,13 +153,13 @@
             }
         }
         .listitle{
-            color: $secondary-color;
-            font-size: 27px;
-            line-height: 27px;
-            // font-family: $title-font;
-            font-family: 'bebas-font', sans-serif;
-            font-weight: 400;
+            color: $black-color;
+            font-size: 21px;
+            line-height: 21px;
+            font-family: $primary-font;
+            font-weight: 600;
             margin: 0 0 20px 0;
+            text-transform: uppercase;
         }
         .descp{
             color: #3F3F3A;
