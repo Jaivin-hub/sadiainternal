@@ -929,10 +929,10 @@ document.querySelector('.search-form').addEventListener('submit', (event) => {
 searchBar.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
       event.preventDefault(); // Prevent form submission
+      const baseUrl = searchBar.getAttribute('data-url');
       const searchQuery = searchBar.value; // Get the input value
-      console.log('Search Query:', searchQuery); // Use the value as needed
       if (searchQuery) {
-        window.location.href = `/en/search/?keyword=${encodeURIComponent(searchQuery)}`;
+        window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
     }
   }
 });
