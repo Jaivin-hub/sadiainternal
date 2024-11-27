@@ -910,25 +910,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const searchBar = document.getElementById('searchBar');
   const searchForm = document.querySelector('.search-form');
+  const searchInputElement = document.getElementById('search-Bar');  // Input field for search with a different ID
+  const searchResultsForm = document.querySelector('.search-results-form');  // Form element for search results
 
-if(searchForm){
-  // Add an event listener to the form to prevent default submission
-document.querySelector('.search-form').addEventListener('submit', (event) => {
-  event.preventDefault(); // Prevent form submission
-});
 
-// Add a keydown event listener to handle the Enter key
-searchBar.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
+  if (searchForm || searchResultsForm) {
+    // Add an event listener to the form to prevent default submission
+    document.querySelector('.search-form').addEventListener('submit', (event) => {
       event.preventDefault(); // Prevent form submission
-      const baseUrl = searchBar.getAttribute('data-url');
-      const searchQuery = searchBar.value; // Get the input value
-      if (searchQuery) {
-        window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+    });
+
+
+    // Add a keydown event listener to handle the Enter key
+    searchBar.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission
+        const baseUrl = searchBar.getAttribute('data-url');
+        const searchQuery = searchBar.value.trim(); // Get the input value
+        if (searchQuery) {
+          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+        }
+      }
+    });
+
+    if (searchResultsForm) {
+      const searchIcon = document.querySelector('.serBtn img');
+      searchResultsForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent form submission
+      });
+
+      searchInputElement.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevent form submission
+          const baseUrl = searchInputElement.getAttribute('data-url');
+          const searchQuery = searchInputElement.value.trim(); // Get the input value
+          if (searchQuery) {
+            window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+          }
+        }
+      });
+
+      searchIcon.addEventListener('click', () => {
+        const baseUrl = searchInputElement.getAttribute('data-url');
+        const searchQuery = searchInputElement.value.trim(); // Get the input value
+        if (searchQuery) {
+          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+        }
+      });
     }
+
+
   }
-});
-}
 
 
   if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
@@ -1048,18 +1080,18 @@ searchBar.addEventListener('keydown', (event) => {
         console.error(`${sliderType} slider not found in DOM`);
         return;
       }
-  
+
       // Dynamically read labels and data-id from HTML
       const labelElements = Array.from(document.querySelectorAll(labelSelector));
       const items = labelElements.map((el) => ({
         id: parseInt(el.getAttribute("data-id")),
         label: el.textContent.trim(),
       }));
-  
+
       // Calculate the step size dynamically
       const maxValue = items.length - 1; // Last index in the items array
       const step = maxValue > 0 ? 1 : 0; // Ensure step is valid only when items exist
-  
+
       // Create slider
       noUiSlider.create(slider, {
         start: 0, // Start at the first point
@@ -1076,11 +1108,10 @@ searchBar.addEventListener('keydown', (event) => {
             items.findIndex((item) => item.id === parseInt(value)), // Find index by data-id
         },
       });
-  
+
       // Handle updates
       slider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
-        console.log(`${sliderType} selected ID: ${selectedId}`);
         if (sliderType === "Difficulty") {
           selectedDifficulty = selectedId;
         } else if (sliderType === "Preparation Time") {
@@ -1088,14 +1119,14 @@ searchBar.addEventListener('keydown', (event) => {
         }
       });
     };
-  
+
     // Create Difficulty Slider
     createDynamicSlider(
       "difficulty-range",
       "#difficulty-range-sliders .range-labels span.names",
       "Difficulty"
     );
-  
+
     // Create Preparation Time Slider
     createDynamicSlider(
       "preparation-range",
