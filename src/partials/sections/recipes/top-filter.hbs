@@ -3,45 +3,56 @@
     <div class="container">
 
         <div class="filterSec">
-            <div class="filterWrap catgSpc">
-                <div class="categ_filter">
-                    <div class="filt-catSpc" id="filt-catSpc">
-                        <button type="button" id="toggleButton" class="btn filToggle active">
-                            <img class="icons filtIcon" src="./assets/images/icons/filter.svg" alt="filter">
-                            <p>Filter</p>
-                            <img class="icons arwIcon" src="./assets/images/icons/chevron-left.svg" alt="filter">
-                        </button>
+            <div class="filterWrap catgSpc spRmv">
+                    <div class="categ_filter">
+                        <div class="filt-catSpc" id="filt-catSpc">
+                            <button type="button" id="toggleButton" class="btn filToggle active">
+                                <img class="icons filtIcon" src="./assets/images/icons/filter.svg" alt="filter">
+                                <p>Filter</p>
+                                <img class="icons arwIcon" src="./assets/images/icons/chevron-left.svg" alt="filter">
+                            </button>
+                        </div>
+
+                        <a href="#" data-umb-id="0" class="btn filBtn active">All</a>
+                        <a href="#" data-umb-id="1198" class="btn filBtn">Airfryer</a>
+                        <a href="#" data-umb-id="2" class="btn filBtn">Quick & Easy</a>
+                        <a href="#" data-umb-id="3" class="btn filBtn">Regional</a>
+                        <a href="#" data-umb-id="4" class="btn filBtn">Instant pot</a>
+                        <a href="#" data-umb-id="5" class="btn filBtn">Top Searched</a>
                     </div>
 
-                    <a href="#" data-umb-id="0" class="btn filBtn active">All</a>
-                    <a href="#" data-umb-id="1198" class="btn filBtn">Airfryer</a>
-                    <a href="#" data-umb-id="2" class="btn filBtn">Quick & Easy</a>
+                    <div class="filterSection postDiv">
+                        <select id="recipeDropdown" class="form-select">
+                            <option value="">Select filter</option>
+                            <option value="IsPopular">Popular</option>
+                            <option value="IsNew">New</option>
+                        </select>
+
+                        <!-- Search bar section Start -->
+                        <div class="search-bar-container">
+                            <form class="d-flex locatSearch">
+                                <input id="searchInpts" class="form-control search-bar" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline serLoc" type="button">
+                                    <img src="./assets/images/icons/Search.svg" loading="lazy" alt="Search">
+                                </button>
+                                <button id="recipeclose" class="btn btn-outline cl_ser" type="button" style="display: none;"><img src="./assets/images/icons/s_close.svg" loading="lazy" alt="Search"></button> 
+                            </form>
+                        </div>
+                        <!-- Search bar section End-->
+                    </div>
+            </div>
+
+            {{!-- SUB-CATEGORY START --}}
+            <div class="filterWrap catgSpc centerFilter">
+                <div class="categ_filter subCategory">
+                    {{!-- <a href="#" data-umb-id="2" class="btn filBtn">Quick & Easy</a>
                     <a href="#" data-umb-id="3" class="btn filBtn">Regional</a>
                     <a href="#" data-umb-id="4" class="btn filBtn">Instant pot</a>
-                    <a href="#" data-umb-id="5" class="btn filBtn">Top Searched</a>
+                    <a href="#" data-umb-id="5" class="btn filBtn">Top Searched</a> --}}
                 </div>
-
-                <div class="filterSection postDiv">
-                    <select id="recipeDropdown" class="form-select">
-                        <option value="">Select filter</option>
-                        <option value="IsPopular">Popular</option>
-                        <option value="IsNew">New</option>
-                    </select>
-
-                    <!-- Search bar section Start -->
-                    <div class="search-bar-container">
-                        <form class="d-flex locatSearch">
-                            <input id="searchInpts" class="form-control search-bar" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline serLoc" type="button">
-                                <img src="./assets/images/icons/Search.svg" loading="lazy" alt="Search">
-                            </button>
-                            <button id="recipeclose" class="btn btn-outline cl_ser" type="button" style="display: none;"><img src="./assets/images/icons/s_close.svg" loading="lazy" alt="Search"></button> 
-                        </form>
-                    </div>
-                    <!-- Search bar section End-->
-                </div>
-                  
             </div>
+            {{!-- SUB-CATEGORY END --}}
+
         </div>
         {{!-- FILTER-END --}}
 
