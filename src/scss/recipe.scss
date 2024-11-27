@@ -56,7 +56,10 @@
 
 .recpFilt{
     .catgSpc{
-        margin-bottom: 70px;
+        margin-bottom: 60px;
+        &.spRmv{
+            margin-bottom: 15px;
+        }
         .search-bar-container{
             .locatSearch{
                 .serLoc{

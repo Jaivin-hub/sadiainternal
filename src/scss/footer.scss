@@ -221,6 +221,9 @@ footer {
         padding: 64px 0px 96px;
         .footer-end {
             margin-top: 45px;
+            .ftr_links {
+                justify-content: center;
+            }
         }
         .footer-container {
             padding: 0 20px;
