@@ -321,18 +321,19 @@
                     content: ' ';
                     position: absolute;
                     top: -15px;
-                    left: 0;
+                    left: 43%;
                     z-index: 0;
                 }
                 &:nth-child(1){
                     &::before{
                         background: $primary-color;
+                        left: 0;
                     }
                 }
                 &:nth-child(2){
                     margin: 0 0 0 -12px;
                     &::before{
-                        display: none;
+                        // display: none;
                     }
                 }
                 &:nth-last-child(1){
@@ -408,7 +409,32 @@
             margin: 0px;
         }
     }
+    &.no-dot{
+        .price-range-slider{
+            .range-labels{
+                .names{
+                    &::before{
+                        display: none;
+                    }
+                    &:nth-last-child(1){
+                        &::before {
+                           display: inline-block;
+                        }
+                    }
+                    &:nth-child(1){
+                        &::before{
+                            display: inline-block;
+                        }
+                    }
+                  
+                }
+            }
+        } 
+
+    }
 }
+
+
 
 .recipies{
     .range-filter{
