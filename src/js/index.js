@@ -902,6 +902,7 @@ document.addEventListener('DOMContentLoaded', () => {
     productCatId: document.querySelector('.categ_filter.filBtn'),
     searchBar: document.querySelector('#search-bar-container'),
     searchBarId: document.querySelector('#searchBar'),
+    searchResult: document.querySelector('#searchresults-searchinput'),
 
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
@@ -970,10 +971,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  if (elements.searchBar) {
+  if (elements.searchResult) {
+    console.log('inside condision')
     document.getElementById('chickenpartsbutton').addEventListener('click', function () {
       const section = document.getElementById("chickenpartssection");
       const button = document.getElementById('chickenpartsbutton');
+      if (section.style.visibility === "hidden") {
+        section.style.visibility = "visible";
+        section.style.height = "auto";
+        section.style.overflow = "visible";
+        button.style.display = "none"; // Hides the button
+      } else {
+        section.style.visibility = "hidden";
+        section.style.height = "0";
+        section.style.overflow = "hidden";
+      }
+    });
+
+    document.getElementById('endlistshowmore').addEventListener('click', function () {
+      const section = document.getElementById("lastsection");
+      const button = document.getElementById('endlistshowmore');
       if (section.style.visibility === "hidden") {
         section.style.visibility = "visible";
         section.style.height = "auto";
