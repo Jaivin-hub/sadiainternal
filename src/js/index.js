@@ -909,11 +909,34 @@ document.addEventListener('DOMContentLoaded', () => {
     mainHeader: document.querySelector('.main-header'),
     productCatId: document.querySelector('.categ_filter.filBtn'),
     searchBar: document.querySelector('#search-bar-container'),
-
-
+    searchBarId: document.querySelector('#searchBar'),
 
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
+
+
+
+  const searchBar = document.getElementById('searchBar');
+  const searchForm = document.querySelector('.search-form');
+
+if(searchForm){
+  // Add an event listener to the form to prevent default submission
+document.querySelector('.search-form').addEventListener('submit', (event) => {
+  event.preventDefault(); // Prevent form submission
+});
+
+// Add a keydown event listener to handle the Enter key
+searchBar.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent form submission
+      const searchQuery = searchBar.value; // Get the input value
+      console.log('Search Query:', searchQuery); // Use the value as needed
+      if (searchQuery) {
+        window.location.href = `/en/search/?keyword=${encodeURIComponent(searchQuery)}`;
+    }
+  }
+});
+}
 
 
   if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
@@ -1026,83 +1049,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.priceRangeSlider || elements.priceRangeSliders) {
-
-    // Difficulty Slider
-    const difficultySlider = document.getElementById("difficulty-range");
-    if (difficultySlider) {
-
-      // Dynamically read difficulties from HTML
-      const difficultyElements = Array.from(
-        document.querySelectorAll(".range-labels span.names")
-      );
-      const difficulties = difficultyElements.map((el) => ({
-        id: parseInt(el.getAttribute("data-id")), // Read the data-id
-        label: el.textContent.trim(), // Read the label
+    // Function to create sliders dynamically
+    const createDynamicSlider = (sliderId, labelSelector, sliderType) => {
+      const slider = document.getElementById(sliderId);
+      if (!slider) {
+        console.error(`${sliderType} slider not found in DOM`);
+        return;
+      }
+  
+      // Dynamically read labels and data-id from HTML
+      const labelElements = Array.from(document.querySelectorAll(labelSelector));
+      const items = labelElements.map((el) => ({
+        id: parseInt(el.getAttribute("data-id")),
+        label: el.textContent.trim(),
       }));
-
-      // Create Difficulty Slider with three stops: start, middle, end
-      const totalStops = 3; // Number of stops: start, middle, end
-      const maxValue = difficulties.length - 1; // Last index in difficulties
-      const step = maxValue / (totalStops - 1); // Calculate step size
-
-      noUiSlider.create(difficultySlider, {
-        start: 0, // Start at the first difficulty
+  
+      // Calculate the step size dynamically
+      const maxValue = items.length - 1; // Last index in the items array
+      const step = maxValue > 0 ? 1 : 0; // Ensure step is valid only when items exist
+  
+      // Create slider
+      noUiSlider.create(slider, {
+        start: 0, // Start at the first point
         connect: [true, false],
         range: {
           min: 0,
           max: maxValue,
         },
-        step: step, // Enforce stops at start, middle, end
+        step: step, // Step between points
         pips: false,
         format: {
-          to: (value) => difficulties[Math.round(value / step)].id, // Map slider value to data-id
+          to: (value) => items[Math.round(value)].id, // Map slider value to data-id
           from: (value) =>
-            difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)), // Find index by data-id
+            items.findIndex((item) => item.id === parseInt(value)), // Find index by data-id
         },
       });
-
-
+  
       // Handle updates
-      difficultySlider.noUiSlider.on("update", (values) => {
+      slider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
-        selectedDifficulty = selectedId;
+        console.log(`${sliderType} selected ID: ${selectedId}`);
       });
-    } else {
-      console.error("Difficulty slider not found in DOM");
-    }
-
-    // Preparation Time Slider
-    const prepTimeSlider = document.getElementById("preparation-range");
-    if (prepTimeSlider) {
-
-      // Dynamically read preparation times from HTML
-      const prepTimeElements = Array.from(
-        document.querySelectorAll(
-          "#preparation-range-slider .range-labels span.names"
-        )
-      );
-      const prepTimes = prepTimeElements.map((el) =>
-        parseInt(el.getAttribute("data-id"))
-      );
-      noUiSlider.create(prepTimeSlider, {
-        start: prepTimes[0], // Start at the first preparation time
-        connect: [true, false],
-        range: {
-          min: Math.min(...prepTimes),
-          max: Math.max(...prepTimes),
-        },
-        step: (Math.max(...prepTimes) - Math.min(...prepTimes)) / (prepTimes.length - 1), // Step based on evenly distributed points
-        pips: false,
-      });
-
-
-      prepTimeSlider.noUiSlider.on("update", (values) => {
-        const prepTime = parseInt(values[0]); // Get the selected preparation time
-        selectedPrepTime = prepTime;
-      });
-    } else {
-      console.error("Preparation time slider not found in DOM");
-    }
+    };
+  
+    // Create Difficulty Slider
+    createDynamicSlider(
+      "difficulty-range",
+      "#difficulty-range-sliders .range-labels span.names",
+      "Difficulty"
+    );
+  
+    // Create Preparation Time Slider
+    createDynamicSlider(
+      "preparation-range",
+      "#preparation-range-slider .range-labels span.names",
+      "Preparation Time"
+    );
   }
 
   // recipe-category-listing
