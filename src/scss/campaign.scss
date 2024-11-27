@@ -8,6 +8,7 @@
         padding: 0;
         .mainTitle{
             margin: 0 0 24px 0;
+            line-height: 47px;
         }
         .descp{
             margin: 0 auto;
@@ -81,19 +82,23 @@
         padding: 0 80px;
         .subitle{
             color: $secondary-color;
-            font-size: 47px;
-            line-height: 50px;
+            font-size: 27px;
+            line-height: 27px;
             font-family: $title-font;
+            font-weight: 600;
+            text-transform: uppercase;
             margin: 20px 0;
             padding: 0;
         }
         .descp{
             font-size: 16px;
-            line-height: 22px;
+            line-height: 27px;
             margin: 0;
             padding: 0;
             color: $black-color;
+            font-family: $primary-font;
             font-weight: 500;
+            padding-right: 3%;
         }
         .btn-more{
             margin: 24px 0;
@@ -124,7 +129,7 @@
        
     }
 
-    .campTitles {
+    .campTitles{
         margin: 115px 0 48px;
         .titleWrap{
             font-size: 47px;
@@ -140,6 +145,9 @@
             padding: 0 15px;
             .btn-more{
                 margin: 16px 0 0;
+            }
+            .descp{
+                padding-right: 0;
             }
             .subitle {
                 font-size: 36px;

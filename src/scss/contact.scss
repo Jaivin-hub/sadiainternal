@@ -64,7 +64,7 @@
             outline: 0;
             box-shadow: inherit;
             // color: $black-light;
-            color: #ADADAD;
+            color: $black-light;
             &::placeholder{
                 color: #ADADAD;
             }
@@ -141,9 +141,11 @@
             border-radius: 5px;
             border: 1px solid #ADADAD;
             height: 42px;
-            font-family: $title-font;
-            font-size: 18px;
-            line-height: 18px;
+            font-family: $primary-font;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 16px;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
             min-width: 190px;
             width: auto;
@@ -174,9 +176,10 @@
    .subBtn{
         background: $primary-color;
         border: 1px solid $primary-color;
-        font-family: $title-font;
-        font-size: 18px;
-        line-height: 18px;
+        font-family: $primary-font;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 16px;
         color: $white-color;
         border-radius: 4px;
         height: 42px;
@@ -191,8 +194,8 @@
     .contactSect{
         padding-left: 5% !important;
         .mainTitle{
-            font-size: 47px;
-            line-height: 50px;
+            font-size: 27px;
+            line-height: 27px;
             color: $secondary-color;
             font-family: $title-font;
             margin: 0 0 35px;
@@ -200,15 +203,19 @@
         }
         .descp{
             color: $black-light;
+            font-family: $primary-font;
             font-size: 16px;
             line-height: 22px;
+            font-weight: 400;
         }
         .contInfo{
             margin: 40px 0 20px;
             padding: 0;
             list-style: none;
+            font-family: $primary-font;
             font-size: 16px;
             line-height: 22px;
+            font-weight: 400;
             li{
                 display: flex;
                 align-items: center;
@@ -296,6 +303,10 @@
     }
     .titleWrap{
         margin-bottom: 40px;
+        .mainTitle{
+            font-size: 27px;
+            line-height: 27px;
+        }
     }
     .tabDesign{
         padding: 0;
@@ -307,8 +318,9 @@
             .filBtn{
                 font-family: $title-font;
                 color: #ADADAD;
-                font-size: 21px;
-                line-height: 21px;
+                font-size: 18px;
+                line-height: 18px;
+                text-transform: uppercase;
                 border: 0;
                 padding: 10px 0;
                 margin: 0 13px;
@@ -346,10 +358,11 @@
                     background-repeat: no-repeat;
                     background-position: center center;
                 }
-                font-size: 27px;
-                line-height: 27px;
+                font-size: 21px;
+                line-height: 21px;
                 color: #171716;
                 font-family: $title-font;
+                text-transform: uppercase;
                 outline: 0;
                 background: transparent;
                 box-shadow: inherit;
@@ -377,8 +390,8 @@
         .acrdDesg{
             .accordion-item{
                 .accordion-button {
-                    font-size: 36px;
-                    line-height: 38px;
+                    font-size: 21px;
+                    line-height: 21px;
                     padding: 15px 50px 15px 0;
                     &::after{
                         margin-right: -35px;

@@ -49,6 +49,23 @@ html {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'gilroyregular';
+  src: url('../assets/fonts/Gilroy/gilroy-regular-webfont.woff2') format('woff2'),
+       url('../assets/fonts/Gilroy/gilroy-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'gilroybold';
+  src: url('../assets/fonts/Gilroy/gilroy-bold-webfont.woff2') format('woff2'),
+       url('../assets/fonts/Gilroy/gilroy-bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
 
 
 body{
