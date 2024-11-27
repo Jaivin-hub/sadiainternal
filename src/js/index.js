@@ -167,18 +167,15 @@ const contactForms = () => {
       formData.append('message', document.querySelector('#message').value);
       formData.append('nodeId', nodeId);
       formData.append('lang', lang);
-      console.log('selectedFile',selectedFile)
       // Append the file only if one is selected
       if (selectedFile) {
         formData.append('file', selectedFile);
       }
 
-      console.log('Form Data:', formData);
 
       const submitButton = document.querySelector('.subBtn');
       const apiUrl = submitButton.getAttribute('data-url');
 
-      console.log('apiUrl:', apiUrl);
 
       fetch(apiUrl, {
         method: 'POST',
@@ -191,8 +188,7 @@ const contactForms = () => {
           return response.json();
         })
         .then((data) => {
-          console.log('API Response:', data);
-          if(data){
+          if (data) {
             document.querySelector('.contactForms').style.display = 'none';
             document.querySelector('.thanksWraper').style.display = 'block';
           }
@@ -262,7 +258,6 @@ function toggleRecipeSections() {
 
   // Helper function to update recipe list
   function updateRecipeList(data) {
-    console.log('updateREcipe')
     fetchRecipes('all-recipelist-template', data)
       .then(({ html, isEmpty }) => {
         const container = document.getElementById('defaultlistspace');
@@ -561,7 +556,7 @@ function initializeRecipeFilter() {
     preparationSelect.addEventListener('change', event => handleDropdownChange(event, 'preparation'));
 
     initialFetch()
-    
+
     searchInput.addEventListener('input', handleSearchInput);
     submitButton.addEventListener('click', handleSubmitButtonClick);
     showMoreButton.addEventListener('click', handleShowMoreButtonClick);
@@ -635,8 +630,6 @@ const cookingHacksSection = () => {
   function handleShowMoreButtonClick() {
     const limit = parseInt(submitButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
-    console.log('offset', offset)
-    // console.log('limit',limit)
     // let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
     let recipeSelectedValue = dropdown ? dropdown.value : '';
     showMoreClicked = true;
@@ -653,7 +646,6 @@ const cookingHacksSection = () => {
       url: url,
       lang: lang
     }
-    console.log('inside the showmore', dataObj)
     submitButton.setAttribute('data-offset', offset);
     fetchCookingHacks('hack-template', dataObj).then((res) => {
       const { html, isEmpty } = res;
@@ -678,7 +670,6 @@ const cookingHacksSection = () => {
       console.log('inside the catch error', error)
     })
   }
-  console.log('data consoling---', data)
   fetchCookingHacks('hack-template', data).then(obj => {
     const { html, isEmpty } = obj;
     const container = document.getElementById('hackcontainer');
@@ -840,46 +831,46 @@ const cookingHacksSection = () => {
   });
 
   function handleCloseButton(event) {
-      let recipeSelectedValue = recipeDropdown ? recipeDropdown.value : '';
-      const target = event.target.closest('#recipeclose');
-      showMoreClicked = false;
-      if (target) {
-        const data = {
-          cookingHackCatId: activeId,
-          occasionId: selectedOccasion,
-          recipeId: selectedRecipe,
-          productId: selectedProduct,
-          filter: recipeSelectedValue,
-          keyword: searchInput.value,
-          limit: limit,
-          offset: 0,
-          url: url,
-          lang: lang
-        }
-        fetchCookingHacks('hack-template', data).then(obj => {
-          const { html, isEmpty } = obj;
-          const container = document.getElementById('hackcontainer');
-          if (!container) {
-            console.warn('Container with ID "onlinecontainer" not found.');
-            return;
-          }
-    
-          if (showMoreClicked) {
-            container.innerHTML += html;
-          } else {
-            container.innerHTML = html;
-          }
-          const showMoreButton = document.querySelector('#hackshowmore');
-          if (isEmpty) {
-            showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
-          } else {
-            showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
-          }
-        })
-          .catch(error => {
-            console.error('Error fetching/rendering online stores:', error);
-          });
+    let recipeSelectedValue = recipeDropdown ? recipeDropdown.value : '';
+    const target = event.target.closest('#recipeclose');
+    showMoreClicked = false;
+    if (target) {
+      const data = {
+        cookingHackCatId: activeId,
+        occasionId: selectedOccasion,
+        recipeId: selectedRecipe,
+        productId: selectedProduct,
+        filter: recipeSelectedValue,
+        keyword: searchInput.value,
+        limit: limit,
+        offset: 0,
+        url: url,
+        lang: lang
       }
+      fetchCookingHacks('hack-template', data).then(obj => {
+        const { html, isEmpty } = obj;
+        const container = document.getElementById('hackcontainer');
+        if (!container) {
+          console.warn('Container with ID "onlinecontainer" not found.');
+          return;
+        }
+
+        if (showMoreClicked) {
+          container.innerHTML += html;
+        } else {
+          container.innerHTML = html;
+        }
+        const showMoreButton = document.querySelector('#hackshowmore');
+        if (isEmpty) {
+          showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
+        } else {
+          showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
+        }
+      })
+        .catch(error => {
+          console.error('Error fetching/rendering online stores:', error);
+        });
+    }
   }
 }
 
@@ -910,11 +901,67 @@ document.addEventListener('DOMContentLoaded', () => {
     mainHeader: document.querySelector('.main-header'),
     productCatId: document.querySelector('.categ_filter.filBtn'),
     searchBar: document.querySelector('#search-bar-container'),
-
-
+    searchBarId: document.querySelector('#searchBar'),
+    searchResult: document.querySelector('#searchresults-searchinput'),
 
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
+
+
+
+  const searchBar = document.getElementById('searchBar');
+  const searchForm = document.querySelector('.search-form');
+  const searchInputElement = document.getElementById('search-Bar');  // Input field for search with a different ID
+  const searchResultsForm = document.querySelector('.search-results-form');  // Form element for search results
+
+
+  if (searchForm || searchResultsForm) {
+    // Add an event listener to the form to prevent default submission
+    document.querySelector('.search-form').addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent form submission
+    });
+
+
+    // Add a keydown event listener to handle the Enter key
+    searchBar.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission
+        const baseUrl = searchBar.getAttribute('data-url');
+        const searchQuery = searchBar.value.trim(); // Get the input value
+        if (searchQuery) {
+          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+        }
+      }
+    });
+
+    if (searchResultsForm) {
+      const searchIcon = document.querySelector('.serBtn img');
+      searchResultsForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent form submission
+      });
+
+      searchInputElement.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevent form submission
+          const baseUrl = searchInputElement.getAttribute('data-url');
+          const searchQuery = searchInputElement.value.trim(); // Get the input value
+          if (searchQuery) {
+            window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+          }
+        }
+      });
+
+      searchIcon.addEventListener('click', () => {
+        const baseUrl = searchInputElement.getAttribute('data-url');
+        const searchQuery = searchInputElement.value.trim(); // Get the input value
+        if (searchQuery) {
+          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+        }
+      });
+    }
+
+
+  }
 
 
   if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
@@ -924,10 +971,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  if (elements.searchBar) {
+  if (elements.searchResult) {
+    console.log('inside condision')
     document.getElementById('chickenpartsbutton').addEventListener('click', function () {
       const section = document.getElementById("chickenpartssection");
       const button = document.getElementById('chickenpartsbutton');
+      if (section.style.visibility === "hidden") {
+        section.style.visibility = "visible";
+        section.style.height = "auto";
+        section.style.overflow = "visible";
+        button.style.display = "none"; // Hides the button
+      } else {
+        section.style.visibility = "hidden";
+        section.style.height = "0";
+        section.style.overflow = "hidden";
+      }
+    });
+
+    document.getElementById('endlistshowmore').addEventListener('click', function () {
+      const section = document.getElementById("lastsection");
+      const button = document.getElementById('endlistshowmore');
       if (section.style.visibility === "hidden") {
         section.style.visibility = "visible";
         section.style.height = "auto";
@@ -1027,73 +1090,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.priceRangeSlider || elements.priceRangeSliders) {
-    console.log('inside the slider condision')
+    // Function to create sliders dynamically
+    const createDynamicSlider = (sliderId, labelSelector, sliderType) => {
+      const slider = document.getElementById(sliderId);
+      if (!slider) {
+        console.error(`${sliderType} slider not found in DOM`);
+        return;
+      }
 
-    // Difficulty Slider
-    const difficultySlider = document.getElementById("difficulty-range");
-    if (difficultySlider) {
-      console.log('difficultySlider')
-      // Dynamically read difficulties from HTML
-      const difficultyElements = Array.from(document.querySelectorAll(".range-labels span.names"));
-      console.log('difficultyElements',difficultyElements)
-      const difficulties = difficultyElements.map((el) => ({
-        id: parseInt(el.getAttribute("data-id")), // Read the data-id
-        label: el.textContent.trim(), // Read the label
+      // Dynamically read labels and data-id from HTML
+      const labelElements = Array.from(document.querySelectorAll(labelSelector));
+      const items = labelElements.map((el) => ({
+        id: parseInt(el.getAttribute("data-id")),
+        label: el.textContent.trim(),
       }));
 
-      noUiSlider.create(difficultySlider, {
-        start: 0, // Start at the first difficulty
+      // Calculate the step size dynamically
+      const maxValue = items.length - 1; // Last index in the items array
+      const step = maxValue > 0 ? 1 : 0; // Ensure step is valid only when items exist
+
+      // Create slider
+      noUiSlider.create(slider, {
+        start: 0, // Start at the first point
         connect: [true, false],
         range: {
           min: 0,
-          max: difficulties.length - 1, // Max based on number of difficulties
+          max: maxValue,
         },
-        step: 1,
+        step: step, // Step between points
+        pips: false,
         format: {
-          to: (value) => difficulties[Math.round(value)].id, // Map slider value to data-id
+          to: (value) => items[Math.round(value)].id, // Map slider value to data-id
           from: (value) =>
-            difficulties.findIndex((difficulty) => difficulty.id === parseInt(value)), // Find index by data-id
+            items.findIndex((item) => item.id === parseInt(value)), // Find index by data-id
         },
       });
-      console.log(' created',noUiSlider)
-      difficultySlider.noUiSlider.on("update", (values) => {
+
+      // Handle updates
+      slider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
-        console.log('selectedId',selectedId)
-        selectedDifficulty = selectedId;
+        if (sliderType === "Difficulty") {
+          selectedDifficulty = selectedId;
+        } else if (sliderType === "Preparation Time") {
+          selectedPrepTime = selectedId;
+        }
       });
-    } else {
-      console.error("Difficulty slider not found in DOM");
-    }
+    };
 
-    // Preparation Time Slider
-    const prepTimeSlider = document.getElementById("preparation-range");
-    if (prepTimeSlider) {
-      console.log('preptimeslider')
-      // Dynamically read preparation times from HTML
-      const prepTimeElements = Array.from(document.querySelectorAll("#preparation-range-slider .range-labels span.names"));
-      const prepTimes = prepTimeElements.map((el) => parseInt(el.getAttribute("data-id")));
+    // Create Difficulty Slider
+    createDynamicSlider(
+      "difficulty-range",
+      "#difficulty-range-sliders .range-labels span.names",
+      "Difficulty"
+    );
 
-      noUiSlider.create(prepTimeSlider, {
-        start: prepTimes[0], // Start at the first preparation time
-        connect: [true, false],
-        range: {
-          min: Math.min(...prepTimes),
-          max: Math.max(...prepTimes),
-        },
-        step: 1,
-        format: {
-          to: (value) => `${value.toFixed(0)} mins`,
-          from: (value) => Number(value.replace(" mins", "")),
-        },
-      });
-      console.log('created')
-      prepTimeSlider.noUiSlider.on("update", (values) => {
-        const prepTime = parseInt(values[0]); // Get the selected preparation time
-        selectedPrepTime = prepTime;
-      });
-    } else {
-      console.error("Preparation time slider not found in DOM");
-    }
+    // Create Preparation Time Slider
+    createDynamicSlider(
+      "preparation-range",
+      "#preparation-range-slider .range-labels span.names",
+      "Preparation Time"
+    );
   }
 
   // recipe-category-listing
@@ -1106,8 +1162,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeRecipeFilter();
   }
 
-  if(contactForm){
-  contactForms()
+  if (contactForm) {
+    contactForms()
   }
 
   // Define the fetchRecipes function
