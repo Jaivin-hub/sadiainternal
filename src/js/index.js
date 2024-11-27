@@ -1080,6 +1080,12 @@ searchBar.addEventListener('keydown', (event) => {
       // Handle updates
       slider.noUiSlider.on("update", (values) => {
         const selectedId = parseInt(values[0]); // Get the selected data-id
+        console.log(`${sliderType} selected ID: ${selectedId}`);
+        if (sliderType === "Difficulty") {
+          selectedDifficulty = selectedId;
+        } else if (sliderType === "Preparation Time") {
+          selectedPrepTime = selectedId;
+        }
       });
     };
   
