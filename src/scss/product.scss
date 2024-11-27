@@ -15,9 +15,10 @@
         padding-right: 40px;
         .subitle {
             color: $secondary-color;
-            font-size: 61px;
-            line-height: 61px;
+            font-size: 47px;
+            line-height: 50px;
             font-family: $title-font;
+            text-transform: uppercase;
             margin: 20px 0;
             padding: 0;
         }
@@ -157,9 +158,11 @@
     .imgDiv{
         position: relative;
         .titles{
-            font-size: 47px;
-            line-height: 50px;
+            font-size: 27px;
+            line-height: 27px;
             font-family: $title-font;
+            font-weight: 600;
+            text-transform: uppercase;
             position: absolute;
             left: 40px;
             bottom: 35px;
@@ -244,6 +247,9 @@
 
 
 .trendingWraper{
+    .prdctDtl{
+        padding-top: 0;
+    }
     .card{
         &.me-4:last-child{
             margin-right: 0 !important;
@@ -252,6 +258,8 @@
             .card-title{
                 margin: 0 0 5px;
                 padding-right: 5%;
+                min-height: 52px;
+                display: flex;
             }
             .card-text{
                 color: #adadad;
@@ -386,7 +394,7 @@
             background-color: $border-color;
         }
         .pdctImg{
-            min-height: 300px;
+            height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -860,6 +868,10 @@
         }
     }
 }
+
+
+
+
 
 @media (max-width: 767px) {
     .trendingWraper{

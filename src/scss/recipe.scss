@@ -40,8 +40,9 @@
             width: 100%;
             text-align: center;
             font-family: $title-font;
-            font-size: 61px;
-            line-height: 61px;
+            font-size: 47px;
+            line-height: 50px;
+            text-transform: uppercase;
             z-index: 1;
             color: $white-color;
             display: flex;
@@ -92,8 +93,23 @@
         border: 1px solid $primary-color;
     }
     p{
-        margin: 0 15px;
+        margin: 0 0 0 15px;
         padding: 0;
+    }
+    img{
+        &.icons.arwIcon{
+            display: none;
+        }
+    }
+    &.active{
+        p{
+            margin: 0 15px;
+        }
+        img{
+            &.icons.arwIcon{
+                display: block;
+            }
+        }
     }
 }
 
@@ -102,6 +118,7 @@
 }
 
 .rptBoxs-des{
+    margin-bottom: 15px;
     .titleSpace{
         display: flex;
         align-items: center;
@@ -110,22 +127,27 @@
     .titleWrap{
         margin: 0 0 40px;
         .mainTitle {
-            font-size: 47px;
+            font-size: 27px;
             letter-spacing: 0px;
-            line-height: 50px;
+            font-family: $title-font;
+            line-height: 27px;
             margin: 3px 0 0px;
+            text-transform: uppercase;
         }
         .btn-more{
             background-color: $white-color;
             border-color: $primary-color;
             color: $black-color;
-            font-weight: 500;
+            font-family: $title-font;
+            font-weight: 600;
+            letter-spacing: 0;
+            font-size: 16px;
             min-height: 42px;
             min-width: 100px;
         }
     }
     .listSpace{
-        margin-bottom: 20px;
+        margin-bottom: 0px;
     }
     .card{
         width: 100%;
@@ -165,7 +187,7 @@
             .resetBtn{
                 min-width: 86px;
                 &.submit{
-                    width: calc(100% - 100px);
+                    width: calc(100% - 120px);
                     margin: 0 0 0 10px;
                 }
             }
@@ -176,9 +198,9 @@
             min-height: 42px;
             color: $secondary-color;
             border: 1px solid $secondary-color;
-            font-size: 18px;
+            font-size: 16px;
             padding: 7px 10px 5px;
-            line-height: 18px;
+            line-height: 16px;
             letter-spacing: 0.3px;
             border-radius: 4px;
             outline: 0;
@@ -186,6 +208,7 @@
             background: transparent;
             text-transform: uppercase;
             font-family: $title-font;
+            font-weight: 500;
             img{
                 max-width: 14px;
                 margin: 0 0 0 5px;
@@ -234,6 +257,7 @@
             height: 54px;
             width: 100%;
             color: #ADADAD;
+            font-family: $primary-font;
             font-size: 16px;
             line-height: 18px;
             outline: 0;
@@ -544,7 +568,7 @@
             margin-bottom: 25px;
             .col-md-4{
                 .card{
-                    margin-bottom: 20px;
+                    margin-bottom: 35px;
                 }
             }
             

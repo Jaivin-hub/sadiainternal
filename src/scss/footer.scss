@@ -6,13 +6,13 @@
 footer {
     background: #171716;
     color: #fff;
-    padding: 88px 0 120px;
+    padding: 80px 0;
     position: relative;
     bottom: 0;
     width: 100%;
     margin-top: 70px;
     .footer-container{
-        padding: 0 100px;
+        padding: 0 150px;
     }
     .ftrNewsletter{
         display: none;
@@ -31,10 +31,12 @@ footer {
         }
     }
     .ftrLogoWrap{
-        padding-bottom: 120px;
+
     }
     .footer-end{
-        margin-top: 48px;
+        margin-top: 15px;
+        padding: 45px 0 0;
+        border-top: 1px solid #3C3C3C;
     }
     .footer-copyright{
         color: #5E5E5E;
@@ -47,6 +49,8 @@ footer {
     .ftr_links {
         font-size: 14px;
         display: flex;
+        margin: 0;
+        padding: 0;
         li{
             margin-right: 40px;
             
@@ -71,7 +75,7 @@ footer {
             padding: 0;
             display: flex;
             li{
-                margin-right: 25px;
+                margin-right: 30px;
             }
             a{
                 &:hover{
@@ -81,6 +85,9 @@ footer {
                     i{
                         color: $white-color;
                     }
+                }
+                img{
+                    max-height: 24px;
                 }
 
             }
@@ -93,14 +100,16 @@ footer {
     
     .footer-grid-title{
         color: $grey-color;
-        font-size: 70px;
+        font-size: 18px;
+        line-height: 18px;
         font-family: $title-font;
+        margin: 0 0 30px;
     }
 
     .ftrLinks ul{
         color: $grey-color;
         font-size: 16px;
-        line-height: 20px;
+        line-height: 22px;
         padding: 0;
         margin: 0;
         li{
@@ -201,9 +210,10 @@ footer {
 @media (max-width: 767px) {
 
     footer{
+        margin-top: 110px;
         padding: 64px 0px 96px;
         .footer-end {
-            margin-top: 40px;
+            margin-top: 45px;
         }
         .footer-container {
             padding: 0 20px;
@@ -213,10 +223,9 @@ footer {
         }
         .ftrLogoWrap{
             text-align: center;
-            padding-bottom: 40px;
-            margin: 0;
+            margin: 0 0 60px;
             .footer-logo{
-                height: 96px;
+                max-height: 96px;
                 width: auto;
                 max-width: 100%;
                 
@@ -244,6 +253,7 @@ footer {
             }
         }
         .ftrLinks{
+            margin: 0 0 65px;
             ul{
                 li{
                     display: inline-block;
