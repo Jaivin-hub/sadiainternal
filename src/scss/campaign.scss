@@ -110,6 +110,10 @@
 
 }
 
+.onlymob{
+    display: none;
+}
+
 @media (max-width: 991px) {
 
     .campaignBxWraper{
@@ -121,6 +125,29 @@
 
 }
 @media (max-width: 767px) {
+
+    .onlymob{
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    .bannerSlider{
+        &.campagin{
+            .carousel{
+                .carousel-indicators {
+                    
+                }
+                .carousel-item{
+                    img.slider-img{
+                        height: 390px !important;
+                    }
+
+                }
+            }
+            
+        }
+    }
 
     .reverBx{
         .bxOuter{
