@@ -972,7 +972,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.searchResult) {
-    console.log('inside condision')
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchKeyword = urlParams.get("keyword"); // Get the value of 'keyword'
+
+    // Select the search input field
+    const searchInput = document.getElementById("search-Bar");
+
+    // If 'keyword' exists in the URL, set its value in the input field
+    if (searchKeyword) {
+        searchInput.value = decodeURIComponent(searchKeyword); // Decode the keyword (e.g., to handle spaces)
+    }
+
     document.getElementById('chickenpartsbutton').addEventListener('click', function () {
       const section = document.getElementById("chickenpartssection");
       const button = document.getElementById('chickenpartsbutton');

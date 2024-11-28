@@ -436,6 +436,12 @@
     } 
 }
 
+#commonclass{
+    visibility:hidden;
+    height:0;
+    overflow:hidden;
+}
+
 
 @media (max-width: 767px) {
 
