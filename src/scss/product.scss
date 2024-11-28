@@ -413,6 +413,11 @@
                 font-weight: 600;
                 margin: 5px 0;
                 padding: 0;
+
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
             }
             .dtls{
                 font-size: 16px;
@@ -687,9 +692,10 @@
         .dtlsWraper{
             border-top: 1px solid $border-color;
             .subTitles{
-                font-size: 27px;
-                line-height: 27px;
+                font-size: 21px;
+                line-height: 21px;
                 font-family: $title-font;
+                text-transform: uppercase;
                 color: $secondary-color;
                 margin: 25px 0 35px;
                 padding: 0;
@@ -764,13 +770,14 @@
             color: $black-color;
             margin: 40px 0;
             .titles{
-                font-size: 27px;
-                line-height: 27px;
+                font-size: 21px;
+                line-height: 21px;
                 background-color: $primary-color;
                 color: $white-color;
                 min-height: 85px;
                 display: flex;
                 align-items: center;
+                text-transform: uppercase;
                 font-family: $title-font;
                 padding: 30px 30px 25px;
                 margin: 0;
@@ -869,8 +876,8 @@
 .campaignBxWraper{
     .reverse-cl{
         .subitle{
-            font-size: 61px;
-            line-height: 61px;
+            font-size: 47px;
+            line-height: 50px;
         }
     }
 }

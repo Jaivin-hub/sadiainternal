@@ -37,6 +37,9 @@ footer {
         margin-top: 15px;
         padding: 45px 0 0;
         border-top: 1px solid #3C3C3C;
+        .ftr_links{
+            justify-content: end;
+        }
     }
     .footer-copyright{
         color: #5E5E5E;
@@ -45,6 +48,8 @@ footer {
             color: #5E5E5E;
             text-decoration: none;
         }
+        
+        
     }
     .ftr_links {
         font-size: 14px;
@@ -70,6 +75,7 @@ footer {
         
     }
     .footer-socials{
+        padding-left: 5%;
         ul{
             margin: 0;
             padding: 0;
@@ -104,6 +110,7 @@ footer {
         line-height: 18px;
         font-family: $title-font;
         margin: 0 0 30px;
+        text-transform: uppercase;
     }
 
     .ftrLinks ul{
@@ -214,6 +221,9 @@ footer {
         padding: 64px 0px 96px;
         .footer-end {
             margin-top: 45px;
+            .ftr_links {
+                justify-content: center;
+            }
         }
         .footer-container {
             padding: 0 20px;
@@ -232,6 +242,7 @@ footer {
             }
         }
         .footer-socials{
+            padding-left: 0;
             &.webOnly{
                 display: none;
             }
