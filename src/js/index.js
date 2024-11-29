@@ -908,12 +908,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
 
-
-
   const searchBar = document.getElementById('searchBar');
   const searchForm = document.querySelector('.search-form');
   const searchInputElement = document.getElementById('search-Bar');  // Input field for search with a different ID
   const searchResultsForm = document.querySelector('.search-results-form');  // Form element for search results
+
+    if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
+    initializeSlick();
+  } else {
+    console.warn('Slick slider elements not found in the DOM.');
+  }
 
 
   if (searchForm || searchResultsForm) {
@@ -962,13 +966,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-  }
-
-
-  if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
-    initializeSlick();
-  } else {
-    console.warn('Slick slider elements not found in the DOM.');
   }
 
 
