@@ -21,6 +21,12 @@ p{
     font-family: $primary-font;
 }
 
+ul{
+    &.slick-track{
+        padding: 0;
+    }
+}
+
 .breadcrumb{
     border-top: 1px solid #EBEBEB;
     padding: 50px 0 35px;
@@ -1228,7 +1234,7 @@ p{
     .your-favorite{
         .slider-wrapper{
             .mainTitle{
-                margin: 0 0 -15px;
+                margin: 0 0 -10px;
             }
             .thumbnail-slider{
                 display: none;
@@ -1243,9 +1249,18 @@ p{
                     }
                     .lists{
                         margin: 15px 0 50px;
+                        float: left;
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 0 10px;
                         li{
-                            font-size: 19px;
+                            font-size: 18px;
                             line-height: 32px;
+                            float: left;
+                            min-height: 100%;
+                            justify-content: center;
                         }
                     }
                    
