@@ -123,7 +123,11 @@ const contactForms = () => {
     const error = document.querySelector(errorSelector);
     const message = error?.textContent || 'Invalid input';
 
-    if (!input.value.trim() || (input.type === 'email' && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input.value))) {
+    // Validation logic for specific input types
+    if (!input.value.trim() || 
+        (input.type === 'email' && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input.value)) ||
+        (input.id === 'mobileNumber' && !/^\d+$/.test(input.value)) // Phone number must be numeric
+    ) {
       error.textContent = message; // Use existing error message from HTML
       error.style.display = 'block';
       return false;
@@ -173,10 +177,8 @@ const contactForms = () => {
         formData.append('file', selectedFile);
       }
 
-
       const submitButton = document.querySelector('.subBtn');
       const apiUrl = submitButton.getAttribute('data-url');
-
 
       fetch(apiUrl, {
         method: 'POST',
@@ -200,6 +202,7 @@ const contactForms = () => {
     }
   });
 };
+
 
 
 let selectedDifficulty = null;
@@ -1190,9 +1193,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (elements.mapFrame) {
     initializeMapbox();
   }
-
-
-
 
 
 
