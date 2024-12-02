@@ -983,7 +983,24 @@
 
 }
 
+@media (max-width: 580px) {
 
+    .prdctDetailwrap{
+        .prdctInfo-wrap{
+            .dtlsWraper{
+                .subTitles {
+                    padding: 0 15%;
+                }
+                .boxGrids{
+                    .subTitles {
+                        padding: 0;
+                    } 
+                }
+            }
+        }
+    }  
+
+}
 
 
 
