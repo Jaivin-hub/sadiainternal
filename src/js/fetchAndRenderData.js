@@ -4,10 +4,10 @@ import instoreList from '../assets/json/instore.json';
 import onlineStoreList from '../assets/json/onlinestore.json';
 
 
-async function fetchAndRenderData(templateName, apiUrl, selectedValue, productCatId, offset, limit) {
+async function fetchAndRenderData(templateName, apiUrl, selectedValue, productTypeId, offset, limit, lang) {
     try {
         let isEmpty = false;
-        const url = `${apiUrl}?productCatId=${productCatId}&limit=${limit}&offset=${offset}&filter=${selectedValue}`;
+        const url = `${apiUrl}?productTypeId=${productTypeId}&limit=${limit}&offset=${offset}&filter=${selectedValue}&lang=${lang}`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.statusText}`);

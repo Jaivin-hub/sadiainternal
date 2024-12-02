@@ -3,9 +3,9 @@
     <div class="topArea">
         <h6 class="filTxt">Filter by:</h6>
 
-        <button class="btn resetBtn" id="resettopbutton">
+        {{!-- <button class="btn resetBtn" id="resettopbutton">
             Reset <img src="./assets/images/icons/reset.svg" class="img-fluid" alt="img">
-        </button>
+        </button> --}}
     </div>
 
     <div class="filterWrap catgSpc">
@@ -20,7 +20,7 @@
 
 
     <div class="spDivs">
-        <div class="range-filter no-dot">
+        <div class="range-filter">
             <label class="subTitles">Difficulty</label>
             <div class="price-range-slider" id="difficulty-range-sliders">
                 <p class="range-value">
@@ -29,20 +29,20 @@
                 <div id="difficulty-range" class="range-bar"></div>
                 <div class="range-labels">
                     <span data-id="1526" class="names">Easy</span>
-                    <span data-id="1527" class="names">Medium</span>
+                    <span data-id="1527" class="names centerdifficulty">Medium</span>
                     <span data-id="1528" class="names">Hard</span>
                 </div>
             </div>
         </div>
 
-        <div class="range-filter no-dot">
+        <div class="range-filter">
             <label class="subTitles">Preparation Time</label>
             <div class="price-range-slider" id="preparation-range-slider">
                 <div id="preparation-range" class="range-bar"></div>
                 <div class="range-labels">
                     <span data-id="5" class="names">5 Mins</span>
-                    <span data-id="30" class="names">30 Mins</span>
-                    <span data-id="60" class="names">60 Mins</span>
+                    <span data-id="30" class="names centerpoints">30 Mins</span>
+                    <span data-id="60" class="names centerpoints2">60 Mins</span>
                     <span data-id="90" class="names">90 Mins</span>
                 </div>
             </div>

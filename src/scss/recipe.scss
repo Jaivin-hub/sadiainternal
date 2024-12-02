@@ -130,7 +130,7 @@
     .titleWrap{
         margin: 0 0 40px;
         .mainTitle {
-            font-size: 27px;
+            font-size: 24px;
             letter-spacing: 0px;
             font-family: $title-font;
             line-height: 27px;
@@ -459,6 +459,24 @@
             }
         } 
 
+    }
+}
+
+.centerpoints{
+    &::before{
+        left: 60% !important;
+    }
+} 
+
+.centerpoints2{
+    &::before{
+        left: 70% !important;
+    }
+} 
+
+.centerdifficulty{
+    &::before{
+        left: 57% !important;
     }
 }
 

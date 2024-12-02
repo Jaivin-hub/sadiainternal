@@ -302,6 +302,15 @@ p{
         }
     } 
 
+    .cardImg{
+        height: 258px !important;
+        
+        img.mainImg{
+            height: 258px !important;
+        }
+        
+    }
+
    
 }
 
@@ -1232,7 +1241,7 @@ p{
                     .lists{
                         margin: 15px 0 50px;
                         li{
-                            font-size: 28px;
+                            font-size: 19px;
                             line-height: 32px;
                         }
                     }
