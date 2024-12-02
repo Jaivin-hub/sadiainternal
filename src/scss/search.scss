@@ -89,6 +89,9 @@
 }
 
 .searchList{
+    .card{
+        cursor: pointer;
+    }
     .rowDiv{
         margin-bottom: 10px;
     }
@@ -201,7 +204,11 @@
     }
 }
   
-
+.hideDives{
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
 
 
 @media (max-width: 767px) {

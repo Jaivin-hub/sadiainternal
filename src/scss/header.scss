@@ -160,6 +160,14 @@ header {
 				&.show{
 					color: $white-color;
 				}
+				&.spaceR{
+					border-top-right-radius: 0;
+					border-bottom-right-radius: 0;
+				}
+				&.spaceL{
+					border-top-left-radius: 0;
+					border-bottom-left-radius: 0;
+				}
 			}
 			&.show{
 				color: $secondary-color;
@@ -703,7 +711,7 @@ header {
         text-align: center;
         position: absolute;
         left: 0;
-        top: 25px;
+        top: 55px;
         z-index: 10;
 		.headerLogo{
 			filter: brightness(0) invert(1);
