@@ -302,13 +302,16 @@ p{
         }
     } 
 
-    .cardImg{
-        height: 258px !important;
-        
-        img.mainImg{
-            height: 258px !important;
+    .cookingHacks{
+        .cardImg{
+            height: 258px;
+            
+            img.mainImg{
+                min-height: 258px;
+                height: auto;
+            }
+            
         }
-        
     }
 
    
@@ -1901,6 +1904,14 @@ p{
     }
     .your-favorite{
         .slider-wrapper{
+            .image-slider{
+                .slide{
+                    img{
+                        max-width: 340px;
+                        min-height: inherit;
+                    }
+                }
+            }  
             .content-section{
                 .content-item{
                     .lists{
