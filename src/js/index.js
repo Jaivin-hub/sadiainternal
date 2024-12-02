@@ -275,9 +275,9 @@ function toggleRecipeSections() {
           container.innerHTML = html;
         }
         if (isEmpty) {
-          showMoreButton.style.visibility = "hidden";
+          showMoreButton.style.display = "none";
         } else {
-          showMoreButton.style.visibility = "visible";
+          showMoreButton.style.display = "block";
         }
       })
       .catch(error => console.error('Error fetching/rendering recipes:', error));
@@ -377,7 +377,7 @@ function toggleRecipeSections() {
     });
     ['listingShowMore'].forEach(id => {
       const section = document.getElementById(id);
-      if (section) section.style.visibility = 'visible';
+      if (section) section.style.display = 'block';
     });
   }
 
