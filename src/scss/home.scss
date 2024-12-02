@@ -1192,6 +1192,60 @@ ul{
     }
 }
 
+
+@media (max-width: 1360px) {
+    .your-favorite{
+        .slider-wrapper{
+            .mainTitle{
+                font-size: 95px;
+                line-height: 96px;
+            }
+        } 
+
+    }
+}
+@media (max-width: 1260px) {
+  
+
+    .your-favorite{
+        .slider-wrapper{
+            
+            .mainTitle{
+                font-size: 80px;
+                line-height: 82px;
+            }
+            .image-slider{
+                .slide{
+                    img{
+                        max-width: 100%;
+                        min-height: auto;
+                    }
+                }
+            } 
+            .content-section{
+                .content-item{
+                    .lists {
+                        font-size: 13px;
+                        margin: 0 0 36px;
+                    }
+                }
+            } 
+                
+        } 
+
+    }
+}
+@media (max-width: 1080px) {
+    .your-favorite{
+        .slider-wrapper{
+            .mainTitle{
+                font-size: 65px;
+                line-height: 66px;
+            }
+        } 
+
+    }
+}
 @media (max-width: 991px) {
 
     .your-favorite{
@@ -1214,16 +1268,10 @@ ul{
                                 font-size: 24px;
                                 line-height: 25px;
                             }
-
                         }
-
                     }
-
                 }
             } 
-            
-       
-                
         }
     }
 
@@ -1233,12 +1281,23 @@ ul{
 
     .your-favorite{
         .slider-wrapper{
+            .padSpace {
+                padding: 0 12px;
+            }
             .mainTitle{
                 margin: 0 0 -10px;
             }
             .thumbnail-slider{
                 display: none;
             }
+            .image-slider{
+                .slide{
+                    img{
+                        max-width: 700px;
+                        min-height: auto;
+                    }
+                }
+            } 
             .content-section{
                 margin: 0px;
                 padding: 0 0px;
