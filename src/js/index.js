@@ -986,14 +986,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('chickenpartsbutton').addEventListener('click', function () {
+      console.log("invoking..")
       const section = document.getElementById("chickenpartssection");
       const button = document.getElementById('chickenpartsbutton');
       if (section.style.visibility === "hidden") {
+        console.log('if .. ')
         section.style.visibility = "visible";
         section.style.height = "auto";
         section.style.overflow = "visible";
         button.style.display = "none"; // Hides the button
       } else {
+        console.log('else..')
         section.style.visibility = "hidden";
         section.style.height = "0";
         section.style.overflow = "hidden";
