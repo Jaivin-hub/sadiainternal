@@ -1003,20 +1003,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    document.getElementById('endlistshowmore').addEventListener('click', function () {
-      const section = document.getElementById("lastsection");
-      const button = document.getElementById('endlistshowmore');
-      if (section.style.visibility === "hidden") {
-        section.style.visibility = "visible";
-        section.style.height = "auto";
-        section.style.overflow = "visible";
-        button.style.display = "none"; // Hides the button
-      } else {
-        section.style.visibility = "hidden";
-        section.style.height = "0";
-        section.style.overflow = "hidden";
-      }
-    });
+    // document.getElementById('endlistshowmore').addEventListener('click', function () {
+    //   const section = document.getElementById("lastsection");
+    //   const button = document.getElementById('endlistshowmore');
+    //   if (section.style.visibility === "hidden") {
+    //     section.style.visibility = "visible";
+    //     section.style.height = "auto";
+    //     section.style.overflow = "visible";
+    //     button.style.display = "none"; // Hides the button
+    //   } else {
+    //     section.style.visibility = "hidden";
+    //     section.style.height = "0";
+    //     section.style.overflow = "hidden";
+    //   }
+    // });
 
     document.getElementById('breadedbutton').addEventListener('click', function () {
       const section = document.getElementById("breadedsection");
