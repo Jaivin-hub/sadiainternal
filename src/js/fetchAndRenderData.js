@@ -4,15 +4,19 @@ import instoreList from '../assets/json/instore.json';
 import onlineStoreList from '../assets/json/onlinestore.json';
 
 
-async function fetchAndRenderData(templateName, apiUrl, selectedValue, productTypeId, offset, limit, lang) {
+async function fetchAndRenderData(templateName, apiUrl, selectedValue, productTypeId, offset, limit, lang, productCatId) {
     try {
+        console.log('consoling in finall',productCatId)
         let isEmpty = false;
-        const url = `${apiUrl}?productTypeId=${productTypeId}&limit=${limit}&offset=${offset}&filter=${selectedValue}&lang=${lang}`;
+        const url = `${apiUrl}?productTypeId=${productTypeId}&limit=${limit}&offset=${offset}&filter=${selectedValue}&productCatId=${productCatId}&lang=${lang}`;
+        console.log('url-====',url)
         const response = await fetch(url);
+        console.log('response',response)
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.statusText}`);
         }
         const productsList = await response.json(); // Assume productList is an array of items
+       console.log('productsList',productsList)
         if(productsList.length === 0){
             isEmpty = true;
         }

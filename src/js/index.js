@@ -51,9 +51,10 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 let showMoreClicked = false; // Global flag
 
 
-function getProductList(template, url, selectedValue, productTypeId, offset, limit) {
+function getProductList(template, url, selectedValue, productTypeId, offset, limit, productCatId) {
+  console.log("productCatId-----",productCatId)
   const lang = document.body.getAttribute('umb-lang');
-  fetchAndRenderData(template, url, selectedValue, productTypeId, offset, limit, lang)
+  fetchAndRenderData(template, url, selectedValue, productTypeId, offset, limit, lang, productCatId)
     .then(obj => {
       const { html, isEmpty } = obj;
       const container = document.querySelector('#cardcontainer');
@@ -1326,7 +1327,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Find the initial active button and get its `data-umb-id`
     let productTypeId;
+    let productCatId;
+    const filterButtons = document.querySelectorAll('.subfilbtn');
     const activeButton = document.querySelector('.categ_filter .filBtn.active');
+    const subActiveButton = document.querySelector('.categ_filter .subfilbtn.active');
+    if (subActiveButton) {
+      productCatId = subActiveButton.getAttribute('data-umb-id');
+    }else{
+      productCatId = 0; // Default to 0 if no active button is found
+    }
     if (activeButton) {
       productTypeId = activeButton.getAttribute('data-umb-id');
     } else {
@@ -1340,8 +1349,25 @@ document.addEventListener('DOMContentLoaded', () => {
     showMoreClicked = false;
 
     // Initial call to fetch products
-    getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit);
+    console.log('productCatId',productCatId)
+    getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
 
+    if(filterButtons){
+      filterButtons.forEach(button => {
+        button.addEventListener('click', event => {
+            event.preventDefault(); // Prevent the default link behavior
+            const selectedId = button.getAttribute('data-umb-id'); // Get the `data-umb-id` attribute
+            console.log(`Button clicked with data-umb-id: ${selectedId}`);
+            showMoreClicked = false;
+            offset = 0;
+            getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, selectedId);
+            
+            // // Optional: Add active class to the clicked button
+            // document.querySelector('.subfilbtn.active')?.classList.remove('active');
+            // button.classList.add('active');
+        });
+    });
+    }
     // Add event listener for dropdown only if it exists
     if (elements.productDropdown) {
       elements.productDropdown.addEventListener('change', () => {
@@ -1349,7 +1375,7 @@ document.addEventListener('DOMContentLoaded', () => {
         offset = 0; // Reset offset variable
         selectedValue = elements.productDropdown.value; // Update selected value
         showMoreClicked = false;
-        getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit);
+        getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
       });
     }
 
@@ -1359,7 +1385,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showMoreClicked = true;
       offset += limit; // Increment offset
       elements.productButton.setAttribute('data-offset', offset);
-      getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit);
+      getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
     });
   }
 
