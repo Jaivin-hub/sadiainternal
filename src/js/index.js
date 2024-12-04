@@ -52,7 +52,6 @@ let showMoreClicked = false; // Global flag
 
 
 function getProductList(template, url, selectedValue, productTypeId, offset, limit, productCatId) {
-  console.log("productCatId-----",productCatId)
   const lang = document.body.getAttribute('umb-lang');
   fetchAndRenderData(template, url, selectedValue, productTypeId, offset, limit, lang, productCatId)
     .then(obj => {
@@ -177,7 +176,6 @@ const contactForms = () => {
     // Validate each field dynamically
     valid &= validateField(document.querySelector('#fullName'), '#nameError');
     valid &= validateField(document.querySelector('#email'), '#emailError');
-    console.log('phoneInputField',phoneInputField)
     valid &= validateField(phoneInputField, '#phoneError'); // Validate with intl-tel-input
     valid &= validateField(document.querySelector('#subject'), '#subjectError');
     valid &= validateField(document.querySelector('#message'), '#messageError');
@@ -190,7 +188,6 @@ const contactForms = () => {
       // Get the full phone number with country code and selected country data
       const fullPhoneNumber = iti.getNumber(); // Full international phone number
       const countryData = iti.getSelectedCountryData(); // Get selected country info
-      console.log('fullPhoneNumber',fullPhoneNumber)
       // Prepare form data
       const formData = new FormData();
       formData.append('fullName', document.querySelector('#fullName').value);
@@ -360,7 +357,6 @@ function toggleRecipeSections() {
     });
 
     cuisineSelect.addEventListener('change', (event) => {
-      console.log('cuisine is selecting')
       selectedCuisine = event.target.value;
     });
 
@@ -1340,6 +1336,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedValue = elements.productDropdown ? elements.productDropdown.value : '';
 
     const filterButtons = document.querySelectorAll('.subfilbtn');
+    const typeFilterButtons = document.querySelectorAll('.typefilbtn');
+
 
     const url = elements.productButton.getAttribute('data-api');
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
@@ -1353,10 +1351,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return subActiveButton ? subActiveButton.getAttribute('data-umb-id') : 0;
     };
 
+    const getProductTypeId = () =>{
+      const typeActiveButton = document.querySelector('.type_filter .typefilbtn.active');
+      return typeActiveButton ? typeActiveButton.getAttribute('data-umb-id') : 0;
+    }
+
     // Initial call to fetch products
     let productCatId = getActiveProductCatId();
-    console.log('Initial productCatId:', productCatId);
-    getProductList('productlist-template', url, selectedValue, 0, offset, limit, productCatId);
+    let productTypeId = getProductTypeId();
+
+    getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
 
     // Add event listeners to filter buttons
     if (filterButtons) {
@@ -1372,27 +1376,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Get the `data-umb-id` of the clicked button
                 productCatId = button.getAttribute('data-umb-id');
-                console.log(`Button clicked with productCatId: ${productCatId}`);
 
                 // Reset offset and fetch updated product list
                 showMoreClicked = false;
                 offset = 0;
-                getProductList('productlist-template', url, selectedValue, 0, offset, limit, productCatId);
+                getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
             });
         });
     }
+    if (typeFilterButtons) {
+      typeFilterButtons.forEach(button => {
+          button.addEventListener('click', event => {
+              event.preventDefault();
+
+              // Remove `active` class from all buttons
+              typeFilterButtons.forEach(btn => btn.classList.remove('active'));
+
+              // Add `active` class to the clicked button
+              button.classList.add('active');
+
+              // Get the `data-umb-id` of the clicked button
+              productTypeId = button.getAttribute('data-umb-id');
+
+              // Reset offset and fetch updated product list
+              showMoreClicked = false;
+              offset = 0;
+              getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
+          });
+      });
+  }
 
     // Add event listener for dropdown if it exists
     if (elements.productDropdown) {
         elements.productDropdown.addEventListener('change', () => {
             productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
-            console.log('Dropdown change productCatId:', productCatId);
 
             elements.productButton.setAttribute('data-offset', '0');
             offset = 0;
             selectedValue = elements.productDropdown.value;
             showMoreClicked = false;
-            getProductList('productlist-template', url, selectedValue, 0, offset, limit, productCatId);
+            getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
         });
     }
 
@@ -1401,12 +1424,11 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
 
         productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
-        console.log('Show More productCatId:', productCatId);
 
         showMoreClicked = true;
         offset += limit;
         elements.productButton.setAttribute('data-offset', offset);
-        getProductList('productlist-template', url, selectedValue, 0, offset, limit, productCatId);
+        getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
     });
 }
 

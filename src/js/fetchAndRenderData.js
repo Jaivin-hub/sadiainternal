@@ -6,17 +6,13 @@ import onlineStoreList from '../assets/json/onlinestore.json';
 
 async function fetchAndRenderData(templateName, apiUrl, selectedValue, productTypeId, offset, limit, lang, productCatId) {
     try {
-        console.log('consoling in finall',productCatId)
         let isEmpty = false;
         const url = `${apiUrl}?productTypeId=${productTypeId}&limit=${limit}&offset=${offset}&filter=${selectedValue}&productCatId=${productCatId}&lang=${lang}`;
-        console.log('url-====',url)
         const response = await fetch(url);
-        console.log('response',response)
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.statusText}`);
         }
         const productsList = await response.json(); // Assume productList is an array of items
-       console.log('productsList',productsList)
         if(productsList.length === 0){
             isEmpty = true;
         }
@@ -138,7 +134,7 @@ async function fetchRecipes(templateName, data){
     }
 }
 
-async function fetchCookingHacks(templateName, data){
+async function fetchCookingHacks(templateName, data, getProductList){
     try{
         let isEmpty = false;
         const formdata = {
@@ -189,4 +185,103 @@ async function fetchCookingHacks(templateName, data){
     }
 }
 
-export {fetchInstore, fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks}
+async function fetchProductDatas(showMoreClicked, elements) {
+    let selectedValue = elements.productDropdown ? elements.productDropdown.value : '';
+
+    const filterButtons = document.querySelectorAll('.subfilbtn');
+    const typeFilterButtons = document.querySelectorAll('.typefilbtn');
+
+
+    const url = elements.productButton.getAttribute('data-api');
+    const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
+    let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
+
+    showMoreClicked = false;
+
+    // Function to get the active `productCatId`
+    const getActiveProductCatId = () => {
+      const subActiveButton = document.querySelector('.categ_filter .subfilbtn.active');
+      return subActiveButton ? subActiveButton.getAttribute('data-umb-id') : 0;
+    };
+
+    const getProductTypeId = () => {
+      const typeActiveButton = document.querySelector('.type_filter .typefilbtn.active');
+      return typeActiveButton ? typeActiveButton.getAttribute('data-umb-id') : 0;
+    }
+
+    // Initial call to fetch products
+    let productCatId = getActiveProductCatId();
+    let productTypeId = getProductTypeId();
+
+    getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
+
+    // Add event listeners to filter buttons
+    if (filterButtons) {
+      filterButtons.forEach(button => {
+        button.addEventListener('click', event => {
+          event.preventDefault();
+
+          // Remove `active` class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+
+          // Add `active` class to the clicked button
+          button.classList.add('active');
+
+          // Get the `data-umb-id` of the clicked button
+          productCatId = button.getAttribute('data-umb-id');
+
+          // Reset offset and fetch updated product list
+          showMoreClicked = false;
+          offset = 0;
+          getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
+        });
+      });
+    }
+    if (typeFilterButtons) {
+      typeFilterButtons.forEach(button => {
+        button.addEventListener('click', event => {
+          event.preventDefault();
+
+          // Remove `active` class from all buttons
+          typeFilterButtons.forEach(btn => btn.classList.remove('active'));
+
+          // Add `active` class to the clicked button
+          button.classList.add('active');
+
+          // Get the `data-umb-id` of the clicked button
+          productTypeId = button.getAttribute('data-umb-id');
+
+          // Reset offset and fetch updated product list
+          showMoreClicked = false;
+          offset = 0;
+          getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
+        });
+      });
+    }
+
+    // Add event listener for dropdown if it exists
+    if (elements.productDropdown) {
+      elements.productDropdown.addEventListener('change', () => {
+        productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
+
+        elements.productButton.setAttribute('data-offset', '0');
+        offset = 0;
+        selectedValue = elements.productDropdown.value;
+        showMoreClicked = false;
+        getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
+      });
+    }
+
+    // Event listener for "Show More" button clicks
+    elements.productButton.addEventListener('click', event => {
+      event.preventDefault();
+
+      productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
+
+      showMoreClicked = true;
+      offset += limit;
+      elements.productButton.setAttribute('data-offset', offset);
+      getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
+    });
+}
+export {fetchInstore, fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks, fetchProductDatas}
