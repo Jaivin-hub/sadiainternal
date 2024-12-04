@@ -390,7 +390,7 @@
         .acrdDesg{
             .accordion-item{
                 .accordion-button {
-                    font-size: 21px;
+                    font-size: 18px;
                     line-height: 21px;
                     padding: 15px 50px 15px 0;
                     &::after{
@@ -409,6 +409,18 @@
         
     }  
 
+}
+
+@media (max-width: 430px) {
+    .faqWraper{
+        .tabDesign{
+            .faq_filter{
+                .filBtn {
+                    font-size: 15px;
+                }
+            }
+        }
+    } 
 }
 
 // FAQ-END
