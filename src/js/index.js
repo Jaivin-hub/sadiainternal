@@ -1058,30 +1058,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchKeyword) {
       searchInput.value = decodeURIComponent(searchKeyword); // Decode the keyword (e.g., to handle spaces)
     }
-
-    // document.getElementById('searchProductShowMore').addEventListener('click', function () {
-    //   const templateName = 'searchlist-template'
-    //   const template = document.getElementById(templateName)?.innerHTML;
-    //   console.log('template',template)
-    //   if (!template) {
-    //     throw new Error(`Template with ID '${templateName}' not found.`);
-    //   }
-    //   let html = '';
-
-    //   dataList.forEach(item => {
-    //     html += Mustache.render(template, item);
-    //   });
-
-    //   const container = document.getElementById('productDisplay');
-    //   console.log('container',container)
-    //   if (!container) {
-    //     console.warn('Container with ID "defaultlistspace" not found.');
-    //     return;
-    //   }
-    //   console.log('html',html)
-    //   container.innerHTML = html;
-    // });
-
     function renderSections() {
       const sectionsContainer = document.getElementById("sections-container");
       sectionsContainer.innerHTML = "";
@@ -1118,9 +1094,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     
       // Hide "Show More" button if no more items to load
-      // if (start + count >= section.items.length) {
-      //   document.getElementById(`showMore-${sectionIndex}`).style.display = "none";
-      // }
+      if (start + count >= section.items.length) {
+        document.getElementById(`showMore-${sectionIndex}`).style.display = "none";
+      }
     }
     
     // Event listener for "Show More" buttons
@@ -1134,67 +1110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderSections();
-    
 
-    // document.getElementById('breadedbutton').addEventListener('click', function () {
-    //   const section = document.getElementById("breadedsection");
-    //   const button = document.getElementById('breadedbutton');
-    //   if (section.style.visibility === "hidden") {
-    //     section.style.visibility = "visible";
-    //     section.style.height = "auto";
-    //     section.style.overflow = "visible";
-    //     button.style.display = "none"; // Hides the button
-    //   } else {
-    //     section.style.visibility = "hidden";
-    //     section.style.height = "0";
-    //     section.style.overflow = "hidden";
-    //   }
-    // });
-
-    // document.getElementById('recipebtn').addEventListener('click', function () {
-    //   const section = document.getElementById("recipessection");
-    //   const button = document.getElementById('recipebtn');
-    //   if (section.style.visibility === "hidden") {
-    //     section.style.visibility = "visible";
-    //     section.style.height = "auto";
-    //     section.style.overflow = "visible";
-    //     button.style.display = "none"; // Hides the button
-    //   } else {
-    //     section.style.visibility = "hidden";
-    //     section.style.height = "0";
-    //     section.style.overflow = "hidden";
-    //   }
-    // });
-
-    // document.getElementById('cookingbtn').addEventListener('click', function () {
-    //   const section = document.getElementById("cookingsection");
-    //   const button = document.getElementById('cookingbtn');
-    //   if (section.style.visibility === "hidden") {
-    //     section.style.visibility = "visible";
-    //     section.style.height = "auto";
-    //     section.style.overflow = "visible";
-    //     button.style.display = "none"; // Hides the button
-    //   } else {
-    //     section.style.visibility = "hidden";
-    //     section.style.height = "0";
-    //     section.style.overflow = "hidden";
-    //   }
-    // });
-
-    // document.getElementById('endlistshowmore').addEventListener('click', function () {
-    //   const section = document.getElementById("lastsection");
-    //   const button = document.getElementById('endlistshowmore');
-    //   if (section.style.visibility === "hidden") {
-    //     section.style.visibility = "visible";
-    //     section.style.height = "auto";
-    //     section.style.overflow = "visible";
-    //     button.style.display = "none"; // Hides the button
-    //   } else {
-    //     section.style.visibility = "hidden";
-    //     section.style.height = "0";
-    //     section.style.overflow = "hidden";
-    //   }
-    // });
   }
 
   // Search Bar Expand/Collapse Handlers

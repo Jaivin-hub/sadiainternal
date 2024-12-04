@@ -13,12 +13,18 @@
       "items": [
         { "redirectUrl": "/product/5", "imageUrl": "/images/list5.png", "title": "Breaded Nuggets", "Calories": "300 Calories" },
         { "redirectUrl": "/product/6", "imageUrl": "/images/list6.png", "title": "Breaded Strips", "Calories": "320 Calories" },
+        { "redirectUrl": "/product/7", "imageUrl": "/images/list7.png", "title": "Breaded Fillets", "Calories": "310 Calories" },
+        { "redirectUrl": "/product/7", "imageUrl": "/images/list7.png", "title": "Breaded Fillets", "Calories": "310 Calories" },
         { "redirectUrl": "/product/7", "imageUrl": "/images/list7.png", "title": "Breaded Fillets", "Calories": "310 Calories" }
+
       ]
     },
     {
       "name": "Masala",
       "items": [
+        { "redirectUrl": "/product/8", "imageUrl": "/images/list8.png", "title": "Masala Chicken", "Calories": "350 Calories" },
+        { "redirectUrl": "/product/9", "imageUrl": "/images/list9.png", "title": "Masala Drumsticks", "Calories": "400 Calories" },
+        { "redirectUrl": "/product/10", "imageUrl": "/images/list10.png", "title": "Masala Wings", "Calories": "380 Calories" },
         { "redirectUrl": "/product/8", "imageUrl": "/images/list8.png", "title": "Masala Chicken", "Calories": "350 Calories" },
         { "redirectUrl": "/product/9", "imageUrl": "/images/list9.png", "title": "Masala Drumsticks", "Calories": "400 Calories" },
         { "redirectUrl": "/product/10", "imageUrl": "/images/list10.png", "title": "Masala Wings", "Calories": "380 Calories" }
