@@ -4,7 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Mustache from 'mustache';
 import '../scss/style.scss';
 import Handlebars from 'handlebars';
-import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
+import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn, initializeNewSlider } from './utils.js';
 import { fetchAssets, fetchProducts } from './api.js'
 import { fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks } from './fetchAndRenderData.js';
 import noUiSlider from 'nouislider';
@@ -51,9 +51,10 @@ document.head.insertAdjacentHTML('beforeend', pulsingDotStyle);
 let showMoreClicked = false; // Global flag
 
 
-function getProductList(template, url, selectedValue, productTypeId, offset, limit) {
+function getProductList(template, url, selectedValue, productTypeId, offset, limit, productCatId) {
+  console.log("productCatId-----",productCatId)
   const lang = document.body.getAttribute('umb-lang');
-  fetchAndRenderData(template, url, selectedValue, productTypeId, offset, limit, lang)
+  fetchAndRenderData(template, url, selectedValue, productTypeId, offset, limit, lang, productCatId)
     .then(obj => {
       const { html, isEmpty } = obj;
       const container = document.querySelector('#cardcontainer');
@@ -252,6 +253,8 @@ function toggleRecipeSections() {
   const submitButton = document.querySelector('#submit-button');
   const recipeDropdown = document.querySelector('#recipeDropdown');
   const cuisineSelect = document.querySelector('#cuisineselect');
+  const difficultySelect = document.querySelector('#difficultySelect');
+  const preparationTimeSelect = document.querySelector('#preparationSelect');
   const dietaryNeedsSelect = document.querySelector('#dietary-needs');
   const occasionSelect = document.querySelector('#occasion');
   const activeButton = document.querySelector('.categ_filter .filBtn.active');
@@ -264,6 +267,7 @@ function toggleRecipeSections() {
   let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
   const lang = document.body.getAttribute('umb-lang');
   const resetButtons = document.querySelectorAll('#resetButton, #resettopbutton');
+  // let selectedPrepTime = null;
 
 
   recipeCatId = activeButton ? activeButton.getAttribute('data-umb-id') : 0;
@@ -356,7 +360,17 @@ function toggleRecipeSections() {
     });
 
     cuisineSelect.addEventListener('change', (event) => {
+      console.log('cuisine is selecting')
       selectedCuisine = event.target.value;
+    });
+
+    preparationTimeSelect.addEventListener('change', (event) => {
+      selectedPrepTime = event.target.value;
+    });
+
+    
+    difficultySelect.addEventListener('change', (event) => {
+      selectedDifficulty = event.target.value;
     });
 
     dietaryNeedsSelect.addEventListener('change', (event) => {
@@ -948,6 +962,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
 
+  initializeNewSlider()
+
     // const phoneInputField = document.getElementById('phoneNumber');
     // const phoneError = document.getElementById('phoneError');
 
@@ -1048,7 +1064,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // document.getElementById('searchProductShowMore').addEventListener('click', function () {
-    //   console.log("invoking..")
     //   const templateName = 'searchlist-template'
     //   const template = document.getElementById(templateName)?.innerHTML;
     //   console.log('template',template)
@@ -1076,7 +1091,6 @@ document.addEventListener('DOMContentLoaded', () => {
       sectionsContainer.innerHTML = "";
     
       dataList.forEach((data, index) => {
-      console.log('category',data.name)
         const sectionHTML = `
           <div class="container">
             <div class="titleWrap">
@@ -1096,7 +1110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderItems(sectionIndex, start, count) {
-      console.log("renderItems..")
       const section = dataList[sectionIndex];
       const sectionContainer = document.getElementById(`section-${sectionIndex}`);
     
@@ -1228,68 +1241,68 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  if (elements.priceRangeSlider || elements.priceRangeSliders) {
-    // Function to create sliders dynamically
-    const createDynamicSlider = (sliderId, labelSelector, sliderType) => {
-      const slider = document.getElementById(sliderId);
-      if (!slider) {
-        console.error(`${sliderType} slider not found in DOM`);
-        return;
-      }
+  // if (elements.priceRangeSlider || elements.priceRangeSliders) {
+  //   // Function to create sliders dynamically
+  //   const createDynamicSlider = (sliderId, labelSelector, sliderType) => {
+  //     const slider = document.getElementById(sliderId);
+  //     if (!slider) {
+  //       console.error(`${sliderType} slider not found in DOM`);
+  //       return;
+  //     }
 
-      // Dynamically read labels and data-id from HTML
-      const labelElements = Array.from(document.querySelectorAll(labelSelector));
-      const items = labelElements.map((el) => ({
-        id: parseInt(el.getAttribute("data-id")),
-        label: el.textContent.trim(),
-      }));
+  //     // Dynamically read labels and data-id from HTML
+  //     const labelElements = Array.from(document.querySelectorAll(labelSelector));
+  //     const items = labelElements.map((el) => ({
+  //       id: parseInt(el.getAttribute("data-id")),
+  //       label: el.textContent.trim(),
+  //     }));
 
-      // Calculate the step size dynamically
-      const maxValue = items.length - 1; // Last index in the items array
-      const step = maxValue > 0 ? 1 : 0; // Ensure step is valid only when items exist
+  //     // Calculate the step size dynamically
+  //     const maxValue = items.length - 1; // Last index in the items array
+  //     const step = maxValue > 0 ? 1 : 0; // Ensure step is valid only when items exist
 
-      // Create slider
-      noUiSlider.create(slider, {
-        start: 0, // Start at the first point
-        connect: [true, false],
-        range: {
-          min: 0,
-          max: maxValue,
-        },
-        step: step, // Step between points
-        pips: false,
-        format: {
-          to: (value) => items[Math.round(value)].id, // Map slider value to data-id
-          from: (value) =>
-            items.findIndex((item) => item.id === parseInt(value)), // Find index by data-id
-        },
-      });
+  //     // Create slider
+  //     noUiSlider.create(slider, {
+  //       start: 0, // Start at the first point
+  //       connect: [true, false],
+  //       range: {
+  //         min: 0,
+  //         max: maxValue,
+  //       },
+  //       step: step, // Step between points
+  //       pips: false,
+  //       format: {
+  //         to: (value) => items[Math.round(value)].id, // Map slider value to data-id
+  //         from: (value) =>
+  //           items.findIndex((item) => item.id === parseInt(value)), // Find index by data-id
+  //       },
+  //     });
 
-      // Handle updates
-      slider.noUiSlider.on("update", (values) => {
-        const selectedId = parseInt(values[0]); // Get the selected data-id
-        if (sliderType === "Difficulty") {
-          selectedDifficulty = selectedId;
-        } else if (sliderType === "Preparation Time") {
-          selectedPrepTime = selectedId;
-        }
-      });
-    };
+  //     // Handle updates
+  //     slider.noUiSlider.on("update", (values) => {
+  //       const selectedId = parseInt(values[0]); // Get the selected data-id
+  //       if (sliderType === "Difficulty") {
+  //         selectedDifficulty = selectedId;
+  //       } else if (sliderType === "Preparation Time") {
+  //         selectedPrepTime = selectedId;
+  //       }
+  //     });
+  //   };
 
-    // Create Difficulty Slider
-    createDynamicSlider(
-      "difficulty-range",
-      "#difficulty-range-sliders .range-labels span.names",
-      "Difficulty"
-    );
+  //   // Create Difficulty Slider
+  //   createDynamicSlider(
+  //     "difficulty-range",
+  //     "#difficulty-range-sliders .range-labels span.names",
+  //     "Difficulty"
+  //   );
 
-    // Create Preparation Time Slider
-    createDynamicSlider(
-      "preparation-range",
-      "#preparation-range-slider .range-labels span.names",
-      "Preparation Time"
-    );
-  }
+  //   // Create Preparation Time Slider
+  //   createDynamicSlider(
+  //     "preparation-range",
+  //     "#preparation-range-slider .range-labels span.names",
+  //     "Preparation Time"
+  //   );
+  // }
 
   // recipe-category-listing
   const recipeCategoryListing = document.getElementById("recipe-category-listing");
@@ -1324,17 +1337,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.productButton) {
-    // Default selectedValue to empty string if productDropdown is not found
     let selectedValue = elements.productDropdown ? elements.productDropdown.value : '';
 
-    // Find the initial active button and get its `data-umb-id`
-    let productTypeId;
-    const activeButton = document.querySelector('.categ_filter .filBtn.active');
-    if (activeButton) {
-      productTypeId = activeButton.getAttribute('data-umb-id');
-    } else {
-      productTypeId = 0; // Default to 0 if no active button is found
-    }
+    const filterButtons = document.querySelectorAll('.subfilbtn');
 
     const url = elements.productButton.getAttribute('data-api');
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
@@ -1342,29 +1347,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showMoreClicked = false;
 
-    // Initial call to fetch products
-    getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit);
+    // Function to get the active `productCatId`
+    const getActiveProductCatId = () => {
+        const subActiveButton = document.querySelector('.categ_filter .subfilbtn.active');
+        return subActiveButton ? subActiveButton.getAttribute('data-umb-id') : 0;
+    };
 
-    // Add event listener for dropdown only if it exists
+    // Initial call to fetch products
+    let productCatId = getActiveProductCatId();
+    console.log('Initial productCatId:', productCatId);
+    getProductList('productlist-template', url, selectedValue, 0, offset, limit, productCatId);
+
+    // Add event listeners to filter buttons
+    if (filterButtons) {
+        filterButtons.forEach(button => {
+            button.addEventListener('click', event => {
+                event.preventDefault();
+
+                // Remove `active` class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add `active` class to the clicked button
+                button.classList.add('active');
+
+                // Get the `data-umb-id` of the clicked button
+                productCatId = button.getAttribute('data-umb-id');
+                console.log(`Button clicked with productCatId: ${productCatId}`);
+
+                // Reset offset and fetch updated product list
+                showMoreClicked = false;
+                offset = 0;
+                getProductList('productlist-template', url, selectedValue, 0, offset, limit, productCatId);
+            });
+        });
+    }
+
+    // Add event listener for dropdown if it exists
     if (elements.productDropdown) {
-      elements.productDropdown.addEventListener('change', () => {
-        elements.productButton.setAttribute('data-offset', '0');
-        offset = 0; // Reset offset variable
-        selectedValue = elements.productDropdown.value; // Update selected value
-        showMoreClicked = false;
-        getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit);
-      });
+        elements.productDropdown.addEventListener('change', () => {
+            productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
+            console.log('Dropdown change productCatId:', productCatId);
+
+            elements.productButton.setAttribute('data-offset', '0');
+            offset = 0;
+            selectedValue = elements.productDropdown.value;
+            showMoreClicked = false;
+            getProductList('productlist-template', url, selectedValue, 0, offset, limit, productCatId);
+        });
     }
 
     // Event listener for "Show More" button clicks
-    elements.productButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      showMoreClicked = true;
-      offset += limit; // Increment offset
-      elements.productButton.setAttribute('data-offset', offset);
-      getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit);
+    elements.productButton.addEventListener('click', event => {
+        event.preventDefault();
+
+        productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
+        console.log('Show More productCatId:', productCatId);
+
+        showMoreClicked = true;
+        offset += limit;
+        elements.productButton.setAttribute('data-offset', offset);
+        getProductList('productlist-template', url, selectedValue, 0, offset, limit, productCatId);
     });
-  }
+}
 
 
   const closeButton = document.querySelector('#instoreclose');
