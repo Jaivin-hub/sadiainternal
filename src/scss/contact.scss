@@ -31,6 +31,12 @@
         width: 100%;
         margin: 0;
         float: right;
+        .iti.iti--allow-dropdown {
+            width: 100%;
+            .form-control{
+                padding-left: 60px;
+            }
+        }
         .form-group{
             margin: 0 0 22px;
             padding: 0;
