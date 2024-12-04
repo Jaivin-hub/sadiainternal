@@ -253,6 +253,8 @@ function toggleRecipeSections() {
   const submitButton = document.querySelector('#submit-button');
   const recipeDropdown = document.querySelector('#recipeDropdown');
   const cuisineSelect = document.querySelector('#cuisineselect');
+  const difficultySelect = document.querySelector('#difficultySelect');
+  const preparationTimeSelect = document.querySelector('#preparationSelect');
   const dietaryNeedsSelect = document.querySelector('#dietary-needs');
   const occasionSelect = document.querySelector('#occasion');
   const activeButton = document.querySelector('.categ_filter .filBtn.active');
@@ -265,6 +267,7 @@ function toggleRecipeSections() {
   let offset = parseInt(submitButton.getAttribute('data-offset'), 10) || 0;
   const lang = document.body.getAttribute('umb-lang');
   const resetButtons = document.querySelectorAll('#resetButton, #resettopbutton');
+  // let selectedPrepTime = null;
 
 
   recipeCatId = activeButton ? activeButton.getAttribute('data-umb-id') : 0;
@@ -357,7 +360,17 @@ function toggleRecipeSections() {
     });
 
     cuisineSelect.addEventListener('change', (event) => {
+      console.log('cuisine is selecting')
       selectedCuisine = event.target.value;
+    });
+
+    preparationTimeSelect.addEventListener('change', (event) => {
+      selectedPrepTime = event.target.value;
+    });
+
+    
+    difficultySelect.addEventListener('change', (event) => {
+      selectedDifficulty = event.target.value;
     });
 
     dietaryNeedsSelect.addEventListener('change', (event) => {
@@ -1046,7 +1059,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // document.getElementById('searchProductShowMore').addEventListener('click', function () {
-    //   console.log("invoking..")
     //   const templateName = 'searchlist-template'
     //   const template = document.getElementById(templateName)?.innerHTML;
     //   console.log('template',template)
@@ -1074,7 +1086,6 @@ document.addEventListener('DOMContentLoaded', () => {
       sectionsContainer.innerHTML = "";
     
       dataList.forEach((data, index) => {
-      console.log('category',data.name)
         const sectionHTML = `
           <div class="container">
             <div class="titleWrap">
@@ -1094,7 +1105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderItems(sectionIndex, start, count) {
-      console.log("renderItems..")
       const section = dataList[sectionIndex];
       const sectionContainer = document.getElementById(`section-${sectionIndex}`);
     
@@ -1226,68 +1236,68 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  if (elements.priceRangeSlider || elements.priceRangeSliders) {
-    // Function to create sliders dynamically
-    const createDynamicSlider = (sliderId, labelSelector, sliderType) => {
-      const slider = document.getElementById(sliderId);
-      if (!slider) {
-        console.error(`${sliderType} slider not found in DOM`);
-        return;
-      }
+  // if (elements.priceRangeSlider || elements.priceRangeSliders) {
+  //   // Function to create sliders dynamically
+  //   const createDynamicSlider = (sliderId, labelSelector, sliderType) => {
+  //     const slider = document.getElementById(sliderId);
+  //     if (!slider) {
+  //       console.error(`${sliderType} slider not found in DOM`);
+  //       return;
+  //     }
 
-      // Dynamically read labels and data-id from HTML
-      const labelElements = Array.from(document.querySelectorAll(labelSelector));
-      const items = labelElements.map((el) => ({
-        id: parseInt(el.getAttribute("data-id")),
-        label: el.textContent.trim(),
-      }));
+  //     // Dynamically read labels and data-id from HTML
+  //     const labelElements = Array.from(document.querySelectorAll(labelSelector));
+  //     const items = labelElements.map((el) => ({
+  //       id: parseInt(el.getAttribute("data-id")),
+  //       label: el.textContent.trim(),
+  //     }));
 
-      // Calculate the step size dynamically
-      const maxValue = items.length - 1; // Last index in the items array
-      const step = maxValue > 0 ? 1 : 0; // Ensure step is valid only when items exist
+  //     // Calculate the step size dynamically
+  //     const maxValue = items.length - 1; // Last index in the items array
+  //     const step = maxValue > 0 ? 1 : 0; // Ensure step is valid only when items exist
 
-      // Create slider
-      noUiSlider.create(slider, {
-        start: 0, // Start at the first point
-        connect: [true, false],
-        range: {
-          min: 0,
-          max: maxValue,
-        },
-        step: step, // Step between points
-        pips: false,
-        format: {
-          to: (value) => items[Math.round(value)].id, // Map slider value to data-id
-          from: (value) =>
-            items.findIndex((item) => item.id === parseInt(value)), // Find index by data-id
-        },
-      });
+  //     // Create slider
+  //     noUiSlider.create(slider, {
+  //       start: 0, // Start at the first point
+  //       connect: [true, false],
+  //       range: {
+  //         min: 0,
+  //         max: maxValue,
+  //       },
+  //       step: step, // Step between points
+  //       pips: false,
+  //       format: {
+  //         to: (value) => items[Math.round(value)].id, // Map slider value to data-id
+  //         from: (value) =>
+  //           items.findIndex((item) => item.id === parseInt(value)), // Find index by data-id
+  //       },
+  //     });
 
-      // Handle updates
-      slider.noUiSlider.on("update", (values) => {
-        const selectedId = parseInt(values[0]); // Get the selected data-id
-        if (sliderType === "Difficulty") {
-          selectedDifficulty = selectedId;
-        } else if (sliderType === "Preparation Time") {
-          selectedPrepTime = selectedId;
-        }
-      });
-    };
+  //     // Handle updates
+  //     slider.noUiSlider.on("update", (values) => {
+  //       const selectedId = parseInt(values[0]); // Get the selected data-id
+  //       if (sliderType === "Difficulty") {
+  //         selectedDifficulty = selectedId;
+  //       } else if (sliderType === "Preparation Time") {
+  //         selectedPrepTime = selectedId;
+  //       }
+  //     });
+  //   };
 
-    // Create Difficulty Slider
-    createDynamicSlider(
-      "difficulty-range",
-      "#difficulty-range-sliders .range-labels span.names",
-      "Difficulty"
-    );
+  //   // Create Difficulty Slider
+  //   createDynamicSlider(
+  //     "difficulty-range",
+  //     "#difficulty-range-sliders .range-labels span.names",
+  //     "Difficulty"
+  //   );
 
-    // Create Preparation Time Slider
-    createDynamicSlider(
-      "preparation-range",
-      "#preparation-range-slider .range-labels span.names",
-      "Preparation Time"
-    );
-  }
+  //   // Create Preparation Time Slider
+  //   createDynamicSlider(
+  //     "preparation-range",
+  //     "#preparation-range-slider .range-labels span.names",
+  //     "Preparation Time"
+  //   );
+  // }
 
   // recipe-category-listing
   const recipeCategoryListing = document.getElementById("recipe-category-listing");
