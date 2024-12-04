@@ -1111,6 +1111,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderSections();
 
+
+    // recipelist-template
+
   }
 
   // Search Bar Expand/Collapse Handlers
