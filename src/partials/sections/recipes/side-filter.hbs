@@ -19,8 +19,8 @@
     </div>
 
 
-    <div class="spDivs">
-        <div class="range-filter">
+    {{!-- <div class="spDivs"> --}}
+        {{!-- <div class="range-filter">
             <label class="subTitles">Difficulty</label>
             <div class="price-range-slider" id="difficulty-range-sliders">
                 <p class="range-value">
@@ -33,9 +33,9 @@
                     <span data-id="1528" class="names">Hard</span>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="range-filter">
+        {{!-- <div class="range-filter">
             <label class="subTitles">Preparation Time</label>
             <div class="price-range-slider" id="preparation-range-slider">
                 <div id="preparation-range" class="range-bar"></div>
@@ -46,8 +46,31 @@
                     <span data-id="90" class="names">90 Mins</span>
                 </div>
             </div>
+        </div> --}}
+    {{!-- </div> --}}
+
+    <div class="spDivs pb-0"> 
+        <div class="form-group">
+            <label class="subTitles">Difficulty</label>
+            <select class="form-select" id=" ">
+                <option disabled>Select Difficulty</option>
+                <option value="">Easy</option>
+                <option value="">Medium</option>
+                <option value="">Hard</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="subTitles">Preparation Time</label>
+            <select class="form-select" id=" ">
+                <option disabled>Select Time</option>
+                <option value="">5 Mins</option>
+                <option value="">30 Mins</option>
+                <option value="">60 Mins</option>
+            </select>
         </div>
     </div>
+
 
     <div class="form-group">
         <label class="subTitles">Cuisine</label>
