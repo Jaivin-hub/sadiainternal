@@ -317,18 +317,6 @@ ul{
         }
     } 
 
-    .cookingHacks{
-        .cardImg{
-            height: 258px;
-            
-            img.mainImg{
-                min-height: 258px;
-                height: auto;
-            }
-            
-        }
-    }
-
    
 }
 
@@ -2057,6 +2045,12 @@ ul{
     .cookingHacks{
         .card{
             margin-bottom: 15px !important;
+            .cardImg{
+                height: 258px;
+                img.mainImg{
+                    min-height: 258px;
+                }
+            }
             .card-title{
                 font-size: 18px;
                 line-height: 24px;
