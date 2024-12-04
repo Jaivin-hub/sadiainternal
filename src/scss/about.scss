@@ -28,6 +28,27 @@
             }
         }
 
+        &.certImg{
+            .img-box{
+                text-align: center;
+                .bxImg{
+                    width: auto;
+                    height: auto;
+                    max-height: 593px;
+                    max-width: 100%;
+                    transition: inherit;
+                    object-fit: inherit;
+                }
+                &:hover{
+                    img.bxImg{
+                        transform: inherit;
+                    }
+                }
+            }
+            
+            
+        }
+
 
     }
 
@@ -106,7 +127,7 @@
         }
 
         .card-body {
-            padding-bottom: 0;
+            padding: 20px 20px 0;
 
             .card-title {
                 margin-bottom: 12px;
@@ -157,7 +178,6 @@
             float: left;
 
             &.pad-L {
-
                 &:first-child,
                 &:nth-child(4) {
                     padding-left: 0;
@@ -531,8 +551,14 @@
             flex-direction: column-reverse;
         }
     }
-
-
+    .campaignBxWraper{
+        .subitle.newSpc{
+            margin: 20px 0 15px;
+        }
+    }
+    .certImg {
+        margin-top: 25px;
+    }
 
 
 }
@@ -543,16 +569,17 @@
 .storyWraper.secSpace {
     padding-top: 85px;
 }
-
-// .cookingHacks.secSpace {
-//     padding-top: 85px;
-//     padding-bottom: 85px;
-// }
-
 .campaignBxWraper.secSpace {
     padding-top: 85px;
-
 }
+
+.campaignBxWraper{
+    .subitle.newSpc{
+        margin: 20px 0 45px;
+    }
+}
+
+
 
 @media screen and (min-width: 768px) {
 
@@ -582,3 +609,5 @@
 
     }
 }
+
+
