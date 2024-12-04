@@ -995,6 +995,9 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('Slick slider elements not found in the DOM.');
   }
 
+  
+
+
 
   if (searchForm || searchResultsForm) {
     // Add an event listener to the form to prevent default submission
