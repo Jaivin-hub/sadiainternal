@@ -195,63 +195,63 @@ const initializeSlick = () => {
     }
 
     if ($('.whatSlider').length) {
-      $('.whatSlider').slick({
-        dots: false,
-        slidesToShow: 3, // Show one main slide at a time
-        slidesToScroll: 1,
-        initialSlide: 3, // Start at the 4th slide (index 3)
-        infinite: true, // Enable infinite looping
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false,
-        variableWidth: true, // Enable variable width for custom slide widths
-        responsive: [
-          {
-            breakpoint: 768, // Screen width at which settings should change
-            settings: {
-              slidesToShow: 1, // Show only one slide at a time on mobile
-              variableWidth: false // Disable variable width for consistent slide width
+        $('.whatSlider').slick({
+          dots: false,
+          slidesToShow: 3, // Show one main slide at a time
+          slidesToScroll: 1,
+          initialSlide: 3, // Start at the 4th slide (index 3)
+          infinite: true, // Enable infinite looping
+          autoplay: true,
+          autoplaySpeed: 3000,
+          arrows: false,
+          variableWidth: true, // Enable variable width for custom slide widths
+          responsive: [
+            {
+              breakpoint: 768, // Screen width at which settings should change
+              settings: {
+                slidesToShow: 1, // Show only one slide at a time on mobile
+                variableWidth: false // Disable variable width for consistent slide width
+              }
             }
-          }
-        ]
-      });
-      // return;
+          ]
+        });
+        // return;
     }
 
     if ($('.image-slider').length || $('.thumbnail-slider').length) {
-      // Initialize the main image slider
-      $('.image-slider').slick({
-        arrows: false,
-        autoplay: false,
-        infinite: false,
-        speed: 1000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        fade: false,
-        asNavFor: '.thumbnail-slider, .content-slider',
-        autoplaySpeed: 3000,
-      });
+        // Initialize the main image slider
+        $('.image-slider').slick({
+          arrows: false,
+          autoplay: false,
+          infinite: false,
+          speed: 1000,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          fade: false,
+          asNavFor: '.thumbnail-slider, .content-slider',
+          autoplaySpeed: 3000,
+        });
 
-      // Initialize the thumbnail slider
-      $('.thumbnail-slider').slick({
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        asNavFor: '.image-slider, .content-slider',
-        focusOnSelect: true,
-        infinite: false,
-      });
+        // Initialize the thumbnail slider
+        $('.thumbnail-slider').slick({
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          asNavFor: '.image-slider, .content-slider',
+          focusOnSelect: true,
+          infinite: false,
+        });
 
-      // Initialize the content slider
-      $('.content-slider').slick({
-        arrows: false,
-        autoplay: false,
-        infinite: false,
-        speed: 1000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        fade: false,
-        asNavFor: '.image-slider, .thumbnail-slider',  // Link both image and thumbnail
-      });
+        // Initialize the content slider
+        $('.content-slider').slick({
+          arrows: false,
+          autoplay: false,
+          infinite: false,
+          speed: 1000,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          fade: false,
+          asNavFor: '.image-slider, .thumbnail-slider',  // Link both image and thumbnail
+        });
 
       // Ensure content items exist before adding event listener
       if ($('.content-item').length) {
@@ -295,6 +295,66 @@ const initializeSlick = () => {
     console.error('Error initializing Slick sliders:', error);
   }
 };
+// SLICK-END
+
+
+
+// STORY-SLIDER START
+
+const initializeNewSlider = () => {
+  try {
+    // Ensure Slick is loaded
+    if (typeof $.fn.slick === 'undefined') {
+      console.error('Slick is not loaded.');
+      return;
+    }
+
+    if ($('#new-image-slider').length || $('#new-thumbnail-slider').length) {
+      // Initialize the main image slider
+      $('#new-image-slider').slick({
+        arrows: false,
+        autoplay: false,
+        infinite: false,
+        speed: 1000,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        fade: false,
+        asNavFor: '#new-thumbnail-slider', // Link with the new thumbnail slider
+        autoplaySpeed: 3000,
+      });
+
+      // Initialize the thumbnail slider
+      $('#new-thumbnail-slider').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '#new-image-slider', // Link with the new image slider
+        focusOnSelect: true,
+        infinite: false,
+      });
+
+      // Prevent adding duplicate event listeners on clicking a thumbnail
+      if (!$._data($('#new-thumbnail-slider .thumbnail').get(0), 'events')) {
+        // Clicking a thumbnail manually triggers the image slider
+        $('#new-thumbnail-slider .thumbnail').on('click', function () {
+          const slideIndex = $(this).data('slide');
+          // Ensure the slideIndex is valid
+          if (typeof slideIndex !== 'undefined') {
+            $('#new-image-slider').slick('slickGoTo', slideIndex);
+          }
+        });
+      }
+    } else {
+      console.error('New sliders not found.');
+    }
+  } catch (error) {
+    console.error('Error initializing new sliders:', error);
+  }
+};
+// STORY-SLIDER END
+
+
+
+
 
 const initializeWhereToBuyMapbox = (url) => {
   const selectElement = document.querySelector('.form-select.countryDrops');
