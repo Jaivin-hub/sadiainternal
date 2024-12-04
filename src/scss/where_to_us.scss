@@ -134,6 +134,14 @@
         font-size: 16px;
         border: 1px solid $border-color;
         font-family: $primary-font;
+
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: url(../assets/images/icons/drop-down.svg);
+        background-repeat: no-repeat;
+        background-position: 93% center;
+        background-size: 13px;
     }
     .search-bar-container{
         max-width: 100%;
