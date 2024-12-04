@@ -374,7 +374,30 @@
     }
 }
 
-
+.filterWrap{
+    &.catgSpc{
+        .type_filter{
+            margin-right: 25px;
+        }
+    }
+} 
+.type_filter{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    &::-webkit-scrollbar {
+        height: 0.2em;
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-track {
+        box-shadow: inherit
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #a2a0a0;
+    }
+}
 
 // PRODUCT-FILTER END
 
@@ -458,7 +481,7 @@
                 justify-content: inherit;
                 flex-direction: column;
                 
-                .categ_filter{
+                .categ_filter, .type_filter{
                     display: flex;
                     flex-wrap: nowrap;
     
@@ -496,7 +519,13 @@
             }
         }
     }
-   
+    .filterWrap{
+        &.catgSpc{
+            .type_filter{
+                margin-right: 0px;
+            }
+        }
+    } 
 
 
 }

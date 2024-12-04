@@ -336,7 +336,7 @@ ul{
 
 .catgSpc{
     margin-bottom: 64px;
-    .categ_filter{
+    .categ_filter, .type_filter{
         border: 0;
         margin: 0;
         padding: 0;
@@ -352,6 +352,8 @@ ul{
             font-family: $primary-font;
             margin: 5px;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
             &:hover{
                 border: 1px solid $border-color;
                 color: $black-color;
@@ -368,6 +370,7 @@ ul{
     }
     
 }
+
 
 
 .popular-section {
