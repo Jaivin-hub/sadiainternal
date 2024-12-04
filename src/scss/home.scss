@@ -6,6 +6,11 @@
 .container {
     max-width: 1600px;
     padding: 0 50px;
+
+    .container {
+        padding: 0;
+        max-width: 100%;
+    }
 }
 
 a, button{
