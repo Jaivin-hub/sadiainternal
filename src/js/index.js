@@ -1,6 +1,7 @@
 import $, { error } from 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Mustache from 'mustache';
 import '../scss/style.scss';
 import Handlebars from 'handlebars';
 import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
@@ -8,6 +9,8 @@ import { fetchAssets, fetchProducts } from './api.js'
 import { fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks } from './fetchAndRenderData.js';
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
+import dataList from '../assets/json/data.json';
+
 
 const pulsingDotStyle = `
 <style>
@@ -109,25 +112,38 @@ const contactForms = () => {
   const form = document.querySelector('#contactForm');
   const fileInput = document.querySelector('#formFileLg');
   const fileNameText = document.querySelector('#fileNameText');
+  const phoneInputField = document.getElementById('phoneNumber');
+  const phoneError = document.getElementById('phoneError');
 
-  // Hide all error messages initially
-  const hideAllErrors = () => {
-    const errors = form.querySelectorAll('.error-message');
-    errors.forEach((error) => {
-      error.style.display = 'none';
-    });
-  };
+  // Initialize intl-tel-input for the phone number field
+  const iti = intlTelInput(phoneInputField, {
+    initialCountry: "auto", // Auto-detect user's country
+    geoIpLookup: function (callback) {
+      fetch('https://ipinfo.io/json?token=5cef6dd088fc9f')
+        .then((response) => response.json())
+        .then((json) => callback(json.country))
+        .catch(() => callback('US'));
+    },
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js", // For number formatting and validation
+  });
 
   // Validate a single field
   const validateField = (input, errorSelector) => {
     const error = document.querySelector(errorSelector);
     const message = error?.textContent || 'Invalid input';
 
-    // Validation logic for specific input types
-    if (!input.value.trim() || 
-        (input.type === 'email' && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input.value)) ||
-        (input.id === 'mobileNumber' && !/^\d+$/.test(input.value)) // Phone number must be numeric
+    // Custom validation for phone number
+    if (
+      input.id === 'phoneNumber' &&
+      (!iti.isValidNumber() || /[^\d]/.test(input.value))
     ) {
+      error.textContent = 'Please enter a valid phone number with digits only';
+      error.style.display = 'block';
+      return false;
+    }
+
+    // General validation for other fields
+    if (!input.value.trim() || (input.type === 'email' && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input.value))) {
       error.textContent = message; // Use existing error message from HTML
       error.style.display = 'block';
       return false;
@@ -148,38 +164,50 @@ const contactForms = () => {
   // Handle form submission
   form.addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent default form submission
-    hideAllErrors(); // Reset all error messages
-
+  
+    // Reset all error messages
+    const errors = form.querySelectorAll('.error-message');
+    errors.forEach((error) => {
+      error.style.display = 'none';
+    });
+  
     let valid = true;
-
+  
     // Validate each field dynamically
     valid &= validateField(document.querySelector('#fullName'), '#nameError');
     valid &= validateField(document.querySelector('#email'), '#emailError');
-    valid &= validateField(document.querySelector('#mobileNumber'), '#phoneError');
+    console.log('phoneInputField',phoneInputField)
+    valid &= validateField(phoneInputField, '#phoneError'); // Validate with intl-tel-input
     valid &= validateField(document.querySelector('#subject'), '#subjectError');
     valid &= validateField(document.querySelector('#message'), '#messageError');
-
+  
     if (valid) {
       const lang = document.body.getAttribute('umb-lang');
       const nodeIdInput = document.querySelector('#formNodeId');
       const nodeId = nodeIdInput ? nodeIdInput.value : null;
+  
+      // Get the full phone number with country code and selected country data
+      const fullPhoneNumber = iti.getNumber(); // Full international phone number
+      const countryData = iti.getSelectedCountryData(); // Get selected country info
+      console.log('fullPhoneNumber',fullPhoneNumber)
       // Prepare form data
       const formData = new FormData();
       formData.append('fullName', document.querySelector('#fullName').value);
       formData.append('email', document.querySelector('#email').value);
-      formData.append('phoneNumber', document.querySelector('#mobileNumber').value);
+      formData.append('phoneNumber', fullPhoneNumber); // Add formatted phone number
       formData.append('subject', document.querySelector('#subject').value);
       formData.append('message', document.querySelector('#message').value);
       formData.append('nodeId', nodeId);
       formData.append('lang', lang);
+  
       // Append the file only if one is selected
       if (selectedFile) {
         formData.append('file', selectedFile);
       }
-
+  
       const submitButton = document.querySelector('.subBtn');
       const apiUrl = submitButton.getAttribute('data-url');
-
+  
       fetch(apiUrl, {
         method: 'POST',
         body: formData, // Use FormData directly
@@ -199,6 +227,15 @@ const contactForms = () => {
         .catch((error) => {
           console.error('Error:', error);
         });
+    }
+  });
+
+  // Validate phone number on blur
+  phoneInputField.addEventListener('blur', () => {
+    if (iti.isValidNumber() && !/[^\d]/.test(phoneInputField.value)) {
+      phoneError.style.display = 'none';
+    } else {
+      phoneError.style.display = 'block';
     }
   });
 };
@@ -911,12 +948,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
 
+    // const phoneInputField = document.getElementById('phoneNumber');
+    // const phoneError = document.getElementById('phoneError');
+
+    // const iti = intlTelInput(phoneInputField, {
+    //     initialCountry: "auto", // Auto-detect user's country
+    //     geoIpLookup: function (callback) {
+    //         fetch('https://ipinfo.io/json?token=5cef6dd088fc9f')
+    //             .then((response) => response.json())
+    //             .then((json) => callback(json.country))
+    //             .catch(() => callback('US'));
+    //     },
+    //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js", // For number formatting and validation
+    // });
+
+    // phoneInputField.addEventListener('blur', () => {
+    //     if (iti.isValidNumber()) {
+    //         phoneError.style.display = 'none';
+    //     } else {
+    //         phoneError.style.display = 'block';
+    //     }
+    // });
+
   const searchBar = document.getElementById('searchBar');
   const searchForm = document.querySelector('.search-form');
   const searchInputElement = document.getElementById('search-Bar');  // Input field for search with a different ID
   const searchResultsForm = document.querySelector('.search-results-form');  // Form element for search results
 
-    if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
+  if (elements.imageSlider || elements.thumbnailSlider || elements.contentItem || elements.whatSlider) {
     initializeSlick();
   } else {
     console.warn('Slick slider elements not found in the DOM.');
@@ -982,26 +1041,133 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // If 'keyword' exists in the URL, set its value in the input field
     if (searchKeyword) {
-        searchInput.value = decodeURIComponent(searchKeyword); // Decode the keyword (e.g., to handle spaces)
+      searchInput.value = decodeURIComponent(searchKeyword); // Decode the keyword (e.g., to handle spaces)
     }
 
-    document.getElementById('chickenpartsbutton').addEventListener('click', function () {
-      console.log("invoking..")
-      const section = document.getElementById("chickenpartssection");
-      const button = document.getElementById('chickenpartsbutton');
-      if (section.style.visibility === "hidden") {
-        console.log('if .. ')
-        section.style.visibility = "visible";
-        section.style.height = "auto";
-        section.style.overflow = "visible";
-        button.style.display = "none"; // Hides the button
-      } else {
-        console.log('else..')
-        section.style.visibility = "hidden";
-        section.style.height = "0";
-        section.style.overflow = "hidden";
+    // document.getElementById('searchProductShowMore').addEventListener('click', function () {
+    //   console.log("invoking..")
+    //   const templateName = 'searchlist-template'
+    //   const template = document.getElementById(templateName)?.innerHTML;
+    //   console.log('template',template)
+    //   if (!template) {
+    //     throw new Error(`Template with ID '${templateName}' not found.`);
+    //   }
+    //   let html = '';
+
+    //   dataList.forEach(item => {
+    //     html += Mustache.render(template, item);
+    //   });
+
+    //   const container = document.getElementById('productDisplay');
+    //   console.log('container',container)
+    //   if (!container) {
+    //     console.warn('Container with ID "defaultlistspace" not found.');
+    //     return;
+    //   }
+    //   console.log('html',html)
+    //   container.innerHTML = html;
+    // });
+
+    function renderSections() {
+      const sectionsContainer = document.getElementById("sections-container");
+      sectionsContainer.innerHTML = "";
+    
+      dataList.forEach((data, index) => {
+      console.log('category',data.name)
+        const sectionHTML = `
+          <div class="container">
+            <div class="titleWrap">
+              <h2 class="mainTitle">${data.name}</h2>
+            </div>
+            <div class="row rowDiv" id="section-${index}">
+              <!-- Items will be rendered here -->
+            </div>
+            <div class="btnSapce text-center">
+              <button id="showMore-${index}" class="btn btn-more btnBor" data-index="${index}">Show More</button>
+            </div>
+          </div>
+        `;
+        sectionsContainer.insertAdjacentHTML("beforeend", sectionHTML);
+        renderItems(index, 0, 3); // Render first 3 items
+      });
+    }
+
+    function renderItems(sectionIndex, start, count) {
+      console.log("renderItems..")
+      const section = dataList[sectionIndex];
+      const sectionContainer = document.getElementById(`section-${sectionIndex}`);
+    
+      const itemsToRender = section.items.slice(start, start + count);
+      const template = document.getElementById("searchlist-template").innerHTML;
+    
+      itemsToRender.forEach(item => {
+        const html = Mustache.render(template, item);
+        sectionContainer.insertAdjacentHTML("beforeend", html);
+      });
+    
+      // Hide "Show More" button if no more items to load
+      // if (start + count >= section.items.length) {
+      //   document.getElementById(`showMore-${sectionIndex}`).style.display = "none";
+      // }
+    }
+    
+    // Event listener for "Show More" buttons
+    document.getElementById("sections-container").addEventListener("click", function (event) {
+      if (event.target.tagName === "BUTTON" && event.target.id.startsWith("showMore")) {
+        const sectionIndex = parseInt(event.target.dataset.index, 10);
+        const sectionContainer = document.getElementById(`section-${sectionIndex}`);
+        const currentCount = sectionContainer.childElementCount;
+        renderItems(sectionIndex, currentCount, 3); // Load the next 3 items
       }
     });
+
+    renderSections();
+    
+
+    // document.getElementById('breadedbutton').addEventListener('click', function () {
+    //   const section = document.getElementById("breadedsection");
+    //   const button = document.getElementById('breadedbutton');
+    //   if (section.style.visibility === "hidden") {
+    //     section.style.visibility = "visible";
+    //     section.style.height = "auto";
+    //     section.style.overflow = "visible";
+    //     button.style.display = "none"; // Hides the button
+    //   } else {
+    //     section.style.visibility = "hidden";
+    //     section.style.height = "0";
+    //     section.style.overflow = "hidden";
+    //   }
+    // });
+
+    // document.getElementById('recipebtn').addEventListener('click', function () {
+    //   const section = document.getElementById("recipessection");
+    //   const button = document.getElementById('recipebtn');
+    //   if (section.style.visibility === "hidden") {
+    //     section.style.visibility = "visible";
+    //     section.style.height = "auto";
+    //     section.style.overflow = "visible";
+    //     button.style.display = "none"; // Hides the button
+    //   } else {
+    //     section.style.visibility = "hidden";
+    //     section.style.height = "0";
+    //     section.style.overflow = "hidden";
+    //   }
+    // });
+
+    // document.getElementById('cookingbtn').addEventListener('click', function () {
+    //   const section = document.getElementById("cookingsection");
+    //   const button = document.getElementById('cookingbtn');
+    //   if (section.style.visibility === "hidden") {
+    //     section.style.visibility = "visible";
+    //     section.style.height = "auto";
+    //     section.style.overflow = "visible";
+    //     button.style.display = "none"; // Hides the button
+    //   } else {
+    //     section.style.visibility = "hidden";
+    //     section.style.height = "0";
+    //     section.style.overflow = "hidden";
+    //   }
+    // });
 
     // document.getElementById('endlistshowmore').addEventListener('click', function () {
     //   const section = document.getElementById("lastsection");
@@ -1017,51 +1183,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //     section.style.overflow = "hidden";
     //   }
     // });
-
-    document.getElementById('breadedbutton').addEventListener('click', function () {
-      const section = document.getElementById("breadedsection");
-      const button = document.getElementById('breadedbutton');
-      if (section.style.visibility === "hidden") {
-        section.style.visibility = "visible";
-        section.style.height = "auto";
-        section.style.overflow = "visible";
-        button.style.display = "none"; // Hides the button
-      } else {
-        section.style.visibility = "hidden";
-        section.style.height = "0";
-        section.style.overflow = "hidden";
-      }
-    });
-
-    document.getElementById('recipebtn').addEventListener('click', function () {
-      const section = document.getElementById("recipessection");
-      const button = document.getElementById('recipebtn');
-      if (section.style.visibility === "hidden") {
-        section.style.visibility = "visible";
-        section.style.height = "auto";
-        section.style.overflow = "visible";
-        button.style.display = "none"; // Hides the button
-      } else {
-        section.style.visibility = "hidden";
-        section.style.height = "0";
-        section.style.overflow = "hidden";
-      }
-    });
-
-    document.getElementById('cookingbtn').addEventListener('click', function () {
-      const section = document.getElementById("cookingsection");
-      const button = document.getElementById('cookingbtn');
-      if (section.style.visibility === "hidden") {
-        section.style.visibility = "visible";
-        section.style.height = "auto";
-        section.style.overflow = "visible";
-        button.style.display = "none"; // Hides the button
-      } else {
-        section.style.visibility = "hidden";
-        section.style.height = "0";
-        section.style.overflow = "hidden";
-      }
-    });
   }
 
   // Search Bar Expand/Collapse Handlers
