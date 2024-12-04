@@ -28,17 +28,38 @@
         </div>
         {{!-- FILTER-END --}}
 
-        <div class="productList">
-            <div class="row" id="cardcontainer">
-                {{!-- {{#each htmlWebpackPlugin.options.data }}
-                {{> ../mustache/loadmore}}
-                {{/each}} --}}
-          </div>
+
+        {{!-- LIST-START --}}
+        <div class="row">
+            <div class="col-md-4 col-lg-3 Colapse_area">
+                <div class="prdct_subFilter">
+                    <div class="filterWrap catgSpc">
+                        <div class="categ_filter">
+                            <a href="#" data-umb-id="0" class="btn filBtn active" data-toggle="portfilter">All Products</a>
+                            <a href="#" data-umb-id="1173" class="btn filBtn" data-toggle="portfilter">Breast</a>
+                            <a href="#" data-umb-id="2" class="btn filBtn" data-toggle="portfilter">Legs</a>
+                            <a href="#" data-umb-id="3" class="btn filBtn" data-toggle="portfilter">Wings</a>
+                            <a href="#" data-umb-id="4" class="btn filBtn" data-toggle="portfilter">Giblets</a>
+                            <a href="#" data-umb-id="5" class="btn filBtn" data-toggle="portfilter">Marinated</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="btnSpace text-center">
-                <button id="productShowMore" data-api="https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetProductsPerCategory" data-limit="1" data-offset="0" class="btn btn-more">Show More Products</button>
+            <div class="col-md-8 col-lg-9 contArea">
+                <div class="productList">
+                    <div class="row" id="cardcontainer">
+                        {{!-- {{#each htmlWebpackPlugin.options.data }}
+                        {{> ../mustache/loadmore}}
+                        {{/each}} --}}
+                </div>
+                    </div>
+                    <div class="btnSpace text-center">
+                        <button id="productShowMore" data-api="https://sadialife-dev.azurewebsites.net/Umbraco/api/data/GetProductsPerCategory" data-limit="1" data-offset="0" class="btn btn-more">Show More Products</button>
+                    </div>
+                </div>
             </div>
         </div>
+        {{!-- LIST-END --}}
 
     </div>
 </section>
