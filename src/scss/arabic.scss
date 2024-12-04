@@ -434,6 +434,11 @@ html[dir="rtl"]{
             }
         } 
         .faqWraper{
+            .tabDesign{
+                .faq_filter {
+                    justify-content: right !important;
+                }  
+            } 
             .acrdDesg{
                 .accordion-item{
                     .accordion-button {
@@ -442,8 +447,51 @@ html[dir="rtl"]{
                     }
                 }
             }
+        } 
+        .contactWraper{
+            .error-message {
+                text-align: right;
+            }
+            .contactForms{
+                .btmSpaces{
+                    .info{
+                        text-align: right;
+                    }
+                } 
+                .form-group{
+                    text-align: right;
+                }
+                label.form-label {
+                    text-align: right;
+                    width: 100%;
+                }
+                .iti--allow-dropdown{
+                    .form-control{
+                        padding-right: 60px;
+                        padding-left: 15px;
+                        text-align: right;
+                    }
+                    .iti__flag-container{
+                        right: 0;
+                        left: inherit;
+                    }
+                }
+            }
+           
+        }
+        .iti--container{
+            .iti__country {
+                text-align: right;
+            }
+        }
+        .iti__flag-box{
+            margin-left: 6px;
+            margin-right: 0;
+        }
+        .iti__arrow{
+            margin-right: 6px;
+            margin-left: 0;
         }  
-            
 
     }
 
