@@ -4,7 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Mustache from 'mustache';
 import '../scss/style.scss';
 import Handlebars from 'handlebars';
-import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn } from './utils.js';
+import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn, initializeNewSlider } from './utils.js';
 import { fetchAssets, fetchProducts } from './api.js'
 import { fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks } from './fetchAndRenderData.js';
 import noUiSlider from 'nouislider';
@@ -961,6 +961,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // productCatId: document.querySelector('.categ_filter.filBtn')
   };
+
+  initializeNewSlider()
 
     // const phoneInputField = document.getElementById('phoneNumber');
     // const phoneError = document.getElementById('phoneError');

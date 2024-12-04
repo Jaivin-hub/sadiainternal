@@ -455,4 +455,4 @@ const initializeWhereToBuyMapbox = (url) => {
   fetchStores(apiEndpoint, selectedValue, initializeMapWithData);
 };
 
-export { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn };
+export { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn,initializeNewSlider };
