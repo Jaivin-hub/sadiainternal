@@ -299,11 +299,6 @@
     .yearSlider {
         position: relative;
         .content-item {
-            // display: none;
-            // opacity: 0;
-            // visibility: hidden;
-            // transition: opacity 0.5s;
-            
             transition: all ease 0.5s;
 
             &.active {
@@ -325,21 +320,20 @@
 
     .contWrapper {
         .spaceBx {
-            padding: 80px 80px 0;
+            padding: 20px 0;
 
             .title {
                 color: $border-color;
-                font-size: 215px;
-                line-height: 260px;
+                font-size: 70px;
+                line-height: 80px;
                 font-family: $title-font;
-                letter-spacing: 0;
+                letter-spacing: -0.2px;
             }
 
             .descp {
                 color: $black-light;
                 font-size: 16px;
                 line-height: 22px;
-                max-width: 420px;
 
                 display: -webkit-box;
                 -webkit-line-clamp: 4;
@@ -354,12 +348,12 @@
 
     .imgWrapper {
         .imgBox {
-            height: 590px;
+            height: 337px;
             border-radius: 8px;
             overflow: hidden;
 
             img {
-                min-height: 100%;
+                min-height:337px;
                 width: 100%;
                 object-fit: cover;
             }
