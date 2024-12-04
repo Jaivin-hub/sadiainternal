@@ -107,60 +107,58 @@ function addTag(text) {
 
 
 
-// CONTACT-FORM START
-// document.addEventListener('DOMContentLoaded', function () {
-//   const form = document.querySelector('.contactForms');
-//   if (form) {
-//       form.addEventListener('submit', function (e) {
-//           e.preventDefault();
+// LANGUAGE-ARABIC START
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleButton = document.getElementById('toggle-lang'); // Single toggle button
+  const englishButton = document.querySelector('.toggle-en'); // Button to switch to English
+  const arabicButton = document.querySelector('.toggle-ar'); // Button to switch to Arabic
+  const html = document.documentElement;
 
-//           let valid = true;
+  // Initialize language and direction from current HTML attributes
+  let currentLang = html.lang || 'en';
 
-//           // Full Name Validation
-//           const fullName = document.querySelector('input[placeholder="Enter Full Name"]');
-//           if (!fullName.value.trim()) {
-//               alert("Full Name is required.");
-//               valid = false;
-//           }
+  const updateLanguage = (lang) => {
+      if (lang === 'ar') {
+          html.lang = 'ar';
+          html.dir = 'rtl';
+          toggleButton.textContent = 'EN';
+          englishButton.textContent = 'English';
+          arabicButton.textContent = 'العربية'; // Arabic remains
+          // Add 'active' class to Arabic button
+          arabicButton.classList.add('active');
+          englishButton.classList.remove('active');
+      } else {
+          html.lang = 'en';
+          html.dir = 'ltr';
+          toggleButton.textContent = 'عربي';
+          englishButton.textContent = 'English'; // English remains
+          arabicButton.textContent = 'عربي';
+          // Add 'active' class to English button
+          englishButton.classList.add('active');
+          arabicButton.classList.remove('active');
+      }
+      currentLang = lang;
+  };
 
-//           // Email Validation
-//           const email = document.querySelector('input[type="email"]');
-//           if (!email.value.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.value)) {
-//               alert("Please enter a valid email address.");
-//               valid = false;
-//           }
+  // Toggle language on the single toggle button
+  toggleButton.addEventListener('click', () => {
+      const newLang = currentLang === 'en' ? 'ar' : 'en';
+      updateLanguage(newLang);
+  });
 
-//           // Phone Number Validation
-//           const phone = document.querySelector('#mobileNumber');
-//           if (!phone.value.trim() || !/^\d{10,12}$/.test(phone.value)) {
-//               alert("Please enter a valid phone number (10-12 digits).");
-//               valid = false;
-//           }
+  // Explicitly switch to English
+  englishButton.addEventListener('click', () => {
+      updateLanguage('en');
+  });
 
-//           // Dropdown Validation
-//           const subject = document.querySelector('select');
-//           if (!subject.value) {
-//               alert("Please select a subject.");
-//               valid = false;
-//           }
-
-//           // Message Validation
-//           const message = document.querySelector('textarea');
-//           if (!message.value.trim() || message.value.trim().length < 10) {
-//               alert("Please enter a message with at least 10 characters.");
-//               valid = false;
-//           }
-
-//           // If form is valid, submit it
-//           if (valid) {
-//               this.submit();
-//           }
-//       });
-//   }
-// });
+  // Explicitly switch to Arabic
+  arabicButton.addEventListener('click', () => {
+      updateLanguage('ar');
+  });
+});
 
 
-// CONTACT-FORM END
+// LANGUAGE-ARABIC END
 
 
 

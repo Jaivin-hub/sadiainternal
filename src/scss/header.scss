@@ -532,8 +532,8 @@ header {
 						display: flex;
 					}
 					.nav-link{
-						font-size: 36px;
-						line-height: 38px;
+						font-size: 26px;
+						line-height: 28px;
 						font-weight: 500;
 						font-family: $title-font;
 						padding: 12px 20px !important;
@@ -559,7 +559,7 @@ header {
 					}
 					.dropdown-toggle::after{
 						width: 22px;
-						height: 12px;
+						height: 11px;
 						background-size: cover;
 						display: inline-block !important;
 					}
@@ -578,8 +578,8 @@ header {
 						.navBox{
 							min-height: 140px;
 							h6{
-								font-size: 21px;
-								line-height: 21px;
+								font-size: 18px;
+								line-height: 18px;
 							}
 						} 
 						.menuTitle{

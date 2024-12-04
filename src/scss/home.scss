@@ -43,6 +43,9 @@ ul{
             color: $hover-color;
             font-size: 14px;
         }
+        &::before {
+            padding-left: 0;
+        }
     } 
 }
 
@@ -169,9 +172,10 @@ ul{
                 display: flex;
                 align-items: center;
                 .icons {
-                    display: inline-block;
+                    display: inline-flex;
                     min-width: 16px;
                     margin-right: 6px;
+                    align-items: center;
                     img{
                         max-height: 16px;
                     }
@@ -518,7 +522,18 @@ ul{
                 font-size: 18px;
                 text-transform: uppercase;
                 font-weight: 600;
-                padding: 5px 0;
+                padding: 5px 25px 5px 0;
+                position: relative;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+             
+                content: ' ';
+                display: inline-block;
+                background: url(../assets/images/icons/drop-down.svg);
+                background-repeat: no-repeat;
+                background-position: 100% center;
+                background-size: 16px;
             }
         }
 
@@ -595,6 +610,7 @@ ul{
                 
                 .slick-track{
                     height: auto !important;
+                    float: left;
                     .j-meta{
                         position: relative;
                         margin: 0 0 10px;
@@ -1398,7 +1414,6 @@ ul{
         }
     }
     .rightBx{
-
         .changeBx{
             overflow: hidden;
             position: relative;
@@ -1442,7 +1457,7 @@ ul{
                 opacity: 1;        
                 transition-delay: 0.5s;
                 .contSec{
-                    margin: 24px 0 0 0;
+                    margin: 0px 0 0 0;
                     padding: 12px 12px 0;
                     float: left;
                     width: 100%;
