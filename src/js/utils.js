@@ -300,7 +300,6 @@ const initializeSlick = () => {
 
 
 // STORY-SLIDER START
-
 const initializeNewSlider = () => {
   try {
     // Ensure Slick is loaded
@@ -309,40 +308,77 @@ const initializeNewSlider = () => {
       return;
     }
 
+    // Check if the page is in RTL mode
+    const isRTL = $('html').attr('dir') === 'rtl';
+
     if ($('#new-image-slider').length || $('#new-thumbnail-slider').length) {
       // Initialize the main image slider
       $('#new-image-slider').slick({
+        rtl: isRTL, // Enable RTL mode
         arrows: false,
         autoplay: false,
         infinite: false,
-        speed: 1000,
-        slidesToShow: 4,
+        speed: 1000, // Smooth scroll speed
+        slidesToShow: 3.5, // Show 3 slides and part of the 4th slide
         slidesToScroll: 1,
         fade: false,
-        asNavFor: '#new-thumbnail-slider', // Link with the new thumbnail slider
+        asNavFor: '#new-thumbnail-slider',
         autoplaySpeed: 3000,
+        draggable: true, // Enable dragging functionality
+        swipe: true, // Enable swipe (drag) events
+        responsive: [
+          {
+            breakpoint: 768, // Mobile view
+            settings: {
+              slidesToShow: 1.1, // Show 1 slide
+              slidesToScroll: 1,
+            },
+          },
+        ],
       });
 
       // Initialize the thumbnail slider
       $('#new-thumbnail-slider').slick({
-        slidesToShow: 4,
+        rtl: isRTL, // Enable RTL mode
+        slidesToShow: 3.5,
         slidesToScroll: 1,
-        asNavFor: '#new-image-slider', // Link with the new image slider
+        asNavFor: '#new-image-slider',
         focusOnSelect: true,
         infinite: false,
+        draggable: true, // Enable dragging functionality for thumbnail slider
+        swipe: true, // Enable swipe for thumbnail slider
       });
 
-      // Prevent adding duplicate event listeners on clicking a thumbnail
-      if (!$._data($('#new-thumbnail-slider .thumbnail').get(0), 'events')) {
-        // Clicking a thumbnail manually triggers the image slider
-        $('#new-thumbnail-slider .thumbnail').on('click', function () {
-          const slideIndex = $(this).data('slide');
-          // Ensure the slideIndex is valid
-          if (typeof slideIndex !== 'undefined') {
-            $('#new-image-slider').slick('slickGoTo', slideIndex);
-          }
-        });
-      }
+      // Update arrow states
+      const updateArrowState = () => {
+        const slider = $('#new-thumbnail-slider').slick('getSlick');
+        const totalSlides = slider.slideCount;
+        const currentIndex = slider.currentSlide;
+        const slidesToShow = slider.options.slidesToShow;
+
+        if (isRTL) {
+          // Disable the next button if we're at the first slide
+          $('.slick-prev').prop('disabled', currentIndex >= totalSlides - slidesToShow);
+          $('.slick-next').prop('disabled', currentIndex <= 0);
+        } else {
+          // Disable the prev button if we're at the first slide
+          $('.slick-prev').prop('disabled', currentIndex <= 0);
+          $('.slick-next').prop('disabled', currentIndex >= totalSlides - slidesToShow);
+        }
+      };
+
+      // Add event listeners for custom navigation
+      $('.slick-next').off('click').on('click', () => {
+        $('#new-thumbnail-slider').slick('slickNext');
+      });
+      $('.slick-prev').off('click').on('click', () => {
+        $('#new-thumbnail-slider').slick('slickPrev');
+      });
+
+      // Update arrows on slider init and after slide change
+      $('#new-thumbnail-slider').on('init reInit afterChange', updateArrowState);
+      updateArrowState();
+
     } else {
       console.error('New sliders not found.');
     }
@@ -350,6 +386,7 @@ const initializeNewSlider = () => {
     console.error('Error initializing new sliders:', error);
   }
 };
+
 // STORY-SLIDER END
 
 
