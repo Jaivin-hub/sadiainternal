@@ -164,27 +164,27 @@ const contactForms = () => {
   // Handle form submission
   form.addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent default form submission
-  
+
     // Reset all error messages
     const errors = form.querySelectorAll('.error-message');
     errors.forEach((error) => {
       error.style.display = 'none';
     });
-  
+
     let valid = true;
-  
+
     // Validate each field dynamically
     valid &= validateField(document.querySelector('#fullName'), '#nameError');
     valid &= validateField(document.querySelector('#email'), '#emailError');
     valid &= validateField(phoneInputField, '#phoneError'); // Validate with intl-tel-input
     valid &= validateField(document.querySelector('#subject'), '#subjectError');
     valid &= validateField(document.querySelector('#message'), '#messageError');
-  
+
     if (valid) {
       const lang = document.body.getAttribute('umb-lang');
       const nodeIdInput = document.querySelector('#formNodeId');
       const nodeId = nodeIdInput ? nodeIdInput.value : null;
-  
+
       // Get the full phone number with country code and selected country data
       const fullPhoneNumber = iti.getNumber(); // Full international phone number
       const countryData = iti.getSelectedCountryData(); // Get selected country info
@@ -197,15 +197,15 @@ const contactForms = () => {
       formData.append('message', document.querySelector('#message').value);
       formData.append('nodeId', nodeId);
       formData.append('lang', lang);
-  
+
       // Append the file only if one is selected
       if (selectedFile) {
         formData.append('file', selectedFile);
       }
-  
+
       const submitButton = document.querySelector('.subBtn');
       const apiUrl = submitButton.getAttribute('data-url');
-  
+
       fetch(apiUrl, {
         method: 'POST',
         body: formData, // Use FormData directly
@@ -364,7 +364,7 @@ function toggleRecipeSections() {
       selectedPrepTime = event.target.value;
     });
 
-    
+
     difficultySelect.addEventListener('change', (event) => {
       selectedDifficulty = event.target.value;
     });
@@ -450,6 +450,9 @@ function initializeRecipeFilter() {
   const dietaryNeedsSelect = document.querySelector('#dietary-needs');
   const occasionSelect = document.querySelector('#occasion');
   const preparationSelect = document.querySelector('#preparation-style');
+  const preparationType = document.querySelector('#preparationSelect');
+  const difficultyType = document.querySelector('#difficultySelect');
+
   const searchInput = document.querySelector('#searchInpts');
   const showMoreButton = document.querySelector('#recipeshowmore');
   const resetButtons = document.querySelectorAll('#resetButton, #resettopbutton');
@@ -468,6 +471,8 @@ function initializeRecipeFilter() {
 
   // Helper function to prepare request data
   function prepareRequestData(keyword = '', recipeSelectedValue = '') {
+    console.log('timeTaken',timeTaken);
+    console.log('difficulties',difficulties)
     return {
       mealType: selectedMealType,
       cuisine: selectedCuisine,
@@ -541,6 +546,12 @@ function initializeRecipeFilter() {
       case 'preparation':
         preparationStyle = value;
         break;
+      case 'preparationtime':
+        timeTaken = value;
+        break;
+      case 'difficulty':
+        difficulties = value;
+        break;
     }
   }
 
@@ -572,8 +583,6 @@ function initializeRecipeFilter() {
   }
 
   function handleSubmitButtonClick() {
-    difficulties = selectedDifficulty;
-    timeTaken = selectedPrepTime;
     offset = 0;
     showMoreClicked = false;
     updateRecipeList(prepareRequestData());
@@ -605,7 +614,9 @@ function initializeRecipeFilter() {
     dietaryNeedsSelect.addEventListener('change', event => handleDropdownChange(event, 'dietary'));
     occasionSelect.addEventListener('change', event => handleDropdownChange(event, 'occasion'));
     preparationSelect.addEventListener('change', event => handleDropdownChange(event, 'preparation'));
-
+    preparationType.addEventListener('change', event => handleDropdownChange(event, 'preparationtime'));
+    difficultyType.addEventListener('change', event => handleDropdownChange(event, 'difficulty'));
+    
     initialFetch()
 
     searchInput.addEventListener('input', handleSearchInput);
@@ -960,27 +971,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initializeNewSlider()
 
-    // const phoneInputField = document.getElementById('phoneNumber');
-    // const phoneError = document.getElementById('phoneError');
+  // const phoneInputField = document.getElementById('phoneNumber');
+  // const phoneError = document.getElementById('phoneError');
 
-    // const iti = intlTelInput(phoneInputField, {
-    //     initialCountry: "auto", // Auto-detect user's country
-    //     geoIpLookup: function (callback) {
-    //         fetch('https://ipinfo.io/json?token=5cef6dd088fc9f')
-    //             .then((response) => response.json())
-    //             .then((json) => callback(json.country))
-    //             .catch(() => callback('US'));
-    //     },
-    //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js", // For number formatting and validation
-    // });
+  // const iti = intlTelInput(phoneInputField, {
+  //     initialCountry: "auto", // Auto-detect user's country
+  //     geoIpLookup: function (callback) {
+  //         fetch('https://ipinfo.io/json?token=5cef6dd088fc9f')
+  //             .then((response) => response.json())
+  //             .then((json) => callback(json.country))
+  //             .catch(() => callback('US'));
+  //     },
+  //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js", // For number formatting and validation
+  // });
 
-    // phoneInputField.addEventListener('blur', () => {
-    //     if (iti.isValidNumber()) {
-    //         phoneError.style.display = 'none';
-    //     } else {
-    //         phoneError.style.display = 'block';
-    //     }
-    // });
+  // phoneInputField.addEventListener('blur', () => {
+  //     if (iti.isValidNumber()) {
+  //         phoneError.style.display = 'none';
+  //     } else {
+  //         phoneError.style.display = 'block';
+  //     }
+  // });
 
   const searchBar = document.getElementById('searchBar');
   const searchForm = document.querySelector('.search-form');
@@ -993,7 +1004,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('Slick slider elements not found in the DOM.');
   }
 
-  
+
 
 
 
@@ -1048,68 +1059,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (elements.searchResult) {
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchKeyword = urlParams.get("keyword"); // Get the value of 'keyword'
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const searchKeyword = urlParams.get("keyword"); // Get the value of 'keyword'
 
-    // Select the search input field
-    const searchInput = document.getElementById("search-Bar");
+    // // Select the search input field
+    // const searchInput = document.getElementById("search-Bar");
 
-    // If 'keyword' exists in the URL, set its value in the input field
-    if (searchKeyword) {
-      searchInput.value = decodeURIComponent(searchKeyword); // Decode the keyword (e.g., to handle spaces)
-    }
-    function renderSections() {
-      const sectionsContainer = document.getElementById("sections-container");
-      sectionsContainer.innerHTML = "";
-    
-      dataList.forEach((data, index) => {
-        const sectionHTML = `
-          <div class="container">
-            <div class="titleWrap">
-              <h2 class="mainTitle">${data.name}</h2>
-            </div>
-            <div class="row rowDiv" id="section-${index}">
-              <!-- Items will be rendered here -->
-            </div>
-            <div class="btnSapce text-center">
-              <button id="showMore-${index}" class="btn btn-more btnBor" data-index="${index}">Show More</button>
-            </div>
-          </div>
-        `;
-        sectionsContainer.insertAdjacentHTML("beforeend", sectionHTML);
-        renderItems(index, 0, 3); // Render first 3 items
-      });
-    }
+    // // If 'keyword' exists in the URL, set its value in the input field
+    // if (searchKeyword) {
+    //   searchInput.value = decodeURIComponent(searchKeyword); // Decode the keyword (e.g., to handle spaces)
+    // }
+    // function renderSections() {
+    //   const sectionsContainer = document.getElementById("sections-container");
+    //   sectionsContainer.innerHTML = "";
 
-    function renderItems(sectionIndex, start, count) {
-      const section = dataList[sectionIndex];
-      const sectionContainer = document.getElementById(`section-${sectionIndex}`);
-    
-      const itemsToRender = section.items.slice(start, start + count);
-      const template = document.getElementById("searchlist-template").innerHTML;
-    
-      itemsToRender.forEach(item => {
-        const html = Mustache.render(template, item);
-        sectionContainer.insertAdjacentHTML("beforeend", html);
-      });
-    
-      // Hide "Show More" button if no more items to load
-      if (start + count >= section.items.length) {
-        document.getElementById(`showMore-${sectionIndex}`).style.display = "none";
-      }
-    }
-    
-    // Event listener for "Show More" buttons
-    document.getElementById("sections-container").addEventListener("click", function (event) {
-      if (event.target.tagName === "BUTTON" && event.target.id.startsWith("showMore")) {
-        const sectionIndex = parseInt(event.target.dataset.index, 10);
-        const sectionContainer = document.getElementById(`section-${sectionIndex}`);
-        const currentCount = sectionContainer.childElementCount;
-        renderItems(sectionIndex, currentCount, 3); // Load the next 3 items
-      }
-    });
+    //   dataList.forEach((data, index) => {
+    //     const sectionHTML = `
+    //       <div class="container">
+    //         <div class="titleWrap">
+    //           <h2 class="mainTitle">${data.name}</h2>
+    //         </div>
+    //         <div class="row rowDiv" id="section-${index}">
+    //           <!-- Items will be rendered here -->
+    //         </div>
+    //         <div class="btnSapce text-center">
+    //           <button id="showMore-${index}" class="btn btn-more btnBor" data-index="${index}">Show More</button>
+    //         </div>
+    //       </div>
+    //     `;
+    //     sectionsContainer.insertAdjacentHTML("beforeend", sectionHTML);
+    //     renderItems(index, 0, 3); // Render first 3 items
+    //   });
+    // }
 
-    renderSections();
+    // function renderItems(sectionIndex, start, count) {
+    //   const section = dataList[sectionIndex];
+    //   const sectionContainer = document.getElementById(`section-${sectionIndex}`);
+
+    //   const itemsToRender = section.items.slice(start, start + count);
+    //   const template = document.getElementById("searchlist-template").innerHTML;
+
+    //   itemsToRender.forEach(item => {
+    //     const html = Mustache.render(template, item);
+    //     sectionContainer.insertAdjacentHTML("beforeend", html);
+    //   });
+
+    //   // Hide "Show More" button if no more items to load
+    //   if (start + count >= section.items.length) {
+    //     document.getElementById(`showMore-${sectionIndex}`).style.display = "none";
+    //   }
+    // }
+
+    // // Event listener for "Show More" buttons
+    // document.getElementById("sections-container").addEventListener("click", function (event) {
+    //   if (event.target.tagName === "BUTTON" && event.target.id.startsWith("showMore")) {
+    //     const sectionIndex = parseInt(event.target.dataset.index, 10);
+    //     const sectionContainer = document.getElementById(`section-${sectionIndex}`);
+    //     const currentCount = sectionContainer.childElementCount;
+    //     renderItems(sectionIndex, currentCount, 3); // Load the next 3 items
+    //   }
+    // });
+
+    // renderSections();
 
 
     // recipelist-template
@@ -1266,11 +1277,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to get the active `productCatId`
     const getActiveProductCatId = () => {
-        const subActiveButton = document.querySelector('.categ_filter .subfilbtn.active');
-        return subActiveButton ? subActiveButton.getAttribute('data-umb-id') : 0;
+      const subActiveButton = document.querySelector('.categ_filter .subfilbtn.active');
+      return subActiveButton ? subActiveButton.getAttribute('data-umb-id') : 0;
     };
 
-    const getProductTypeId = () =>{
+    const getProductTypeId = () => {
       const typeActiveButton = document.querySelector('.type_filter .typefilbtn.active');
       return typeActiveButton ? typeActiveButton.getAttribute('data-umb-id') : 0;
     }
@@ -1283,73 +1294,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add event listeners to filter buttons
     if (filterButtons) {
-        filterButtons.forEach(button => {
-            button.addEventListener('click', event => {
-                event.preventDefault();
+      filterButtons.forEach(button => {
+        button.addEventListener('click', event => {
+          event.preventDefault();
 
-                // Remove `active` class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Remove `active` class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
 
-                // Add `active` class to the clicked button
-                button.classList.add('active');
+          // Add `active` class to the clicked button
+          button.classList.add('active');
 
-                // Get the `data-umb-id` of the clicked button
-                productCatId = button.getAttribute('data-umb-id');
+          // Get the `data-umb-id` of the clicked button
+          productCatId = button.getAttribute('data-umb-id');
 
-                // Reset offset and fetch updated product list
-                showMoreClicked = false;
-                offset = 0;
-                getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
-            });
+          // Reset offset and fetch updated product list
+          showMoreClicked = false;
+          offset = 0;
+          getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
         });
-    }
-    if (typeFilterButtons) {
-      typeFilterButtons.forEach(button => {
-          button.addEventListener('click', event => {
-              event.preventDefault();
-
-              // Remove `active` class from all buttons
-              typeFilterButtons.forEach(btn => btn.classList.remove('active'));
-
-              // Add `active` class to the clicked button
-              button.classList.add('active');
-
-              // Get the `data-umb-id` of the clicked button
-              productTypeId = button.getAttribute('data-umb-id');
-
-              // Reset offset and fetch updated product list
-              showMoreClicked = false;
-              offset = 0;
-              getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
-          });
       });
-  }
+    }
+    // if (typeFilterButtons) {
+    //   typeFilterButtons.forEach(button => {
+    //     button.addEventListener('click', event => {
+    //       event.preventDefault();
+
+    //       // Remove `active` class from all buttons
+    //       typeFilterButtons.forEach(btn => btn.classList.remove('active'));
+
+    //       // Add `active` class to the clicked button
+    //       button.classList.add('active');
+
+    //       // Get the `data-umb-id` of the clicked button
+    //       productTypeId = button.getAttribute('data-umb-id');
+
+    //       // Reset offset and fetch updated product list
+    //       showMoreClicked = false;
+    //       offset = 0;
+    //       getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
+    //     });
+    //   });
+    // }
 
     // Add event listener for dropdown if it exists
     if (elements.productDropdown) {
-        elements.productDropdown.addEventListener('change', () => {
-            productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
+      elements.productDropdown.addEventListener('change', () => {
+        productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
 
-            elements.productButton.setAttribute('data-offset', '0');
-            offset = 0;
-            selectedValue = elements.productDropdown.value;
-            showMoreClicked = false;
-            getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
-        });
+        elements.productButton.setAttribute('data-offset', '0');
+        offset = 0;
+        selectedValue = elements.productDropdown.value;
+        showMoreClicked = false;
+        getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
+      });
     }
 
     // Event listener for "Show More" button clicks
     elements.productButton.addEventListener('click', event => {
-        event.preventDefault();
+      event.preventDefault();
 
-        productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
+      productCatId = getActiveProductCatId(); // Dynamically fetch active `productCatId`
 
-        showMoreClicked = true;
-        offset += limit;
-        elements.productButton.setAttribute('data-offset', offset);
-        getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
+      showMoreClicked = true;
+      offset += limit;
+      elements.productButton.setAttribute('data-offset', offset);
+      getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
     });
-}
+  }
 
 
   const closeButton = document.querySelector('#instoreclose');
