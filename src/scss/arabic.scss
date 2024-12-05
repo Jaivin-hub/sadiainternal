@@ -269,12 +269,7 @@ html[dir="rtl"]{
         }
     } 
 
-    .storyWraper{
-        .yearWidth{
-            left: inherit;
-            right: 125px;
-        }
-    }
+
     .campaignBxWraper{
         .contBoxs{
             .descp{
@@ -366,7 +361,22 @@ html[dir="rtl"]{
             background-position: 10px center;
         }
         
-    } 
+    }
+    .storyWraper {
+        .slick-arrow{
+            &.slick-prev{
+                right: 0;
+                left: auto;
+                transform: scaleX(-1);
+            }
+            &.slick-next{
+                right: auto;
+                left: 0;
+                transform: scaleX(-1);
+            }
+        }
+        
+    }
 
 }
 
@@ -428,11 +438,7 @@ html[dir="rtl"]{
             }
         }
 
-        .storyWraper{
-            .yearWidth {
-                right: 0;
-            }
-        } 
+      
         .faqWraper{
             .tabDesign{
                 .faq_filter {
