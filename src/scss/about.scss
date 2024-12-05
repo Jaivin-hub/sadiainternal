@@ -294,10 +294,27 @@
         font-family: $title-font;
         margin: 0;
         padding: 0;
+        text-align: center;
+        margin: 20px 0 60px;
     }
 
     .yearSlider {
         position: relative;
+
+        .sliderBoxs{
+            .slick-slide{
+                margin-right: 25px;
+                &:nth-child(even) {
+                    .storyBox{
+                        flex-direction: column-reverse;
+                        display: flex;
+                        .spaceBx{
+                            padding: 20px 0 5px 0;
+                        }
+                    }
+                }
+            }
+        }
         .content-item {
             transition: all ease 0.5s;
 
@@ -320,14 +337,16 @@
 
     .contWrapper {
         .spaceBx {
-            padding: 20px 0;
+            padding: 5px 0 20px 0;
 
             .title {
                 color: $border-color;
                 font-size: 70px;
                 line-height: 80px;
                 font-family: $title-font;
-                letter-spacing: -0.2px;
+                letter-spacing: -0.5px;
+                margin: 0;
+                padding: 0;
             }
 
             .descp {
@@ -362,7 +381,7 @@
     }
 
     .slick-list.draggable {
-        margin: 0 15px;
+        margin: 0;
     }
 
     .slick-arrow {
@@ -402,12 +421,13 @@
     }
 
     .yearWidth {
-        max-width: 280px;
+        max-width: 190px;
         width: 100%;
 
-        position: absolute;
-        bottom: 40px;
-        left: 125px;
+        position: relative;
+        margin: 0 auto;
+        margin-top: 40px;
+        bottom: 0;
 
         .slick-list{
             .slick-track {
@@ -430,7 +450,12 @@
             }
             
         }
-
+        .slick-prev{
+            left: -35px;
+        }
+        .slick-next {
+            right: -35px;
+        }
         .thumbnail {
             .title {
                 color: #D6D6D6;
@@ -443,120 +468,73 @@
 
 }
 
-@media (max-width: 1200px) {
 
-    .storyWraper {
-        .contWrapper {
-            .spaceBx {
-                .title {
-                    font-size: 210px;
-                    line-height: 210px;
-                }
-            }
-        }
-    }
+.carousel-inner {
+    display: flex;
+  }
 
+  /* Main Image Carousel: Show 3.5 slides */
+  #main-carousel .carousel-item {
+    flex: 0 0 auto;
+    width: calc(100% / 3.5); /* Each slide takes up 1/3.5 of the container */
+    margin-right: 15px;
+  }
 
-}
+  /* Thumbnail Navigation: Show 3.5 thumbnails */
+  .carousel-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-@media (max-width: 991px) {
+  .thumb-item {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+  }
 
-    .storyWraper {
-        .yearWidth {
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-            bottom: 0;
-            left: 0;
-            text-align: center;
-            margin: 0 auto;
-            margin-top: 20px;
-        }
+  .thumb-item:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 
-        .content-item {
-            .spaceBx {
-                padding-bottom: 25px;
-            }
-        }
+  .thumb-item.active {
+    border: 2px solid #007bff;
+    opacity: 1;
+  }
 
-    }
-
-}
 
 @media (max-width: 767px) {
 
-    .storyWraper {
-        .imgWrapper {
-            .imgBox {
-                height: 380px;
-            }
-
-        }
-
-        .contWrapper {
-            .spaceBx {
-                .descp {
-                    min-height: 90px;
+    .storyWraper{
+        .yearSlider{
+            .sliderBoxs{
+                .slick-slide {
+                    margin-right: 20px;
                 }
             }
+        }  
+        .sliderTitle{
+            margin-bottom: 40px;
         }
-
-        .yearSlider {
-            .slick-slider {
-                padding: 0;
-                margin: 0;
-            }
-        }
-
-        .slick-arrow {
-            margin: 18px 0 0 0;
-        }
-
-        .slick-list {
-            margin: 0 5px !important;
-        }
-
-        .yearWidth {
-            max-width: 100%;
-            position: relative;
-            bottom: 0;
-            left: 0;
-
-            border-top: 1px solid $border-color;
-            width: calc(100% - 50px);
-            margin: 20px 25px 0 !important;
-            padding: 35px 0 0 0 !important;
-        }
-
-        .contWrapper {
-            .spaceBx {
-                padding: 35px 0px 0;
-                text-align: center;
-                max-width: 100%;
-
+        .contWrapper{
+            .spaceBx{
                 .title {
-                    font-size: 150px;
-                    line-height: 170px;
+                    font-size: 50px;
+                    line-height: 60px;
                 }
             }
-        }
-
-        .rotSect {
-            flex-direction: column-reverse;
-        }
-    }
-    .campaignBxWraper{
-        .subitle.newSpc{
-            margin: 20px 0 15px;
+        }  
+            
+        .yearWidth{
+            margin-top: 30px;
+            max-width: 220px;
         }
     }
-    .certImg {
-        margin-top: 25px;
-    }
-
 
 }
-
 
 // STORY_SECTION END
 
