@@ -1059,10 +1059,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (elements.searchResult) {
     const showButtons = document.querySelectorAll(".btn-more");
+    const cookingHacksSection = document.querySelector(".searchHacksShowAllBtn");
+    const recipeSection = document.querySelector(".searchRecipesShowAllBtn");
+
+
+    if (cookingHacksSection) {
+      cookingHacksSection.addEventListener("click", () => {
+          // Select the searchRecipesShowAllDiv
+          const cookingDiv = document.querySelector(".searchHacksShowAllDiv");
+          
+          if (cookingDiv) {
+              // Remove the 'hideDives' class
+              cookingDiv.classList.remove("hideDives");
+              cookingHacksSection.style.display = "none";
+
+          }
+      });
+  }
+  if (recipeSection) {
+    recipeSection.addEventListener("click", () => {
+        // Select the searchRecipesShowAllDiv
+        const recipesDiv = document.querySelector(".searchRecipesShowAllDiv");
+        
+        if (recipesDiv) {
+            // Remove the 'hideDives' class
+            recipesDiv.classList.remove("hideDives");
+            recipeSection.style.display = "none";
+
+        }
+    });
+}
+
+
     showButtons.forEach((button) => {
       button.addEventListener("click", () => {
+        console.log('button clicking')
           // Get the data-index value of the clicked button
           const index = button.getAttribute("data-index");
+          console.log('index',index)
           
           // Select the corresponding div with the class `moreDiv-{index}`
           const targetDiv = document.querySelector(`.moreDiv-${index}`);
