@@ -1058,73 +1058,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (elements.searchResult) {
+    const showButtons = document.querySelectorAll(".btn-more");
+    showButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+          // Get the data-index value of the clicked button
+          const index = button.getAttribute("data-index");
+          
+          // Select the corresponding div with the class `moreDiv-{index}`
+          const targetDiv = document.querySelector(`.moreDiv-${index}`);
+          
+          // Check if the target div exists
+          if (targetDiv) {
+              // Show the target div
+              targetDiv.style.visibility = "visible";
+              targetDiv.style.height = "auto";
+              targetDiv.style.overflow = "visible";
 
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const searchKeyword = urlParams.get("keyword"); // Get the value of 'keyword'
-
-    // // Select the search input field
-    // const searchInput = document.getElementById("search-Bar");
-
-    // // If 'keyword' exists in the URL, set its value in the input field
-    // if (searchKeyword) {
-    //   searchInput.value = decodeURIComponent(searchKeyword); // Decode the keyword (e.g., to handle spaces)
-    // }
-    // function renderSections() {
-    //   const sectionsContainer = document.getElementById("sections-container");
-    //   sectionsContainer.innerHTML = "";
-
-    //   dataList.forEach((data, index) => {
-    //     const sectionHTML = `
-    //       <div class="container">
-    //         <div class="titleWrap">
-    //           <h2 class="mainTitle">${data.name}</h2>
-    //         </div>
-    //         <div class="row rowDiv" id="section-${index}">
-    //           <!-- Items will be rendered here -->
-    //         </div>
-    //         <div class="btnSapce text-center">
-    //           <button id="showMore-${index}" class="btn btn-more btnBor" data-index="${index}">Show More</button>
-    //         </div>
-    //       </div>
-    //     `;
-    //     sectionsContainer.insertAdjacentHTML("beforeend", sectionHTML);
-    //     renderItems(index, 0, 3); // Render first 3 items
-    //   });
-    // }
-
-    // function renderItems(sectionIndex, start, count) {
-    //   const section = dataList[sectionIndex];
-    //   const sectionContainer = document.getElementById(`section-${sectionIndex}`);
-
-    //   const itemsToRender = section.items.slice(start, start + count);
-    //   const template = document.getElementById("searchlist-template").innerHTML;
-
-    //   itemsToRender.forEach(item => {
-    //     const html = Mustache.render(template, item);
-    //     sectionContainer.insertAdjacentHTML("beforeend", html);
-    //   });
-
-    //   // Hide "Show More" button if no more items to load
-    //   if (start + count >= section.items.length) {
-    //     document.getElementById(`showMore-${sectionIndex}`).style.display = "none";
-    //   }
-    // }
-
-    // // Event listener for "Show More" buttons
-    // document.getElementById("sections-container").addEventListener("click", function (event) {
-    //   if (event.target.tagName === "BUTTON" && event.target.id.startsWith("showMore")) {
-    //     const sectionIndex = parseInt(event.target.dataset.index, 10);
-    //     const sectionContainer = document.getElementById(`section-${sectionIndex}`);
-    //     const currentCount = sectionContainer.childElementCount;
-    //     renderItems(sectionIndex, currentCount, 3); // Load the next 3 items
+              // Hide the clicked button
+              button.style.display = "none";
+          }
+      });
+  });
+    // console.log('inside condision')
+    // document.getElementById('chickenpartsbutton').addEventListener('click', function () {
+    //   const section = document.getElementById("chickenpartssection");
+    //   const button = document.getElementById('chickenpartsbutton');
+    //   if (section.style.visibility === "hidden") {
+    //     section.style.visibility = "visible";
+    //     section.style.height = "auto";
+    //     section.style.overflow = "visible";
+    //     button.style.display = "none"; // Hides the button
+    //   } else {
+    //     section.style.visibility = "hidden";
+    //     section.style.height = "0";
+    //     section.style.overflow = "hidden";
     //   }
     // });
 
-    // renderSections();
+    // document.getElementById('endlistshowmore').addEventListener('click', function () {
+    //   const section = document.getElementById("lastsection");
+    //   const button = document.getElementById('endlistshowmore');
+    //   if (section.style.visibility === "hidden") {
+    //     section.style.visibility = "visible";
+    //     section.style.height = "auto";
+    //     section.style.overflow = "visible";
+    //     button.style.display = "none"; // Hides the button
+    //   } else {
+    //     section.style.visibility = "hidden";
+    //     section.style.height = "0";
+    //     section.style.overflow = "hidden";
+    //   }
+    // });
 
+    // document.getElementById('breadedbutton').addEventListener('click', function () {
+    //   const section = document.getElementById("breadedsection");
+    //   const button = document.getElementById('breadedbutton');
+    //   if (section.style.visibility === "hidden") {
+    //     section.style.visibility = "visible";
+    //     section.style.height = "auto";
+    //     section.style.overflow = "visible";
+    //     button.style.display = "none"; // Hides the button
+    //   } else {
+    //     section.style.visibility = "hidden";
+    //     section.style.height = "0";
+    //     section.style.overflow = "hidden";
+    //   }
+    // });
 
-    // recipelist-template
+    // document.getElementById('recipebtn').addEventListener('click', function () {
+    //   const section = document.getElementById("recipessection");
+    //   const button = document.getElementById('recipebtn');
+    //   if (section.style.visibility === "hidden") {
+    //     section.style.visibility = "visible";
+    //     section.style.height = "auto";
+    //     section.style.overflow = "visible";
+    //     button.style.display = "none"; // Hides the button
+    //   } else {
+    //     section.style.visibility = "hidden";
+    //     section.style.height = "0";
+    //     section.style.overflow = "hidden";
+    //   }
+    // });
 
+    // document.getElementById('cookingbtn').addEventListener('click', function () {
+    //   const section = document.getElementById("cookingsection");
+    //   const button = document.getElementById('cookingbtn');
+    //   if (section.style.visibility === "hidden") {
+    //     section.style.visibility = "visible";
+    //     section.style.height = "auto";
+    //     section.style.overflow = "visible";
+    //     button.style.display = "none"; // Hides the button
+    //   } else {
+    //     section.style.visibility = "hidden";
+    //     section.style.height = "0";
+    //     section.style.overflow = "hidden";
+    //   }
+    // });
   }
 
   // Search Bar Expand/Collapse Handlers
