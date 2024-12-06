@@ -313,6 +313,9 @@
                         }
                     }
                 }
+                &:last-child{
+                    margin-right: 0;
+                }
             }
         }
         .content-item {
@@ -344,7 +347,7 @@
                 font-size: 70px;
                 line-height: 80px;
                 font-family: $title-font;
-                letter-spacing: -0.5px;
+                letter-spacing: -0.9px;
                 margin: 0;
                 padding: 0;
             }
@@ -506,6 +509,50 @@
   }
 
 
+@media (max-width: 1430px) {
+    .storyWraper{
+        .contWrapper{
+            .spaceBx{
+                .title{
+                    font-size: 64px;
+                }
+            }
+        }
+    } 
+
+}
+@media (max-width: 1360px) {
+    .storyWraper{
+        .contWrapper{
+            .spaceBx{
+                .title{
+                    font-size: 58px;
+                }
+            }
+        }
+    } 
+
+}
+@media (max-width: 1280px) {
+    .storyWraper{
+        .contWrapper{
+            .spaceBx{
+                .title{
+                    font-size: 52px;
+                    line-height: 55px;
+                }
+            }
+        }
+        .yearSlider{
+            .sliderBoxs{
+                .slick-slide{
+                    margin-right: 20px;
+                }
+            }
+        }
+    } 
+
+}
 @media (max-width: 767px) {
 
     .storyWraper{
