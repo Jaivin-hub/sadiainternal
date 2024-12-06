@@ -1009,52 +1009,85 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   if (searchForm || searchResultsForm) {
-    // Add an event listener to the form to prevent default submission
+    console.log('here inside i am');
+
+    // Add event listener to prevent default submission for desktop search form
     document.querySelector('.search-form').addEventListener('submit', (event) => {
-      event.preventDefault(); // Prevent form submission
+        event.preventDefault(); // Prevent form submission
     });
 
-
-    // Add a keydown event listener to handle the Enter key
+    // Handle Enter key for desktop search bar
     searchBar.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent form submission
-        const baseUrl = searchBar.getAttribute('data-url');
-        const searchQuery = searchBar.value.trim(); // Get the input value
-        if (searchQuery) {
-          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent form submission
+            const baseUrl = searchBar.getAttribute('data-url');
+            const searchQuery = searchBar.value.trim(); // Get the input value
+            if (searchQuery) {
+                console.log('hreff...');
+                window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+            }
         }
-      }
     });
 
     if (searchResultsForm) {
-      const searchIcon = document.querySelector('.serBtn img');
-      searchResultsForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent form submission
-      });
+        const searchIcon = document.querySelector('.serBtn img');
+        searchResultsForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent form submission
+        });
 
-      searchInputElement.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-          event.preventDefault(); // Prevent form submission
-          const baseUrl = searchInputElement.getAttribute('data-url');
-          const searchQuery = searchInputElement.value.trim(); // Get the input value
-          if (searchQuery) {
-            window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
-          }
-        }
-      });
+        searchInputElement.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent form submission
+                const baseUrl = searchInputElement.getAttribute('data-url');
+                const searchQuery = searchInputElement.value.trim(); // Get the input value
+                if (searchQuery) {
+                    window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+                }
+            }
+        });
 
-      searchIcon.addEventListener('click', () => {
-        const baseUrl = searchInputElement.getAttribute('data-url');
-        const searchQuery = searchInputElement.value.trim(); // Get the input value
-        if (searchQuery) {
-          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
-        }
-      });
+        searchIcon.addEventListener('click', () => {
+            const baseUrl = searchInputElement.getAttribute('data-url');
+            const searchQuery = searchInputElement.value.trim(); // Get the input value
+            if (searchQuery) {
+                window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+            }
+        });
     }
 
+    // Add functionality for the mobile search
+    const mobileSearchForm = document.querySelector('.mobileSearch .search-form');
+    const mobileSearchBar = document.querySelector('.mobileSearch .search-bar');
+    const mobileSearchButton = document.querySelector('.mobileSearch .searchBt');
 
-  }
+    if (mobileSearchForm && mobileSearchBar && mobileSearchButton) {
+        // Prevent default submission for mobile search form
+        mobileSearchForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+        });
+
+        // Handle Enter key for mobile search bar
+        mobileSearchBar.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const baseUrl = mobileSearchBar.getAttribute('data-url');
+                const searchQuery = mobileSearchBar.value.trim();
+                if (searchQuery) {
+                    window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+                }
+            }
+        });
+
+        // Handle click on the mobile search button
+        mobileSearchButton.addEventListener('click', () => {
+            const baseUrl = mobileSearchBar.getAttribute('data-url');
+            const searchQuery = mobileSearchBar.value.trim();
+            if (searchQuery) {
+                window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+            }
+        });
+    }
+}
 
 
   if (elements.searchResult) {
