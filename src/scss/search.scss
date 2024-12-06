@@ -88,7 +88,29 @@
     
 }
 
+
+
+
 .searchList{
+    .recipies_list{
+        .card{
+            .card-body{
+                .card-title{
+                    min-height: 52px;
+                    margin: 0 0 5px;
+                }
+                .card-text{
+                    color: #adadad;
+                    font-size: 14px;
+                    font-weight: 400;
+                    span{
+                        color: $primary-color;
+                        padding-left: 5px;
+                    }
+                }
+            }
+        } 
+    }
     .card{
         cursor: pointer;
     }

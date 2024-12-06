@@ -194,33 +194,51 @@ const initializeSlick = () => {
       return;
     }
 
-    if ($('.whatSlider').length) {
+    // Function to initialize or reinitialize Slick sliders
+    const initSliders = (isRTL) => {
+      // Destroy existing sliders to avoid duplicate instances
+      if ($('.whatSlider').hasClass('slick-initialized')) {
+        $('.whatSlider').slick('unslick');
+      }
+      if ($('.image-slider').hasClass('slick-initialized')) {
+        $('.image-slider').slick('unslick');
+      }
+      if ($('.thumbnail-slider').hasClass('slick-initialized')) {
+        $('.thumbnail-slider').slick('unslick');
+      }
+      if ($('.content-slider').hasClass('slick-initialized')) {
+        $('.content-slider').slick('unslick');
+      }
+
+      // Initialize `whatSlider`
+      if ($('.whatSlider').length) {
         $('.whatSlider').slick({
+          rtl: isRTL, // Add RTL dynamically
           dots: false,
-          slidesToShow: 3, // Show one main slide at a time
+          slidesToShow: 3,
           slidesToScroll: 1,
-          initialSlide: 3, // Start at the 4th slide (index 3)
-          infinite: true, // Enable infinite looping
+          initialSlide: 3,
+          infinite: true,
           autoplay: true,
           autoplaySpeed: 3000,
           arrows: false,
-          variableWidth: true, // Enable variable width for custom slide widths
+          variableWidth: true,
           responsive: [
             {
-              breakpoint: 768, // Screen width at which settings should change
+              breakpoint: 768,
               settings: {
-                slidesToShow: 1, // Show only one slide at a time on mobile
-                variableWidth: false // Disable variable width for consistent slide width
-              }
-            }
-          ]
+                slidesToShow: 1,
+                variableWidth: false,
+              },
+            },
+          ],
         });
-        // return;
-    }
+      }
 
-    if ($('.image-slider').length || $('.thumbnail-slider').length) {
-        // Initialize the main image slider
+      // Initialize `image-slider`
+      if ($('.image-slider').length) {
         $('.image-slider').slick({
+          rtl: isRTL, // Add RTL dynamically
           arrows: false,
           autoplay: false,
           infinite: false,
@@ -231,18 +249,24 @@ const initializeSlick = () => {
           asNavFor: '.thumbnail-slider, .content-slider',
           autoplaySpeed: 3000,
         });
+      }
 
-        // Initialize the thumbnail slider
+      // Initialize `thumbnail-slider`
+      if ($('.thumbnail-slider').length) {
         $('.thumbnail-slider').slick({
+          rtl: isRTL, // Add RTL dynamically
           slidesToShow: 4,
           slidesToScroll: 1,
           asNavFor: '.image-slider, .content-slider',
           focusOnSelect: true,
           infinite: false,
         });
+      }
 
-        // Initialize the content slider
+      // Initialize `content-slider`
+      if ($('.content-slider').length) {
         $('.content-slider').slick({
+          rtl: isRTL, // Add RTL dynamically
           arrows: false,
           autoplay: false,
           infinite: false,
@@ -250,56 +274,58 @@ const initializeSlick = () => {
           slidesToShow: 1,
           slidesToScroll: 1,
           fade: false,
-          asNavFor: '.image-slider, .thumbnail-slider',  // Link both image and thumbnail
+          asNavFor: '.image-slider, .thumbnail-slider',
         });
+      }
 
-      // Ensure content items exist before adding event listener
+      // Add event listeners to `.content-item`
       if ($('.content-item').length) {
-        // Handle content display on slide change
         $('.image-slider').on('beforeChange', (event, slick, currentSlide, nextSlide) => {
           $('.content-item').removeClass('active');
           $('.content-item[data-slide="' + nextSlide + '"]').addClass('active');
-
-          // Ensure current slide exists
-          const currentSlideElement = $('.slick-current .slide');
-          if (currentSlideElement.length) {
-            currentSlideElement.removeClass('slide-exiting');
-            currentSlideElement.addClass('slide-exiting');
-          }
         });
-
-        // Initialize content for the first slide
         $('.content-item[data-slide="0"]').addClass('active');
-      } else {
-        console.error('Content items not found.');
       }
 
-
-
-      // Prevent adding duplicate event listeners on clicking a thumbnail
-      if (!$._data($('.thumbnail').get(0), 'events')) {
-        // Clicking a thumbnail manually triggers the image slider
+      // Add click events to `.thumbnail`
+      if ($('.thumbnail').length && !$._data($('.thumbnail').get(0), 'events')) {
         $('.thumbnail').on('click', function () {
           const slideIndex = $(this).data('slide');
-          // Ensure the slideIndex is valid
           if (typeof slideIndex !== 'undefined') {
             $('.image-slider').slick('slickGoTo', slideIndex);
           }
         });
       }
+    };
 
-      // return;
-    }
+    // Determine initial direction
+    const isRTL = $('html').attr('dir') === 'rtl';
+    initSliders(isRTL);
 
+    // Watch for changes to `dir` attribute on `<html>`
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'dir') {
+          const newRTL = $('html').attr('dir') === 'rtl';
+          console.log('Direction changed. Reinitializing sliders. RTL:', newRTL);
+          initSliders(newRTL); // Reinitialize sliders with new direction
+        }
+      });
+    });
+
+    // Start observing changes to the `<html>` element
+    observer.observe(document.documentElement, { attributes: true });
   } catch (error) {
     console.error('Error initializing Slick sliders:', error);
   }
 };
+
 // SLICK-END
 
 
 
 // STORY-SLIDER START
+
 const initializeNewSlider = () => {
   try {
     // Ensure Slick is loaded
@@ -308,84 +334,81 @@ const initializeNewSlider = () => {
       return;
     }
 
-    // Check if the page is in RTL mode
-    const isRTL = $('html').attr('dir') === 'rtl';
+    // Function to initialize sliders
+    const initSliders = (isRTL) => {
+      // Destroy existing sliders if they are already initialized
+      if ($('#new-image-slider').hasClass('slick-initialized')) {
+        $('#new-image-slider').slick('unslick');
+      }
+      if ($('#new-thumbnail-slider').hasClass('slick-initialized')) {
+        $('#new-thumbnail-slider').slick('unslick');
+      }
 
-    if ($('#new-image-slider').length || $('#new-thumbnail-slider').length) {
-      // Initialize the main image slider
-      $('#new-image-slider').slick({
-        rtl: isRTL, // Enable RTL mode
+      // Main image slider options
+      const mainSliderOptions = {
+        rtl: isRTL, // Dynamically set RTL mode
         arrows: false,
         autoplay: false,
         infinite: false,
-        speed: 1000, // Smooth scroll speed
-        slidesToShow: 3.5, // Show 3 slides and part of the 4th slide
+        speed: 1000,
+        slidesToShow: 3.5,
         slidesToScroll: 1,
         fade: false,
         asNavFor: '#new-thumbnail-slider',
         autoplaySpeed: 3000,
-        draggable: true, // Enable dragging functionality
-        swipe: true, // Enable swipe (drag) events
+        draggable: true,
+        swipe: true,
         responsive: [
           {
-            breakpoint: 768, // Mobile view
+            breakpoint: 768,
             settings: {
-              slidesToShow: 1.1, // Show 1 slide
+              slidesToShow: 1.1,
               slidesToScroll: 1,
             },
           },
         ],
-      });
+      };
 
-      // Initialize the thumbnail slider
-      $('#new-thumbnail-slider').slick({
-        rtl: isRTL, // Enable RTL mode
+      // Thumbnail slider options
+      const thumbnailSliderOptions = {
+        rtl: isRTL, // Dynamically set RTL mode
         slidesToShow: 3.5,
         slidesToScroll: 1,
         asNavFor: '#new-image-slider',
         focusOnSelect: true,
         infinite: false,
-        draggable: true, // Enable dragging functionality for thumbnail slider
-        swipe: true, // Enable swipe for thumbnail slider
-      });
-
-      // Update arrow states
-      const updateArrowState = () => {
-        const slider = $('#new-thumbnail-slider').slick('getSlick');
-        const totalSlides = slider.slideCount;
-        const currentIndex = slider.currentSlide;
-        const slidesToShow = slider.options.slidesToShow;
-
-        if (isRTL) {
-          // Disable the next button if we're at the first slide
-          $('.slick-prev').prop('disabled', currentIndex >= totalSlides - slidesToShow);
-          $('.slick-next').prop('disabled', currentIndex <= 0);
-        } else {
-          // Disable the prev button if we're at the first slide
-          $('.slick-prev').prop('disabled', currentIndex <= 0);
-          $('.slick-next').prop('disabled', currentIndex >= totalSlides - slidesToShow);
-        }
+        draggable: true,
+        swipe: true,
       };
 
-      // Add event listeners for custom navigation
-      $('.slick-next').off('click').on('click', () => {
-        $('#new-thumbnail-slider').slick('slickNext');
-      });
-      $('.slick-prev').off('click').on('click', () => {
-        $('#new-thumbnail-slider').slick('slickPrev');
-      });
+      // Initialize sliders
+      $('#new-image-slider').slick(mainSliderOptions);
+      $('#new-thumbnail-slider').slick(thumbnailSliderOptions);
+    };
 
-      // Update arrows on slider init and after slide change
-      $('#new-thumbnail-slider').on('init reInit afterChange', updateArrowState);
-      updateArrowState();
+    // Initial setup based on current RTL state
+    const isRTL = $('html').attr('dir') === 'rtl';
+    initSliders(isRTL);
 
-    } else {
-      console.error('New sliders not found.');
-    }
+    // Watch for changes in the <html> dir attribute
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'dir') {
+          const newRTL = $('html').attr('dir') === 'rtl';
+          console.log('Direction changed. RTL mode:', newRTL);
+          initSliders(newRTL); // Reinitialize sliders with updated RTL state
+        }
+      });
+    });
+
+    // Observe the <html> tag for changes to the dir attribute
+    observer.observe(document.documentElement, { attributes: true });
+
   } catch (error) {
     console.error('Error initializing new sliders:', error);
   }
 };
+
 
 // STORY-SLIDER END
 

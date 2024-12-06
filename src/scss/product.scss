@@ -241,6 +241,17 @@
     }
 
 }
+@media (max-width: 460px) {
+    .ourPrdcts{
+        .imgDiv{
+            .titles {
+                font-size: 27px;
+                line-height: 27px;
+            }
+        }
+    }
+
+}
 
 
 
@@ -353,6 +364,14 @@
         min-width: 115px;
         color: $black-color;
         margin: 5px 0;
+
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: url(../assets/images/icons/drop-down.svg);
+        background-repeat: no-repeat;
+        background-position: 93% center;
+        background-size: 13px;
     }
 }
 

@@ -17,6 +17,13 @@ html[dir="rtl"]{
         margin-left: inherit !important;
     }
     
+    // .slick-slider{
+    //     .slick-track{
+    //         direction: rtl;
+    //     }
+    // } 
+
+
     header{
         .navbar{
             &.bg-primary{
@@ -377,8 +384,247 @@ html[dir="rtl"]{
         }
         
     }
+    .trendingWraper{
+        .card{
+            .card-body{
+                .card-title{
+                    padding-left: 5%;
+                    padding-right: 0;
+                }
+                .card-text{
+                    display: flex;
+                    flex-direction: inherit;
+                    span{
+                        padding: 0 5px 0 0;
+                    }
+                }
+            }
+        } 
+    }
+
+    .popular-section{
+        .card{
+            .card-body{
+                .card-text{
+                    display: flex;
+                    flex-direction: inherit;
+                    span{
+                        padding: 0 5px 0 0;
+                    }
+                }
+            }
+        } 
+    } 
+    
+    .sideFilter{
+        .btnSpace{
+            .resetBtn{
+                &.submit{
+                     margin: 0 10px 0 0 ;
+                }
+            }
+        }
+        .form-select{
+            background-position: 10px center;
+            padding: .375rem .75rem .375rem 2.25rem;
+        }
+    }
+    .filToggle{
+        margin: 5px 0px 5px 8px;
+        p {
+            margin: 0 15px 0 0;
+        }
+        &.active{
+            p{
+                margin: 0 15px;
+            }
+            img.icons{
+                &.arwIcon {
+                    transform: scaleX(-1);
+                }
+            }
+        }
+    }
+    .productFilter{
+        .filterWrap{
+            .categ_filter{
+                margin-left: 25px;
+                margin-right: 0px;
+            }
+        }
+    }  
+    .ourPrdcts{
+        .imgDiv{
+            .titles{
+                right: 40px;
+                left: inherit;
+            }
+        }
+    }
+    .filterWrap{
+        &.catgSpc{
+            .type_filter {
+                margin-left: 25px;
+                margin-right: 0;
+            }
+            .categ_filter{
+                .filBtn{
+                    margin: 5px 0px 5px 8px;
+                }
+            } 
+        } 
+        .form-select{
+            background-position: 10px center;
+            padding: .375rem .75rem .375rem 2.25rem;
+        }
+    }
+    
+    .prdctDetailwrap{
+        .prdctInfo-wrap{
+            ol.custom-list{
+                li{
+                    padding-right: 50px;
+                    padding-left: 0px;
+                    &::before{
+                        left: inherit;
+                        right: 0;
+                    }
+                }
+            } 
+            .titleWrap{
+                .mainTitle{
+                    text-align: right;
+                }
+            }
+            .dtlsWraper{
+                .benefits{
+                    li{
+                        .iconSpc{
+                            margin: 0 0 0 15px;
+                        }
+                    }
+                }
+            }  
+            .nutritionWtraper{
+                .contSect{
+                    .tableStyle{
+                        th, td{
+                            border-left: 1px solid #adadad;
+                            border-right: 0;
+                            &:last-child{
+                                padding-right: 20px;
+                                padding-left: 0px;
+                                border-left: 0;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }   
+
+        .prdctSlider{
+            .carousel{
+                .carousel-inner{
+                    flex-direction: row-reverse;
+                }
+            }
+            
+            .carousel-indicators{
+                &.thumbSect{
+                    display: flex;
+                    li{
+                        margin: 20px 0px 20px 20px;
+                    }
+                }
+            }
+            .carousel-scroll{
+                justify-content: right;
+                display: flex;
+            }
+        }
+    }
+
+  
+    .scrl_cards{
+        &.productList{
+            float: left;
+        }
+    }
+
+
+    
+    .rldPrdct-slider{
+        .scrl_cards{
+            .slick-slide{
+                margin-left: 20px;
+                margin-right: 0;
+            }
+            
+        }
+        .container {
+            margin: 0 50px;
+            overflow: hidden;
+            position: relative;
+            padding: 0;
+        }
+    }
+    .contArea {
+        padding-right: 30px;
+        padding-left: calc(var(--bs-gutter-x)*.5);
+    }
+    .searchResults{
+        .listStyle{
+            .imgSpace{
+                float: right;
+                margin-left: 30px;
+                margin-right: 0px;
+            }
+        }
+    } 
+    .cookingHacks{
+        .card{
+            .card-body{
+                .card-title{
+                    padding-left: 10px;
+                    padding-right: 0px;
+                }
+            }
+        }
+    }
+    .searchList{
+        .recipies_list{
+            .card{
+                .card-body{
+                    .card-text{
+                        display: flex;
+                        flex-direction: row;
+                        span{
+                            padding-right: 5px;
+                            padding-left: 0px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+   
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -497,7 +743,21 @@ html[dir="rtl"]{
         .iti__arrow{
             margin-right: 6px;
             margin-left: 0;
-        }  
+        } 
+        .ourPrdcts{
+            .imgDiv{
+                .titles {
+                    right: 0;
+                    left: inherit;
+                } 
+            } 
+        }
+        .rldPrdct-slider{
+            .container {
+                margin: 0 20px;
+                padding: 0;
+            }
+        }
 
     }
 

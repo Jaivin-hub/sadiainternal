@@ -266,6 +266,14 @@
             line-height: 18px;
             outline: 0;
             box-shadow: inherit;
+
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: url(../assets/images/icons/drop-down.svg);
+            background-repeat: no-repeat;
+            background-position: 96% center;
+            background-size: 13px;
             &::placeholder {
                 color: #ADADAD;
             }
