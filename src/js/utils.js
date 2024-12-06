@@ -185,7 +185,8 @@ const toogleBtn = () => {
 
 
 
-// Function to initialize Slick sliders
+// FAVOURITE-SECTION Slick sliders
+
 const initializeSlick = () => {
   try {
     // Ensure Slick is loaded
@@ -194,131 +195,106 @@ const initializeSlick = () => {
       return;
     }
 
-    // Function to initialize or reinitialize Slick sliders
     const initSliders = (isRTL) => {
-      // Destroy existing sliders to avoid duplicate instances
-      if ($('.whatSlider').hasClass('slick-initialized')) {
-        $('.whatSlider').slick('unslick');
-      }
+      // Destroy existing sliders to prevent duplication
       if ($('.image-slider').hasClass('slick-initialized')) {
         $('.image-slider').slick('unslick');
       }
       if ($('.thumbnail-slider').hasClass('slick-initialized')) {
         $('.thumbnail-slider').slick('unslick');
       }
-      if ($('.content-slider').hasClass('slick-initialized')) {
-        $('.content-slider').slick('unslick');
-      }
 
-      // Initialize `whatSlider`
-      if ($('.whatSlider').length) {
-        $('.whatSlider').slick({
-          rtl: isRTL, // Add RTL dynamically
-          dots: false,
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          initialSlide: 3,
-          infinite: true,
-          autoplay: true,
-          autoplaySpeed: 3000,
-          arrows: false,
-          variableWidth: true,
-          responsive: [
-            {
-              breakpoint: 768,
-              settings: {
-                slidesToShow: 1,
-                variableWidth: false,
-              },
-            },
-          ],
-        });
-      }
+      // Initialize the image slider
+      $('.image-slider').slick({
+        rtl: isRTL, // Dynamically set RTL mode
+        arrows: false,
+        autoplay: false,
+        infinite: false, // Disable infinite looping in RTL mode
+        speed: 1000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        fade: false,
+        asNavFor: '.thumbnail-slider', // Link with thumbnail slider
+      });
 
-      // Initialize `image-slider`
-      if ($('.image-slider').length) {
-        $('.image-slider').slick({
-          rtl: isRTL, // Add RTL dynamically
-          arrows: false,
-          autoplay: false,
-          infinite: false,
-          speed: 1000,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          fade: false,
-          asNavFor: '.thumbnail-slider, .content-slider',
-          autoplaySpeed: 3000,
-        });
-      }
+      // Initialize the thumbnail slider
+      $('.thumbnail-slider').slick({
+        rtl: isRTL, // Dynamically set RTL mode
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '.image-slider', // Link with image slider
+        focusOnSelect: true,
+        infinite: false, // Disable infinite looping in RTL mode
+        centerMode: false,
+      });
 
-      // Initialize `thumbnail-slider`
-      if ($('.thumbnail-slider').length) {
-        $('.thumbnail-slider').slick({
-          rtl: isRTL, // Add RTL dynamically
-          slidesToShow: 4,
-          slidesToScroll: 1,
-          asNavFor: '.image-slider, .content-slider',
-          focusOnSelect: true,
-          infinite: false,
-        });
-      }
+      // Initially hide the previous button
+      $('.slick-prev').hide();
 
-      // Initialize `content-slider`
-      if ($('.content-slider').length) {
-        $('.content-slider').slick({
-          rtl: isRTL, // Add RTL dynamically
-          arrows: false,
-          autoplay: false,
-          infinite: false,
-          speed: 1000,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          fade: false,
-          asNavFor: '.image-slider, .thumbnail-slider',
-        });
-      }
+      // Handle content activation for image-slider
+      $('.image-slider').on('afterChange', (event, slick, currentSlide) => {
+        // Remove 'active' class from all content items
+        $('.content-item').removeClass('active');
 
-      // Add event listeners to `.content-item`
-      if ($('.content-item').length) {
-        $('.image-slider').on('beforeChange', (event, slick, currentSlide, nextSlide) => {
-          $('.content-item').removeClass('active');
-          $('.content-item[data-slide="' + nextSlide + '"]').addClass('active');
-        });
-        $('.content-item[data-slide="0"]').addClass('active');
-      }
+        // Add 'active' class to the content item corresponding to the current slide
+        const contentSelector = `.content-item[data-slide="${currentSlide}"]`;
+        $(contentSelector).addClass('active');
+      });
 
-      // Add click events to `.thumbnail`
-      if ($('.thumbnail').length && !$._data($('.thumbnail').get(0), 'events')) {
-        $('.thumbnail').on('click', function () {
-          const slideIndex = $(this).data('slide');
-          if (typeof slideIndex !== 'undefined') {
-            $('.image-slider').slick('slickGoTo', slideIndex);
-          }
-        });
-      }
+      // Ensure proper active class handling for the thumbnails
+      $('.thumbnail-slider').on('afterChange', (event, slick, currentSlide) => {
+        const slides = $('.thumbnail-slider .slick-slide');
+        slides.removeClass('slick-current slick-active'); // Clear previous active classes
+
+        // Apply active classes to the current thumbnail
+        const newActive = slides.filter(`[data-slick-index="${currentSlide}"]`);
+        newActive.addClass('slick-current slick-active');
+      });
+
+      // Show the previous button after the first scroll (forward or backward)
+      $('.thumbnail-slider').on('afterChange', (event, slick, currentSlide) => {
+        // Show the previous button if we're not on the first slide
+        if (currentSlide > 0) {
+          $('.slick-prev').show();
+        } else {
+          $('.slick-prev').hide();
+        }
+      });
+
+      // Handle active class application on first load (initialization)
+      const firstSlideContentSelector = '.content-item[data-slide="0"]';
+      $(firstSlideContentSelector).addClass('active');
+
+      // Remove duplicate content items
+      $('.content-item').each(function() {
+        if ($(this).hasClass('active')) {
+          $(this).siblings().removeClass('active');
+        }
+      });
     };
 
-    // Determine initial direction
+    // Detect initial direction
     const isRTL = $('html').attr('dir') === 'rtl';
     initSliders(isRTL);
 
-    // Watch for changes to `dir` attribute on `<html>`
+    // Watch for direction changes dynamically
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'dir') {
           const newRTL = $('html').attr('dir') === 'rtl';
           console.log('Direction changed. Reinitializing sliders. RTL:', newRTL);
-          initSliders(newRTL); // Reinitialize sliders with new direction
+          initSliders(newRTL); // Reinitialize with updated direction
         }
       });
     });
 
-    // Start observing changes to the `<html>` element
+    // Start observing `<html>` for changes
     observer.observe(document.documentElement, { attributes: true });
   } catch (error) {
     console.error('Error initializing Slick sliders:', error);
   }
 };
+
 
 // SLICK-END
 
@@ -411,7 +387,6 @@ const initializeNewSlider = () => {
 
 
 // STORY-SLIDER END
-
 
 
 

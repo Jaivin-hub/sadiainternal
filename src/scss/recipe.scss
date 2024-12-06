@@ -604,19 +604,17 @@
     }
 
     .rptBoxs-des{
-        &#airfryer{
-            margin-bottom: 0px;
+        &:last-child{
+            margin-bottom: 0;
             .listSpace{
-                margin-bottom: 0px;
-                .col-md-4{
-                    &:last-child{
-                        .card{
-                            margin-bottom: 0px;
-                        }
+                margin-bottom: 0;
+            }
+            .col-md-4{
+                &:last-child{
+                    .card{
+                        margin-bottom: 0px;
                     }
-                   
                 }
-                
             }
         }
         .listSpace{

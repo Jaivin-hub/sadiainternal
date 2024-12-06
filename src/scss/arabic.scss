@@ -17,11 +17,9 @@ html[dir="rtl"]{
         margin-left: inherit !important;
     }
     
-    // .slick-slider{
-    //     .slick-track{
-    //         direction: rtl;
-    //     }
-    // } 
+    .carousel-inner {
+        display: block;
+    }
 
 
     header{
@@ -141,7 +139,17 @@ html[dir="rtl"]{
                         }
                     }
                 }
-            }  
+            } 
+            .thumbnail-slider{
+                .slick-arrow{
+                    &.slick-prev{
+                        transform: scaleX(-1);
+                        right: 0;
+                        left: inherit;
+                        top: 30%;
+                    }
+                }
+            }
         }
     }
     .trueFram_wraper{
@@ -372,14 +380,16 @@ html[dir="rtl"]{
     .storyWraper {
         .slick-arrow{
             &.slick-prev{
-                right: 0;
-                left: auto;
+                right: -35px;
+                left: inherit;
+                top: 25%;
                 transform: scaleX(-1);
             }
             &.slick-next{
-                right: auto;
-                left: 0;
+                right: inherit;
+                left: -35px;
                 transform: scaleX(-1);
+                top: 25%;
             }
         }
         
@@ -609,7 +619,25 @@ html[dir="rtl"]{
         }
     }
 
-
+    .yearSlider{
+        .sliderBoxs{
+            .slick-slide{
+                &:last-child{
+                    margin-right: 25px;
+                }
+                &:first-child{
+                    margin-right: 0;
+                }
+            }
+            .slick-list{
+                .slick-track{
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
+        }
+      
+    }
    
 
 

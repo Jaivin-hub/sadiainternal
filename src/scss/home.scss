@@ -1022,6 +1022,25 @@ ul{
         }
         .thumbnail-slider{
             margin: 0 !important;
+            .slick-arrow{
+                z-index: 99;
+                background-color: transparent;
+                border-radius: 27px;
+                border: 0;
+                width: 28px;
+                height: 28px;
+                background-size: cover;
+                &.slick-prev{
+                    background-image: url(../assets/images/icons/circle-left.svg);
+                    background-size: auto;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    left: 0;
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
             .slick-list{
                 width: 100%;
                 .slick-track{
@@ -1169,6 +1188,7 @@ ul{
                     color: $black-color;
                     line-height: 27px;
                     margin: 0 0 15px 0;
+                    text-transform: uppercase;
                 }
                 p{
                     color: #ADADAD;
