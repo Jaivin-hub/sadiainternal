@@ -639,7 +639,21 @@ html[dir="rtl"]{
       
     }
    
-
+    .iti__flag-container{
+        right: 0;
+        left: inherit;
+        .iti__arrow {
+            margin-right: 6px;
+            margin-left: 0;
+        }
+        .iti__country {
+            text-align: right;
+            .iti__flag-box{
+                margin-left: 6px;
+                margin-right: 0;
+            }
+        }
+    }
 
 
 }

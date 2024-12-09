@@ -390,7 +390,86 @@ const initializeNewSlider = () => {
 
 
 
+// ACCORIDAN-START
 
+document.addEventListener('DOMContentLoaded', function () {
+  // Select all accordion containers on the page
+  const accordions = document.querySelectorAll('.accordion');
+
+  accordions.forEach(accordion => {
+      const buttons = accordion.querySelectorAll('.accordion-button');
+
+      buttons.forEach(button => {
+          button.addEventListener('click', function () {
+              // Get the target panel using the data-target attribute
+              const targetId = this.getAttribute('data-target');
+              const targetPanel = document.querySelector(targetId);
+
+              if (!targetPanel) {
+                  console.error(`Panel with ID "${targetId}" not found.`);
+                  return;
+              }
+
+              // Check if the target panel is already open
+              const isActive = targetPanel.classList.contains('active');
+
+              // Collapse all panels in this accordion
+              accordion.querySelectorAll('.accordion-panel').forEach(panel => {
+                  panel.classList.remove('active');  // Collapse all
+                  panel.style.maxHeight = null;      // Reset the max-height
+                  panel.previousElementSibling.querySelector('.accordion-button').classList.add('collapsed');
+              });
+
+              // If the panel was not active, expand it
+              if (!isActive) {
+                  targetPanel.classList.add('active');  // Open the clicked panel
+                  targetPanel.style.maxHeight = targetPanel.scrollHeight + "px"; // Set the height based on content
+                  this.classList.remove('collapsed');  // Change button state to expanded
+              }
+          });
+      });
+  });
+});
+
+// ACCORIDAN-END
+
+
+
+// CUSTOM-DROP START
+
+$(document).ready(function() {
+  // Ensure that the event handler is applied after Handlebars rendering
+
+  // Toggle dropdown visibility when .init is clicked
+  $(document).on("click", "ul.ct_dropdown .init", function() {
+      // Toggle visibility of all options inside the closest dropdown
+      $(this).closest("ul.ct_dropdown ").children('li:not(.init)').toggle();
+  });
+
+  // Handle the selection of an option
+  $(document).on("click", "ul.ct_dropdown li:not(.init)", function() {
+      var parentUl = $(this).closest("ul"); // Get the closest dropdown ul
+      var allOptions = parentUl.children('li:not(.init)'); // Get all the options in the dropdown
+
+      // Remove 'selected' class from all options in the current dropdown
+      allOptions.removeClass('selected');
+
+      // Add 'selected' class to the clicked option
+      $(this).addClass('selected');
+
+      // Update the .init text to the selected option
+      parentUl.children('.init').html($(this).html());
+
+      // Toggle the options visibility
+      allOptions.toggle();
+  });
+});
+
+// CUSTOM-DROP END
+
+
+
+// MAPBOX-START
 const initializeWhereToBuyMapbox = (url) => {
   const selectElement = document.querySelector('.form-select.countryDrops');
   const selectedValue = selectElement.value;
