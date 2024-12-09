@@ -3,7 +3,13 @@
 
 
 .contactWraper{
-
+    .iti__country-list{
+        max-width: 200px;
+        color: $black-light;
+        font-size: 12px;
+        line-height: 16px;
+        font-family: $primary-font;
+    }
     .error-message {
         width: auto;
         // position: absolute;
@@ -376,12 +382,22 @@
                 padding: 15px 0;
             }
         }
-        .accordion-body{
+        .accordion-body, .accordion-panel{
             color: $black-light;
             font-size: 16px;
             line-height: 22px;
-            padding: 22px 0;
+            padding: 0;
         }
+        .accordion-panel{
+            max-height: 0;            
+            overflow: hidden;      
+            transition: max-height 0.4s ease, padding 0.3s ease; 
+            &.active{
+                max-height: 1000px;
+                padding: 22px 0;
+            }
+        }
+       
     }
 }
 
