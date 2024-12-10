@@ -195,6 +195,36 @@ const initializeSlick = () => {
       return;
     }
 
+
+    // NORMAL-CAROUSEL START
+
+    if ($('.whatSlider').length) {
+      $('.whatSlider').slick({
+        dots: false,
+        slidesToShow: 3, // Show one main slide at a time
+        slidesToScroll: 1,
+        initialSlide: 3, // Start at the 4th slide (index 3)
+        infinite: true, // Enable infinite looping
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: false,
+        variableWidth: true, // Enable variable width for custom slide widths
+        responsive: [
+          {
+            breakpoint: 768, // Screen width at which settings should change
+            settings: {
+              slidesToShow: 1, // Show only one slide at a time on mobile
+              variableWidth: false // Disable variable width for consistent slide width
+            }
+          }
+        ]
+      });
+      // return;
+    }
+
+  // NORMAL-CAROUSEL END
+
+
     const initSliders = (isRTL) => {
       // Destroy existing sliders to prevent duplication
       if ($('.image-slider').hasClass('slick-initialized')) {
