@@ -120,6 +120,11 @@
     padding-left: 30px;
 }
 
+.cont_full{
+    padding-left: calc(var(--bs-gutter-x)* .5) !important;
+    width: 100% !important;
+}
+
 .rptBoxs-des{
     margin-bottom: 15px;
     .titleSpace{
