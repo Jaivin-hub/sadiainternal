@@ -73,6 +73,14 @@
                     height: 380px;
                 }
             }
+            &.certImg {
+                .img-box{
+                    height: auto;
+                    .bxImg{
+                        max-height: inherit;
+                    }
+                }
+            }
         }
 
     }
@@ -84,8 +92,24 @@
             .contBoxs {
                 .subitle {
                     max-width: 100%;
+                    &.newSpc {
+                        margin-bottom: 20px;
+                    }
                 }
             }
+        }
+    }
+    
+
+   
+    .reverse-pos{
+        .row{
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        .camp_bximg {
+            margin-bottom: 20px;
+            
         }
     }
 
