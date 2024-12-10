@@ -1303,7 +1303,7 @@ ul{
             }
             .content-section{
                 padding: 0 20px;
-                margin: 0 0 20px;
+                margin: 30px 0 20px;
                 text-align: center;
             }
             .thumbnail-slider{
@@ -1318,6 +1318,14 @@ ul{
                     }
                 }
             } 
+            .image-slider{
+                .slide{
+                    img{
+                        max-width: 700px;
+                        min-height: auto;
+                    }
+                }
+            }
         }
     }
 
@@ -1353,7 +1361,7 @@ ul{
                         display: none;
                     }
                     .lists{
-                        margin: 15px 0 50px;
+                        margin: 20px 0 50px;
                         float: left;
                         width: 100%;
                         display: flex;

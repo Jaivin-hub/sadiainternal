@@ -30,9 +30,7 @@ footer {
             list-style: none;
         }
     }
-    .ftrLogoWrap{
 
-    }
     .footer-end{
         margin-top: 15px;
         padding: 45px 0 0;
@@ -82,7 +80,11 @@ footer {
             display: flex;
             li{
                 margin-right: 30px;
+                &:last-child{
+                    margin-right: 0;
+                }
             }
+            
             a{
                 &:hover{
                     img{
@@ -245,7 +247,7 @@ footer {
             }
         }
         .footer-socials{
-            padding-left: 0;
+            padding: 0 calc(var(--bs-gutter-x)*.5);
             &.webOnly{
                 display: none;
             }
