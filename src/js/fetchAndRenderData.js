@@ -85,13 +85,13 @@ async function fetchRecipes(templateName, data){
         let isEmpty = false;
         const formdata = {
             "recipeCatId": data.recipeCatId,
-            "mealTypeId": data.mealType == null || undefined ?[]:[Number(data.mealType)],
-            "difficultyLevelId": data.difficulty == null || undefined  ? [] : [Number(data.difficulty)],
-            "preparationTime": data.prepTime == null || undefined  ? "" : data.prepTime,
-            "cuisineId": data.cuisine == null || undefined  ? [] : [Number(data.cuisine)],
-            "dietaryId": data.dietaryNeeds == null || undefined  ? [] : [Number(data.dietaryNeeds)],
-            "occasionId": data.occasion == null || undefined  ? [] : [Number(data.occasion)],
-            "preparationStyleId": data.preparationStyle == null || undefined ? [] : [Number(data.preparationStyle)],
+            "mealTypeId": data.mealType == null || data.mealType == undefined || data.mealType == "" ?[]:[Number(data.mealType)],
+            "difficultyLevelId": data.difficulty == null || data.difficulty == undefined || data.difficulty == ""  ? [] : [Number(data.difficulty)],
+            "preparationTime": data.prepTime == null || data.prepTime == undefined || data.prepTime == ""  ? "" : data.prepTime,
+            "cuisineId": data.cuisine == null || data.cuisine == undefined || data.cuisine == ""  ? [] : [Number(data.cuisine)],
+            "dietaryId": data.dietaryNeeds == null || data.dietaryNeeds == undefined || data.dietaryNeeds == ""  ? [] : [Number(data.dietaryNeeds)],
+            "occasionId": data.occasion == null || data.occasion == undefined || data.occasion == ""  ? [] : [Number(data.occasion)],
+            "preparationStyleId": data.preparationStyle == null || data.preparationStyle == undefined || data.preparationStyle == "" ? [] : [Number(data.preparationStyle)],
             "filter": data.recipeSelectedValue,
             "keyword": data.keyword,
             "limit": data.limit,
@@ -139,9 +139,9 @@ async function fetchCookingHacks(templateName, data, getProductList){
         let isEmpty = false;
         const formdata = {
             "cookingHackCatId": data.cookingHackCatId,
-            "occasionId": data.occasionId == null || undefined ? [] : [Number(data.occasionId)],
-            "recipeId": data.recipeId == null || undefined ? [] : [Number(data.recipeId)],
-            "productId": data.productId == null || undefined ? [] : [Number(data.productId)],
+            "occasionId": data.occasionId == null || data.occasionId == undefined || data.occasionId == "" ? [] : [Number(data.occasionId)],
+            "recipeId": data.recipeId == null || data.recipeId == undefined || data.recipeId == "" ? [] : [Number(data.recipeId)],
+            "productId": data.productId == null || data.productId == undefined || data.productId == "" ? [] : [Number(data.productId)],
             "filter": data.filter,
             "keyword": data.keyword,
             "limit": data.limit,

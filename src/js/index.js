@@ -366,6 +366,7 @@ function toggleRecipeSections() {
 
 
     difficultySelect.addEventListener('change', (event) => {
+      if(event.target.value == '') selectedDifficulty = null;
       selectedDifficulty = event.target.value;
     });
 
