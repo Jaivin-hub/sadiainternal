@@ -583,7 +583,8 @@
         .yearSlider{
             .sliderBoxs{
                 .slick-slide {
-                    margin-right: 20px;
+                    padding: 0 5px;
+                    margin: 0;
                 }
             }
         }  
@@ -601,7 +602,8 @@
             
         .yearWidth{
             margin-top: 30px;
-            max-width: 220px;
+            max-width: 78%;
+            padding: 0 0;
         }
     }
 

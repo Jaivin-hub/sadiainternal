@@ -382,14 +382,14 @@ html[dir="rtl"]{
             &.slick-prev{
                 right: -35px;
                 left: inherit;
-                top: 25%;
+                top: 11px;
                 transform: scaleX(-1);
             }
             &.slick-next{
                 right: inherit;
                 left: -35px;
                 transform: scaleX(-1);
-                top: 25%;
+                top: 11px;
             }
         }
         
@@ -800,8 +800,20 @@ html[dir="rtl"]{
                 padding: 0;
             }
         }
+        .storyWraper {
+            .slick-arrow{
+                &.slick-prev{
+                    top: 0;
+                }
+                &.slick-next{
+                    top: 0;
+                }
+            }
+            
+        }
 
     }
+    
 
 
 }
