@@ -447,6 +447,12 @@
 
 // FAQ-END
 
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .contactWraper .contactForms .form-control, .contactWraper .contactForms .numberSect{
+        font-size: 16px;
+    }
+}
+
 
 
 
