@@ -368,7 +368,7 @@ const initializeNewSlider = () => {
           {
             breakpoint: 768,
             settings: {
-              slidesToShow: 1.1,
+              slidesToShow: 1,
               slidesToScroll: 1,
             },
           },
@@ -385,6 +385,15 @@ const initializeNewSlider = () => {
         infinite: false,
         draggable: true,
         swipe: true,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+            },
+          },
+        ],
       };
 
       // Initialize sliders
