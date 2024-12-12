@@ -366,7 +366,7 @@ function toggleRecipeSections() {
 
 
     difficultySelect.addEventListener('change', (event) => {
-      if(event.target.value == '') selectedDifficulty = null;
+      if (event.target.value == '') selectedDifficulty = null;
       selectedDifficulty = event.target.value;
     });
 
@@ -472,8 +472,8 @@ function initializeRecipeFilter() {
 
   // Helper function to prepare request data
   function prepareRequestData(keyword = '', recipeSelectedValue = '') {
-    console.log('timeTaken',timeTaken);
-    console.log('difficulties',difficulties)
+    console.log('timeTaken', timeTaken);
+    console.log('difficulties', difficulties)
     return {
       mealType: selectedMealType,
       cuisine: selectedCuisine,
@@ -617,7 +617,7 @@ function initializeRecipeFilter() {
     preparationSelect.addEventListener('change', event => handleDropdownChange(event, 'preparation'));
     preparationType.addEventListener('change', event => handleDropdownChange(event, 'preparationtime'));
     difficultyType.addEventListener('change', event => handleDropdownChange(event, 'difficulty'));
-    
+
     initialFetch()
 
     searchInput.addEventListener('input', handleSearchInput);
@@ -651,8 +651,6 @@ const cookingHacksSection = () => {
   const hackshowmore = document.querySelector('#hackshowmore');
   const lang = document.body.getAttribute('umb-lang');
   const closeButton = document.querySelector('#recipeclose');
-
-
 
 
 
@@ -968,6 +966,23 @@ document.addEventListener('DOMContentLoaded', () => {
     searchResult: document.querySelector('#searchresults-searchinput'),
   };
 
+  const indicators = document.querySelectorAll('.carousel-indicators li');
+  if (indicators) {
+    const idFromUrl = window.location.hash.substring(1);
+    // Loop through indicators to find the matching data-key
+    indicators.forEach(indicator => {
+      const dataKey = indicator.getAttribute('data-key');
+      if (dataKey === idFromUrl) {
+        // Remove active class from all items
+        indicators.forEach(item => item.classList.remove('active'));
+        // Add active class to the matching item
+        indicator.classList.add('active');
+      }
+    });
+  }
+
+
+
   initializeNewSlider()
   const searchBar = document.getElementById('searchBar');
   const searchForm = document.querySelector('.search-form');
@@ -984,46 +999,46 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchForm || searchResultsForm) {
     // Add event listener to prevent default submission for desktop search form
     document.querySelector('.search-form').addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent form submission
+      event.preventDefault(); // Prevent form submission
     });
 
     // Handle Enter key for desktop search bar
     searchBar.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent form submission
-            const baseUrl = searchBar.getAttribute('data-url');
-            const searchQuery = searchBar.value.trim(); // Get the input value
-            if (searchQuery) {
-                console.log('hreff...');
-                window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
-            }
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission
+        const baseUrl = searchBar.getAttribute('data-url');
+        const searchQuery = searchBar.value.trim(); // Get the input value
+        if (searchQuery) {
+          console.log('hreff...');
+          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
         }
+      }
     });
 
     if (searchResultsForm) {
-        const searchIcon = document.querySelector('.serBtn img');
-        searchResultsForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent form submission
-        });
+      const searchIcon = document.querySelector('.serBtn img');
+      searchResultsForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent form submission
+      });
 
-        searchInputElement.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault(); // Prevent form submission
-                const baseUrl = searchInputElement.getAttribute('data-url');
-                const searchQuery = searchInputElement.value.trim(); // Get the input value
-                if (searchQuery) {
-                    window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
-                }
-            }
-        });
+      searchInputElement.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevent form submission
+          const baseUrl = searchInputElement.getAttribute('data-url');
+          const searchQuery = searchInputElement.value.trim(); // Get the input value
+          if (searchQuery) {
+            window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+          }
+        }
+      });
 
-        searchIcon.addEventListener('click', () => {
-            const baseUrl = searchInputElement.getAttribute('data-url');
-            const searchQuery = searchInputElement.value.trim(); // Get the input value
-            if (searchQuery) {
-                window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
-            }
-        });
+      searchIcon.addEventListener('click', () => {
+        const baseUrl = searchInputElement.getAttribute('data-url');
+        const searchQuery = searchInputElement.value.trim(); // Get the input value
+        if (searchQuery) {
+          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+        }
+      });
     }
 
     // Add functionality for the mobile search
@@ -1032,33 +1047,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileSearchButton = document.querySelector('.mobileSearch .searchBt');
 
     if (mobileSearchForm && mobileSearchBar && mobileSearchButton) {
-        // Prevent default submission for mobile search form
-        mobileSearchForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-        });
+      // Prevent default submission for mobile search form
+      mobileSearchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+      });
 
-        // Handle Enter key for mobile search bar
-        mobileSearchBar.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                const baseUrl = mobileSearchBar.getAttribute('data-url');
-                const searchQuery = mobileSearchBar.value.trim();
-                if (searchQuery) {
-                    window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
-                }
-            }
-        });
+      // Handle Enter key for mobile search bar
+      mobileSearchBar.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const baseUrl = mobileSearchBar.getAttribute('data-url');
+          const searchQuery = mobileSearchBar.value.trim();
+          if (searchQuery) {
+            window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+          }
+        }
+      });
 
-        // Handle click on the mobile search button
-        mobileSearchButton.addEventListener('click', () => {
-            const baseUrl = mobileSearchBar.getAttribute('data-url');
-            const searchQuery = mobileSearchBar.value.trim();
-            if (searchQuery) {
-                window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
-            }
-        });
+      // Handle click on the mobile search button
+      mobileSearchButton.addEventListener('click', () => {
+        const baseUrl = mobileSearchBar.getAttribute('data-url');
+        const searchQuery = mobileSearchBar.value.trim();
+        if (searchQuery) {
+          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+        }
+      });
     }
-}
+  }
 
 
   if (elements.searchResult) {
@@ -1069,54 +1084,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (cookingHacksSection) {
       cookingHacksSection.addEventListener("click", () => {
-          // Select the searchRecipesShowAllDiv
-          const cookingDiv = document.querySelector(".searchHacksShowAllDiv");
-          
-          if (cookingDiv) {
-              // Remove the 'hideDives' class
-              cookingDiv.classList.remove("hideDives");
-              cookingHacksSection.style.display = "none";
-
-          }
-      });
-  }
-  if (recipeSection) {
-    recipeSection.addEventListener("click", () => {
         // Select the searchRecipesShowAllDiv
-        const recipesDiv = document.querySelector(".searchRecipesShowAllDiv");
-        
-        if (recipesDiv) {
-            // Remove the 'hideDives' class
-            recipesDiv.classList.remove("hideDives");
-            recipeSection.style.display = "none";
+        const cookingDiv = document.querySelector(".searchHacksShowAllDiv");
+
+        if (cookingDiv) {
+          // Remove the 'hideDives' class
+          cookingDiv.classList.remove("hideDives");
+          cookingHacksSection.style.display = "none";
 
         }
-    });
-}
+      });
+    }
+    if (recipeSection) {
+      recipeSection.addEventListener("click", () => {
+        // Select the searchRecipesShowAllDiv
+        const recipesDiv = document.querySelector(".searchRecipesShowAllDiv");
+
+        if (recipesDiv) {
+          // Remove the 'hideDives' class
+          recipesDiv.classList.remove("hideDives");
+          recipeSection.style.display = "none";
+
+        }
+      });
+    }
 
 
     showButtons.forEach((button) => {
       button.addEventListener("click", () => {
         console.log('button clicking')
-          // Get the data-index value of the clicked button
-          const index = button.getAttribute("data-index");
-          console.log('index',index)
-          
-          // Select the corresponding div with the class `moreDiv-{index}`
-          const targetDiv = document.querySelector(`.moreDiv-${index}`);
-          
-          // Check if the target div exists
-          if (targetDiv) {
-              // Show the target div
-              targetDiv.style.visibility = "visible";
-              targetDiv.style.height = "auto";
-              targetDiv.style.overflow = "visible";
+        // Get the data-index value of the clicked button
+        const index = button.getAttribute("data-index");
+        console.log('index', index)
 
-              // Hide the clicked button
-              button.style.display = "none";
-          }
+        // Select the corresponding div with the class `moreDiv-{index}`
+        const targetDiv = document.querySelector(`.moreDiv-${index}`);
+
+        // Check if the target div exists
+        if (targetDiv) {
+          // Show the target div
+          targetDiv.style.visibility = "visible";
+          targetDiv.style.height = "auto";
+          targetDiv.style.overflow = "visible";
+
+          // Hide the clicked button
+          button.style.display = "none";
+        }
       });
-  });
+    });
   }
 
   // Search Bar Expand/Collapse Handlers
