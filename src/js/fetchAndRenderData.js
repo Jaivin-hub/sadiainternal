@@ -82,6 +82,7 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
 
 async function fetchRecipes(templateName, data){
     try{
+        console.log("data in fetchRecipes",data)
         let isEmpty = false;
         const formdata = {
             "recipeCatId": data.recipeCatId,
@@ -98,7 +99,7 @@ async function fetchRecipes(templateName, data){
             "offset": data.offset,
             "lang":data.lang
           }
-
+          console.log('formdata',formdata)
           const response = await fetch(data.url, {
             method: 'POST',
             headers: {
