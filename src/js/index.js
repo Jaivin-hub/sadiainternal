@@ -361,14 +361,12 @@ function toggleRecipeSections() {
     });
 
     preparationTimeSelect.addEventListener('change', (event) => {
-      selectedPrepTime = event.target.value;
-    });
-
-
-    difficultySelect.addEventListener('change', (event) => {
-      if (event.target.value == '') selectedDifficulty = null;
-      selectedDifficulty = event.target.value;
-    });
+      selectedPrepTime = event.target.value === '' || event.target.value === 'Select Time' ? null : event.target.value;
+  });
+  
+  difficultySelect.addEventListener('change', (event) => {
+      selectedDifficulty = event.target.value === '' || event.target.value === 'Select Difficulty' ? null : event.target.value;
+  });
 
     dietaryNeedsSelect.addEventListener('change', (event) => {
       selectedDietaryNeeds = event.target.value;
