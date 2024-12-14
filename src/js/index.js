@@ -961,7 +961,33 @@ document.addEventListener('DOMContentLoaded', () => {
     searchBar: document.querySelector('#search-bar-container'),
     searchBarId: document.querySelector('#searchBar'),
     searchResult: document.querySelector('#searchresults-searchinput'),
+    mainFlag: document.querySelector('.ct-logo'),
+    subBoxes: document.querySelectorAll('.navBox')
+    
   };
+  if (elements.mainFlag && elements.subBoxes.length > 0) {
+
+    elements.subBoxes.forEach(navBox => {
+
+        navBox.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+
+            // Find the img element inside the clicked navBox
+            const subFlag = navBox.querySelector('img');
+            if (subFlag) {
+                // Update the main flag's src to the clicked sub-flag's src
+                elements.mainFlag.src = subFlag.src;
+
+                // Update active class
+                document.querySelectorAll('.navBox').forEach(box => box.classList.remove('active'));
+                navBox.classList.add('active');
+            }
+        });
+    });
+} else {
+    console.error('Main flag or sub-boxes not found in the DOM.');
+}
+  
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
   if (indicators) {
@@ -1335,7 +1361,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     elements.searchInput.addEventListener('input', () => {
-      console.log("111")
       if (elements.searchInput.value.length >= 3) {
         const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
         showMoreClicked = false;
@@ -1361,7 +1386,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for search input change
     searchInput.addEventListener('input', () => {
-      console.log('2222')
       const keyword = searchInput.value;
 
       // Only make the API call if the keyword length is greater than or equal to 3
