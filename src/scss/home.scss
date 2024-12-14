@@ -380,6 +380,10 @@ ul{
                 border: 1px solid $primary-color;
                 border-radius: 4px !important;
             }
+
+            @media (max-width: 767px) {
+                padding: 10px 16px;
+            }
         }
     }
     

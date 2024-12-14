@@ -1173,6 +1173,11 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.locatSearch').addClass('expanded');
     $('.cl_ser').show();
     $('.serLoc').hide();
+
+    // Check if the screen width is mobile size
+    if ($(window).width() <= 768) {
+      $('#recipeDropdown').addClass('d-none');
+    }
   });
 
   $('.cl_ser').on('click', () => {
@@ -1180,6 +1185,10 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.cl_ser').hide();
     $('.serLoc').show();
     $('.search-bar').val('');
+
+    if ($(window).width() <= 768) {
+      $('#recipeDropdown').removeClass('d-none');
+    }
   });
 
   const recipeListing = document.getElementById("recipe-listing");
