@@ -2313,6 +2313,14 @@ ul{
     }
   }
 
+  .webvisible{
+    display: block !important;
+  }
+
+  .mobvisible{
+    display: none !important;
+  }
+
   @media (max-width: 767px) {
 
     .termssection{
@@ -2326,6 +2334,12 @@ ul{
         }
       }
 
+      .webvisible{
+        display: none !important;
+      }
+      .mobvisible{
+        display: block !important;
+      }
 }
 
 
