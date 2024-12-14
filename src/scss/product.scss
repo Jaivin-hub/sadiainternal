@@ -299,6 +299,8 @@
             margin-right: 0 !important;
         }
         .card-body{
+            display:flex;
+            flex-direction: column;
             .card-title{
                 margin: 0 0 5px;
                 padding-right: 5%;
@@ -309,10 +311,14 @@
                 color: #adadad;
                 font-size: 14px;
                 font-weight: 400;
+                margin-bottom: 20px;
                 span{
                     color: #d7282f;
                     padding-left: 5px
                 }
+            }
+            .moreDtls{
+                margin-top: auto !important;
             }
         }
     }  
