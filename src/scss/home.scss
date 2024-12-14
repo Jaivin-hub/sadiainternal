@@ -2280,6 +2280,56 @@ ul{
 // NOT-FOUND PAGE END
 
 
+.termssection{
+    font-family: $primary-font;
+    .titleWrap{
+        margin: 0 0 100px;
+    }
+    .filterSec{
+      .subtitle{
+        font-size: 27px;
+        letter-spacing: 0px;
+        font-weight: 400;
+        line-height: 27px;
+        color: $secondary-color;
+        margin: 80px 0 50px;
+        text-transform: uppercase;
+        font-family: $title-font;
+      }
+      .discription{
+        font-size:16px;
+        letter-spacing: 0px;
+        font-weight: 400;
+        line-height: 22px;
+        color: $black-light;
+        p{
+          margin: 0px 0 0px;
+          padding: 2px;
+        }
+        a{
+            color: $secondary-color;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+
+    .termssection{
+        .titleWrap{
+            margin: 0 0 60px;
+        }
+        .filterSec{
+          .subtitle{
+            margin: 50px 0 30px;
+          }
+        }
+      }
+
+}
+
+
+
 
 
 

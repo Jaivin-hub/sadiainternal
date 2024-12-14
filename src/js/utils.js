@@ -312,7 +312,6 @@ const initializeSlick = () => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'dir') {
           const newRTL = $('html').attr('dir') === 'rtl';
-          console.log('Direction changed. Reinitializing sliders. RTL:', newRTL);
           initSliders(newRTL); // Reinitialize with updated direction
         }
       });
@@ -410,7 +409,6 @@ const initializeNewSlider = () => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'dir') {
           const newRTL = $('html').attr('dir') === 'rtl';
-          console.log('Direction changed. RTL mode:', newRTL);
           initSliders(newRTL); // Reinitialize sliders with updated RTL state
         }
       });

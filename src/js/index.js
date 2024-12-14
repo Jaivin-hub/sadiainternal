@@ -470,8 +470,6 @@ function initializeRecipeFilter() {
 
   // Helper function to prepare request data
   function prepareRequestData(keyword = '', recipeSelectedValue = '') {
-    console.log('timeTaken', timeTaken);
-    console.log('difficulties', difficulties)
     return {
       mealType: selectedMealType,
       cuisine: selectedCuisine,
@@ -1007,7 +1005,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const baseUrl = searchBar.getAttribute('data-url');
         const searchQuery = searchBar.value.trim(); // Get the input value
         if (searchQuery) {
-          console.log('hreff...');
           window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
         }
       }
@@ -1110,10 +1107,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        console.log('button clicking')
         // Get the data-index value of the clicked button
         const index = button.getAttribute("data-index");
-        console.log('index', index)
 
         // Select the corresponding div with the class `moreDiv-{index}`
         const targetDiv = document.querySelector(`.moreDiv-${index}`);
