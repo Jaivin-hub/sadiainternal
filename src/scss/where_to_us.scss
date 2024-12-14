@@ -258,7 +258,23 @@
             }
         }
     }  
-
+    
+    .filterSection{
+        gap: 10px;
+        .search-bar-container{
+            margin: 5px 0;
+            flex: 1;
+    
+            .locatSearch{
+                &.expanded{
+                    .search-bar{
+                        width: 100%;
+                    }
+                }
+            }
+    
+        }
+    }
 
     
 }
