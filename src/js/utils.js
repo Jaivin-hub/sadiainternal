@@ -356,7 +356,7 @@ const initializeNewSlider = () => {
         autoplay: false,
         infinite: false,
         speed: 1000,
-        slidesToShow: 3.5,
+        slidesToShow: 3,
         slidesToScroll: 1,
         fade: false,
         asNavFor: '#new-thumbnail-slider',
@@ -377,7 +377,7 @@ const initializeNewSlider = () => {
       // Thumbnail slider options
       const thumbnailSliderOptions = {
         rtl: isRTL, // Dynamically set RTL mode
-        slidesToShow: 3.5,
+        slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: '#new-image-slider',
         focusOnSelect: true,
