@@ -946,6 +946,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mapFrame: document.getElementById('mapFrame'),
     whereToBuyMapFrame: document.getElementById('wheretobuyMapframe'),
     searchInput: document.querySelector('#searchInpts'),
+    searchForm: document.querySelector('.locatSearch'),
     selectElement: document.querySelector('.form-select'),
     productListElement: document.querySelector('.productList'),
     productDropdown: document.querySelector('#productDropdown'),
@@ -1328,7 +1329,13 @@ document.addEventListener('DOMContentLoaded', () => {
       fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
     });
 
+        // Prevent form submission on Enter key
+    elements.searchForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent form submission
+    });
+
     elements.searchInput.addEventListener('input', () => {
+      console.log("111")
       if (elements.searchInput.value.length >= 3) {
         const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
         showMoreClicked = false;
@@ -1354,6 +1361,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for search input change
     searchInput.addEventListener('input', () => {
+      console.log('2222')
       const keyword = searchInput.value;
 
       // Only make the API call if the keyword length is greater than or equal to 3
