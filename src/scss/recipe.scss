@@ -667,6 +667,12 @@
         background-color: $white-color;
         border-color:  $primary-color;
         color: $black-color;
+
+        @media (max-width: 767px) {
+            background-color: $hover-color !important;
+            color: $white-color !important;
+            border: 1px solid $hover-color !important;
+        }
     }
 }
 
