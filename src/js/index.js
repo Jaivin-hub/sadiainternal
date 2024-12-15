@@ -1525,3 +1525,15 @@ dropdownItems.forEach(item => {
 });
 
 // COUNTRY-DROPDOWN END
+
+const filterWrap = document.querySelector('.filterWrap .type_filter');
+if (filterWrap) {
+    const activeItem = filterWrap.querySelector('.active');
+
+    if (activeItem) {
+        filterWrap.scrollTo({
+            left: activeItem.offsetLeft - filterWrap.offsetLeft, 
+            behavior: 'smooth' 
+        });
+    }
+  }
