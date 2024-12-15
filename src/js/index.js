@@ -141,6 +141,25 @@ const contactForms = () => {
       error.style.display = 'block';
       return false;
     }
+    
+    // Custom validation for full name
+    if (input.id === 'fullName') {
+      if (!input.value.trim()) {
+        // Check if the field is empty
+        error.textContent = 'Full name is required'; // Use existing error message from HTML
+        error.style.display = 'block';
+        return false;
+      } else if (/[^A-Za-z\s]/.test(input.value)) {
+        // Check for special characters
+        error.textContent = 'The name should not contain any special characters or numbers';
+        error.style.display = 'block';
+        return false;
+      } else {
+        error.style.display = 'none';
+        return true;
+      }
+    }
+
 
     // General validation for other fields
     if (!input.value.trim() || (input.type === 'email' && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input.value))) {
