@@ -404,7 +404,7 @@ ul{
             padding-left: 10px;
             padding-right: 10px;
             .card-title{
-                min-height: 52px;
+                min-height: 49px;
                 margin-bottom: 0;
             }
             .card-text{
@@ -420,6 +420,9 @@ ul{
         
     }
     .horizontal-scroll{
+        &::-webkit-scrollbar {
+            height: 0px;
+        }
         .card{
             &.me-4{
                 &:last-child{
@@ -1348,6 +1351,9 @@ ul{
 @media (max-width: 767px) {
 
     .your-favorite{
+        &.secSpace{
+            padding-bottom: 0;
+        }
         .slider-wrapper{
             .padSpace {
                 padding: 0 12px;
@@ -1425,6 +1431,9 @@ ul{
         margin: 0 6px;
     }
     .horizontal-scroll{
+        &::-webkit-scrollbar {
+            height: 0px;
+        }
         width: 100%;
         .d-flex.flex-nowrap{
             width: 100%;
@@ -1982,6 +1991,9 @@ ul{
         }
 
        .horizontal-scroll{
+            &::-webkit-scrollbar {
+                height: 0px;
+            }
             padding-left: 10px;
             .flex-nowrap{
                 .row{
@@ -2132,6 +2144,11 @@ ul{
 @media (max-width: 767px) {
 
     .cookingHacks{
+        .horizontal-scroll {
+            &::-webkit-scrollbar {
+                height: 0px;
+            }
+        }
         .card{
             margin-bottom: 15px !important;
             .cardImg{
@@ -2200,6 +2217,9 @@ ul{
     }
     
     .horizontal-scroll {
+        &::-webkit-scrollbar {
+            height: 0px;
+        }
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
@@ -2264,6 +2284,10 @@ ul{
 
 
 @media (max-width: 767px) {
+
+    .whereWrapper .filterSection .search-bar-container .locatSearch.expanded .search-bar{
+        width: auto;
+    }
 
     .errorWraper{
         min-height: 60vh;

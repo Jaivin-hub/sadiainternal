@@ -170,6 +170,26 @@ const toogleBtn = () => {
   // Select the toggle button and sidebar frame elements
   const toggleButton = document.getElementById("toggleButton");
   const sidebarFrame = document.getElementById("sidebarFrame");
+
+  // Function to apply default mobile view actions
+  const applyMobileViewDefaults = () => {
+    if (window.innerWidth <= 767) {
+      // Add "active" class to toggleButton and "hideSidebar" class to sidebarFrame
+      toggleButton.classList.remove("active");
+      sidebarFrame.classList.add("hideSidebar");
+    } else {
+      // Remove "active" class and "hideSidebar" class for non-mobile view
+      toggleButton.classList.add("active");
+      sidebarFrame.classList.remove("hideSidebar");
+    }
+  };
+
+  // Call the function once to set the initial state
+  applyMobileViewDefaults();
+
+  // Add event listener for window resize to reapply defaults
+  window.addEventListener("resize", applyMobileViewDefaults);
+
   // Add click event listener to the button
   toggleButton.addEventListener("click", function () {
     // Toggle the "active" class on the toggleButton
@@ -178,7 +198,7 @@ const toogleBtn = () => {
     // Toggle the "hideSidebar" class on the sidebarFrame
     sidebarFrame.classList.toggle("hideSidebar");
   });
-}
+};
 // SIDEBAR-COLLPASE END
 
 

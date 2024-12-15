@@ -532,6 +532,15 @@
 @media (max-width: 767px) {
 
     .productFilter{
+        &.recpFilt{
+            .filterSec{
+                .filterWrap{
+                    .categ_filter{
+                        margin-right: 0;
+                    }
+                } 
+            } 
+        }
         .filterSec{
             .filterWrap {
                 display: flex;
