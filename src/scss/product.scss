@@ -95,6 +95,15 @@
         .partDiv {
             padding: 0 10px;
         }
+
+        .mob-sec-prdt-row {
+            display: flex;
+            gap: 12px;
+            div{
+                flex: 1;
+            }
+        }
+
         .prdct_bximg{
             .imgDiv{
                 &.firstBox {
@@ -104,13 +113,13 @@
                     }
                 }
                 &.secondBox{
-                    height: auto;
+                    height: 100%;
                     .bxImg{
                         height: 190px;
                     }
                 }
                 &.thirdBox{
-                    height: auto;
+                    height: 100%;
                     .bxImg{
                         height: 100px;
                     }
@@ -134,12 +143,13 @@
             .alignDiv{
                 display: flex;
                 .imgDiv{
-                    margin-bottom: 10px;  
+                    margin-bottom: 12px;  
                 }
                 .rowDiv{
                     display: flex;
-                    flex-direction: row;
+                    flex-direction: column;
                     flex-wrap: nowrap !important;
+                    flex: 1;
                     .partDiv{
                         padding-right: 10px;
                     }
@@ -400,7 +410,7 @@
         max-width: 100%;
         font-size: 16px;
         border: 1px solid #ADADAD;
-        min-width: 115px;
+        min-width: 143px;
         color: $black-color;
         margin: 5px 0;
 
@@ -481,7 +491,8 @@
             justify-content: center;
             img{
                 object-fit: cover;
-                max-height: 300px;
+                height: 220px;
+                width: 261px;
             }
         }
         .prdctCont{
@@ -495,10 +506,10 @@
                 margin: 5px 0;
                 padding: 0;
 
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
+                // display: -webkit-box;
+                // -webkit-line-clamp: 2;
+                // -webkit-box-orient: vertical;
+                // overflow: hidden;
             }
             .dtls{
                 font-size: 16px;
