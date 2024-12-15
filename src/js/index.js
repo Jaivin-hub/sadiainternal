@@ -965,28 +965,37 @@ document.addEventListener('DOMContentLoaded', () => {
     subBoxes: document.querySelectorAll('.navBox')
     
   };
-  if (elements.mainFlag && elements.subBoxes.length > 0) {
 
-    elements.subBoxes.forEach(navBox => {
+// if (elements.mainFlag && elements.subBoxes.length > 0) {
+//   console.log('Main flag and sub-boxes are initialized.');
 
-        navBox.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
+//   elements.subBoxes.forEach(navBox => {
+//       navBox.addEventListener('click', (event) => {
+//         // Perform the redirection
+//         const redirectUrl = navBox.getAttribute('href'); // Get href attribute from <a>
+//         if (redirectUrl) {
+//             setTimeout(() => {
+//                 window.location.href = redirectUrl; // Redirect after swapping the image
+//             }, 300); // Optional: Add delay to see the image swap effect
+//         }
+//           console.log('NavBox clicked');
+//           // event.preventDefault(); // Prevent default immediate redirection
 
-            // Find the img element inside the clicked navBox
-            const subFlag = navBox.querySelector('img');
-            if (subFlag) {
-                // Update the main flag's src to the clicked sub-flag's src
-                elements.mainFlag.src = subFlag.src;
+//           // Find the img element inside the clicked navBox
+//           const subFlag = navBox.querySelector('img');
+//           if (subFlag) {
+//               // Update the main flag's src to the clicked sub-flag's src
+//               elements.mainFlag.src = subFlag.src;
 
-                // Update active class
-                document.querySelectorAll('.navBox').forEach(box => box.classList.remove('active'));
-                navBox.classList.add('active');
-            }
-        });
-    });
-} else {
-    console.error('Main flag or sub-boxes not found in the DOM.');
-}
+//               // Update active class
+//               document.querySelectorAll('.navBox').forEach(box => box.classList.remove('active'));
+//               navBox.classList.add('active');
+//           }
+//       });
+//   });
+// } else {
+//   console.error('Main flag or sub-boxes not found in the DOM.');
+// }
   
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
