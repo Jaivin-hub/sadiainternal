@@ -1040,8 +1040,8 @@ ul{
                 transition: opacity 0.5s ease-in-out;
                 img {
                     width: 100%;
-                    min-height: 300px;
-                    max-width: 470px;
+                    width: 330px;
+                    height: 330px;
                     object-fit: cover;
                     margin: 0 auto;
                 }
@@ -1286,8 +1286,8 @@ ul{
             .image-slider{
                 .slide{
                     img{
-                        max-width: 100%;
-                        min-height: auto;
+                        width: 246px;
+                        height: 246px;
                     }
                 }
             } 
@@ -1341,15 +1341,6 @@ ul{
                     }
                 }
             } 
-            .image-slider{
-                .slide{
-                    img{
-                        width: 246px;
-                        height: 246px;
-                        object-fit: cover;
-                    }
-                }
-            }
         }
     }
 
