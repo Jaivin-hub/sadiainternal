@@ -299,6 +299,14 @@ ul{
 
     .bannerSlider{
         .carousel{
+            .carousel-item{
+                height: auto;
+                img{
+                    &.slider-img{
+                        height: auto;
+                    }
+                }
+            }
             .carousel-indicators{
                 display: none;
             }
@@ -453,6 +461,7 @@ ul{
 
 
 @media (max-width: 767px) {
+
 
     .popular-section{
         .catgSpc{
