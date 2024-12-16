@@ -1537,3 +1537,15 @@ if (filterWrap) {
         });
     }
   }
+
+  const categoryFilterWrap = document.querySelector('.filterWrap.catgSpc .categ_filter');
+  if (categoryFilterWrap) {
+      const activeCategoryItem = categoryFilterWrap.querySelector('a.active');
+  
+      if (activeCategoryItem) {
+          categoryFilterWrap.scrollTo({
+              left: activeCategoryItem.offsetLeft - categoryFilterWrap.offsetLeft, 
+              behavior: 'smooth' 
+          });
+      }
+  }
