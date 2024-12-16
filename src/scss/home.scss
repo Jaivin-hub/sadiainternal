@@ -1199,6 +1199,8 @@ ul{
                 visibility: hidden;        
                 transition: all ease 0.5s;
                 .lists{
+                    display: flex;
+                    align-items: stretch !important;
                     list-style: none;
                     margin: 0;
                     padding: 0;
@@ -1207,8 +1209,10 @@ ul{
                     font-family: $title-font;
                     color: $primary-color;
                     margin: 0 0 56px;
-                    li{
-                        display: inline-flex;
+                    li{ 
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
                         border-right: 1px solid;
                         padding-right: 15px;
                         margin-right: 15px;

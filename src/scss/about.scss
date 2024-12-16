@@ -250,6 +250,11 @@
                 width: auto;
                 max-width: 100%;
             }
+
+            @media (max-width: 767px) {
+                height: 256px;
+                width: 256px !important;
+            }
         }
     }
 
