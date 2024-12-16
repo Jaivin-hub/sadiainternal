@@ -299,6 +299,14 @@ ul{
 
     .bannerSlider{
         .carousel{
+            .carousel-item{
+                height: auto;
+                img{
+                    &.slider-img{
+                        height: auto;
+                    }
+                }
+            }
             .carousel-indicators{
                 display: none;
             }
@@ -401,6 +409,8 @@ ul{
         margin: 0px;
         width: calc(100% / 3);
         .card-body{
+            display: flex;
+            flex-direction: column;
             padding-left: 10px;
             padding-right: 10px;
             .card-title{
@@ -411,10 +421,14 @@ ul{
                 color: #ADADAD;
                 font-size: 14px;
                 font-weight: 400;
+                margin-bottom: 20px;
                 span{
                     color: $primary-color;
                     padding-left: 5px;                    
                 }
+            }
+            .moreDtls{
+                margin-top: auto !important;
             }
         }
         
@@ -447,6 +461,7 @@ ul{
 
 
 @media (max-width: 767px) {
+
 
     .popular-section{
         .catgSpc{
@@ -1034,8 +1049,8 @@ ul{
                 transition: opacity 0.5s ease-in-out;
                 img {
                     width: 100%;
-                    min-height: 300px;
-                    max-width: 470px;
+                    width: 330px;
+                    height: 330px;
                     object-fit: cover;
                     margin: 0 auto;
                 }
@@ -1280,8 +1295,8 @@ ul{
             .image-slider{
                 .slide{
                     img{
-                        max-width: 100%;
-                        min-height: auto;
+                        width: 246px;
+                        height: 246px;
                     }
                 }
             } 
@@ -1335,14 +1350,6 @@ ul{
                     }
                 }
             } 
-            .image-slider{
-                .slide{
-                    img{
-                        max-width: 700px;
-                        min-height: auto;
-                    }
-                }
-            }
         }
     }
 
