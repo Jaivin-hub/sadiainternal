@@ -1540,11 +1540,12 @@ if (filterWrap) {
 
   const categoryFilterWrap = document.querySelector('.filterWrap.catgSpc .categ_filter');
   if (categoryFilterWrap) {
+      const filterCategoryButton = categoryFilterWrap.querySelector('.filt-catSpc')
       const activeCategoryItem = categoryFilterWrap.querySelector('a.active');
   
       if (activeCategoryItem) {
           categoryFilterWrap.scrollTo({
-              left: activeCategoryItem.offsetLeft - categoryFilterWrap.offsetLeft, 
+              left: activeCategoryItem.offsetLeft - categoryFilterWrap.offsetLeft - filterCategoryButton.offsetWidth, 
               behavior: 'smooth' 
           });
       }
