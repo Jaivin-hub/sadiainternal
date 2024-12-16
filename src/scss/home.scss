@@ -2225,11 +2225,14 @@ ul{
     
     .horizontal-scroll {
         &::-webkit-scrollbar {
-            height: 0px;
+            display: none; 
         }
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
+        scrollbar-width: none; /* Hides scrollbar in Firefox */
+        -ms-overflow-style: none; /* Hides scrollbar in IE/Edge (Legacy) */
+
         .card {
             flex: 0 0 auto;
             width: 80%;
