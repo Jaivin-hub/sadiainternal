@@ -985,6 +985,30 @@ document.addEventListener('DOMContentLoaded', () => {
     
   };
 
+  // Check if the 'regionDropdownOpened' cookie exists using wonderset
+  const regionCookie = wonder.cookie.get('regionDropdownOpened');
+
+  const dropdownMenu = document.querySelector('.nav-item.dropdown.has-megamenu .dropdown-menu');
+  const dropdownToggle = document.querySelector('.nav-item.dropdown.has-megamenu .nav-link.dropdown-toggle');
+
+  // If cookie does NOT exist, open the dropdown by adding 'show' class
+  if (!regionCookie) {
+      dropdownMenu.classList.add('show');
+      dropdownToggle.setAttribute('aria-expanded', 'true'); // Set ARIA for accessibility
+  }
+
+  // Close the dropdown and set a cookie when user interacts with a menu item
+  document.querySelectorAll('.navBox, .moreBtn').forEach(function (menuItem) {
+      menuItem.addEventListener('click', function () {
+          // Set the 'regionDropdownOpened' cookie using wonderset
+          wonder.cookie.set('regionDropdownOpened', 'true', { expires: 7 }); // Expires in 7 days
+          
+          // Hide the dropdown
+          dropdownMenu.classList.remove('show');
+          dropdownToggle.setAttribute('aria-expanded', 'false');
+      });
+  });
+
 // if (elements.mainFlag && elements.subBoxes.length > 0) {
 //   console.log('Main flag and sub-boxes are initialized.');
 
