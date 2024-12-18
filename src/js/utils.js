@@ -42,7 +42,9 @@ const initializeMapbox = () => {
     const countryDropdown = document.querySelector('.countryDrops');
     const firstOption = countryDropdown.options[0]; // Get the first option
     const initialLocationsData = firstOption.getAttribute('data'); // Get the 'data' attribute from the first option
-    const initialLocations = initialLocationsData.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
+    const initialLocations = initialLocationsData
+      .split(' | ') // Split by city separator
+      .map(city => city.split('-')[1].trim()); // Extract coordinates after the hyphen and trim whitespace
 
     // Add pulsing markers for the first option's locations
     addPulsingMarkers(initialLocations);
@@ -53,7 +55,9 @@ const initializeMapbox = () => {
     countryDropdown.addEventListener('change', () => {
       const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
       const data = selectedOption.getAttribute('data'); // Get the 'data' attribute
-      const locations = data.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
+      const locations = data
+        .split(' | ') // Split by city separator
+        .map(city => city.split('-')[1].trim()); // Extract coordinates after the hyphen and trim whitespace
 
       if (locations) {
         clearMarkers(); // Clear existing markers
