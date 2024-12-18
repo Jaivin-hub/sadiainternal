@@ -171,6 +171,8 @@
             img.mainImg{
                 width: 100%;
                 height: 258px !important;
+                min-height: auto;
+                max-height: inherit;
             }
         }
     }
