@@ -985,61 +985,71 @@ document.addEventListener('DOMContentLoaded', () => {
     
   };
 
-  // // Check if the 'regionDropdownOpened' cookie exists using wonderset
-  // const regionCookie = wonder.cookie.get('regionDropdownOpened');
+  const oneTrustCookieName = "OptanonConsent";
 
-  // const dropdownMenu = document.querySelector('.nav-item.dropdown.has-megamenu .dropdown-menu');
-  // const dropdownToggle = document.querySelector('.nav-item.dropdown.has-megamenu .nav-link.dropdown-toggle');
+// Function to check if a specific cookie exists
+function isCookieSet(cookieName) {
+  return document.cookie.split("; ").some((item) => item.startsWith(cookieName + "="));
+}
 
-  // // If cookie does NOT exist, open the dropdown by adding 'show' class
-  // if (!regionCookie) {
-  //     dropdownMenu.classList.add('show');
-  //     dropdownToggle.setAttribute('aria-expanded', 'true'); // Set ARIA for accessibility
-  // }
+// Function to handle dropdown visibility
+function handleDropdownVisibility() {
+  const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
+  const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
 
-  // // Close the dropdown and set a cookie when user interacts with a menu item
-  // document.querySelectorAll('.navBox, .moreBtn').forEach(function (menuItem) {
-  //     menuItem.addEventListener('click', function () {
-  //         // Set the 'regionDropdownOpened' cookie using wonderset
-  //         wonder.cookie.set('regionDropdownOpened', 'true', { expires: 7 }); // Expires in 7 days
-          
-  //         // Hide the dropdown
-  //         dropdownMenu.classList.remove('show');
-  //         dropdownToggle.setAttribute('aria-expanded', 'false');
-  //     });
-  // });
+  if (!isCookieSet(oneTrustCookieName)) {
+    // Show the dropdown if the cookie is not set
+    if (dropdownParent && dropdownMenu) {
+      dropdownParent.classList.add("show");
+      dropdownMenu.classList.add("show");
 
-// if (elements.mainFlag && elements.subBoxes.length > 0) {
-//   console.log('Main flag and sub-boxes are initialized.');
+      const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+      if (dropdownToggle) {
+        dropdownToggle.setAttribute("aria-expanded", "true");
+      }
+    }
+  } else {
+    // Hide the dropdown and set hover behavior if the cookie is set
+    if (dropdownParent && dropdownMenu) {
+      dropdownParent.classList.remove("show");
+      dropdownMenu.classList.remove("show");
 
-//   elements.subBoxes.forEach(navBox => {
-//       navBox.addEventListener('click', (event) => {
-//         // Perform the redirection
-//         const redirectUrl = navBox.getAttribute('href'); // Get href attribute from <a>
-//         if (redirectUrl) {
-//             setTimeout(() => {
-//                 window.location.href = redirectUrl; // Redirect after swapping the image
-//             }, 300); // Optional: Add delay to see the image swap effect
-//         }
-//           console.log('NavBox clicked');
-//           // event.preventDefault(); // Prevent default immediate redirection
+      const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+      if (dropdownToggle) {
+        dropdownToggle.setAttribute("aria-expanded", "false");
+      }
 
-//           // Find the img element inside the clicked navBox
-//           const subFlag = navBox.querySelector('img');
-//           if (subFlag) {
-//               // Update the main flag's src to the clicked sub-flag's src
-//               elements.mainFlag.src = subFlag.src;
+      // Add hover event to show dropdown
+      dropdownParent.addEventListener("mouseenter", () => {
+        dropdownParent.classList.add("show");
+        dropdownMenu.classList.add("show");
+      });
 
-//               // Update active class
-//               document.querySelectorAll('.navBox').forEach(box => box.classList.remove('active'));
-//               navBox.classList.add('active');
-//           }
-//       });
-//   });
-// } else {
-//   console.error('Main flag or sub-boxes not found in the DOM.');
-// }
-  
+      dropdownParent.addEventListener("mouseleave", () => {
+        dropdownParent.classList.remove("show");
+        dropdownMenu.classList.remove("show");
+      });
+    }
+  }
+}
+
+// Prevent navigation if the cookie is not set
+function preventNavigationIfNoCookie() {
+  const links = document.querySelectorAll(".navBox, .moreBtn"); // Select all relevant links
+  links.forEach((link) => {
+    link.addEventListener("click", function (event) {
+      if (!isCookieSet(oneTrustCookieName)) {
+        event.preventDefault(); // Prevent navigation
+        alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
+      }
+    });
+  });
+}
+
+// Initialize
+handleDropdownVisibility();
+preventNavigationIfNoCookie();
+
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
   if (indicators) {

@@ -258,16 +258,17 @@ header {
 	}
 	.navbar-nav {
 		.dropdown {
-			&:hover {
-				.dropdown-menu {
-					display: block;
-					background-color: transparent !important;
-					border-radius: 0;
-        			border: 0;
-				}
+		  &:hover,
+		  &.show {
+			.dropdown-menu {
+			  display: block;
+			  background-color: transparent !important;
+			  border-radius: 0;
+			  border: 0;
 			}
+		  }
 		}
-	}
+	  }
 }
 
 
