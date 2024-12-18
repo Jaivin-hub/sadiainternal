@@ -1126,7 +1126,8 @@
             .carousel-item, .recp_detailImg {
                 height: 390px;
                 .sliderImg{
-                    height: 308px;
+                    height: 390px;
+                    min-height: auto;
                 }
             }
             .carousel-indicators{

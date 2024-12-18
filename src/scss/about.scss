@@ -85,6 +85,11 @@
 
     }
 
+  
+        .mv-block{
+            display: block !important;
+        }
+
     .campaignBxWraper {
         &.abtBox {
             margin: 0;
@@ -253,7 +258,6 @@
 
             @media (max-width: 767px) {
                 height: 256px;
-                width: 256px !important;
             }
         }
     }
