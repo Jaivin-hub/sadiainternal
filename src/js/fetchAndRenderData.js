@@ -22,10 +22,12 @@ async function fetchAndRenderData(templateName, apiUrl, selectedValue, productTy
         }
         // // Generate HTML for each item in productList
         let html = '';
+        const totalCount = productsList[0].totalCount;
         productsList.forEach(item => {
+
             html += Mustache.render(template, item); // Using Mustache template rendering
         });
-        const obj = {html, isEmpty}
+        const obj = {html, isEmpty, totalCount}
         return obj;
     } catch (error) {
         console.error('Error fetching/rendering data:', error);
@@ -111,6 +113,7 @@ async function fetchRecipes(templateName, data){
         }
 
         const result = await response.json();
+        const totalCount = result[0].totalCount;
 
         if(result.length === 0){
             isEmpty = true;
@@ -125,7 +128,7 @@ async function fetchRecipes(templateName, data){
         result.forEach(item => {
             html += Mustache.render(template, item);
         });
-        const obj = {html, isEmpty}
+        const obj = {html, isEmpty, totalCount}
         return obj;
           
     }catch(err){
@@ -162,6 +165,7 @@ async function fetchCookingHacks(templateName, data, getProductList){
         }
 
         const result = await response.json();
+        const totalCount = result[0].totalCount;
 
         if(result.length === 0){
             isEmpty = true;
@@ -176,7 +180,7 @@ async function fetchCookingHacks(templateName, data, getProductList){
         result.forEach(item => {
             html += Mustache.render(template, item);
         });
-        const obj = {html, isEmpty}
+        const obj = {html, isEmpty, totalCount}
         return obj;
           
     }catch(err){
