@@ -1040,7 +1040,7 @@ function preventNavigationIfNoCookie() {
     link.addEventListener("click", function (event) {
       if (!isCookieSet(oneTrustCookieName)) {
         event.preventDefault(); // Prevent navigation
-        alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
+        // alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
       }
     });
   });
