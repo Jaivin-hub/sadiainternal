@@ -141,6 +141,25 @@ const contactForms = () => {
       error.style.display = 'block';
       return false;
     }
+    
+    // Custom validation for full name
+    if (input.id === 'fullName') {
+      if (!input.value.trim()) {
+        // Check if the field is empty
+        error.textContent = 'Full name is required'; // Use existing error message from HTML
+        error.style.display = 'block';
+        return false;
+      } else if (/[^A-Za-z\s]/.test(input.value)) {
+        // Check for special characters
+        error.textContent = 'The name should not contain any special characters or numbers';
+        error.style.display = 'block';
+        return false;
+      } else {
+        error.style.display = 'none';
+        return true;
+      }
+    }
+
 
     // General validation for other fields
     if (!input.value.trim() || (input.type === 'email' && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(input.value))) {
@@ -361,13 +380,12 @@ function toggleRecipeSections() {
     });
 
     preparationTimeSelect.addEventListener('change', (event) => {
-      selectedPrepTime = event.target.value;
-    });
-
-
-    difficultySelect.addEventListener('change', (event) => {
-      selectedDifficulty = event.target.value;
-    });
+      selectedPrepTime = event.target.value === '' || event.target.value === 'Select Time' ? null : event.target.value;
+  });
+  
+  difficultySelect.addEventListener('change', (event) => {
+      selectedDifficulty = event.target.value === '' || event.target.value === 'Select Difficulty' ? null : event.target.value;
+  });
 
     dietaryNeedsSelect.addEventListener('change', (event) => {
       selectedDietaryNeeds = event.target.value;
@@ -471,8 +489,6 @@ function initializeRecipeFilter() {
 
   // Helper function to prepare request data
   function prepareRequestData(keyword = '', recipeSelectedValue = '') {
-    console.log('timeTaken',timeTaken);
-    console.log('difficulties',difficulties)
     return {
       mealType: selectedMealType,
       cuisine: selectedCuisine,
@@ -616,7 +632,7 @@ function initializeRecipeFilter() {
     preparationSelect.addEventListener('change', event => handleDropdownChange(event, 'preparation'));
     preparationType.addEventListener('change', event => handleDropdownChange(event, 'preparationtime'));
     difficultyType.addEventListener('change', event => handleDropdownChange(event, 'difficulty'));
-    
+
     initialFetch()
 
     searchInput.addEventListener('input', handleSearchInput);
@@ -650,8 +666,6 @@ const cookingHacksSection = () => {
   const hackshowmore = document.querySelector('#hackshowmore');
   const lang = document.body.getAttribute('umb-lang');
   const closeButton = document.querySelector('#recipeclose');
-
-
 
 
 
@@ -951,6 +965,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mapFrame: document.getElementById('mapFrame'),
     whereToBuyMapFrame: document.getElementById('wheretobuyMapframe'),
     searchInput: document.querySelector('#searchInpts'),
+    searchForm: document.querySelector('.locatSearch'),
     selectElement: document.querySelector('.form-select'),
     productListElement: document.querySelector('.productList'),
     productDropdown: document.querySelector('#productDropdown'),
@@ -965,34 +980,95 @@ document.addEventListener('DOMContentLoaded', () => {
     searchBar: document.querySelector('#search-bar-container'),
     searchBarId: document.querySelector('#searchBar'),
     searchResult: document.querySelector('#searchresults-searchinput'),
-
-    // productCatId: document.querySelector('.categ_filter.filBtn')
+    mainFlag: document.querySelector('.ct-logo'),
+    subBoxes: document.querySelectorAll('.navBox')
+    
   };
 
+  const oneTrustCookieName = "OptanonConsent";
+
+// Function to check if a specific cookie exists
+function isCookieSet(cookieName) {
+  return document.cookie.split("; ").some((item) => item.startsWith(cookieName + "="));
+}
+
+// Function to handle dropdown visibility
+function handleDropdownVisibility() {
+  const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
+  const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
+
+  if (!isCookieSet(oneTrustCookieName)) {
+    // Show the dropdown if the cookie is not set
+    if (dropdownParent && dropdownMenu) {
+      dropdownParent.classList.add("show");
+      dropdownMenu.classList.add("show");
+
+      const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+      if (dropdownToggle) {
+        dropdownToggle.setAttribute("aria-expanded", "true");
+      }
+    }
+  } else {
+    // Hide the dropdown and set hover behavior if the cookie is set
+    if (dropdownParent && dropdownMenu) {
+      dropdownParent.classList.remove("show");
+      dropdownMenu.classList.remove("show");
+
+      const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+      if (dropdownToggle) {
+        dropdownToggle.setAttribute("aria-expanded", "false");
+      }
+
+      // Add hover event to show dropdown
+      dropdownParent.addEventListener("mouseenter", () => {
+        dropdownParent.classList.add("show");
+        dropdownMenu.classList.add("show");
+      });
+
+      dropdownParent.addEventListener("mouseleave", () => {
+        dropdownParent.classList.remove("show");
+        dropdownMenu.classList.remove("show");
+      });
+    }
+  }
+}
+
+// Prevent navigation if the cookie is not set
+function preventNavigationIfNoCookie() {
+  const links = document.querySelectorAll(".navBox, .moreBtn"); // Select all relevant links
+  links.forEach((link) => {
+    link.addEventListener("click", function (event) {
+      if (!isCookieSet(oneTrustCookieName)) {
+        event.preventDefault(); // Prevent navigation
+        alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
+      }
+    });
+  });
+}
+
+// Initialize
+handleDropdownVisibility();
+preventNavigationIfNoCookie();
+
+
+  const indicators = document.querySelectorAll('.carousel-indicators li');
+  if (indicators) {
+    const idFromUrl = window.location.hash.substring(1);
+    // Loop through indicators to find the matching data-key
+    indicators.forEach(indicator => {
+      const dataKey = indicator.getAttribute('data-key');
+      if (dataKey === idFromUrl) {
+        // Remove active class from all items
+        indicators.forEach(item => item.classList.remove('active'));
+        // Add active class to the matching item
+        indicator.classList.add('active');
+      }
+    });
+  }
+
+
+
   initializeNewSlider()
-
-  // const phoneInputField = document.getElementById('phoneNumber');
-  // const phoneError = document.getElementById('phoneError');
-
-  // const iti = intlTelInput(phoneInputField, {
-  //     initialCountry: "auto", // Auto-detect user's country
-  //     geoIpLookup: function (callback) {
-  //         fetch('https://ipinfo.io/json?token=5cef6dd088fc9f')
-  //             .then((response) => response.json())
-  //             .then((json) => callback(json.country))
-  //             .catch(() => callback('US'));
-  //     },
-  //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js", // For number formatting and validation
-  // });
-
-  // phoneInputField.addEventListener('blur', () => {
-  //     if (iti.isValidNumber()) {
-  //         phoneError.style.display = 'none';
-  //     } else {
-  //         phoneError.style.display = 'block';
-  //     }
-  // });
-
   const searchBar = document.getElementById('searchBar');
   const searchForm = document.querySelector('.search-form');
   const searchInputElement = document.getElementById('search-Bar');  // Input field for search with a different ID
@@ -1005,17 +1081,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-
-
-
   if (searchForm || searchResultsForm) {
-    // Add an event listener to the form to prevent default submission
+    // Add event listener to prevent default submission for desktop search form
     document.querySelector('.search-form').addEventListener('submit', (event) => {
       event.preventDefault(); // Prevent form submission
     });
 
-
-    // Add a keydown event listener to handle the Enter key
+    // Handle Enter key for desktop search bar
     searchBar.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault(); // Prevent form submission
@@ -1053,7 +1125,38 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Add functionality for the mobile search
+    const mobileSearchForm = document.querySelector('.mobileSearch .search-form');
+    const mobileSearchBar = document.querySelector('.mobileSearch .search-bar');
+    const mobileSearchButton = document.querySelector('.mobileSearch .searchBt');
 
+    if (mobileSearchForm && mobileSearchBar && mobileSearchButton) {
+      // Prevent default submission for mobile search form
+      mobileSearchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+      });
+
+      // Handle Enter key for mobile search bar
+      mobileSearchBar.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const baseUrl = mobileSearchBar.getAttribute('data-url');
+          const searchQuery = mobileSearchBar.value.trim();
+          if (searchQuery) {
+            window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+          }
+        }
+      });
+
+      // Handle click on the mobile search button
+      mobileSearchButton.addEventListener('click', () => {
+        const baseUrl = mobileSearchBar.getAttribute('data-url');
+        const searchQuery = mobileSearchBar.value.trim();
+        if (searchQuery) {
+          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+        }
+      });
+    }
   }
 
 
@@ -1065,129 +1168,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (cookingHacksSection) {
       cookingHacksSection.addEventListener("click", () => {
-          // Select the searchRecipesShowAllDiv
-          const cookingDiv = document.querySelector(".searchHacksShowAllDiv");
-          
-          if (cookingDiv) {
-              // Remove the 'hideDives' class
-              cookingDiv.classList.remove("hideDives");
-              cookingHacksSection.style.display = "none";
-
-          }
-      });
-  }
-  if (recipeSection) {
-    recipeSection.addEventListener("click", () => {
         // Select the searchRecipesShowAllDiv
-        const recipesDiv = document.querySelector(".searchRecipesShowAllDiv");
-        
-        if (recipesDiv) {
-            // Remove the 'hideDives' class
-            recipesDiv.classList.remove("hideDives");
-            recipeSection.style.display = "none";
+        const cookingDiv = document.querySelector(".searchHacksShowAllDiv");
+
+        if (cookingDiv) {
+          // Remove the 'hideDives' class
+          cookingDiv.classList.remove("hideDives");
+          cookingHacksSection.style.display = "none";
 
         }
-    });
-}
+      });
+    }
+    if (recipeSection) {
+      recipeSection.addEventListener("click", () => {
+        // Select the searchRecipesShowAllDiv
+        const recipesDiv = document.querySelector(".searchRecipesShowAllDiv");
+
+        if (recipesDiv) {
+          // Remove the 'hideDives' class
+          recipesDiv.classList.remove("hideDives");
+          recipeSection.style.display = "none";
+
+        }
+      });
+    }
 
 
     showButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        console.log('button clicking')
-          // Get the data-index value of the clicked button
-          const index = button.getAttribute("data-index");
-          console.log('index',index)
-          
-          // Select the corresponding div with the class `moreDiv-{index}`
-          const targetDiv = document.querySelector(`.moreDiv-${index}`);
-          
-          // Check if the target div exists
-          if (targetDiv) {
-              // Show the target div
-              targetDiv.style.visibility = "visible";
-              targetDiv.style.height = "auto";
-              targetDiv.style.overflow = "visible";
+        // Get the data-index value of the clicked button
+        const index = button.getAttribute("data-index");
 
-              // Hide the clicked button
-              button.style.display = "none";
-          }
+        // Select the corresponding div with the class `moreDiv-{index}`
+        const targetDiv = document.querySelector(`.moreDiv-${index}`);
+
+        // Check if the target div exists
+        if (targetDiv) {
+          // Show the target div
+          targetDiv.style.visibility = "visible";
+          targetDiv.style.height = "auto";
+          targetDiv.style.overflow = "visible";
+
+          // Hide the clicked button
+          button.style.display = "none";
+        }
       });
-  });
-    // console.log('inside condision')
-    // document.getElementById('chickenpartsbutton').addEventListener('click', function () {
-    //   const section = document.getElementById("chickenpartssection");
-    //   const button = document.getElementById('chickenpartsbutton');
-    //   if (section.style.visibility === "hidden") {
-    //     section.style.visibility = "visible";
-    //     section.style.height = "auto";
-    //     section.style.overflow = "visible";
-    //     button.style.display = "none"; // Hides the button
-    //   } else {
-    //     section.style.visibility = "hidden";
-    //     section.style.height = "0";
-    //     section.style.overflow = "hidden";
-    //   }
-    // });
-
-    // document.getElementById('endlistshowmore').addEventListener('click', function () {
-    //   const section = document.getElementById("lastsection");
-    //   const button = document.getElementById('endlistshowmore');
-    //   if (section.style.visibility === "hidden") {
-    //     section.style.visibility = "visible";
-    //     section.style.height = "auto";
-    //     section.style.overflow = "visible";
-    //     button.style.display = "none"; // Hides the button
-    //   } else {
-    //     section.style.visibility = "hidden";
-    //     section.style.height = "0";
-    //     section.style.overflow = "hidden";
-    //   }
-    // });
-
-    // document.getElementById('breadedbutton').addEventListener('click', function () {
-    //   const section = document.getElementById("breadedsection");
-    //   const button = document.getElementById('breadedbutton');
-    //   if (section.style.visibility === "hidden") {
-    //     section.style.visibility = "visible";
-    //     section.style.height = "auto";
-    //     section.style.overflow = "visible";
-    //     button.style.display = "none"; // Hides the button
-    //   } else {
-    //     section.style.visibility = "hidden";
-    //     section.style.height = "0";
-    //     section.style.overflow = "hidden";
-    //   }
-    // });
-
-    // document.getElementById('recipebtn').addEventListener('click', function () {
-    //   const section = document.getElementById("recipessection");
-    //   const button = document.getElementById('recipebtn');
-    //   if (section.style.visibility === "hidden") {
-    //     section.style.visibility = "visible";
-    //     section.style.height = "auto";
-    //     section.style.overflow = "visible";
-    //     button.style.display = "none"; // Hides the button
-    //   } else {
-    //     section.style.visibility = "hidden";
-    //     section.style.height = "0";
-    //     section.style.overflow = "hidden";
-    //   }
-    // });
-
-    // document.getElementById('cookingbtn').addEventListener('click', function () {
-    //   const section = document.getElementById("cookingsection");
-    //   const button = document.getElementById('cookingbtn');
-    //   if (section.style.visibility === "hidden") {
-    //     section.style.visibility = "visible";
-    //     section.style.height = "auto";
-    //     section.style.overflow = "visible";
-    //     button.style.display = "none"; // Hides the button
-    //   } else {
-    //     section.style.visibility = "hidden";
-    //     section.style.height = "0";
-    //     section.style.overflow = "hidden";
-    //   }
-    // });
+    });
   }
 
   // Search Bar Expand/Collapse Handlers
@@ -1209,6 +1235,11 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.locatSearch').addClass('expanded');
     $('.cl_ser').show();
     $('.serLoc').hide();
+
+    // Check if the screen width is mobile size
+    if ($(window).width() <= 768) {
+      $('#recipeDropdown').addClass('d-none');
+    }
   });
 
   $('.cl_ser').on('click', () => {
@@ -1216,6 +1247,10 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.cl_ser').hide();
     $('.serLoc').show();
     $('.search-bar').val('');
+
+    if ($(window).width() <= 768) {
+      $('#recipeDropdown').removeClass('d-none');
+    }
   });
 
   const recipeListing = document.getElementById("recipe-listing");
@@ -1228,76 +1263,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cookingHack) {
     cookingHacksSection()
   }
-
-
-  // if (elements.priceRangeSlider || elements.priceRangeSliders) {
-  //   // Function to create sliders dynamically
-  //   const createDynamicSlider = (sliderId, labelSelector, sliderType) => {
-  //     const slider = document.getElementById(sliderId);
-  //     if (!slider) {
-  //       console.error(`${sliderType} slider not found in DOM`);
-  //       return;
-  //     }
-
-  //     // Dynamically read labels and data-id from HTML
-  //     const labelElements = Array.from(document.querySelectorAll(labelSelector));
-  //     const items = labelElements.map((el) => ({
-  //       id: parseInt(el.getAttribute("data-id")),
-  //       label: el.textContent.trim(),
-  //     }));
-
-  //     // Calculate the step size dynamically
-  //     const maxValue = items.length - 1; // Last index in the items array
-  //     const step = maxValue > 0 ? 1 : 0; // Ensure step is valid only when items exist
-
-  //     // Create slider
-  //     noUiSlider.create(slider, {
-  //       start: 0, // Start at the first point
-  //       connect: [true, false],
-  //       range: {
-  //         min: 0,
-  //         max: maxValue,
-  //       },
-  //       step: step, // Step between points
-  //       pips: false,
-  //       format: {
-  //         to: (value) => items[Math.round(value)].id, // Map slider value to data-id
-  //         from: (value) =>
-  //           items.findIndex((item) => item.id === parseInt(value)), // Find index by data-id
-  //       },
-  //     });
-
-  //     // Handle updates
-  //     slider.noUiSlider.on("update", (values) => {
-  //       const selectedId = parseInt(values[0]); // Get the selected data-id
-  //       if (sliderType === "Difficulty") {
-  //         selectedDifficulty = selectedId;
-  //       } else if (sliderType === "Preparation Time") {
-  //         selectedPrepTime = selectedId;
-  //       }
-  //     });
-  //   };
-
-  //   // Create Difficulty Slider
-  //   createDynamicSlider(
-  //     "difficulty-range",
-  //     "#difficulty-range-sliders .range-labels span.names",
-  //     "Difficulty"
-  //   );
-
-  //   // Create Preparation Time Slider
-  //   createDynamicSlider(
-  //     "preparation-range",
-  //     "#preparation-range-slider .range-labels span.names",
-  //     "Preparation Time"
-  //   );
-  // }
-
-  // recipe-category-listing
   const recipeCategoryListing = document.getElementById("recipe-category-listing");
   const contactForm = document.getElementById("contactForm");
-
-
 
   if (recipeCategoryListing) {
     initializeRecipeFilter();
@@ -1306,15 +1273,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (contactForm) {
     contactForms()
   }
-
-  // Define the fetchRecipes function
-  // const fetchRecipes = (data) => {
-  //   // Add your logic to fetch recipes using mealType and cuisine
-  // };
-
-  // Initialize slick sliders if required elements are present
-
-
   // Initialize other components if elements are present
   if (elements.filtCatSpc) {
     toogleBtn();
@@ -1377,28 +1335,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     }
-    // if (typeFilterButtons) {
-    //   typeFilterButtons.forEach(button => {
-    //     button.addEventListener('click', event => {
-    //       event.preventDefault();
-
-    //       // Remove `active` class from all buttons
-    //       typeFilterButtons.forEach(btn => btn.classList.remove('active'));
-
-    //       // Add `active` class to the clicked button
-    //       button.classList.add('active');
-
-    //       // Get the `data-umb-id` of the clicked button
-    //       productTypeId = button.getAttribute('data-umb-id');
-
-    //       // Reset offset and fetch updated product list
-    //       showMoreClicked = false;
-    //       offset = 0;
-    //       getProductList('productlist-template', url, selectedValue, productTypeId, offset, limit, productCatId);
-    //     });
-    //   });
-    // }
-
     // Add event listener for dropdown if it exists
     if (elements.productDropdown) {
       elements.productDropdown.addEventListener('change', () => {
@@ -1488,6 +1424,11 @@ document.addEventListener('DOMContentLoaded', () => {
       buttonElement.setAttribute('data-offset', offset);
       const selectedValue = selectElement.value;
       fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
+    });
+
+        // Prevent form submission on Enter key
+    elements.searchForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent form submission
     });
 
     elements.searchInput.addEventListener('input', () => {
@@ -1618,3 +1559,28 @@ dropdownItems.forEach(item => {
 });
 
 // COUNTRY-DROPDOWN END
+
+const filterWrap = document.querySelector('.filterWrap .type_filter');
+if (filterWrap) {
+    const activeItem = filterWrap.querySelector('.active');
+
+    if (activeItem) {
+        filterWrap.scrollTo({
+            left: activeItem.offsetLeft - filterWrap.offsetLeft, 
+            behavior: 'smooth' 
+        });
+    }
+  }
+
+  const categoryFilterWrap = document.querySelector('.filterWrap.catgSpc .categ_filter');
+  if (categoryFilterWrap) {
+      const filterCategoryButton = categoryFilterWrap.querySelector('.filt-catSpc')
+      const activeCategoryItem = categoryFilterWrap.querySelector('a.active');
+  
+      if (activeCategoryItem) {
+          categoryFilterWrap.scrollTo({
+              left: activeCategoryItem.offsetLeft - categoryFilterWrap.offsetLeft - filterCategoryButton.offsetWidth, 
+              behavior: 'smooth' 
+          });
+      }
+  }

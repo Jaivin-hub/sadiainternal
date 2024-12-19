@@ -154,10 +154,10 @@ ul{
             letter-spacing: 0px;
             margin: 0 0 10px;
 
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            // display: -webkit-box;
+            // -webkit-line-clamp: 2;
+            // -webkit-box-orient: vertical;
+            // overflow: hidden;
         }
         .moreDtls {
             border-top: 1px solid $border-color;
@@ -299,6 +299,14 @@ ul{
 
     .bannerSlider{
         .carousel{
+            .carousel-item{
+                height: auto;
+                img{
+                    &.slider-img{
+                        height: auto;
+                    }
+                }
+            }
             .carousel-indicators{
                 display: none;
             }
@@ -380,6 +388,10 @@ ul{
                 border: 1px solid $primary-color;
                 border-radius: 4px !important;
             }
+
+            @media (max-width: 767px) {
+                padding: 10px 16px;
+            }
         }
     }
     
@@ -397,25 +409,34 @@ ul{
         margin: 0px;
         width: calc(100% / 3);
         .card-body{
+            display: flex;
+            flex-direction: column;
             padding-left: 10px;
             padding-right: 10px;
             .card-title{
-                min-height: 52px;
+                min-height: 49px;
                 margin-bottom: 0;
             }
             .card-text{
                 color: #ADADAD;
                 font-size: 14px;
                 font-weight: 400;
+                margin-bottom: 20px;
                 span{
                     color: $primary-color;
                     padding-left: 5px;                    
                 }
             }
+            .moreDtls{
+                margin-top: auto !important;
+            }
         }
         
     }
     .horizontal-scroll{
+        &::-webkit-scrollbar {
+            height: 0px;
+        }
         .card{
             &.me-4{
                 &:last-child{
@@ -428,7 +449,7 @@ ul{
         .card{
             .card-body{
                 .card-title{
-                    min-height: 48px;
+                    margin-bottom: 48px;
                 }
             }
         } 
@@ -440,6 +461,7 @@ ul{
 
 
 @media (max-width: 767px) {
+
 
     .popular-section{
         .catgSpc{
@@ -1027,8 +1049,8 @@ ul{
                 transition: opacity 0.5s ease-in-out;
                 img {
                     width: 100%;
-                    min-height: 300px;
-                    max-width: 470px;
+                    width: 330px;
+                    height: 330px;
                     object-fit: cover;
                     margin: 0 auto;
                 }
@@ -1177,6 +1199,8 @@ ul{
                 visibility: hidden;        
                 transition: all ease 0.5s;
                 .lists{
+                    display: flex;
+                    align-items: stretch !important;
                     list-style: none;
                     margin: 0;
                     padding: 0;
@@ -1185,8 +1209,10 @@ ul{
                     font-family: $title-font;
                     color: $primary-color;
                     margin: 0 0 56px;
-                    li{
-                        display: inline-flex;
+                    li{ 
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
                         border-right: 1px solid;
                         padding-right: 15px;
                         margin-right: 15px;
@@ -1273,8 +1299,8 @@ ul{
             .image-slider{
                 .slide{
                     img{
-                        max-width: 100%;
-                        min-height: auto;
+                        width: 246px;
+                        height: 246px;
                     }
                 }
             } 
@@ -1328,14 +1354,6 @@ ul{
                     }
                 }
             } 
-            .image-slider{
-                .slide{
-                    img{
-                        max-width: 700px;
-                        min-height: auto;
-                    }
-                }
-            }
         }
     }
 
@@ -1344,6 +1362,9 @@ ul{
 @media (max-width: 767px) {
 
     .your-favorite{
+        &.secSpace{
+            padding-bottom: 0;
+        }
         .slider-wrapper{
             .padSpace {
                 padding: 0 12px;
@@ -1421,6 +1442,9 @@ ul{
         margin: 0 6px;
     }
     .horizontal-scroll{
+        &::-webkit-scrollbar {
+            height: 0px;
+        }
         width: 100%;
         .d-flex.flex-nowrap{
             width: 100%;
@@ -1978,6 +2002,9 @@ ul{
         }
 
        .horizontal-scroll{
+            &::-webkit-scrollbar {
+                height: 0px;
+            }
             padding-left: 10px;
             .flex-nowrap{
                 .row{
@@ -2128,6 +2155,11 @@ ul{
 @media (max-width: 767px) {
 
     .cookingHacks{
+        .horizontal-scroll {
+            &::-webkit-scrollbar {
+                height: 0px;
+            }
+        }
         .card{
             margin-bottom: 15px !important;
             .cardImg{
@@ -2156,7 +2188,7 @@ ul{
 
 @media (max-width: 991px) {
     .secSpace {
-        padding: 115px 0 0px;
+        padding: 90px 0 0px;
     }
 
 
@@ -2196,9 +2228,15 @@ ul{
     }
     
     .horizontal-scroll {
+        &::-webkit-scrollbar {
+            display: none; 
+        }
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
+        scrollbar-width: none; /* Hides scrollbar in Firefox */
+        -ms-overflow-style: none; /* Hides scrollbar in IE/Edge (Legacy) */
+
         .card {
             flex: 0 0 auto;
             width: 80%;
@@ -2261,6 +2299,10 @@ ul{
 
 @media (max-width: 767px) {
 
+    .whereWrapper .filterSection .search-bar-container .locatSearch.expanded .search-bar{
+        width: auto;
+    }
+
     .errorWraper{
         min-height: 60vh;
         .contArea{
@@ -2278,6 +2320,70 @@ ul{
 }
 
 // NOT-FOUND PAGE END
+
+
+.termssection{
+    font-family: $primary-font;
+    .titleWrap{
+        margin: 0 0 100px;
+    }
+    .filterSec{
+      .subtitle{
+        font-size: 27px;
+        letter-spacing: 0px;
+        font-weight: 400;
+        line-height: 27px;
+        color: $secondary-color;
+        margin: 80px 0 50px;
+        text-transform: uppercase;
+        font-family: $title-font;
+      }
+      .discription{
+        font-size:16px;
+        letter-spacing: 0px;
+        font-weight: 400;
+        line-height: 22px;
+        color: $black-light;
+        p{
+          margin: 0px 0 0px;
+          padding: 2px;
+        }
+        a{
+            color: $secondary-color;
+        }
+      }
+    }
+  }
+
+  .webvisible{
+    display: block !important;
+  }
+
+  .mobvisible{
+    display: none !important;
+  }
+
+  @media (max-width: 767px) {
+
+    .termssection{
+        .titleWrap{
+            margin: 0 0 60px;
+        }
+        .filterSec{
+          .subtitle{
+            margin: 50px 0 30px;
+          }
+        }
+      }
+
+      .webvisible{
+        display: none !important;
+      }
+      .mobvisible{
+        display: block !important;
+      }
+}
+
 
 
 

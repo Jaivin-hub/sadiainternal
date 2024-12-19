@@ -136,6 +136,16 @@ module.exports = {
       inject: true,
       filename: 'thankyou.html',
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/privacy.hbs',  // Template for recipe listing page
+      inject: true,
+      filename: 'privacy.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/layouts/termsandcondition.hbs',  // Template for recipe listing page
+      inject: true,
+      filename: 'termsandcondition.html',
+    }),
     new MiniCssExtractPlugin({
       filename: 'assets/css/style.css',  // Output CSS to assets folder
     }),
@@ -158,6 +168,8 @@ module.exports = {
         { from: /^\/recipe-details/, to: '/recipe-details.html' },
         { from: /^\/recipe-category-listing/, to: '/recipe-category-listing.html' },
         { from: /^\/recipe-listing/, to: '/recipe-listing.html' },
+        { from: /^\/privacy/, to: '/privacy.html' },
+        { from: /^\/termsandcondition/, to: '/termsandcondition.html' },
         { from: /^\/product-listing/, to: '/product-listing.html' },
         { from: /^\/searchresult/, to: '/searchresult.html' },
         { from: /^\/hack-listing/, to: '/hack-listing.html' },

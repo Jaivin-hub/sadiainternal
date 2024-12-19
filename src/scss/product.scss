@@ -42,17 +42,38 @@
             width: 100%;
             margin-bottom: 20px;
             &.firstBox{
-                height: 410px;
+                height: auto;
+                .bxImg{
+                    height: 410px;
+                    object-fit: cover;
+                    width: 100%;
+                }
             }
             &.secondBox{
-                height: 235px;
+                height: auto;
+                .bxImg{
+                    height: 235px;
+                    object-fit: cover;
+                    width: 100%;
+                }
             }
             &.thirdBox{
-                height: 155px;
+                height: auto;
+                .bxImg{
+                    height: 155px;
+                    object-fit: cover;
+                    width: 100%;
+                }
             }
             &.fourthBox{
-                height: 250px;
+                height: auto;
+                .bxImg{
+                    height: 250px;
+                    object-fit: cover;
+                    width: 100%;
+                }
             }
+
             .bxImg{
                 width: 100%;
                 object-fit: cover;
@@ -74,19 +95,40 @@
         .partDiv {
             padding: 0 10px;
         }
+
+        .mob-sec-prdt-row {
+            display: flex;
+            gap: 12px;
+            div{
+                flex: 1;
+            }
+        }
+
         .prdct_bximg{
             .imgDiv{
                 &.firstBox {
-                    height: 300px;
+                    height: auto;
+                    .bxImg{
+                        height: 300px;
+                    }
                 }
                 &.secondBox{
-                    height: 190px;
+                    height: 100%;
+                    .bxImg{
+                        height: 190px;
+                    }
                 }
                 &.thirdBox{
-                    height: 100px;
+                    height: 100%;
+                    .bxImg{
+                        height: 100px;
+                    }
                 }
                 &.fourthBox {
-                    height: 200px;
+                    height: auto;
+                    .bxImg{
+                        height: 200px;
+                    }
                 }
             }
             
@@ -101,12 +143,13 @@
             .alignDiv{
                 display: flex;
                 .imgDiv{
-                    margin-bottom: 10px;  
+                    margin-bottom: 12px;  
                 }
                 .rowDiv{
                     display: flex;
-                    flex-direction: row;
+                    flex-direction: column;
                     flex-wrap: nowrap !important;
+                    flex: 1;
                     .partDiv{
                         padding-right: 10px;
                     }
@@ -245,8 +288,9 @@
     .ourPrdcts{
         .imgDiv{
             .titles {
-                font-size: 27px;
+                font-size: 24px;
                 line-height: 27px;
+                padding: 0 10px;
             }
         }
     }
@@ -266,6 +310,8 @@
             margin-right: 0 !important;
         }
         .card-body{
+            display:flex;
+            flex-direction: column;
             .card-title{
                 margin: 0 0 5px;
                 padding-right: 5%;
@@ -276,10 +322,14 @@
                 color: #adadad;
                 font-size: 14px;
                 font-weight: 400;
+                margin-bottom: 20px;
                 span{
                     color: #d7282f;
                     padding-left: 5px
                 }
+            }
+            .moreDtls{
+                margin-top: auto !important;
             }
         }
     }  
@@ -361,7 +411,7 @@
         max-width: 100%;
         font-size: 16px;
         border: 1px solid #ADADAD;
-        min-width: 115px;
+        min-width: 143px;
         color: $black-color;
         margin: 5px 0;
 
@@ -442,7 +492,8 @@
             justify-content: center;
             img{
                 object-fit: cover;
-                max-height: 300px;
+                height: 220px;
+                width: 261px;
             }
         }
         .prdctCont{
@@ -456,10 +507,10 @@
                 margin: 5px 0;
                 padding: 0;
 
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
+                // display: -webkit-box;
+                // -webkit-line-clamp: 2;
+                // -webkit-box-orient: vertical;
+                // overflow: hidden;
             }
             .dtls{
                 font-size: 16px;
@@ -493,6 +544,15 @@
 @media (max-width: 767px) {
 
     .productFilter{
+        &.recpFilt{
+            .filterSec{
+                .filterWrap{
+                    .categ_filter{
+                        margin-right: 0;
+                    }
+                } 
+            } 
+        }
         .filterSec{
             .filterWrap {
                 display: flex;
@@ -718,8 +778,8 @@
                     position: relative;
                     
                     img.thumbImg {
-                        width: 60px;
-                        height: auto;
+                        width: 62px;
+                        height: 57px;
                         border-radius: 5px;
                         object-fit: cover;
                     }
@@ -1066,7 +1126,8 @@
             .carousel-item, .recp_detailImg {
                 height: 390px;
                 .sliderImg{
-                    min-height: 390px;
+                    height: 390px;
+                    min-height: auto;
                 }
             }
             .carousel-indicators{
@@ -1083,8 +1144,9 @@
     .rldPrdct-slider{
         .scrl_cards{
             .slick-slide {
-                max-width: 82vw !important;
+                max-width: 100vw !important;
                 width: 100%;
+                margin-right: 0px;
             }
         }
     } 

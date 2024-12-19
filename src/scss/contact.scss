@@ -210,7 +210,7 @@
             line-height: 27px;
             color: $secondary-color;
             font-family: $title-font;
-            margin: 0 0 35px;
+            margin: 48px 0 35px;
             padding: 0;
         }
         .descp{
@@ -255,6 +255,9 @@
 @media (max-width: 767px) {
    
     .contactWraper{
+        .mainTitle{
+            margin-top: 15px !important;
+        }
         .alignConts{
             text-align: center;
             .contactSect{
@@ -446,6 +449,12 @@
 }
 
 // FAQ-END
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .contactWraper .contactForms .form-control, .contactWraper .contactForms .numberSect{
+        font-size: 16px;
+    }
+}
 
 
 

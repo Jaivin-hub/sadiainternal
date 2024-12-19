@@ -14,7 +14,6 @@ const initializeMapbox = () => {
     const map = new mapboxgl.Map({
       container: 'mapFrame', // ID of the container element
       style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
-      center: [54.3773, 24.4539], // Default starting position for UAE (Abu Dhabi)
       attributionControl: false, // Disables the default attribution control
       zoom: 5, // Starting zoom level
     });
@@ -29,44 +28,79 @@ const initializeMapbox = () => {
 
     // Function to add pulsing dot markers
     const addPulsingMarkers = (locations) => {
-      locations.forEach(location => {
+      locations.forEach((location, index) => {
         const el = document.createElement('div');
         el.className = 'pulsing-dot';
-        const coordinates = location.split(',').map(Number); // Split coordinates and convert to numbers
+
+        const coordinates = location.split(',').map(Number);
+        if (isNaN(coordinates[0]) || isNaN(coordinates[1])) {
+          console.error(`Invalid coordinates at index ${index}:`, location);
+          return; // Skip invalid coordinates
+        }
+
         const marker = new mapboxgl.Marker(el).setLngLat(coordinates).addTo(map);
         markers.push(marker); // Store marker reference
       });
     };
 
-    // Get the first option's data from the dropdown to initialize the map
+    // Function to update the map based on selected data
+    const updateMap = (data) => {
+      if (!data) {
+        console.error("No data available for the selected option.");
+        return;
+      }
+
+      // Parse location data
+      const locations = data
+        .split(' | ') // Split by city separator
+        .map(city => city.split('-')[1]?.trim()) // Extract coordinates after the hyphen
+        .filter(Boolean); // Remove invalid entries
+
+      if (locations.length === 0) {
+        console.error("No valid locations found.");
+        return;
+      }
+
+      // Clear existing markers and add new ones
+      clearMarkers();
+      addPulsingMarkers(locations);
+
+      // Center the map on the first location
+      const firstLocation = locations[0].split(',').map(Number);
+      if (!isNaN(firstLocation[0]) && !isNaN(firstLocation[1])) {
+        map.setCenter(firstLocation);
+        console.log("Map centered at:", firstLocation);
+      } else {
+        console.error("Invalid first location for centering:", firstLocation);
+      }
+    };
+
+    // Initialize the map with the first option's data
     const countryDropdown = document.querySelector('.countryDrops');
-    const firstOption = countryDropdown.options[0]; // Get the first option
-    const initialLocationsData = firstOption.getAttribute('data'); // Get the 'data' attribute from the first option
-    const initialLocations = initialLocationsData.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
+    if (!countryDropdown) {
+      console.error("Dropdown element not found.");
+      return;
+    }
 
-    // Add pulsing markers for the first option's locations
-    addPulsingMarkers(initialLocations);
-    const firstLocation = initialLocations[0].split(',').map(Number);
-    map.setCenter(firstLocation); // Center map on the first city's coordinates
+    const firstOption = countryDropdown.options[0];
+    if (firstOption) {
+      const initialLocationsData = firstOption.getAttribute('data');
+      console.log("Initial data:", initialLocationsData); // Debugging
+      updateMap(initialLocationsData);
+    }
 
-    // Listen for dropdown selection change
+    // Listen for dropdown selection changes
     countryDropdown.addEventListener('change', () => {
       const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
-      const data = selectedOption.getAttribute('data'); // Get the 'data' attribute
-      const locations = data.split(' | ').map(city => city.split('-')[1]); // Extract the coordinates from the data attribute
-
-      if (locations) {
-        clearMarkers(); // Clear existing markers
-        addPulsingMarkers(locations); // Add new markers
-        const firstLocation = locations[0].split(',').map(Number); // Use the first location for centering
-        map.setCenter(firstLocation); // Set the map center to the first city's coordinates
-      }
+      const data = selectedOption.getAttribute('data');
+      console.log("Selected data:", data); // Debugging
+      updateMap(data);
     });
-
   } catch (error) {
     console.error('Error initializing Mapbox:', error);
   }
 };
+
 
 const priceSliderInitialize = (onUpdate) => {
 
@@ -170,6 +204,26 @@ const toogleBtn = () => {
   // Select the toggle button and sidebar frame elements
   const toggleButton = document.getElementById("toggleButton");
   const sidebarFrame = document.getElementById("sidebarFrame");
+
+  // Function to apply default mobile view actions
+  const applyMobileViewDefaults = () => {
+    if (window.innerWidth <= 767) {
+      // Add "active" class to toggleButton and "hideSidebar" class to sidebarFrame
+      toggleButton.classList.remove("active");
+      sidebarFrame.classList.add("hideSidebar");
+    } else {
+      // Remove "active" class and "hideSidebar" class for non-mobile view
+      toggleButton.classList.add("active");
+      sidebarFrame.classList.remove("hideSidebar");
+    }
+  };
+
+  // Call the function once to set the initial state
+  applyMobileViewDefaults();
+
+  // Add event listener for window resize to reapply defaults
+  window.addEventListener("resize", applyMobileViewDefaults);
+
   // Add click event listener to the button
   toggleButton.addEventListener("click", function () {
     // Toggle the "active" class on the toggleButton
@@ -178,7 +232,7 @@ const toogleBtn = () => {
     // Toggle the "hideSidebar" class on the sidebarFrame
     sidebarFrame.classList.toggle("hideSidebar");
   });
-}
+};
 // SIDEBAR-COLLPASE END
 
 
@@ -312,7 +366,6 @@ const initializeSlick = () => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'dir') {
           const newRTL = $('html').attr('dir') === 'rtl';
-          console.log('Direction changed. Reinitializing sliders. RTL:', newRTL);
           initSliders(newRTL); // Reinitialize with updated direction
         }
       });
@@ -357,7 +410,7 @@ const initializeNewSlider = () => {
         autoplay: false,
         infinite: false,
         speed: 1000,
-        slidesToShow: 3.5,
+        slidesToShow: 3,
         slidesToScroll: 1,
         fade: false,
         asNavFor: '#new-thumbnail-slider',
@@ -378,7 +431,7 @@ const initializeNewSlider = () => {
       // Thumbnail slider options
       const thumbnailSliderOptions = {
         rtl: isRTL, // Dynamically set RTL mode
-        slidesToShow: 3.5,
+        slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: '#new-image-slider',
         focusOnSelect: true,
@@ -410,7 +463,6 @@ const initializeNewSlider = () => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'dir') {
           const newRTL = $('html').attr('dir') === 'rtl';
-          console.log('Direction changed. RTL mode:', newRTL);
           initSliders(newRTL); // Reinitialize sliders with updated RTL state
         }
       });

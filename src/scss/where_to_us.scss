@@ -154,6 +154,9 @@
                     height: 52px;
                     width: 320px;        
                     opacity: 1;    
+                    @media (max-width: 580px) {
+                        width: 220px;
+                    }
                 }
             }
             .search-bar{
@@ -211,6 +214,7 @@
                     .logo-box{
                         height: 190px;
                         margin-bottom: 15px;
+                        width: 100% !important;
                         .bxImg{
                             max-height: 190px;
                         }
@@ -258,7 +262,23 @@
             }
         }
     }  
-
+    
+    .filterSection{
+        gap: 10px;
+        .search-bar-container{
+            margin: 5px 0;
+            flex: 1;
+    
+            .locatSearch{
+                &.expanded{
+                    .search-bar{
+                        width: 100%;
+                    }
+                }
+            }
+    
+        }
+    }
 
     
 }

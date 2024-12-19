@@ -21,7 +21,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
   {{!-- BOOTSTRAP AR-CSS --}}
-  {{!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css"> --}}
+  {{!--
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css"> --}}
 
   {{!-- JQUERY-UI --}}
   <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
@@ -34,10 +35,36 @@
 
   <!-- Mapbox GL CSS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
-  
+
   <link rel="stylesheet" href="assets/css/style.css">
   <title>{{title}} Sadia</title>
   <link rel="icon" href="assets/images/fav/favicon.ico" type="image/x-icon">
+  <script type="text/javascript"
+    src="https://cdn.cookielaw.org/consent/58500e48-fc26-49cd-a040-2cd5f21cd4c1/OtAutoBlock.js"></script>
+  <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8"
+    data-domain-script="58500e48-fc26-49cd-a040-2cd5f21cd4c1"></script>
+  <script type="text/javascript">
+    function OptanonWrapper() { 
+      // Listen for the 'Accept All' action
+  if (typeof Optanon !== "undefined" && Optanon.OnConsentChanged) {
+    Optanon.OnConsentChanged(function () {
+      if (OptanonActiveGroups.includes("C0001")) { // Replace with the correct cookie group ID
+        // User accepted all cookies
+        setCookie("OptanonConsent", "true", 7); // Set custom cookie
+        setCookie("OptanonAlertBoxClosed", "true", 7); // Ensure the popup is hidden
+        console.log("Cookies have been accepted!");
+      }
+    });
+  }
+    }
+
+    function setCookie(name, value, days) {
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000); // Convert days to milliseconds
+  const expires = "expires=" + date.toUTCString();
+  document.cookie = `${name}=${value}; ${expires}; path=/; Secure; SameSite=Strict`;
+}
+  </script>
 </head>
 
 <body umb-lang="en">
@@ -51,7 +78,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script src="assets/js/main.bundle.js"></script>
-  
+
   {{!-- JUICER-PLUGIN --}}
   <script type="text/javascript" src="https://www.juicer.io/embed/sadia/embed-code.js" async defer></script>
 

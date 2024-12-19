@@ -94,6 +94,8 @@
     .recipies_list{
         .card{
             .card-body{
+                display: flex;
+                flex-direction: column;
                 .card-title{
                     min-height: 52px;
                     margin: 0 0 5px;
@@ -102,10 +104,14 @@
                     color: #adadad;
                     font-size: 14px;
                     font-weight: 400;
+                    margin-bottom: 20px;
                     span{
                         color: $primary-color;
                         padding-left: 5px;
                     }
+                }
+                .moreDtls{
+                    margin-top: auto !important;
                 }
             }
         } 
@@ -157,6 +163,7 @@
     }
     .recipies_list{
         .card{
+            height: 100%;
             .cardImg{
                 height: 354px;
                 .mainImg{
@@ -250,8 +257,17 @@
     overflow: hidden;
 }
 
+.hideElement{
+        display: none;
+        margin: auto;
+}
+
 
 @media (max-width: 767px) {
+
+    .serchFilter .filterWrap .categ_filter {
+        justify-content: left;
+    }
    
     .serchFilter{
         .titleWrap {

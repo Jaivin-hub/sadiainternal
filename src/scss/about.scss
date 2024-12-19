@@ -85,6 +85,11 @@
 
     }
 
+  
+        .mv-block{
+            display: block !important;
+        }
+
     .campaignBxWraper {
         &.abtBox {
             margin: 0;
@@ -93,6 +98,8 @@
                 .subitle {
                     max-width: 100%;
                     &.newSpc {
+                        font-size: 47px;
+                        line-height: 47px;
                         margin-bottom: 20px;
                     }
                 }
@@ -125,6 +132,11 @@
 .how_weSect {
     &.secSpace{
         padding: 115px 0 144px;
+        @media (max-width: 767px){
+            padding: 115px 0 120px;
+
+        }
+
     }
    
 
@@ -134,6 +146,13 @@
         .mainTitle {
             font-size: 27px;
             line-height: 27px;
+
+            @media (max-width: 767px) {
+                font-size: 47px;
+                line-height: 47px;
+           }
+
+
         }
     }
 
@@ -235,6 +254,10 @@
                 max-height: 203px;
                 width: auto;
                 max-width: 100%;
+            }
+
+            @media (max-width: 767px) {
+                height: 256px;
             }
         }
     }
@@ -589,6 +612,8 @@
             }
         }  
         .sliderTitle{
+            font-size: 47px;
+            line-height: 47px;
             margin-bottom: 40px;
         }
         .contWrapper{
@@ -655,4 +680,18 @@
     }
 }
 
-
+.storyBox {
+    @media (max-width: 767px) {
+      display: flex;
+      flex-direction: column;
+  
+      .imgBox {
+        order: 1;
+      }
+  
+      .contWrapper {
+        padding-top: 20px;
+        order: 2;
+      }
+    }
+  }
