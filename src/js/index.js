@@ -1028,6 +1028,25 @@ function handleDropdownVisibility() {
         dropdownToggle.setAttribute("aria-expanded", "true");
       }
     }
+
+    // Add event listener to close dropdown after country selection
+    const countryLinks = document.querySelectorAll(".navBox");
+    countryLinks.forEach(link => {
+      link.addEventListener("click", () => {
+    
+        if (dropdownParent && dropdownMenu) {
+          dropdownParent.classList.remove("show");
+          dropdownMenu.classList.remove("show");
+
+          const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+          if (dropdownToggle) {
+            dropdownToggle.setAttribute("aria-expanded", "false");
+          }
+        }
+      });
+    });
+
+    
   } else {
     // Hide the dropdown and set hover behavior if the cookie is set
     if (dropdownParent && dropdownMenu) {
