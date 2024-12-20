@@ -56,9 +56,6 @@ function getProductList(template, url, selectedValue, productTypeId, offset, lim
   fetchAndRenderData(template, url, selectedValue, productTypeId, offset, limit, lang, productCatId)
     .then(obj => {
       const { html, isEmpty, totalCount} = obj;
-      const productCards = document.querySelectorAll('.productCard');
-      const productCardCount = productCards.length;
-      console.log('Number of productCard elements:', productCardCount);
       const container = document.querySelector('#cardcontainer');
       if (!container) {
         console.warn('Container #cardcontainer not found.');
@@ -71,6 +68,8 @@ function getProductList(template, url, selectedValue, productTypeId, offset, lim
         container.innerHTML = html; // Replace HTML for new selection
       }
       const showMoreButton = document.getElementById("productShowMore");
+      const productCards = document.querySelectorAll('.productCard');
+      const productCardCount = productCards.length;
       if (isEmpty || productCardCount == totalCount) {
         showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
       } else {
@@ -325,8 +324,6 @@ function toggleRecipeSections() {
     fetchRecipes('all-recipelist-template', data)
       .then(({ html, isEmpty, totalCount }) => {
         const container = document.getElementById('defaultlistspace');
-        const recipeCards = document.querySelectorAll('.recipeCard');
-        const recipeCardCount = recipeCards.length;
         if (!container) {
           console.warn('Container with ID "defaultlistspace" not found.');
           return;
@@ -336,6 +333,8 @@ function toggleRecipeSections() {
         } else {
           container.innerHTML = html;
         }
+        const recipeCards = document.querySelectorAll('.recipeCard');
+        const recipeCardCount = recipeCards.length;
         if (isEmpty || recipeCardCount == totalCount) {
           showMoreButton.style.display = "none";
         } else {
@@ -535,13 +534,13 @@ function initializeRecipeFilter() {
   function updateRecipeList(data) {
     fetchRecipes('recipelist-template', data)
       .then(({ html, isEmpty, totalCount }) => {
-        const recipeCards = document.querySelectorAll('.recipeCard');
-        const recipeCardCount = recipeCards.length;
         if (showMoreClicked) {
           recipeContainer.innerHTML += html;
         } else {
           recipeContainer.innerHTML = html;
         }
+        const recipeCards = document.querySelectorAll('.recipeCard');
+        const recipeCardCount = recipeCards.length;
         showMoreButton.style.visibility = isEmpty ? "hidden" : recipeCardCount == totalCount ? "hidden" : "visible";
       })
       .catch(error => console.error('Error fetching recipes:', error));
@@ -733,8 +732,6 @@ const cookingHacksSection = () => {
     fetchCookingHacks('hack-template', dataObj).then((res) => {
       const { html, isEmpty, totalCount } = res;
       const container = document.getElementById('hackcontainer');
-      const hackCards = document.querySelectorAll('.cookingHackCard');
-      const hackCardCount = hackCards.length;
       if (!container) {
         console.warn('Container with ID "onlinecontainer" not found.');
         return;
@@ -746,6 +743,8 @@ const cookingHacksSection = () => {
         container.innerHTML = html;
       }
       const showMoreButton = document.querySelector('#hackshowmore');
+      const hackCards = document.querySelectorAll('.cookingHackCard');
+      const hackCardCount = hackCards.length;
       if (isEmpty || hackCardCount == totalCount) {
         showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
       } else {
@@ -758,8 +757,6 @@ const cookingHacksSection = () => {
   fetchCookingHacks('hack-template', data).then(obj => {
     const { html, isEmpty, totalCount } = obj;
     const container = document.getElementById('hackcontainer');
-    const hackCards = document.querySelectorAll('.cookingHackCard');
-    const hackCardCount = hackCards.length;
     if (!container) {
       console.warn('Container with ID "onlinecontainer" not found.');
       return;
@@ -771,6 +768,8 @@ const cookingHacksSection = () => {
       container.innerHTML = html;
     }
     const showMoreButton = document.querySelector('#hackshowmore');
+    const hackCards = document.querySelectorAll('.cookingHackCard');
+    const hackCardCount = hackCards.length;
     if (isEmpty || hackCardCount == totalCount) {
       showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
     } else {
@@ -808,8 +807,6 @@ const cookingHacksSection = () => {
     fetchCookingHacks('hack-template', data).then(obj => {
       const { html, isEmpty, totalCount } = obj;
       const container = document.getElementById('hackcontainer');
-      const hackCards = document.querySelectorAll('.cookingHackCard');
-      const hackCardCount = hackCards.length;
       if (!container) {
         console.warn('Container with ID "onlinecontainer" not found.');
         return;
@@ -821,6 +818,8 @@ const cookingHacksSection = () => {
         container.innerHTML = html;
       }
       const showMoreButton = document.querySelector('#hackshowmore');
+      const hackCards = document.querySelectorAll('.cookingHackCard');
+      const hackCardCount = hackCards.length;
       if (isEmpty || hackCardCount == totalCount) {
         showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
       } else {
@@ -853,8 +852,6 @@ const cookingHacksSection = () => {
     fetchCookingHacks('hack-template', data).then(obj => {
       const { html, isEmpty, totalCount } = obj;
       const container = document.getElementById('hackcontainer');
-      const hackCards = document.querySelectorAll('.cookingHackCard');
-      const hackCardCount = hackCards.length;
       if (!container) {
         console.warn('Container with ID "onlinecontainer" not found.');
         return;
@@ -866,6 +863,8 @@ const cookingHacksSection = () => {
         container.innerHTML = html;
       }
       const showMoreButton = document.querySelector('#hackshowmore');
+      const hackCards = document.querySelectorAll('.cookingHackCard');
+      const hackCardCount = hackCards.length;
       if (isEmpty || hackCardCount == totalCount) {
         showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
       } else {
@@ -898,8 +897,7 @@ const cookingHacksSection = () => {
       fetchCookingHacks('hack-template', data).then(obj => {
         const { html, isEmpty, totalCount } = obj;
         const container = document.getElementById('hackcontainer');
-        const hackCards = document.querySelectorAll('.cookingHackCard');
-        const hackCardCount = hackCards.length;
+        
         
         if (!container) {
           console.warn('Container with ID "onlinecontainer" not found.');
@@ -912,6 +910,8 @@ const cookingHacksSection = () => {
           container.innerHTML = html;
         }
         const showMoreButton = document.querySelector('#hackshowmore');
+        const hackCards = document.querySelectorAll('.cookingHackCard');
+        const hackCardCount = hackCards.length;
         if (isEmpty || hackCardCount == totalCount) {
           showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
         } else {
@@ -944,8 +944,6 @@ const cookingHacksSection = () => {
       fetchCookingHacks('hack-template', data).then(obj => {
         const { html, isEmpty, totalCount } = obj;
         const container = document.getElementById('hackcontainer');
-        const hackCards = document.querySelectorAll('.cookingHackCard');
-        const hackCardCount = hackCards.length;
         if (!container) {
           console.warn('Container with ID "onlinecontainer" not found.');
           return;
@@ -957,6 +955,8 @@ const cookingHacksSection = () => {
           container.innerHTML = html;
         }
         const showMoreButton = document.querySelector('#hackshowmore');
+        const hackCards = document.querySelectorAll('.cookingHackCard');
+        const hackCardCount = hackCards.length;
         if (isEmpty || hackCardCount == totalCount) {
           showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
         } else {

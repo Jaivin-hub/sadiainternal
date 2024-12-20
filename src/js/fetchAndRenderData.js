@@ -7,7 +7,7 @@ import onlineStoreList from '../assets/json/onlinestore.json';
 async function fetchAndRenderData(templateName, apiUrl, selectedValue, productTypeId, offset, limit, lang, productCatId) {
     try {
         let isEmpty = false;
-        const url = `${apiUrl}?productTypeId=${productTypeId}&limit=${limit}&offset=${offset}&filter=${selectedValue}&productCatId=${productCatId}&lang=${lang}`;
+        const url = `${apiUrl}?productTypeId=${0}&limit=${limit}&offset=${offset}&filter=${selectedValue}&productCatId=${productCatId}&lang=${lang}`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -22,7 +22,7 @@ async function fetchAndRenderData(templateName, apiUrl, selectedValue, productTy
         }
         // // Generate HTML for each item in productList
         let html = '';
-        const totalCount = productsList[0].totalCount;
+        const totalCount = productsList[0]?.totalCount;
         productsList.forEach(item => {
 
             html += Mustache.render(template, item); // Using Mustache template rendering
@@ -113,7 +113,7 @@ async function fetchRecipes(templateName, data){
         }
 
         const result = await response.json();
-        const totalCount = result[0].totalCount;
+        const totalCount = result[0]?.totalCount;
 
         if(result.length === 0){
             isEmpty = true;
@@ -165,7 +165,7 @@ async function fetchCookingHacks(templateName, data, getProductList){
         }
 
         const result = await response.json();
-        const totalCount = result[0].totalCount;
+        const totalCount = result[0]?.totalCount;
 
         if(result.length === 0){
             isEmpty = true;
