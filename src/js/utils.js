@@ -553,19 +553,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // SHOW-HIDE DIV
+const clsIconElement = document.getElementById('clsIcon')
+if(clsIconElement){
+    // Add event listener to the close icon
+    clsIconElement.addEventListener('click', function () {
+      // Find the parent element of the close icon
+      const searchValueElement = document.querySelector('.searchValues');
+      
+      // Remove the searchValues element from the DOM
+      if (searchValueElement) {
+        searchValueElement.remove();
+      }
+    });
+  
+  // SHOW-HIDE DIV
+}
 
-  // Add event listener to the close icon
-  document.getElementById('clsIcon').addEventListener('click', function () {
-    // Find the parent element of the close icon
-    const searchValueElement = document.querySelector('.searchValues');
-    
-    // Remove the searchValues element from the DOM
-    if (searchValueElement) {
-      searchValueElement.remove();
-    }
-  });
-
-// SHOW-HIDE DIV
 
 
 
