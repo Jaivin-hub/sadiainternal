@@ -1077,7 +1077,14 @@ ul {
 
 @media (max-width: 767px) {
     .cookingHacks{
+        
         .card{
+            .cardImg{
+                height: 300px;
+                img.mainImg{
+                    height: 300px;
+                }
+            }
             .card-body{
                 .card-title{
                     padding-right: 20px;

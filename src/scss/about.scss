@@ -634,6 +634,22 @@
 
 }
 
+@media (max-width: 530px) {
+    .campaignBxWraper{
+        &.abtBox{
+           &.buyBoxs{
+                .boxDivs{
+                    .card{
+                        max-width: 256px;
+                        width: 100%;
+                    }
+                }
+            } 
+        }
+    }
+    
+}
+
 // STORY_SECTION END
 
 .storyWraper.secSpace {

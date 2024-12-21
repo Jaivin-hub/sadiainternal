@@ -5,6 +5,8 @@
 
 html[dir="rtl"]{
     font-size:14px;
+
+
     dt {
         font-weight: 600;
     }
@@ -16,7 +18,13 @@ html[dir="rtl"]{
         margin-right: auto !important;
         margin-left: inherit !important;
     }
-    
+    .card{
+        .card-body{
+            .moreDtls{
+                justify-content: right;
+            }
+        }
+    } 
     .carousel-inner {
         display: block;
     }
@@ -697,12 +705,39 @@ html[dir="rtl"]{
 
     html[dir="rtl"]{
 
+        .contArea {
+            padding-right: calc(var(--bs-gutter-x)*.5);
+            padding-left: calc(var(--bs-gutter-x)*.5);
+        }
+
+        .productFilter{
+            &.recpFilt{
+                .filterSec{
+                    .filterWrap{
+                        &.spRmv{
+                            .categ_filter{
+                                margin-left: 0;
+                            }
+                        }
+                    }
+                }
+            } 
+        }
         .serchFilter{
             .filterWrap{
                 .categ_filter{
                     justify-content: right;
                 }
             }
+            .tag-container{
+                .searchValues{
+                    padding: 5px 16px 5px 30px;
+                    #clsIcon {
+                        left: 7px;
+                        right: inherit;
+                    }
+                }
+            } 
         } 
 
         .campaignBxWraper{
