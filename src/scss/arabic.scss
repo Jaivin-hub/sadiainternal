@@ -299,13 +299,6 @@ html[dir="rtl"]{
                 }
             }
         }
-        .footer-socials{
-            ul{
-                li{
-                    margin: 0 0 0 30px;
-                }
-            } 
-        }
     } 
 
 
@@ -580,11 +573,11 @@ html[dir="rtl"]{
     }
 
   
-    .scrl_cards{
-        &.productList{
-            float: left;
-        }
-    }
+    // .scrl_cards{
+    //     &.productList{
+    //         float: left;
+    //     }
+    // }
 
 
     
@@ -641,6 +634,11 @@ html[dir="rtl"]{
                 }
             }
         }
+        .titleWrap{
+            .mainTitle{
+                text-align: right;
+            }
+        } 
     }
 
     .yearSlider{
