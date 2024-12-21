@@ -21,6 +21,28 @@ html[dir="rtl"]{
         display: block;
     }
 
+    .contInfo{
+        ul{
+            li{
+
+                .cont-icon {
+                    transform: scaleX(-1);
+                }
+            }
+        }
+    }
+    .navBox {
+        justify-content: flex-start !important;
+    }
+    .reverse-cl {
+        flex-direction: row !important;
+    }
+    input{
+        &#phoneNumber {
+            text-align: right !important;
+            padding-right: 45px;
+        }
+    }
 
     header{
         .navbar{
@@ -33,10 +55,12 @@ html[dir="rtl"]{
                 &.spaceR{
                     padding-left: 0 !important;
                     padding-right: 15px !important;
+                    border-radius: 0px 4px 4px 0px !important;
                 }
                 &.spaceL{
                     padding-right: 0 !important;
                     padding-left: 15px !important;
+                    border-radius: 4px 0px 0px 4px !important;
                 }
                 &.dropdown-toggle{
                     &::after{
@@ -811,6 +835,15 @@ html[dir="rtl"]{
             }
             
         }
+        .footer-socials.col-md-4.col-lg-3.order-3 ul {
+            display: flex;
+            gap: 30px;
+          
+            li {
+              margin: 0;
+            }
+          }
+          
 
     }
     

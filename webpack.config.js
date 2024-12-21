@@ -168,20 +168,32 @@ module.exports = {
         { from: /^\/recipe-details/, to: '/recipe-details.html' },
         { from: /^\/recipe-category-listing/, to: '/recipe-category-listing.html' },
         { from: /^\/recipe-listing/, to: '/recipe-listing.html' },
+        
         { from: /^\/privacy/, to: '/privacy.html' },
         { from: /^\/termsandcondition/, to: '/termsandcondition.html' },
-        { from: /^\/product-listing/, to: '/product-listing.html' },
+
         { from: /^\/searchresult/, to: '/searchresult.html' },
-        { from: /^\/hack-listing/, to: '/hack-listing.html' },
+
         { from: /^\/thankyou/, to: '/thankyou.html' },
-        { from: /^\/product-details/, to: '/product-details.html' },
+
         { from: /^\/cooking-hacks-details/, to: '/cooking-hacks-details.html' },
+        { from: /^\/hack-listing/, to: '/hack-listing.html' },
+
+
         { from: /^\/notfound/, to: '/404.html' },
+
         { from: /^\/contact/, to: '/contact.html' },
+
         { from: /^\/campaign/, to: '/campaign.html' },
+
         { from: /^\/where-to-buy/, to: '/where-to-buy.html' },
+
+        { from: /^\/product-details/, to: '/product-details.html' },
+        { from: /^\/product-listing/, to: '/product-listing.html' },
         { from: /^\/products/, to: '/products.html' },
+
         { from: /^\/about/, to: '/about.html' },
+
         { from: /./, to: '/index.html' },
       ],
     },
