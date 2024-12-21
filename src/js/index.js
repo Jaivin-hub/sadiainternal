@@ -1012,63 +1012,64 @@ function isCookieSet(cookieName) {
   return document.cookie.split("; ").some((item) => item.startsWith(cookieName + "="));
 }
 
-// Function to handle dropdown visibility
-function handleDropdownVisibility() {
-  const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
-  const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
+// // Function to handle dropdown visibility
+// function handleDropdownVisibility() {
+//   const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
+//   const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
 
-  if (!isCookieSet(oneTrustCookieName)) {
-    // Show the dropdown if the cookie is not set
-    if (dropdownParent && dropdownMenu) {
-      dropdownParent.classList.add("show");
-      dropdownMenu.classList.add("show");
+//   if (!isCookieSet(oneTrustCookieName)) {
+//     // Show the dropdown if the cookie is not set
+//     if (dropdownParent && dropdownMenu) {
+//       dropdownParent.classList.add("show");
+//       dropdownMenu.classList.add("show");
 
-      const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
-      if (dropdownToggle) {
-        dropdownToggle.setAttribute("aria-expanded", "true");
-      }
-    }
-  } else {
-    // Hide the dropdown and set hover behavior if the cookie is set
-    if (dropdownParent && dropdownMenu) {
-      dropdownParent.classList.remove("show");
-      dropdownMenu.classList.remove("show");
+//       const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+//       if (dropdownToggle) {
+//         dropdownToggle.setAttribute("aria-expanded", "true");
+//       }
+//     }
+  
+//   } else {
+//     // Hide the dropdown and set hover behavior if the cookie is set
+//     if (dropdownParent && dropdownMenu) {
+//       dropdownParent.classList.remove("show");
+//       dropdownMenu.classList.remove("show");
 
-      const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
-      if (dropdownToggle) {
-        dropdownToggle.setAttribute("aria-expanded", "false");
-      }
+//       const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+//       if (dropdownToggle) {
+//         dropdownToggle.setAttribute("aria-expanded", "false");
+//       }
 
-      // Add hover event to show dropdown
-      dropdownParent.addEventListener("mouseenter", () => {
-        dropdownParent.classList.add("show");
-        dropdownMenu.classList.add("show");
-      });
+//       // Add hover event to show dropdown
+//       dropdownParent.addEventListener("mouseenter", () => {
+//         dropdownParent.classList.add("show");
+//         dropdownMenu.classList.add("show");
+//       });
 
-      dropdownParent.addEventListener("mouseleave", () => {
-        dropdownParent.classList.remove("show");
-        dropdownMenu.classList.remove("show");
-      });
-    }
-  }
-}
+//       dropdownParent.addEventListener("mouseleave", () => {
+//         dropdownParent.classList.remove("show");
+//         dropdownMenu.classList.remove("show");
+//       });
+//     }
+//   }
+// }
 
-// Prevent navigation if the cookie is not set
-function preventNavigationIfNoCookie() {
-  const links = document.querySelectorAll(".navBox, .moreBtn"); // Select all relevant links
-  links.forEach((link) => {
-    link.addEventListener("click", function (event) {
-      if (!isCookieSet(oneTrustCookieName)) {
-        event.preventDefault(); // Prevent navigation
-        // alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
-      }
-    });
-  });
-}
+// // Prevent navigation if the cookie is not set
+// function preventNavigationIfNoCookie() {
+//   const links = document.querySelectorAll(".navBox, .moreBtn"); // Select all relevant links
+//   links.forEach((link) => {
+//     link.addEventListener("click", function (event) {
+//       if (!isCookieSet(oneTrustCookieName)) {
+//         event.preventDefault(); // Prevent navigation
+//         // alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
+//       }
+//     });
+//   });
+// }
 
-// Initialize
-handleDropdownVisibility();
-preventNavigationIfNoCookie();
+// // Initialize
+// handleDropdownVisibility();
+// preventNavigationIfNoCookie();
 
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
