@@ -253,28 +253,54 @@ const initializeSlick = () => {
     // NORMAL-CAROUSEL START
 
     if ($('.whatSlider').length) {
-      $('.whatSlider').slick({
-        dots: false,
-        slidesToShow: 3, // Show one main slide at a time
-        slidesToScroll: 1,
-        initialSlide: 3, // Start at the 4th slide (index 3)
-        infinite: true, // Enable infinite looping
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false,
-        variableWidth: true, // Enable variable width for custom slide widths
-        responsive: [
-          {
-            breakpoint: 768, // Screen width at which settings should change
-            settings: {
-              slidesToShow: 1, // Show only one slide at a time on mobile
-              variableWidth: false // Disable variable width for consistent slide width
-            }
+      const initWhatSlider = (isRTL) => {
+        // Destroy existing slider if initialized
+        if ($('.whatSlider').hasClass('slick-initialized')) {
+          $('.whatSlider').slick('unslick');
+        }
+    
+        // Initialize the slider
+        $('.whatSlider').slick({
+          dots: false,
+          slidesToShow: 3, // Show three main slides at a time
+          slidesToScroll: 1,
+          initialSlide: 3, // Start at the 4th slide (index 3)
+          infinite: true, // Enable infinite looping
+          autoplay: true,
+          autoplaySpeed: 3000,
+          arrows: false,
+          variableWidth: true, // Enable variable width for custom slide widths
+          rtl: isRTL, // Dynamically set RTL mode
+          responsive: [
+            {
+              breakpoint: 768, // Screen width at which settings should change
+              settings: {
+                slidesToShow: 1, // Show only one slide at a time on mobile
+                variableWidth: false, // Disable variable width for consistent slide width
+              },
+            },
+          ],
+        });
+      };
+    
+      // Initial setup based on current RTL state
+      const isRTL = $('html').attr('dir') === 'rtl';
+      initWhatSlider(isRTL);
+    
+      // Watch for changes in the <html> dir attribute
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === 'dir') {
+            const newRTL = $('html').attr('dir') === 'rtl';
+            initWhatSlider(newRTL); // Reinitialize slider with updated RTL state
           }
-        ]
+        });
       });
-      // return;
+    
+      // Observe the <html> tag for changes to the dir attribute
+      observer.observe(document.documentElement, { attributes: true });
     }
+    
 
   // NORMAL-CAROUSEL END
 
