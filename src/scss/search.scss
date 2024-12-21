@@ -32,7 +32,32 @@
 
         max-width: 880px;
         margin: 0 auto;
-    
+        .searchValues {
+            background-color: $primary-color; 
+            color: $white-color;
+            outline: none; 
+            border: 0;
+
+            height: 40px;
+            padding: 5px 30px 5px 16px;
+            justify-content: center;
+            align-items: center;
+            line-height: 31px;
+            border-radius: 4px;
+            font-family: $primary-font;
+            line-height: 28px;
+            font-size: 14px;
+            margin: -1px 0 0;
+            position: relative;
+            #clsIcon{
+                position: absolute;
+                right: 7px;
+                top: 15px;
+                width: 10px;
+                filter: brightness(0) invert(1);
+            }
+        }
+
         .tag{
             position: relative;
             display: flex;
@@ -40,10 +65,6 @@
             background-color: $primary-color;
             color: $white-color;
             padding: 5px 16px;
-            border-radius: 4px;
-            font-family: $primary-font;
-            line-height: 20px;
-            font-size: 14px;
             height: 40px;
             margin-right: 7px;
         
@@ -73,6 +94,10 @@
             font-family: $primary-font;
             line-height: 20px;
             font-size: 14px;
+
+            
+
+
         }
         .serBtn{
             display: block !important;
@@ -241,6 +266,10 @@
     }
 }
 
+.search_pointer{
+    pointer-events: none;
+}
+
 .cookingHacks{
     &.searchPart{
         .card{
@@ -280,6 +309,7 @@
     }
 
     .searchList{
+        
         .titleWrap{
             margin-top: 35px;
         }
@@ -300,12 +330,19 @@
             .card{
                 margin-bottom: 20px;
                 .cardImg{
-                    height: 250px;
+                    height: 320px;
                     .mainImg{
-                        min-height: 250px;
+                        min-height: 320px;
+                        height: auto;
+                    }
+                }
+                .card-body{
+                    .moreDtls{
+                        justify-content: right;
                     }
                 }
             }
+            
         }
         .card{
             .list_prdct{

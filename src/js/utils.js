@@ -552,6 +552,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+// SHOW-HIDE DIV
+
+  // Add event listener to the close icon
+  document.getElementById('clsIcon').addEventListener('click', function () {
+    // Find the parent element of the close icon
+    const searchValueElement = document.querySelector('.searchValues');
+    
+    // Remove the searchValues element from the DOM
+    if (searchValueElement) {
+      searchValueElement.remove();
+    }
+  });
+
+// SHOW-HIDE DIV
+
+
+
+
+
+
+
 // CUSTOM-DROP START
 
 $(document).ready(function() {
