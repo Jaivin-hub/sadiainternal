@@ -697,6 +697,22 @@ html[dir="rtl"]{
 
     html[dir="rtl"]{
 
+        .serchFilter{
+            .filterWrap{
+                .categ_filter{
+                    justify-content: right;
+                }
+            }
+        } 
+
+        .campaignBxWraper{
+            .contBoxs{
+                .descp{
+                    padding-right: 0;
+                    padding-left: 0;
+                }
+            }
+        }
         .your-favorite{
             .slider-wrapper{
                 .mainTitle {

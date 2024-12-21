@@ -125,19 +125,20 @@
                     }
                 }
                 &.fourthBox {
-                    height: auto;
+                    height: 250px;
                     .bxImg{
-                        height: 200px;
+                        height: 250px;
                     }
                 }
             }
             
         } 
         .flex_col{
-            flex-direction: column;
-            // overflow-x: auto;
-            // white-space: nowrap;
-            overflow: hidden;
+            // flex-direction: column;
+            overflow-x: auto;
+            white-space: nowrap;
+            flex-direction: row;
+            overflow-x: auto;
             
           
             .alignDiv{
