@@ -7,7 +7,7 @@ import onlineStoreList from '../assets/json/onlinestore.json';
 async function fetchAndRenderData(templateName, apiUrl, selectedValue, productTypeId, offset, limit, lang, productCatId) {
     try {
         let isEmpty = false;
-        const url = `${apiUrl}?productTypeId=${0}&limit=${limit}&offset=${offset}&filter=${selectedValue}&productCatId=${productCatId}&lang=${lang}`;
+        const url = `${apiUrl}?productTypeId=${productTypeId}&limit=${limit}&offset=${offset}&filter=${selectedValue}&productCatId=${productCatId}&lang=${lang}`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.statusText}`);
