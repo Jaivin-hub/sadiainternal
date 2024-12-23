@@ -1,7 +1,8 @@
 <section class="find-us secSpace">
   <div class="container">
     <div class="titleWrap text-center">
-      <h2 class="mainTitle">FIND<span class="animateIc"><img class="Icons animate" src="./assets/images/icons/location.svg" loading="lazy" alt="icon" /></span> US</h2>
+      <h2 class="mainTitle">FIND<span class="animateIc"><img class="Icons animate"
+            src="./assets/images/icons/location.svg" loading="lazy" alt="icon" /></span> US</h2>
     </div>
     <div class="row">
       <!-- First column: Map image -->
@@ -19,12 +20,13 @@
 
           <!-- Placeholder for dropdown that will be filled by JS -->
           <div class="dropdown-container">
-            <select class="form-select countryDrops" id="countrySelect">
-              <option data="Abu Dhabi-54.3773, 24.4539 | Dubai-55.2708, 25.2048 | Sharjah-55.4209, 25.3463 | Al Ain-55.8023, 24.1302" value="UAE">UAE</option>
-              <option data="دبي-55.271891, 25.214535 | الشارقة-55.422320, 25.357778" value="المملكة العربية السعودية">المملكة العربية السعودية</option>
-              <option data="Doha-51.520008, 25.276987 | Al Rayyan-51.4244, 25.2919 | Al Wakrah-51.6032, 25.1686 | Dukhan-50.8819, 25.6281" value="Qatar">Qatar</option>
-              <option data="Kuwait City-47.9774, 29.3759 | Salmiya-48.0833, 29.3333 | Hawally-48.0285, 29.332 | Jahra-47.6581, 29.3375" value="Kuwait">Kuwait</option>
-              <option data="Muscat-58.3829, 23.588 | Sohar-56.7465, 24.365 | Nizwa-57.5333, 22.9333 | Salalah-54.0823, 17.017" value="Oman">Oman</option>
+            <select class="form-select countryDrops" id="countrySelect" aria-label="Select Country">
+              <option data-id="1288" data="Dubai-55.271891, 25.214535 | Sharjah-55.422320, 25.357778" value="UAE">UAE
+              </option>
+              <option data-id="1289" data="Doha-51.520008, 25.276987" value="Qatar">Qatar</option>
+              <option data-id="1290" data="Kuwait City-47.9774, 29.3759" value="Kuwait">Kuwait</option>
+              <option data-id="1291" data="Muscat-58.3829, 23.588" value="Oman">Oman</option>
+              <option data-id="1287" data="Riyadh-46.6753, 24.7136" value="KSA">KSA</option>
             </select>
           </div>
           <div class="button-container">

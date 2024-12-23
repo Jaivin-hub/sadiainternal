@@ -10,23 +10,25 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb
 // Function to initialize Mapbox map
 const initializeMapbox = () => {
   try {
-    // Initialize the Mapbox map
+    const mapContainer = document.getElementById('mapFrame');
+    if (mapContainer) {
+      mapContainer.style.direction = 'ltr'; // Force LTR for map container
+    }
+
     const map = new mapboxgl.Map({
-      container: 'mapFrame', // ID of the container element
-      style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
-      attributionControl: false, // Disables the default attribution control
-      zoom: 5, // Starting zoom level
+      container: 'mapFrame',
+      style: 'mapbox://styles/mapbox/dark-v11',
+      attributionControl: false,
+      zoom: 5,
     });
 
     let markers = [];
 
-    // Function to clear all markers from the map
     const clearMarkers = () => {
       markers.forEach(marker => marker.remove());
       markers = [];
     };
 
-    // Function to add pulsing dot markers
     const addPulsingMarkers = (locations) => {
       locations.forEach((location, index) => {
         const el = document.createElement('div');
@@ -35,37 +37,33 @@ const initializeMapbox = () => {
         const coordinates = location.split(',').map(Number);
         if (isNaN(coordinates[0]) || isNaN(coordinates[1])) {
           console.error(`Invalid coordinates at index ${index}:`, location);
-          return; // Skip invalid coordinates
+          return;
         }
 
         const marker = new mapboxgl.Marker(el).setLngLat(coordinates).addTo(map);
-        markers.push(marker); // Store marker reference
+        markers.push(marker);
       });
     };
 
-    // Function to update the map based on selected data
     const updateMap = (data) => {
       if (!data) {
         console.error("No data available for the selected option.");
         return;
       }
 
-      // Parse location data
       const locations = data
-        .split(' | ') // Split by city separator
-        .map(city => city.split('-')[1]?.trim()) // Extract coordinates after the hyphen
-        .filter(Boolean); // Remove invalid entries
+        .split(' | ')
+        .map(city => city.split('-')[1]?.trim())
+        .filter(Boolean);
 
       if (locations.length === 0) {
         console.error("No valid locations found.");
         return;
       }
 
-      // Clear existing markers and add new ones
       clearMarkers();
       addPulsingMarkers(locations);
 
-      // Center the map on the first location
       const firstLocation = locations[0].split(',').map(Number);
       if (!isNaN(firstLocation[0]) && !isNaN(firstLocation[1])) {
         map.setCenter(firstLocation);
@@ -75,31 +73,34 @@ const initializeMapbox = () => {
       }
     };
 
-    // Initialize the map with the first option's data
     const countryDropdown = document.querySelector('.countryDrops');
     if (!countryDropdown) {
       console.error("Dropdown element not found.");
       return;
     }
 
+    const direction = document.documentElement.getAttribute('dir');
+    const controlPosition = direction === 'rtl' ? 'top-left' : 'top-right';
+    map.addControl(new mapboxgl.NavigationControl(), controlPosition);
+
     const firstOption = countryDropdown.options[0];
     if (firstOption) {
       const initialLocationsData = firstOption.getAttribute('data');
-      console.log("Initial data:", initialLocationsData); // Debugging
+      console.log("Initial data:", initialLocationsData);
       updateMap(initialLocationsData);
     }
 
-    // Listen for dropdown selection changes
     countryDropdown.addEventListener('change', () => {
       const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
       const data = selectedOption.getAttribute('data');
-      console.log("Selected data:", data); // Debugging
+      console.log("Selected data:", data);
       updateMap(data);
     });
   } catch (error) {
     console.error('Error initializing Mapbox:', error);
   }
 };
+
 
 
 const priceSliderInitialize = (onUpdate) => {
