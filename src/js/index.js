@@ -55,7 +55,7 @@ function getProductList(template, url, selectedValue, productTypeId, offset, lim
   const lang = document.body.getAttribute('umb-lang');
   fetchAndRenderData(template, url, selectedValue, productTypeId, offset, limit, lang, productCatId)
     .then(obj => {
-      const { html, isEmpty, totalCount } = obj;
+      const { html, isEmpty, totalCount} = obj;
       const container = document.querySelector('#cardcontainer');
       if (!container) {
         console.warn('Container #cardcontainer not found.');
