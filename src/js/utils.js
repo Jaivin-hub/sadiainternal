@@ -320,7 +320,7 @@ const initializeSlick = () => {
         rtl: isRTL, // Dynamically set RTL mode
         arrows: false,
         autoplay: false,
-        infinite: false, // Disable infinite looping in RTL mode
+        infinite: true, // Disable infinite looping in RTL mode
         speed: 1000,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -335,7 +335,7 @@ const initializeSlick = () => {
         slidesToScroll: 1,
         asNavFor: '.image-slider', // Link with image slider
         focusOnSelect: true,
-        infinite: false, // Disable infinite looping in RTL mode
+        infinite: true, // Disable infinite looping in RTL mode
         centerMode: false,
       });
 
