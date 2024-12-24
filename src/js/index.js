@@ -1334,7 +1334,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = elements.productButton.getAttribute('data-api');
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
-
+    
     showMoreClicked = false;
 
     // Function to get the active `productCatId`
@@ -1462,11 +1462,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDropdownApiCall(type, dropdown, apiEndpoint, buttonElement, searchInput) {
       let limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
       let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
-      let showMoreClicked = false;
-
       function updateAndFetch(keyword = '') {
         const selectedValue = dropdown.value; // Get the latest selected value
         if (type === 'online') {
+          showMoreClicked = true;
           fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
         } else if (type === 'instore') {
           const fullApiUrl = `${apiEndpoint}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
