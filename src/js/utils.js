@@ -624,7 +624,7 @@ const initializeWhereToBuyMapbox = (url) => {
     const map = new mapboxgl.Map({
       container: 'wheretobuyMapframe',
       style: 'mapbox://styles/mapbox/dark-v11',
-      center: [54.3773, 24.4539], // Default position for UAE (Abu Dhabi)
+      attributionControl: false,
       zoom: 5,
     });
 
