@@ -389,9 +389,7 @@
                 }
                 &:nth-child(2){
                     margin: 0 0 0 -12px;
-                    &::before{
-                        // display: none;
-                    }
+                   
                 }
                 &:nth-last-child(1){
                     &::before{
@@ -996,9 +994,9 @@ ul {
         .card-body{
             padding-left: 0;
             padding-right: 0;
-            .card-title{
-                padding-right: 10px;
-            }
+            // .card-title{
+            //     padding-right: 10px;
+            // }
 
         }
     }
@@ -1013,7 +1011,7 @@ ul {
         .card-body{
             .card-text{
                 &.text-truncate{
-                    margin: 0;
+                    margin: 3px 0 0;
                     padding: 0;
                 }
             }
