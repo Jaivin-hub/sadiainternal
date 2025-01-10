@@ -10,25 +10,23 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb
 // Function to initialize Mapbox map
 const initializeMapbox = () => {
   try {
-    const mapContainer = document.getElementById('mapFrame');
-    if (mapContainer) {
-      mapContainer.style.direction = 'ltr'; // Force LTR for map container
-    }
-
+    // Initialize the Mapbox map
     const map = new mapboxgl.Map({
-      container: 'mapFrame',
-      style: 'mapbox://styles/mapbox/dark-v11',
-      attributionControl: false,
-      zoom: 5,
+      container: 'mapFrame', // ID of the container element
+      style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
+      attributionControl: false, // Disables the default attribution control
+      zoom: 5, // Starting zoom level
     });
 
     let markers = [];
 
+    // Function to clear all markers from the map
     const clearMarkers = () => {
       markers.forEach(marker => marker.remove());
       markers = [];
     };
 
+    // Function to add pulsing dot markers
     const addPulsingMarkers = (locations) => {
       locations.forEach((location, index) => {
         const el = document.createElement('div');
@@ -37,33 +35,37 @@ const initializeMapbox = () => {
         const coordinates = location.split(',').map(Number);
         if (isNaN(coordinates[0]) || isNaN(coordinates[1])) {
           console.error(`Invalid coordinates at index ${index}:`, location);
-          return;
+          return; // Skip invalid coordinates
         }
 
         const marker = new mapboxgl.Marker(el).setLngLat(coordinates).addTo(map);
-        markers.push(marker);
+        markers.push(marker); // Store marker reference
       });
     };
 
+    // Function to update the map based on selected data
     const updateMap = (data) => {
       if (!data) {
         console.error("No data available for the selected option.");
         return;
       }
 
+      // Parse location data
       const locations = data
-        .split(' | ')
-        .map(city => city.split('-')[1]?.trim())
-        .filter(Boolean);
+        .split(' | ') // Split by city separator
+        .map(city => city.split('-')[1]?.trim()) // Extract coordinates after the hyphen
+        .filter(Boolean); // Remove invalid entries
 
       if (locations.length === 0) {
         console.error("No valid locations found.");
         return;
       }
 
+      // Clear existing markers and add new ones
       clearMarkers();
       addPulsingMarkers(locations);
 
+      // Center the map on the first location
       const firstLocation = locations[0].split(',').map(Number);
       if (!isNaN(firstLocation[0]) && !isNaN(firstLocation[1])) {
         map.setCenter(firstLocation);
@@ -73,34 +75,31 @@ const initializeMapbox = () => {
       }
     };
 
+    // Initialize the map with the first option's data
     const countryDropdown = document.querySelector('.countryDrops');
     if (!countryDropdown) {
       console.error("Dropdown element not found.");
       return;
     }
 
-    const direction = document.documentElement.getAttribute('dir');
-    const controlPosition = direction === 'rtl' ? 'top-left' : 'top-right';
-    map.addControl(new mapboxgl.NavigationControl(), controlPosition);
-
     const firstOption = countryDropdown.options[0];
     if (firstOption) {
       const initialLocationsData = firstOption.getAttribute('data');
-      console.log("Initial data:", initialLocationsData);
+      console.log("Initial data:", initialLocationsData); // Debugging
       updateMap(initialLocationsData);
     }
 
+    // Listen for dropdown selection changes
     countryDropdown.addEventListener('change', () => {
       const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
       const data = selectedOption.getAttribute('data');
-      console.log("Selected data:", data);
+      console.log("Selected data:", data); // Debugging
       updateMap(data);
     });
   } catch (error) {
     console.error('Error initializing Mapbox:', error);
   }
 };
-
 
 
 const priceSliderInitialize = (onUpdate) => {
@@ -305,105 +304,111 @@ const initializeSlick = () => {
 
   // NORMAL-CAROUSEL END
 
-
-    const initSliders = (isRTL) => {
-      // Destroy existing sliders to prevent duplication
-      if ($('.image-slider').hasClass('slick-initialized')) {
-        $('.image-slider').slick('unslick');
-      }
-      if ($('.thumbnail-slider').hasClass('slick-initialized')) {
-        $('.thumbnail-slider').slick('unslick');
-      }
-
-      // Initialize the image slider
-      $('.image-slider').slick({
-        rtl: isRTL, // Dynamically set RTL mode
-        arrows: false,
-        autoplay: false,
-        infinite: true, // Disable infinite looping in RTL mode
-        speed: 1000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        fade: false,
-        asNavFor: '.thumbnail-slider', // Link with thumbnail slider
-      });
-
-      // Initialize the thumbnail slider
-      $('.thumbnail-slider').slick({
-        rtl: isRTL, // Dynamically set RTL mode
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        asNavFor: '.image-slider', // Link with image slider
-        focusOnSelect: true,
-        infinite: true, // Disable infinite looping in RTL mode
-        centerMode: false,
-      });
-
-      // Initially hide the previous button
-      $('.slick-prev').hide();
-
-      // Handle content activation for image-slider
-      $('.image-slider').on('afterChange', (event, slick, currentSlide) => {
-        // Remove 'active' class from all content items
-        $('.content-item').removeClass('active');
-
-        // Add 'active' class to the content item corresponding to the current slide
-        const contentSelector = `.content-item[data-slide="${currentSlide}"]`;
-        $(contentSelector).addClass('active');
-      });
-
-      // Ensure proper active class handling for the thumbnails
-      $('.thumbnail-slider').on('afterChange', (event, slick, currentSlide) => {
-        const slides = $('.thumbnail-slider .slick-slide');
-        slides.removeClass('slick-current slick-active'); // Clear previous active classes
-
-        // Apply active classes to the current thumbnail
-        const newActive = slides.filter(`[data-slick-index="${currentSlide}"]`);
-        newActive.addClass('slick-current slick-active');
-      });
-
-      // Show the previous button after the first scroll (forward or backward)
-      $('.thumbnail-slider').on('afterChange', (event, slick, currentSlide) => {
-        // Show the previous button if we're not on the first slide
-        if (currentSlide > 0) {
-          $('.slick-prev').show();
-        } else {
-          $('.slick-prev').hide();
-        }
-      });
-
-      // Handle active class application on first load (initialization)
-      const firstSlideContentSelector = '.content-item[data-slide="0"]';
-      $(firstSlideContentSelector).addClass('active');
-
-      // Remove duplicate content items
-      $('.content-item').each(function() {
-        if ($(this).hasClass('active')) {
-          $(this).siblings().removeClass('active');
-        }
-      });
-    };
-
-    // Detect initial direction
-    const isRTL = $('html').attr('dir') === 'rtl';
-    initSliders(isRTL);
-
-    // Watch for direction changes dynamically
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'dir') {
-          const newRTL = $('html').attr('dir') === 'rtl';
-          initSliders(newRTL); // Reinitialize with updated direction
-        }
-      });
+  const initSliders = (isRTL) => {
+    // Destroy existing sliders to prevent duplication
+    if ($('.image-slider').hasClass('slick-initialized')) {
+      $('.image-slider').slick('unslick');
+    }
+    if ($('.thumbnail-slider').hasClass('slick-initialized')) {
+      $('.thumbnail-slider').slick('unslick');
+    }
+  
+    // Initialize the image slider
+    $('.image-slider').slick({
+      rtl: isRTL, // Dynamically set RTL mode
+      arrows: false,
+      autoplay: false,
+      infinite: true, // Enable infinite looping
+      speed: 1000,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      fade: false,
+      asNavFor: '.thumbnail-slider', // Link with thumbnail slider
     });
-
-    // Start observing `<html>` for changes
-    observer.observe(document.documentElement, { attributes: true });
-  } catch (error) {
-    console.error('Error initializing Slick sliders:', error);
-  }
+  
+    // Initialize the thumbnail slider
+    $('.thumbnail-slider').slick({
+      rtl: isRTL, // Dynamically set RTL mode
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      asNavFor: '.image-slider', // Link with image slider
+      focusOnSelect: true,
+      infinite: true, // Enable infinite looping
+      centerMode: false,
+    });
+  
+    // Initially show the next button and hide the previous button
+    $('.slick-prev').hide();
+    $('.slick-next').show(); // Ensure next button is visible
+  
+    // Handle content activation for image-slider
+    $('.image-slider').on('afterChange', (event, slick, currentSlide) => {
+      // Remove 'active' class from all content items
+      $('.content-item').removeClass('active');
+  
+      // Add 'active' class to the content item corresponding to the current slide
+      const contentSelector = `.content-item[data-slide="${currentSlide}"]`;
+      $(contentSelector).addClass('active');
+    });
+  
+    // Ensure proper active class handling for the thumbnails
+    $('.thumbnail-slider').on('afterChange', (event, slick, currentSlide) => {
+      const slides = $('.thumbnail-slider .slick-slide');
+      slides.removeClass('slick-current slick-active'); // Clear previous active classes
+  
+      // Apply active classes to the current thumbnail
+      const newActive = slides.filter(`[data-slick-index="${currentSlide}"]`);
+      newActive.addClass('slick-current slick-active');
+    });
+  
+    // Show the previous button after the first scroll (forward or backward)
+    $('.thumbnail-slider').on('afterChange', (event, slick, currentSlide) => {
+      const totalSlides = slick.slideCount;
+  
+      // Show/hide the previous button
+      if (currentSlide > 0) {
+        $('.slick-prev').show();
+      } else {
+        $('.slick-prev').hide();
+      }
+  
+      // Remove logic for hiding `.slick-next`
+      $('.slick-next').show(); // Always keep the next button visible
+    });
+  
+    // Handle active class application on first load (initialization)
+    const firstSlideContentSelector = '.content-item[data-slide="0"]';
+    $(firstSlideContentSelector).addClass('active');
+  
+    // Remove duplicate content items
+    $('.content-item').each(function () {
+      if ($(this).hasClass('active')) {
+        $(this).siblings().removeClass('active');
+      }
+    });
+  };
+  
+  // Detect initial direction
+  const isRTL = $('html').attr('dir') === 'rtl';
+  initSliders(isRTL);
+  
+  // Watch for direction changes dynamically
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'dir') {
+        const newRTL = $('html').attr('dir') === 'rtl';
+        initSliders(newRTL); // Reinitialize with updated direction
+      }
+    });
+  });
+  
+ // Start observing <html> for changes
+ observer.observe(document.documentElement, { attributes: true });
+} catch (error) {
+  console.error('Error initializing Slick sliders:', error);
+}
 };
+  
 
 
 // SLICK-END
@@ -554,10 +559,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // SHOW-HIDE DIV
-const clsIconElement = document.getElementById('clsIcon')
-if(clsIconElement){
-    // Add event listener to the close icon
-    clsIconElement.addEventListener('click', function () {
+
+  // Add event listener to the close icon
+  const closeIcon = document.getElementById('clsIcon');
+  if (closeIcon) {
+    document.getElementById('clsIcon').addEventListener('click', function () {
       // Find the parent element of the close icon
       const searchValueElement = document.querySelector('.searchValues');
       
@@ -566,10 +572,9 @@ if(clsIconElement){
         searchValueElement.remove();
       }
     });
-  
-  // SHOW-HIDE DIV
-}
+  }
 
+// SHOW-HIDE DIV
 
 
 
@@ -624,7 +629,7 @@ const initializeWhereToBuyMapbox = (url) => {
     const map = new mapboxgl.Map({
       container: 'wheretobuyMapframe',
       style: 'mapbox://styles/mapbox/dark-v11',
-      attributionControl: false,
+      center: [54.3773, 24.4539], // Default position for UAE (Abu Dhabi)
       zoom: 5,
     });
 
