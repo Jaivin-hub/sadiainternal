@@ -429,6 +429,10 @@
                 flex-direction: row;
                 min-width: 335px;
                 justify-content: left !important;
+                overflow-x: auto !important;
+                display: flex;
+                flex-wrap: nowrap;
+                padding-bottom: 10px;
             }
         }
         

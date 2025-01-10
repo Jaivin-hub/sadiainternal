@@ -143,7 +143,7 @@ const contactForms = () => {
       error.style.display = 'block';
       return false;
     }
-    
+
     // Custom validation for full name
     if (input.id === 'fullName') {
       if (!input.value.trim()) {
@@ -385,11 +385,11 @@ function toggleRecipeSections() {
 
     preparationTimeSelect.addEventListener('change', (event) => {
       selectedPrepTime = event.target.value === '' || event.target.value === 'Select Time' ? null : event.target.value;
-  });
-  
-  difficultySelect.addEventListener('change', (event) => {
+    });
+
+    difficultySelect.addEventListener('change', (event) => {
       selectedDifficulty = event.target.value === '' || event.target.value === 'Select Difficulty' ? null : event.target.value;
-  });
+    });
 
     dietaryNeedsSelect.addEventListener('change', (event) => {
       selectedDietaryNeeds = event.target.value;
@@ -897,8 +897,8 @@ const cookingHacksSection = () => {
       fetchCookingHacks('hack-template', data).then(obj => {
         const { html, isEmpty, totalCount } = obj;
         const container = document.getElementById('hackcontainer');
-        
-        
+
+
         if (!container) {
           console.warn('Container with ID "onlinecontainer" not found.');
           return;
@@ -1002,73 +1002,74 @@ document.addEventListener('DOMContentLoaded', () => {
     searchResult: document.querySelector('#searchresults-searchinput'),
     mainFlag: document.querySelector('.ct-logo'),
     subBoxes: document.querySelectorAll('.navBox')
-    
+
   };
 
   const oneTrustCookieName = "OptanonConsent";
 
-// Function to check if a specific cookie exists
-function isCookieSet(cookieName) {
-  return document.cookie.split("; ").some((item) => item.startsWith(cookieName + "="));
-}
-
-// Function to handle dropdown visibility
-function handleDropdownVisibility() {
-  const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
-  const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
-
-  if (!isCookieSet(oneTrustCookieName)) {
-    // Show the dropdown if the cookie is not set
-    if (dropdownParent && dropdownMenu) {
-      dropdownParent.classList.add("show");
-      dropdownMenu.classList.add("show");
-
-      const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
-      if (dropdownToggle) {
-        dropdownToggle.setAttribute("aria-expanded", "true");
-      }
-    }
-  } else {
-    // Hide the dropdown and set hover behavior if the cookie is set
-    if (dropdownParent && dropdownMenu) {
-      dropdownParent.classList.remove("show");
-      dropdownMenu.classList.remove("show");
-
-      const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
-      if (dropdownToggle) {
-        dropdownToggle.setAttribute("aria-expanded", "false");
-      }
-
-      // Add hover event to show dropdown
-      dropdownParent.addEventListener("mouseenter", () => {
-        dropdownParent.classList.add("show");
-        dropdownMenu.classList.add("show");
-      });
-
-      dropdownParent.addEventListener("mouseleave", () => {
-        dropdownParent.classList.remove("show");
-        dropdownMenu.classList.remove("show");
-      });
-    }
+  // Function to check if a specific cookie exists
+  function isCookieSet(cookieName) {
+    return document.cookie.split("; ").some((item) => item.startsWith(cookieName + "="));
   }
-}
 
-// Prevent navigation if the cookie is not set
-function preventNavigationIfNoCookie() {
-  const links = document.querySelectorAll(".navBox, .moreBtn"); // Select all relevant links
-  links.forEach((link) => {
-    link.addEventListener("click", function (event) {
-      if (!isCookieSet(oneTrustCookieName)) {
-        event.preventDefault(); // Prevent navigation
-        // alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
-      }
-    });
-  });
-}
+  // // Function to handle dropdown visibility
+  // function handleDropdownVisibility() {
+  //   const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
+  //   const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
 
-// Initialize
-handleDropdownVisibility();
-preventNavigationIfNoCookie();
+  //   if (!isCookieSet(oneTrustCookieName)) {
+  //     // Show the dropdown if the cookie is not set
+  //     if (dropdownParent && dropdownMenu) {
+  //       dropdownParent.classList.add("show");
+  //       dropdownMenu.classList.add("show");
+
+  //       const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+  //       if (dropdownToggle) {
+  //         dropdownToggle.setAttribute("aria-expanded", "true");
+  //       }
+  //     }
+
+  //   } else {
+  //     // Hide the dropdown and set hover behavior if the cookie is set
+  //     if (dropdownParent && dropdownMenu) {
+  //       dropdownParent.classList.remove("show");
+  //       dropdownMenu.classList.remove("show");
+
+  //       const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+  //       if (dropdownToggle) {
+  //         dropdownToggle.setAttribute("aria-expanded", "false");
+  //       }
+
+  //       // Add hover event to show dropdown
+  //       dropdownParent.addEventListener("mouseenter", () => {
+  //         dropdownParent.classList.add("show");
+  //         dropdownMenu.classList.add("show");
+  //       });
+
+  //       dropdownParent.addEventListener("mouseleave", () => {
+  //         dropdownParent.classList.remove("show");
+  //         dropdownMenu.classList.remove("show");
+  //       });
+  //     }
+  //   }
+  // }
+
+  // // Prevent navigation if the cookie is not set
+  // function preventNavigationIfNoCookie() {
+  //   const links = document.querySelectorAll(".navBox, .moreBtn"); // Select all relevant links
+  //   links.forEach((link) => {
+  //     link.addEventListener("click", function (event) {
+  //       if (!isCookieSet(oneTrustCookieName)) {
+  //         event.preventDefault(); // Prevent navigation
+  //         // alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
+  //       }
+  //     });
+  //   });
+  // }
+
+  // // Initialize
+  // handleDropdownVisibility();
+  // preventNavigationIfNoCookie();
 
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
@@ -1299,7 +1300,27 @@ preventNavigationIfNoCookie();
   }
   if (elements.mapFrame) {
     initializeMapbox();
-  }
+    const countrySelect = document.getElementById('countrySelect');
+    const whereToBuyLink = document.getElementById('whereToBuy');
+
+    // Function to update the `href` attribute of the link
+    const updateHref = () => {
+        // Get the selected option
+        const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+
+        // Get the data-id attribute of the selected option
+        const dataId = selectedOption.getAttribute('data-id');
+
+        const baseUrl = whereToBuyLink.getAttribute('href').split('?')[0]; // Ensure the base URL remains clean
+        whereToBuyLink.href = `${baseUrl}?country=${encodeURIComponent(dataId)}`;
+    };
+
+    // Add event listener for dropdown changes
+    countrySelect.addEventListener('change', updateHref);
+
+    // Initialize the link on page load
+    updateHref();
+}
 
 
 
@@ -1313,7 +1334,7 @@ preventNavigationIfNoCookie();
     const url = elements.productButton.getAttribute('data-api');
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
-
+    
     showMoreClicked = false;
 
     // Function to get the active `productCatId`
@@ -1418,74 +1439,85 @@ preventNavigationIfNoCookie();
 
 
   if (elements.whereToBuyMapFrame) {
-    const selectElement = document.querySelector('.form-select#countryselect');
-    const countryselect = document.querySelector('#countryselect');
-    const apiEndpoint = selectElement.getAttribute('data-url');
-    const buttonElement = document.querySelector('#onlineShowMore');
-    const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
-    let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
-    showMoreClicked = false;
-    const selectedValue = selectElement.value;
-    fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
-    // Event listener for dropdown change
-    countryselect.addEventListener('change', () => {
-      const selectedValue = selectElement.value;
-      offset = 0; // Reset offset
-      buttonElement.setAttribute('data-offset', '0');
-      showMoreClicked = false;
-      fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
-    });
+    // Common function to get query parameters from the URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
 
-    // Event listener for "Show More" button
-    buttonElement.addEventListener('click', (event) => {
-      event.preventDefault();
-      showMoreClicked = true;
-      offset += limit;
-      buttonElement.setAttribute('data-offset', offset);
-      const selectedValue = selectElement.value;
-      fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, '');
-    });
+    // Function to set the dropdown value based on the query parameter
+    function setDropdownValue(dropdown) {
+      const countryId = getQueryParam('country');
+      if (countryId) {
+        const optionToSelect = Array.from(dropdown.options).find(
+          (option) => option.value === countryId
+        );
+        if (optionToSelect) {
+          dropdown.value = countryId;
+        }
+      }
+    }
 
-        // Prevent form submission on Enter key
-    elements.searchForm.addEventListener('submit', (event) => {
-      event.preventDefault(); // Prevent form submission
-    });
+    // Function to handle API calls for dropdowns
+    function updateDropdownApiCall(type, dropdown, apiEndpoint, buttonElement, searchInput) {
+      let limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
+      let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
+      function updateAndFetch(keyword = '') {
+        const selectedValue = dropdown.value; // Get the latest selected value
+        if (type === 'online') {
+          showMoreClicked = true;
+          fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
+        } else if (type === 'instore') {
+          const fullApiUrl = `${apiEndpoint}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
+          initializeWhereToBuyMapbox(fullApiUrl);
+        }
+      }
 
-    elements.searchInput.addEventListener('input', () => {
-      if (elements.searchInput.value.length >= 3) {
-        const limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
-        showMoreClicked = false;
+      // Event listener for dropdown change
+      dropdown.addEventListener('change', () => {
         offset = 0; // Reset offset
-        const keyword = elements.searchInput.value;
-        const selectedValue = selectElement.value;
-        fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
-      }
-    });
+        buttonElement?.setAttribute('data-offset', '0');
+        showMoreClicked = false;
+        updateAndFetch();
+      });
 
-    const wheretobuyElement = document.querySelector('.form-select#countryDrops');
-    const countryElement = document.querySelector('#countryDrops');
-    const inStoreApi = wheretobuyElement.getAttribute('data-url');
-    const searchInput = document.querySelector('#inStoreSearchInpts');
+      // Event listener for "Show More" button
+      buttonElement?.addEventListener('click', (event) => {
+        event.preventDefault();
+        showMoreClicked = true;
+        offset += limit;
+        buttonElement.setAttribute('data-offset', offset.toString());
+        updateAndFetch();
+      });
 
-    // Get selected country from the dropdown initially
-    const selectedCountry = wheretobuyElement.value;
+      // Event listener for search input
+      searchInput?.addEventListener('input', () => {
+        if (searchInput.value.length >= 3) {
+          offset = 0; // Reset offset
+          buttonElement?.setAttribute('data-offset', '0');
+          showMoreClicked = false;
+          updateAndFetch(searchInput.value);
+        }
+      });
 
-    // Form the full API URL
-    const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}`;
+      // Initial API call
+      updateAndFetch();
+    }
 
-    initializeWhereToBuyMapbox(fullApiUrl);
+    // Online Stores Dropdown
+    const onlineDropdown = document.querySelector('.form-select#countryselect');
+    const onlineApiEndpoint = onlineDropdown.getAttribute('data-url');
+    const onlineButton = document.querySelector('#onlineShowMore');
+    const onlineSearchInput = elements.searchInput;
+    setDropdownValue(onlineDropdown);
+    updateDropdownApiCall('online', onlineDropdown, onlineApiEndpoint, onlineButton, onlineSearchInput);
 
-    // Event listener for search input change
-    searchInput.addEventListener('input', () => {
-      const keyword = searchInput.value;
-
-      // Only make the API call if the keyword length is greater than or equal to 3
-      if (keyword.length >= 3) {
-        const selectedCountry = wheretobuyElement.value;
-        const fullApiUrl = `${inStoreApi}?countryId=${selectedCountry}&keyword=${encodeURIComponent(keyword)}`;
-        initializeWhereToBuyMapbox(fullApiUrl);
-      }
-    });
+    // In-Store Dropdown
+    const instoreDropdown = document.querySelector('.form-select#countryDrops');
+    const instoreApiEndpoint = instoreDropdown.getAttribute('data-url');
+    const instoreSearchInput = document.querySelector('#inStoreSearchInpts');
+    setDropdownValue(instoreDropdown);
+    updateDropdownApiCall('instore', instoreDropdown, instoreApiEndpoint, null, instoreSearchInput);
   }
 
   // Video Play Button Handling
@@ -1582,25 +1614,25 @@ dropdownItems.forEach(item => {
 
 const filterWrap = document.querySelector('.filterWrap .type_filter');
 if (filterWrap) {
-    const activeItem = filterWrap.querySelector('.active');
+  const activeItem = filterWrap.querySelector('.active');
 
-    if (activeItem) {
-        filterWrap.scrollTo({
-            left: activeItem.offsetLeft - filterWrap.offsetLeft, 
-            behavior: 'smooth' 
-        });
-    }
+  if (activeItem) {
+    filterWrap.scrollTo({
+      left: activeItem.offsetLeft - filterWrap.offsetLeft,
+      behavior: 'smooth'
+    });
   }
+}
 
-  const categoryFilterWrap = document.querySelector('.filterWrap.catgSpc .categ_filter');
-  if (categoryFilterWrap) {
-      const filterCategoryButton = categoryFilterWrap.querySelector('.filt-catSpc')
-      const activeCategoryItem = categoryFilterWrap.querySelector('a.active');
-  
-      if (activeCategoryItem) {
-          categoryFilterWrap.scrollTo({
-              left: activeCategoryItem.offsetLeft - categoryFilterWrap.offsetLeft - filterCategoryButton.offsetWidth, 
-              behavior: 'smooth' 
-          });
-      }
+const categoryFilterWrap = document.querySelector('.filterWrap.catgSpc .categ_filter');
+if (categoryFilterWrap) {
+  const filterCategoryButton = categoryFilterWrap.querySelector('.filt-catSpc')
+  const activeCategoryItem = categoryFilterWrap.querySelector('a.active');
+
+  if (activeCategoryItem) {
+    categoryFilterWrap.scrollTo({
+      left: activeCategoryItem.offsetLeft - categoryFilterWrap.offsetLeft - filterCategoryButton.offsetWidth,
+      behavior: 'smooth'
+    });
   }
+}

@@ -197,6 +197,13 @@
 
 @media (max-width: 767px) {
 
+    .mapboxgl-popup-content > div {
+        width: 170px !important;
+    }
+    .mapboxgl-popup-content img {
+        width: 100px !important;
+    }
+
     .locTitles{
         .titleWrap {
             margin: 60px 0;
