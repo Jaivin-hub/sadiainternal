@@ -180,6 +180,12 @@ html[dir="rtl"]{
                         left: inherit;
                         top: 30%;
                     }
+                    &.slick-next{
+                        transform: scaleX(-1);
+                        left: 0;
+                        right: inherit;
+                        top: 30%;
+                    }
                 }
             }
         }
