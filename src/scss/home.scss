@@ -169,7 +169,7 @@ ul{
             align-items: center;
             justify-content: left;
             padding: 12px 0;
-            margin-top: 20px;
+            margin-top: 10px;
             
             .icCont{
                 margin-right: 24px;
@@ -412,12 +412,15 @@ ul{
 
 
 
-.popular-section {
+.popular-section{
     &.rptBoxs-des{
         .card{
             .card-body{
                 .card-text{
                     margin-bottom: 0;
+                }
+                .card-title{
+                    margin-bottom: 10px;
                 }
             }
         } 
