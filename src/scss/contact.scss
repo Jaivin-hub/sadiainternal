@@ -313,6 +313,15 @@
 
 // FAQ-START
 .faqWraper{
+    .tab-content{
+        .acrdDesg{
+            .accordion-item{
+                .accordion-button{
+                    text-transform: uppercase;
+                }
+            }
+        } 
+    }
     .container{
         max-width: 1210px;
     }
@@ -377,7 +386,7 @@
                 line-height: 21px;
                 color: #171716;
                 font-family: $title-font;
-                text-transform: uppercase;
+                // text-transform: uppercase;
                 outline: 0;
                 background: transparent;
                 box-shadow: inherit;
