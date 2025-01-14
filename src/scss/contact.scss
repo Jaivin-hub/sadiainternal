@@ -313,6 +313,32 @@
 
 // FAQ-START
 .faqWraper{
+    &.campFaq{
+        .titleWrap{
+            .mainTitle {
+                font-size: 47px;
+                line-height: 50px;
+                font-weight: 700;
+                margin-bottom: 24px;
+            }
+            .descp {
+                max-width: 730px;
+                margin: 0 auto;
+            }
+        }
+        &.secSpace{
+            padding-bottom: 44px;
+        }
+    }
+    .tab-content{
+        .acrdDesg{
+            .accordion-item{
+                .accordion-button{
+                    text-transform: uppercase;
+                }
+            }
+        } 
+    }
     .container{
         max-width: 1210px;
     }
@@ -377,7 +403,7 @@
                 line-height: 21px;
                 color: #171716;
                 font-family: $title-font;
-                text-transform: uppercase;
+                // text-transform: uppercase;
                 outline: 0;
                 background: transparent;
                 box-shadow: inherit;
@@ -410,8 +436,12 @@
 
 @media (max-width: 767px) {
    
-   
     .faqWraper{
+        &.campFaq{
+            &.secSpace{
+                padding-bottom: 0px;
+            }
+        }
         .acrdDesg{
             .accordion-item{
                 .accordion-button {
