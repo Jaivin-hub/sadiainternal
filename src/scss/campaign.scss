@@ -27,6 +27,9 @@
         .titleStyle{
             margin: 0;
         }
+        .learnBtn{
+            margin: 55px 0 0 0;
+        }
     }
 }
 .campaignBxWraper{
@@ -157,7 +160,7 @@
     }
 
     .campTitles{
-        margin: 115px 0 48px;
+        margin: 80px 0 48px;
         .titleWrap{
             font-size: 47px;
             line-height: 47px;
@@ -198,5 +201,86 @@
         }
     } 
  
+
+}
+
+
+.campaignBanners{
+    &.secSpace{
+        padding: 114px 0 144px;
+        margin: 0;
+    }
+    .slider-img{
+        height: 755px;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 8px;
+    }
+}
+
+
+.ourPrdcts{
+    &.campPrdcts{ 
+        &.secSpace{
+            padding: 70px 0 74px;
+        }
+    }
+}
+
+.productList{
+    &.campList{
+        .btnSapce{
+            margin: 40px 0 0;
+            padding: 0;
+        }
+    }
+    
+}
+
+
+
+
+@media (max-width: 991px) {
+
+    .campaignBanners{
+        &.secSpace{
+            padding: 90px 0;
+        }
+    }
+
+
+}
+@media (max-width: 767px) {
+
+    .ourPrdcts{
+        &.campPrdcts{ 
+            &.secSpace{
+                padding: 90px 0 30px;
+            }
+            .col-md-8.partDiv {
+                width: 100%;
+            }
+        }
+    }
+
+    .productList{
+        &.campList{
+            .btnSapce {
+                margin: 20px 0 0;
+                padding: 0;
+            }
+        }
+    } 
+    
+    .campaignBxWraper{
+        .contBoxs{
+            &.newSpc{
+                .subitle{
+                    font-size: 36px;
+                    line-height: 38px;
+                }
+            }
+        } 
+    }
 
 }
