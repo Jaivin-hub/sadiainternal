@@ -108,6 +108,11 @@ html[dir="rtl"]{
     } 
 
     .bannerSlider{
+        &.campaignBanners {
+            .carousel-caption{
+                text-align: right;
+            }
+        }
 
         .carousel{
             .carousel-caption{
