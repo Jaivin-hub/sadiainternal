@@ -276,7 +276,16 @@
     }  
 }
 @media (max-width: 580px) {
+
     .ourPrdcts{
+        &.campPrdcts{
+            .imgDiv{
+                .titles{
+                    max-width: 100%;
+                }
+            }
+        }
+        
         .imgDiv{
             .titles {
                 max-width: 162px;
@@ -285,7 +294,7 @@
     }
 
 }
-@media (max-width: 460px) {
+@media (max-width: 420px) {
     .ourPrdcts{
         .imgDiv{
             .titles {
