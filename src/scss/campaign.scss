@@ -136,14 +136,11 @@
     }
 
     .bannerSlider{
-        &.campagin{
+        &.campaignSlider{
             .carousel{
-                .carousel-indicators {
-                    
-                }
                 .carousel-item{
                     img.slider-img{
-                        height: 390px !important;
+                        height: 755px;
                     }
 
                 }
@@ -182,7 +179,7 @@
             .subitle {
                 font-size: 47px;
                 line-height: 47px;
-                margin: 20px 0 16px;
+                margin: 24px 0 16px;
             }
         }
         .pl-0 {
@@ -258,9 +255,41 @@
                 padding: 90px 0 30px;
             }
             .col-md-8.partDiv {
+                width: 50%;
+            }
+            .col-md-4{
+                &.partDiv:nth-child(5){
+                    width: 100%;
+                }
+            }
+            .imgDiv{
+                .imgWraper{
+                    height: 189px;
+                    .bxImg{
+                        min-height: 189px;
+                    }
+                }
+            } 
+            
+        }
+    }
+
+    .campaignBanners{
+        .carousel-inner{
+            position: relative;
+            &::after{
+                position: absolute;
+                left: 0;
+                top: 0;
                 width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, .22);
+                content: " ";
+                z-index: 1;
+                display: block;
             }
         }
+            
     }
 
     .productList{
