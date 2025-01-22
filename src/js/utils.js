@@ -170,6 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // LANGUAGE-ARABIC END
 
 // SIDEBAR-COLLPASE START
+
+
 const toogleBtn = () => {
   // Select the toggle button and sidebar frame elements
   const toggleButton = document.getElementById("toggleButton");
@@ -178,11 +180,11 @@ const toogleBtn = () => {
   // Function to apply default mobile view actions
   const applyMobileViewDefaults = () => {
     if (window.innerWidth <= 767) {
-      // Add "active" class to toggleButton and "hideSidebar" class to sidebarFrame
+      // Ensure sidebar is initially hidden on mobile
       toggleButton.classList.remove("active");
       sidebarFrame.classList.add("hideSidebar");
     } else {
-      // Remove "active" class and "hideSidebar" class for non-mobile view
+      // Ensure sidebar is visible on larger screens
       toggleButton.classList.add("active");
       sidebarFrame.classList.remove("hideSidebar");
     }
@@ -194,15 +196,32 @@ const toogleBtn = () => {
   // Add event listener for window resize to reapply defaults
   window.addEventListener("resize", applyMobileViewDefaults);
 
-  // Add click event listener to the button
-  toggleButton.addEventListener("click", function () {
+  // Add click event listener to the toggle button
+  toggleButton.addEventListener("click", () => {
     // Toggle the "active" class on the toggleButton
     toggleButton.classList.toggle("active");
 
     // Toggle the "hideSidebar" class on the sidebarFrame
     sidebarFrame.classList.toggle("hideSidebar");
   });
+
+  // Prevent scroll from affecting the sidebar's state on mobile devices
+  window.addEventListener("scroll", () => {
+    if (window.innerWidth <= 767) {
+      // Ensure the sidebar's visibility is controlled only by the toggle button
+      const isSidebarHidden = sidebarFrame.classList.contains("hideSidebar");
+      const isButtonActive = toggleButton.classList.contains("active");
+
+      if (isButtonActive && isSidebarHidden) {
+        sidebarFrame.classList.remove("hideSidebar");
+      }
+    }
+  });
 };
+
+
+
+
 // SIDEBAR-COLLPASE END
 
 // FAVOURITE-SECTION Slick sliders

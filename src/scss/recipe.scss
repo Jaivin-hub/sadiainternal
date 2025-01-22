@@ -548,6 +548,22 @@
 
 @media (max-width: 767px) {
 
+    .listSpace{
+        .cookingHackCard{
+            .card{
+                .card-body{
+                    padding: 12px 0 0;
+                    .card-title{
+                        padding-right: 0;
+                    }
+                    
+                }
+            }  
+
+        }
+    }
+
+
     .campaignBnr{
         margin-bottom: 25px;
         .sliderBox{
@@ -630,6 +646,16 @@
                 }
             }
         }
+        &.cookingHacks{
+            &:last-child{
+                .col-md-4{
+                    .card{
+                        margin-bottom: 35px;
+                    }
+                }
+            }
+        }
+        
         .listSpace{
             margin-bottom: 25px;
             .col-md-4{
@@ -990,18 +1016,25 @@ ul {
 // COOKING-PAGE START
 .cookingHacks{
     .card{
-        margin-bottom: 45px;
+        margin-bottom: 40px;
         .card-body{
             padding-left: 0;
             padding-right: 0;
-            // .card-title{
-            //     padding-right: 10px;
-            // }
-
+            padding-bottom: 0;
         }
     }
-    .btnSpc{
-        margin-top: 0;
+    &.rptBoxs-des{
+        .btnSpc{
+            margin-top: 0;
+        }
+    }
+    
+    .cookingHackCard{
+        .card{
+            .card-body{
+                padding-bottom: 20px;
+            }
+        } 
     }
 
 }
@@ -1016,8 +1049,9 @@ ul {
                 }
             }
         }
-        margin: 0;
+        // margin: 0;
     }
+    
 }
 
 .hacksDtl-title{
@@ -1074,8 +1108,8 @@ ul {
 
 
 @media (max-width: 767px) {
+
     .cookingHacks{
-        
         .card{
             .cardImg{
                 height: 258px;
@@ -1089,6 +1123,13 @@ ul {
                 }
 
             }
+        }
+        .cookingHackCard{
+            .card{
+                .card-body{
+                    padding-bottom: 12px;
+                }
+            } 
         }
 
     }
