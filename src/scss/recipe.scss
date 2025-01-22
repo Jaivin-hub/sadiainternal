@@ -548,6 +548,21 @@
 
 @media (max-width: 767px) {
 
+    .listSpace{
+        .cookingHackCard{
+            .card{
+                .card-body{
+                    padding: 12px 0 0;
+                    .card-title{
+                        padding-right: 0;
+                    }
+                    
+                }
+            }  
+
+        }
+    }
+
     .campaignBnr{
         margin-bottom: 25px;
         .sliderBox{
@@ -994,15 +1009,11 @@ ul {
         .card-body{
             padding-left: 0;
             padding-right: 0;
-            // .card-title{
-            //     padding-right: 10px;
-            // }
-
         }
     }
-    .btnSpc{
-        margin-top: 0;
-    }
+    // .btnSpc{
+    //     margin-top: 0;
+    // }
 
 }
 
@@ -1074,8 +1085,8 @@ ul {
 
 
 @media (max-width: 767px) {
+
     .cookingHacks{
-        
         .card{
             .cardImg{
                 height: 258px;
