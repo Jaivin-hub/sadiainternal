@@ -233,18 +233,22 @@ const contactForms = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`Server error: ${response.status}`);
           }
-          return response.json();
+          return response.json(); // Assuming the server responds with JSON
         })
         .then((data) => {
-          if (data) {
-            document.querySelector('.contactForms').style.display = 'none';
-            document.querySelector('.thanksWraper').style.display = 'block';
-          }
+          console.log('Form submission successful:', data);
+      
+          // Hide the form and show the thank you message
+          document.querySelector('.contactForms').style.display = 'none';
+          document.querySelector('.thanksWraper').style.display = 'block';
         })
         .catch((error) => {
-          console.error('Error:', error);
+          console.error('Form submission failed:', error);
+      
+          // Show an error message to the user (optional)
+          alert('There was an issue submitting your form. Please try again.');
         });
     }
   });

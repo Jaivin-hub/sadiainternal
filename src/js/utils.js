@@ -583,7 +583,7 @@ $(document).ready(function () {
 // MAPBOX-START
 const initializeWhereToBuyMapbox = (url) => {
   const handleMapResizeOnTabChange = (tabSelector, mapInstance) => {
-    $(tabSelector).on("shown.bs.tab", function (e) {
+    $(tabSelector).on("shown.bs.tab", function () {
       if (mapInstance) {
         mapInstance.resize();
       } else {
@@ -605,6 +605,14 @@ const initializeWhereToBuyMapbox = (url) => {
       style: "mapbox://styles/mapbox/dark-v11",
       center: [54.3773, 24.4539], // Default position for UAE (Abu Dhabi)
       zoom: 5,
+    });
+
+    // Disable scroll zoom
+    map.scrollZoom.disable();
+
+    // Enable scroll zoom on click
+    map.on("click", () => {
+      map.scrollZoom.enable();
     });
 
     handleMapResizeOnTabChange("#airfryer-tab", map);
@@ -692,6 +700,7 @@ const initializeWhereToBuyMapbox = (url) => {
   // Initial data fetch and map initialization
   fetchStores(apiEndpoint, selectedValue, initializeMapWithData);
 };
+
 
 export {
   initializeMapbox,
