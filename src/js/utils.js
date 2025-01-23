@@ -235,17 +235,14 @@ const toogleBtn = () => {
     sidebarFrame.classList.toggle("hideSidebar");
   });
 
-  // Prevent scroll from affecting the sidebar's state on mobile devices
+  // Remove or modify the scroll event listener
   window.addEventListener("scroll", () => {
-    if (window.innerWidth <= 767) {
-      // Ensure the sidebar's visibility is controlled only by the toggle button
-      const isSidebarHidden = sidebarFrame.classList.contains("hideSidebar");
-      const isButtonActive = toggleButton.classList.contains("active");
-
-      if (isButtonActive && isSidebarHidden) {
-        sidebarFrame.classList.remove("hideSidebar");
-      }
+    if (window.innerWidth > 767) {
+      // Do nothing on larger screens
+      return;
     }
+    // Ensure no action is taken during scrolling
+    // Sidebar state should only be toggled by the button
   });
 };
 
