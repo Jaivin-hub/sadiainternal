@@ -435,6 +435,20 @@ ul{
         // transform-origin: left bottom;
         margin: 0 4px;
     }
+    &.cookingHacks{
+        .cookingHackCard{
+            .card{
+                .card-body{
+                    .card-text{
+                        span{
+                            padding-left: 0;
+                        }
+                    }
+                }
+            }   
+        } 
+    }
+    
     .card {
         margin: 0px;
         width: calc(100% / 3);
