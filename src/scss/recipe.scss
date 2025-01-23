@@ -1157,4 +1157,25 @@ ul {
 
 
 }
+
+
+
+
+
+@media (max-width: 480px) {
+
+    .cookingHacks{
+        .card{
+            .card-body{
+                .card-title{
+                    padding-right: 0px;
+                }
+
+            }
+        }
+    }
+
+}
+
+
 // COOKING-PAGE END
