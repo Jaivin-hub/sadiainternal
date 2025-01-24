@@ -241,8 +241,13 @@ const contactForms = () => {
           console.log('Form submission successful:', data);
       
           // Hide the form and show the thank you message
-          document.querySelector('.contactForms').style.display = 'none';
-          document.querySelector('.thanksWraper').style.display = 'block';
+          const formElement = document.querySelector('.contactForms');
+          const thankYouElement = document.querySelector('.thanksWraper');
+          formElement.style.display = 'none';
+          thankYouElement.style.display = 'block';
+      
+          // Scroll to the thank you message
+          thankYouElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         })
         .catch((error) => {
           console.error('Form submission failed:', error);
