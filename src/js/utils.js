@@ -235,15 +235,7 @@ const toogleBtn = () => {
     sidebarFrame.classList.toggle("hideSidebar");
   });
 
-  // Remove or modify the scroll event listener
-  window.addEventListener("scroll", () => {
-    if (window.innerWidth > 767) {
-      // Do nothing on larger screens
-      return;
-    }
-    // Ensure no action is taken during scrolling
-    // Sidebar state should only be toggled by the button
-  });
+  // Removed unnecessary scroll event listener, no action needed during scroll
 };
 
 
@@ -433,25 +425,117 @@ const initializeSlick = () => {
 
 // STORY-SLIDER START
 
+// const initializeNewSlider = () => {
+//   try {
+//     // Ensure Slick is loaded
+//     if (typeof $.fn.slick === 'undefined') {
+//       console.error('Slick is not loaded.');
+//       return;
+//     }
+
+//     // Function to initialize sliders
+//     const initSliders = (isRTL) => {
+//       // Destroy existing sliders if they are already initialized
+//       if ($('#new-image-slider').hasClass('slick-initialized')) {
+//         $('#new-image-slider').slick('unslick');
+//       }
+//       if ($('#new-thumbnail-slider').hasClass('slick-initialized')) {
+//         $('#new-thumbnail-slider').slick('unslick');
+//       }
+
+//       // Main image slider options
+//       const mainSliderOptions = {
+//         rtl: isRTL, // Dynamically set RTL mode
+//         arrows: false,
+//         autoplay: false,
+//         infinite: false,
+//         speed: 1000,
+//         slidesToShow: 3,
+//         slidesToScroll: 1,
+//         fade: false,
+//         asNavFor: '#new-thumbnail-slider',
+//         autoplaySpeed: 3000,
+//         draggable: true,
+//         swipe: true,
+//         responsive: [
+//           {
+//             breakpoint: 768,
+//             settings: {
+//               slidesToShow: 1,
+//               slidesToScroll: 1,
+//             },
+//           },
+//         ],
+//       };
+
+//       // Thumbnail slider options
+//       const thumbnailSliderOptions = {
+//         rtl: isRTL, // Dynamically set RTL mode
+//         slidesToShow: 3,
+//         slidesToScroll: 1,
+//         asNavFor: '#new-image-slider',
+//         focusOnSelect: true,
+//         infinite: false,
+//         draggable: true,
+//         swipe: true,
+//         responsive: [
+//           {
+//             breakpoint: 768,
+//             settings: {
+//               slidesToShow: 3,
+//               slidesToScroll: 1,
+//             },
+//           },
+//         ],
+//       };
+
+//       // Initialize sliders
+//       $('#new-image-slider').slick(mainSliderOptions);
+//       $('#new-thumbnail-slider').slick(thumbnailSliderOptions);
+//     };
+
+//     // Initial setup based on current RTL state
+//     const isRTL = $('html').attr('dir') === 'rtl';
+//     initSliders(isRTL);
+
+//     // Watch for changes in the <html> dir attribute
+//     const observer = new MutationObserver((mutations) => {
+//       mutations.forEach((mutation) => {
+//         if (mutation.attributeName === 'dir') {
+//           const newRTL = $('html').attr('dir') === 'rtl';
+//           initSliders(newRTL); // Reinitialize sliders with updated RTL state
+//         }
+//       });
+//     });
+
+//     // Observe the <html> tag for changes to the dir attribute
+//     observer.observe(document.documentElement, { attributes: true });
+
+//   } catch (error) {
+//     console.error('Error initializing new sliders:', error);
+//   }
+// };
+
+
 const initializeNewSlider = () => {
   try {
-    // Ensure Slick is loaded
     if (typeof $.fn.slick === 'undefined') {
       console.error('Slick is not loaded.');
       return;
     }
 
-    // Function to initialize sliders
     const initSliders = (isRTL) => {
+      const $mainSlider = $('#new-image-slider');
+      const $thumbnailSlider = $('#new-thumbnail-slider');
+
       // Destroy existing sliders if they are already initialized
-      if ($('#new-image-slider').hasClass('slick-initialized')) {
-        $('#new-image-slider').slick('unslick');
+      if ($mainSlider.hasClass('slick-initialized')) {
+        $mainSlider.slick('unslick');
       }
-      if ($('#new-thumbnail-slider').hasClass('slick-initialized')) {
-        $('#new-thumbnail-slider').slick('unslick');
+      if ($thumbnailSlider.hasClass('slick-initialized')) {
+        $thumbnailSlider.slick('unslick');
       }
 
-      // Main image slider options
       const mainSliderOptions = {
         rtl: isRTL, // Dynamically set RTL mode
         arrows: false,
@@ -465,6 +549,9 @@ const initializeNewSlider = () => {
         autoplaySpeed: 3000,
         draggable: true,
         swipe: true,
+        swipeToSlide: true,  // Allow swipe to slide directly, not just one at a time
+        touchMove: true,     // Enable touch move for swipe behavior
+        touchThreshold: 10,  // Threshold for swipe
         responsive: [
           {
             breakpoint: 768,
@@ -476,7 +563,6 @@ const initializeNewSlider = () => {
         ],
       };
 
-      // Thumbnail slider options
       const thumbnailSliderOptions = {
         rtl: isRTL, // Dynamically set RTL mode
         slidesToShow: 3,
@@ -498,31 +584,60 @@ const initializeNewSlider = () => {
       };
 
       // Initialize sliders
-      $('#new-image-slider').slick(mainSliderOptions);
-      $('#new-thumbnail-slider').slick(thumbnailSliderOptions);
+      $mainSlider.slick(mainSliderOptions);
+      $thumbnailSlider.slick(thumbnailSliderOptions);
+
+      // Arrow state logic
+      $mainSlider.on('afterChange', function (event, slick, currentSlide) {
+        const totalSlides = slick.slideCount;
+        const lastSlideIndex = totalSlides - 1; // Last slide index (for 2020)
+        const slidesToShow = slick.options.slidesToShow;
+
+        // Disable "Next" arrow if it's on the last slide (2020)
+        if (currentSlide === lastSlideIndex) {
+          $('.slick-next').addClass('slick-disabled');
+        } else {
+          $('.slick-next').removeClass('slick-disabled');
+        }
+
+        // Disable "Previous" arrow if it's the first slide
+        if (currentSlide === 0) {
+          $('.slick-prev').addClass('slick-disabled');
+        } else {
+          $('.slick-prev').removeClass('slick-disabled');
+        }
+      });
+
+      // Initial trigger to ensure arrow states are correct
+      $mainSlider.trigger('afterChange', [null, $mainSlider.slick('getSlick'), 0]);
     };
 
-    // Initial setup based on current RTL state
+    // Detect RTL mode based on <html> dir attribute
     const isRTL = $('html').attr('dir') === 'rtl';
     initSliders(isRTL);
 
-    // Watch for changes in the <html> dir attribute
+    // Monitor <html> dir attribute for changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'dir') {
           const newRTL = $('html').attr('dir') === 'rtl';
-          initSliders(newRTL); // Reinitialize sliders with updated RTL state
+          initSliders(newRTL); // Reinitialize sliders when RTL state changes
         }
       });
     });
 
-    // Observe the <html> tag for changes to the dir attribute
+    // Observe changes to the <html> tag's 'dir' attribute
     observer.observe(document.documentElement, { attributes: true });
 
   } catch (error) {
     console.error('Error initializing new sliders:', error);
   }
 };
+
+
+
+
+
 
 
 // STORY-SLIDER END
@@ -732,4 +847,5 @@ const initializeWhereToBuyMapbox = (url) => {
   fetchStores(apiEndpoint, selectedValue, initializeMapWithData);
 };
 
-export { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn,initializeNewSlider };
+
+export { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn,  initializeNewSlider };
