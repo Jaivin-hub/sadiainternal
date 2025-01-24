@@ -422,6 +422,7 @@ ul{
                 }
                 .card-title{
                     margin-bottom: 10px;
+                    min-height: 43px;
                     &.mb-3{
                         margin-bottom: 10px !important;  
                     }
@@ -497,6 +498,7 @@ ul{
             .card-body{
                 .card-title{
                     margin-bottom: 48px;
+                    min-height: auto;
                 }
             }
         } 
@@ -2211,6 +2213,7 @@ ul{
         .card-title{
             margin: 0;
             -webkit-line-clamp: 1;
+            min-height: auto;
         }
         &.me-4:last-child{
             margin-right: 0 !important;
@@ -2247,6 +2250,7 @@ ul{
             .card-title{
                 font-size: 18px;
                 line-height: 24px;
+                min-height: auto;
             }
             
         }

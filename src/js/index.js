@@ -4,7 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Mustache from 'mustache';
 import '../scss/style.scss';
 import Handlebars from 'handlebars';
-import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn, initializeNewSlider } from './utils.js';
+import { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toggleBtns, initializeNewSlider } from './utils.js';
 import { fetchAssets, fetchProducts } from './api.js'
 import { fetchAndRenderData, fetchOnlineStore, fetchRecipes, fetchCookingHacks } from './fetchAndRenderData.js';
 import noUiSlider from 'nouislider';
@@ -1305,7 +1305,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   // Initialize other components if elements are present
   if (elements.filtCatSpc) {
-    toogleBtn();
+    toggleBtns();
   }
   if (elements.mapFrame) {
     initializeMapbox();

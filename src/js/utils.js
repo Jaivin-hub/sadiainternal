@@ -171,44 +171,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // SIDEBAR-COLLPASE START
 
+    const toggleBtns = () => {
+      const toggleButton = document.getElementById("toggleButton");
+      const sidebarFrame = document.getElementById("sidebarFrame");
 
-const toogleBtn = () => {
-  // Select the toggle button and sidebar frame elements
-  const toggleButton = document.getElementById("toggleButton");
-  const sidebarFrame = document.getElementById("sidebarFrame");
+      if (!toggleButton || !sidebarFrame) {
+        console.error("Toggle button or sidebar frame element not found.");
+        return;
+      }
 
-  // Function to apply default mobile view actions
-  const applyMobileViewDefaults = () => {
-    if (window.innerWidth <= 767) {
-      // Ensure sidebar is initially hidden on mobile
-      toggleButton.classList.remove("active");
-      sidebarFrame.classList.add("hideSidebar");
-    } else {
-      // Ensure sidebar is visible on larger screens
-      toggleButton.classList.add("active");
-      sidebarFrame.classList.remove("hideSidebar");
-    }
-  };
+      const applyMobileViewDefaults = () => {
+        if (window.innerWidth <= 767) {
+          // Set default states for mobile view
+          toggleButton.classList.remove("active");
+          sidebarFrame.classList.add("hideSidebar");
+        } else {
+          // Set default states for larger screens
+          toggleButton.classList.add("active");
+          sidebarFrame.classList.remove("hideSidebar");
+        }
+      };
 
-  // Call the function once to set the initial state
-  applyMobileViewDefaults();
+      // Apply the defaults initially
+      applyMobileViewDefaults();
 
-  // Add event listener for window resize to reapply defaults
-  window.addEventListener("resize", applyMobileViewDefaults);
+      // Add a debounced resize event listener to reapply defaults
+      let resizeTimeout;
+      const onResize = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(applyMobileViewDefaults, 150);
+      };
+      window.addEventListener("resize", onResize);
 
-  // Add click event listener to the toggle button
-  toggleButton.addEventListener("click", () => {
-    // Toggle the "active" class on the toggleButton
-    toggleButton.classList.toggle("active");
+      // Add a click event listener to toggle the sidebar
+      toggleButton.addEventListener("click", () => {
+        toggleButton.classList.toggle("active");
+        sidebarFrame.classList.toggle("hideSidebar");
+      });
 
-    // Toggle the "hideSidebar" class on the sidebarFrame
-    sidebarFrame.classList.toggle("hideSidebar");
-  });
-
-  // Removed unnecessary scroll event listener, no action needed during scroll
-};
-
-
+      // Ensure no scroll-related logic affects the sidebar
+      // Explicitly remove any existing scroll event listeners if present
+      window.removeEventListener("scroll", () => {});
+    };
 
 
 // SIDEBAR-COLLPASE END
@@ -818,4 +822,4 @@ const initializeWhereToBuyMapbox = (url) => {
 };
 
 
-export { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toogleBtn,  initializeNewSlider };
+export { initializeMapbox, priceSliderInitialize, initializeSlick, initializeWhereToBuyMapbox, toggleBtns, initializeNewSlider };
