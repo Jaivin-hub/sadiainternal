@@ -134,10 +134,9 @@ ul{
        
         img.mainImg{
             object-fit: cover;
-            min-height: 340px;
+            height: 340px;
             width:100%;
             transition: 1s ease;
-            
         }
         
     }
@@ -524,8 +523,8 @@ ul{
             .cardImg{
                 height: 256px;
                 img.mainImg{
-                    min-height: 256px;
-                    max-height: 280px;
+                    height: 256px;
+                    max-height: inherit;
                 }
             }
             .card-body{
@@ -1052,7 +1051,7 @@ ul{
             .cardImg{
                 height: 240px;
                 img.mainImg{
-                    min-height: 240px;
+                    height: 240px;
                     max-height: 280px;
                 }
             }
@@ -2244,7 +2243,7 @@ ul{
             .cardImg{
                 height: 258px;
                 img.mainImg{
-                    min-height: 258px;
+                    height: 258px;
                 }
             }
             .card-title{
