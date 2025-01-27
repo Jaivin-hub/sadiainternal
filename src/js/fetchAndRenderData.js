@@ -70,11 +70,12 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
         // const template = document.getElementById(templateName).innerHTML;
 
         // // // // Generate the HTML for all items
+        const totalCount = data[0]?.totalCount;
         let html = '';
         data.forEach(item => {
             html += Mustache.render(template, item);
         });
-        const obj = {html, isEmpty}
+        const obj = {html, isEmpty, totalCount}
         return obj;
     } catch (error) {
         console.error('Error fetching data:', error);

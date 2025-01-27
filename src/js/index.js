@@ -86,7 +86,7 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
 
   fetchOnlineStore(templateName, selectedValue, url)
     .then(obj => {
-      const { html, isEmpty } = obj;
+      const { html, isEmpty, totalCount } = obj;
       const container = document.getElementById('onlinecontainers');
       if (!container) {
         console.warn('Container with ID "onlinecontainer" not found.');
@@ -99,7 +99,10 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
         container.innerHTML = html;
       }
       const showMoreButton = document.querySelector('#onlineShowMore');
-      if (isEmpty) {
+      const shopCards = document.querySelectorAll('.card');
+      const shopCardsCount = shopCards.length;
+      console.log('shopCardsCount',shopCardsCount)
+      if (isEmpty || shopCardsCount == totalCount) {
         showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
       } else {
         showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
