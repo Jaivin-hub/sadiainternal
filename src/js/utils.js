@@ -201,49 +201,116 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // SIDEBAR-COLLPASE START
 
+    // const toggleBtns = () => {
+    //   const toggleButton = document.getElementById("toggleButton");
+    //   const sidebarFrame = document.getElementById("sidebarFrame");
+
+    //   if (!toggleButton || !sidebarFrame) {
+    //     console.error("Toggle button or sidebar frame element not found.");
+    //     return;
+    //   }
+
+    //   const applyMobileViewDefaults = () => {
+    //     if (window.innerWidth <= 767) {
+    //       // Set default states for mobile view
+    //       toggleButton.classList.remove("active");
+    //       sidebarFrame.classList.add("hideSidebar");
+    //     } else {
+    //       // Set default states for larger screens
+    //       toggleButton.classList.add("active");
+    //       sidebarFrame.classList.remove("hideSidebar");
+    //     }
+    //   };
+
+    //   // Apply the defaults initially
+    //   applyMobileViewDefaults();
+
+    //   // Add a debounced resize event listener to reapply defaults
+    //   let resizeTimeout;
+    //   const onResize = () => {
+    //     clearTimeout(resizeTimeout);
+    //     resizeTimeout = setTimeout(applyMobileViewDefaults, 150);
+    //   };
+    //   window.addEventListener("resize", onResize);
+
+    //   // Add a click event listener to toggle the sidebar
+    //   toggleButton.addEventListener("click", () => {
+    //     toggleButton.classList.toggle("active");
+    //     sidebarFrame.classList.toggle("hideSidebar");
+    //   });
+
+    //   // Ensure no scroll-related logic affects the sidebar
+    //   // Explicitly remove any existing scroll event listeners if present
+    //   window.removeEventListener("scroll", () => {});
+    // };
+
+
+
     const toggleBtns = () => {
       const toggleButton = document.getElementById("toggleButton");
       const sidebarFrame = document.getElementById("sidebarFrame");
-
+    
       if (!toggleButton || !sidebarFrame) {
-        console.error("Toggle button or sidebar frame element not found.");
         return;
       }
-
+    
+      // Track whether the sidebar is manually toggled
+      let isSidebarToggledManually = false;
+    
+      // Apply default behavior based on screen size
       const applyMobileViewDefaults = () => {
         if (window.innerWidth <= 767) {
           // Set default states for mobile view
           toggleButton.classList.remove("active");
           sidebarFrame.classList.add("hideSidebar");
+          isSidebarToggledManually = false; // Reset flag
         } else {
           // Set default states for larger screens
           toggleButton.classList.add("active");
           sidebarFrame.classList.remove("hideSidebar");
+          isSidebarToggledManually = false; // Reset flag
         }
       };
-
+    
       // Apply the defaults initially
       applyMobileViewDefaults();
-
+    
       // Add a debounced resize event listener to reapply defaults
       let resizeTimeout;
       const onResize = () => {
         clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(applyMobileViewDefaults, 150);
+        resizeTimeout = setTimeout(() => {
+          if (!isSidebarToggledManually) {
+            applyMobileViewDefaults();
+          }
+        }, 150);
       };
       window.addEventListener("resize", onResize);
-
+    
       // Add a click event listener to toggle the sidebar
       toggleButton.addEventListener("click", () => {
+        isSidebarToggledManually = true; // Mark as manually toggled
         toggleButton.classList.toggle("active");
         sidebarFrame.classList.toggle("hideSidebar");
       });
-
-      // Ensure no scroll-related logic affects the sidebar
-      // Explicitly remove any existing scroll event listeners if present
-      window.removeEventListener("scroll", () => {});
+    
+      // Handle scroll events for the sidebar
+      const onScroll = (event) => {
+        if (isSidebarToggledManually) {
+          // Prevent scroll behavior from interfering when manually toggled
+          event.stopPropagation();
+          return;
+        }
+    
+        // Optional: Add scroll-specific logic here if needed
+      };
+    
+      // Add a scroll listener to the window
+      window.addEventListener("scroll", onScroll);
     };
-
+    
+    // toggleBtns();
+    
 
 // SIDEBAR-COLLPASE END
 
