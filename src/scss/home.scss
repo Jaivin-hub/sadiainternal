@@ -321,10 +321,13 @@ ul{
             text-align: center;
             left: 20px;
             right: 20px;
+            padding: 0;
+            bottom: 35px;
             .titleStyle {
                 font-size: 60px;
                 line-height: 60px;
                 color: white;
+                margin: 0 0 44px;
             }
         }
     } 
@@ -2017,6 +2020,9 @@ ul{
 @media (max-width: 767px) {
 
     .trueFram_wraper{
+        &.secSpace{
+            padding-bottom: 15px;
+        }
       
         .grid.truBoxs{
             height: 390px;
