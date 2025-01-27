@@ -465,8 +465,16 @@ function toggleRecipeSections() {
   // Initialize
   bindEventListeners();
 }
+let selectedDietaryNeedsData = null;
+let mealTypeData = null;
+let selectedCuisineData = null;
+let selectedDifficultyData = null;
+let searchKeywordData = null;
+let selectedOccasionData = null;
+let preparationStyleData = null;
 
 function initializeRecipeFilter() {
+  parseUrlAndSetVariables()
   // Selected filters
   let selectedMealType = null;
   let selectedCuisine = null;
@@ -525,18 +533,18 @@ function initializeRecipeFilter() {
 
   function initialRequestData(keyword = '', recipeSelectedValue = '') {
     return {
-      mealType: selectedMealType,
-      cuisine: selectedCuisine,
-      difficulty: null,
-      prepTime: '',
-      dietaryNeeds: selectedDietaryNeeds,
-      occasion: selectedOccasion,
-      preparationStyle: preparationStyle,
+      mealType: mealTypeData,
+      cuisine: selectedCuisineData,
+      difficulty: selectedDifficultyData,
+      prepTime: selectedPrepTime,
+      dietaryNeeds: selectedDietaryNeedsData,
+      occasion: selectedOccasionData,
+      preparationStyle: preparationStyleData,
       recipeCatId: recipeCatId,
       url,
       limit,
       offset,
-      keyword,
+      keyword:searchKeywordData,
       recipeSelectedValue,
       lang,
     };
@@ -581,7 +589,6 @@ function initializeRecipeFilter() {
         preparationStyle = value;
         break;
       case 'preparationtime':
-        timeTaken = value;
         break;
       case 'difficulty':
         difficulties = value;
@@ -637,6 +644,37 @@ function initializeRecipeFilter() {
   function handleResetButtonsClick() {
     window.location.reload();
   }
+
+  
+
+  // Function to parse URL and set variables
+function parseUrlAndSetVariables() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('meal')) {
+    mealTypeData = urlParams.get('meal');
+  }
+  if (urlParams.has('diff')) {
+    selectedDifficultyData = urlParams.get('diff');
+  }
+  if (urlParams.has('preTime')) {
+    selectedPrepTime = urlParams.get('preTime');
+  }
+  if (urlParams.has('cuis')) {
+    selectedCuisineData = urlParams.get('cuis');
+  }
+  if (urlParams.has('diet')) {
+    selectedDietaryNeedsData = urlParams.get('diet');
+  }
+  if (urlParams.has('occa')) {
+    selectedOccasionData = urlParams.get('occa');
+  }
+  if (urlParams.has('preStyle')) {
+    preparationStyleData = urlParams.get('preStyle');
+  }
+  if (urlParams.has('keyword')) {
+    searchKeywordData = urlParams.get('keyword');
+  }
+}
 
   // Bind Events
   function bindEvents() {
@@ -1098,6 +1136,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
 
 
 
