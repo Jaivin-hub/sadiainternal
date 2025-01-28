@@ -648,33 +648,62 @@ function initializeRecipeFilter() {
   
 
   // Function to parse URL and set variables
-function parseUrlAndSetVariables() {
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('meal')) {
-    mealTypeData = urlParams.get('meal');
+  function parseUrlAndSetVariables() {
+    const urlParams = new URLSearchParams(window.location.search);
+  
+    const mealTypeData = urlParams.get('meal');
+    const selectedDifficultyData = urlParams.get('diff');
+    const selectedPrepTime = urlParams.get('preTime');
+    const selectedCuisineData = urlParams.get('cuis');
+    const selectedDietaryNeedsData = urlParams.get('diet');
+    const selectedOccasionData = urlParams.get('occa');
+    const preparationStyleData = urlParams.get('preStyle');
+    const searchKeywordData = urlParams.get('keyword');
+  
+    // Select Meal Type
+    if (mealTypeData) {
+      document.querySelectorAll('.categ_filter .btn').forEach(btn => {
+        if (btn.dataset.id === mealTypeData) {
+          btn.classList.add('active'); // Highlight selected meal type
+        }
+      });
+    }
+  
+    // Select Difficulty
+    if (selectedDifficultyData) {
+      document.querySelector(`#difficultySelect option[value="${selectedDifficultyData}"]`)?.setAttribute('selected', 'selected');
+    }
+  
+    // Select Preparation Time
+    if (selectedPrepTime) {
+      document.querySelector(`#preparationSelect option[value="${selectedPrepTime}"]`)?.setAttribute('selected', 'selected');
+    }
+  
+    // Select Cuisine
+    if (selectedCuisineData) {
+      document.querySelector(`#cuisineselect option[value="${selectedCuisineData}"]`)?.setAttribute('selected', 'selected');
+    }
+  
+    // Select Dietary Needs
+    if (selectedDietaryNeedsData) {
+      document.querySelector(`#dietary-needs option[value="${selectedDietaryNeedsData}"]`)?.setAttribute('selected', 'selected');
+    }
+  
+    // Select Occasion
+    if (selectedOccasionData) {
+      document.querySelector(`#occasion option[value="${selectedOccasionData}"]`)?.setAttribute('selected', 'selected');
+    }
+  
+    // Select Preparation Style
+    if (preparationStyleData) {
+      document.querySelector(`#preparation-style option[value="${preparationStyleData}"]`)?.setAttribute('selected', 'selected');
+    }
+  
+    // Handle Search Keyword (optional)
+    if (searchKeywordData) {
+      console.log(`Search keyword: ${searchKeywordData}`); // Handle as needed
+    }
   }
-  if (urlParams.has('diff')) {
-    selectedDifficultyData = urlParams.get('diff');
-  }
-  if (urlParams.has('preTime')) {
-    selectedPrepTime = urlParams.get('preTime');
-  }
-  if (urlParams.has('cuis')) {
-    selectedCuisineData = urlParams.get('cuis');
-  }
-  if (urlParams.has('diet')) {
-    selectedDietaryNeedsData = urlParams.get('diet');
-  }
-  if (urlParams.has('occa')) {
-    selectedOccasionData = urlParams.get('occa');
-  }
-  if (urlParams.has('preStyle')) {
-    preparationStyleData = urlParams.get('preStyle');
-  }
-  if (urlParams.has('keyword')) {
-    searchKeywordData = urlParams.get('keyword');
-  }
-}
 
   // Bind Events
   function bindEvents() {
