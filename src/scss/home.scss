@@ -322,7 +322,7 @@ ul{
             left: 20px;
             right: 20px;
             padding: 0;
-            bottom: 35px;
+            bottom: 32px;
             .titleStyle {
                 font-size: 60px;
                 line-height: 60px;
@@ -2353,7 +2353,17 @@ ul{
     }
     .btn-more{
         min-height: 50px;
+        font-family: 'gilroymedium';
+        font-weight: 400;
     }
+    .bannerSlider{
+        .carousel-caption{
+            .learnBtn{
+                font-family: 'gilroymedium';
+                font-weight: 400;
+            }
+        }
+    } 
 
     .breadcrumbSect{
         display: none;

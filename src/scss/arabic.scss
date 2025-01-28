@@ -719,10 +719,30 @@ html[dir="rtl"]{
 
     html[dir="rtl"]{
 
+
+        .bannerSlider{
+            .carousel{
+                .carousel-caption{
+                    text-align: center;
+                }
+            }
+        }  
+
         .contArea {
             padding-right: calc(var(--bs-gutter-x)*.5);
             padding-left: calc(var(--bs-gutter-x)*.5);
         }
+
+        .storyWraper{
+            .yearSlider{
+                .sliderBoxs{
+                    .slick-slide{
+                        margin: 0 10px 0 0;
+                    }
+                }
+            }
+        }   
+            
 
         .productFilter{
             &.recpFilt{
