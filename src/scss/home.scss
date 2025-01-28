@@ -516,7 +516,21 @@ ul{
 
     .popular-section{
         .catgSpc{
-            display: none;
+            // display: none;
+            margin-bottom: 20px;
+            .categ_filter{
+                &.justify-content-center{
+                    justify-content: left !important;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    padding: 0 0 5px;
+                    margin: 0;
+                }
+            }
+            
         }
         .card {
             .card-title{
