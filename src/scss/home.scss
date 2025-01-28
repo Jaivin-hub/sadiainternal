@@ -322,7 +322,7 @@ ul{
             left: 20px;
             right: 20px;
             padding: 0;
-            bottom: 35px;
+            bottom: 32px;
             .titleStyle {
                 font-size: 60px;
                 line-height: 60px;
@@ -516,7 +516,21 @@ ul{
 
     .popular-section{
         .catgSpc{
-            display: none;
+            // display: none;
+            margin-bottom: 20px;
+            .categ_filter{
+                &.justify-content-center{
+                    justify-content: left !important;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    padding: 0 0 5px;
+                    margin: 0;
+                }
+            }
+            
         }
         .card {
             .card-title{
@@ -2339,7 +2353,17 @@ ul{
     }
     .btn-more{
         min-height: 50px;
+        font-family: 'gilroymedium';
+        font-weight: 400;
     }
+    .bannerSlider{
+        .carousel-caption{
+            .learnBtn{
+                font-family: 'gilroymedium';
+                font-weight: 400;
+            }
+        }
+    } 
 
     .breadcrumbSect{
         display: none;
