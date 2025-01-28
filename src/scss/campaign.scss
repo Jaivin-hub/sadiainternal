@@ -30,12 +30,12 @@
 
 .campaignSlider{
     .carousel-caption{
-        bottom: 28px;
+        bottom: 32px;
         .titleStyle{
             margin: 0;
         }
         .learnBtn{
-            margin: 55px 0 0 0;
+            margin: 48px 0 0 0;
         }
     }
 }
@@ -261,6 +261,7 @@
             &.secSpace{
                 padding: 90px 0 30px;
             }
+            
             .col-md-8.partDiv {
                 width: 50%;
             }
@@ -270,6 +271,12 @@
                 }
             }
             .imgDiv{
+                .titles{
+                    font-size: 21px;
+                    line-height: 21px;
+                    font-family: 'gilroyregular';
+                    font-weight: 700;
+                }
                 .imgWraper{
                     height: 189px;
                     .bxImg{
@@ -325,6 +332,23 @@
                 }
             }
         } 
+    }
+
+    .campaignBanners{
+        &.campaignSlider{
+            .carousel-caption{
+                bottom: 32px;
+                .titleStyle {
+                    font-size: 47px;
+                    line-height: 47px;
+                    font-family: 'gilroyregular';
+                    font-weight: 700;
+                }
+                .learnBtn{
+                    margin: 40px 0 0 0;
+                }
+            }
+        }
     }
 
 }
