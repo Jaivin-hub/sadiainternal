@@ -101,7 +101,6 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
       const showMoreButton = document.querySelector('#onlineShowMore');
       const shopCards = document.querySelectorAll('.card');
       const shopCardsCount = shopCards.length;
-      console.log('shopCardsCount',shopCardsCount)
       if (isEmpty || shopCardsCount == totalCount) {
         showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
       } else {
@@ -649,9 +648,7 @@ function initializeRecipeFilter() {
 
   // Function to parse URL and set variables
 function parseUrlAndSetVariables() {
-  console.log('inside parseUrlAndSetVariables')
   const urlParams = new URLSearchParams(window.location.search);
-  console.log('urlParams',urlParams)
   mealTypeData = urlParams.get('meal');
   selectedDifficultyData = urlParams.get('diff');
   selectedPrepTime = urlParams.get('preTime');
