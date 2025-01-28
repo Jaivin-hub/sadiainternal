@@ -99,9 +99,10 @@ async function fetchRecipes(templateName, data){
             "keyword": data.keyword,
             "limit": data.limit,
             "offset": data.offset,
-            "lang":data.lang
-          }
-          const response = await fetch(data.url, {
+            "lang": data.lang
+        };
+
+        const response = await fetch(data.url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -129,10 +130,14 @@ async function fetchRecipes(templateName, data){
         result.forEach(item => {
             html += Mustache.render(template, item);
         });
-        const obj = {html, isEmpty, totalCount}
+
+        // Scroll to the top of the page after receiving the response
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        const obj = {html, isEmpty, totalCount};
         return obj;
-          
-    }catch(err){
+
+    } catch(err) {
         console.error('Error fetching recipes:', err);
     }
 }
