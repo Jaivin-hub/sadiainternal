@@ -649,7 +649,9 @@ function initializeRecipeFilter() {
 
   // Function to parse URL and set variables
 function parseUrlAndSetVariables() {
+  console.log('inside parseUrlAndSetVariables')
   const urlParams = new URLSearchParams(window.location.search);
+  console.log('urlParams',urlParams)
   mealTypeData = urlParams.get('meal');
   selectedDifficultyData = urlParams.get('diff');
   selectedPrepTime = urlParams.get('preTime');

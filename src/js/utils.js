@@ -157,14 +157,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Explicitly switch to English
-  englishButton.addEventListener("click", () => {
-    updateLanguage("en");
-  });
+  if(englishButton){
+    englishButton.addEventListener("click", () => {
+      updateLanguage("en");
+    });
+  }
 
   // Explicitly switch to Arabic
-  arabicButton.addEventListener("click", () => {
-    updateLanguage("ar");
-  });
+  if(arabicButton){
+    arabicButton.addEventListener("click", () => {
+      updateLanguage("ar");
+    });
+  }
+
 });
 
 // LANGUAGE-ARABIC END
