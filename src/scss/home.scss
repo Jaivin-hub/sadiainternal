@@ -60,7 +60,7 @@ ul{
 
 
 .titleWrap{
-    margin: 0 0 60px;
+    margin: 0 0 55px;
     .mainTitle{
         font-family: $title-font;
         font-size: 47px;
@@ -647,7 +647,8 @@ ul{
     .find-us{
         .mapBox{
             text-align: center;
-            padding: 40px;
+            padding: 40px 32px;
+            margin: 12px 0 0;
             iframe{
                 width: 100% !important;
                 height: 100% !important;
@@ -655,6 +656,12 @@ ul{
             p {
                 font-size: 14px;
                 line-height: 20px;
+            }
+            .button-container{
+                .btn-more{
+                    width: 100%;
+                    max-width: 100%;
+                }
             }
             
         }

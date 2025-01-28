@@ -2,7 +2,7 @@
 @use '../../src/scss/custom.scss' as *;
 
 .campTitles{
-    margin: 144px 0;
+    margin: 120px 0 140px;
     .titleWrap{
         margin: 0;
         padding: 0;
@@ -21,6 +21,13 @@
     
 }
 
+.bannerSlider{
+    .campaignSlider{
+        margin-top: 0;
+    }
+} 
+
+
 .campaignSlider{
     .carousel-caption{
         bottom: 28px;
@@ -34,7 +41,7 @@
 }
 .campaignBxWraper{
     &.btmSpace{
-        margin-bottom: 74px;
+        margin-bottom: 70px;
     }
     .pr-0{
         padding-right: 0;
