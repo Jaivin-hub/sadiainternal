@@ -1708,8 +1708,22 @@ if (filterWrap) {
   }
 }
 
+const filterWrapSec = document.querySelector('.filterWrap .categ_filter');
+if (filterWrapSec) {
+  const activeItem = filterWrapSec.querySelector('.active');
+
+  if (activeItem) {
+    console.log('activeItem',activeItem)
+    filterWrapSec.scrollTo({
+      left: activeItem.offsetLeft - filterWrapSec.offsetLeft,
+      behavior: 'smooth'
+    });
+  }
+}
+
 const categoryFilterWrap = document.querySelector('.filterWrap.catgSpc .categ_filter');
 if (categoryFilterWrap) {
+  console.log('categoryFilterWrap')
   const filterCategoryButton = categoryFilterWrap.querySelector('.filt-catSpc')
   const activeCategoryItem = categoryFilterWrap.querySelector('a.active');
 
