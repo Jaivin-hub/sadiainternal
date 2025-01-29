@@ -82,7 +82,8 @@ function getProductList(template, url, selectedValue, productTypeId, offset, lim
 }
 
 function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, keyword) {
-  const url = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
+  const lang = document.body.getAttribute('umb-lang');
+  const url = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}&lang=${lang}`;
 
   fetchOnlineStore(templateName, selectedValue, url)
     .then(obj => {

@@ -26,7 +26,10 @@ const fetchAssets = (url, callback) => {
 
 const fetchStores = async (url, selectedValue, callback) => {
   try{
-    const response = await fetch(url);
+    
+    const lang = document.body.getAttribute('umb-lang');
+    const apiUrl = `${url}?lang=${lang}`;
+    const response = await fetch(apiUrl);
     const data = await response.json();
     callback(data)
   }catch(err){
