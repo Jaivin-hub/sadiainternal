@@ -778,13 +778,15 @@ $(document).ready(function () {
 // MAPBOX-START
 const initializeWhereToBuyMapbox = (url) => {
   const handleMapResizeOnTabChange = (tabSelector, mapInstance) => {
-    $(tabSelector).on("shown.bs.tab", function () {
-      if (mapInstance) {
-        mapInstance.resize();
-      } else {
-        console.error("Map instance is not initialized.");
-      }
-    });
+    if ($(tabSelector).length) {
+      $(document).on("shown.bs.tab", tabSelector, function () {
+        if (mapInstance) {
+          mapInstance.resize();
+        } else {
+          console.error("Map instance is not initialized.");
+        }
+      });
+    }
   };
 
   const selectElement = document.querySelector(".form-select.countryDrops");
@@ -810,7 +812,7 @@ const initializeWhereToBuyMapbox = (url) => {
       map.scrollZoom.enable();
     });
 
-    handleMapResizeOnTabChange("#airfryer-tab", map);
+    handleMapResizeOnTabChange(".whereWrapper .locationTabs .filBtn", map);
 
     let markers = [];
 
