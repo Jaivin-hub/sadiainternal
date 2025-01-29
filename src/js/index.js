@@ -477,6 +477,7 @@ let preparationStyleData = null;
 
 function initializeRecipeFilter() {
   parseUrlAndSetVariables()
+  scrollActiveButtonToRight();
   // Selected filters
   let selectedMealType = null;
   let selectedCuisine = null;
@@ -650,6 +651,25 @@ function initializeRecipeFilter() {
   }
 
   
+  function scrollActiveButtonToRight() {
+    const filterWrap = document.querySelector('.filterWrap.categ_filter');
+    
+    if (filterWrap) {
+      const activeItem = filterWrap.querySelector('.btn.active');
+      
+      if (activeItem) {
+        // Calculate scroll position to align the active button to the right side
+        const scrollLeftValue =
+          activeItem.offsetLeft - (filterWrap.offsetWidth - activeItem.offsetWidth);
+  
+        // Perform smooth scroll
+        filterWrap.scrollTo({
+          left: scrollLeftValue,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }
 
   // Function to parse URL and set variables
 function parseUrlAndSetVariables() {
@@ -1708,18 +1728,18 @@ if (filterWrap) {
   }
 }
 
-const filterWrapSec = document.querySelector('.filterWrap .categ_filter');
-if (filterWrapSec) {
-  const activeItem = filterWrapSec.querySelector('.active');
+// const filterWrapSec = document.querySelector('.filterWrap .categ_filter');
+// if (filterWrapSec) {
+//   const activeItem = filterWrapSec.querySelector('.active');
 
-  if (activeItem) {
-    console.log('activeItem',activeItem)
-    filterWrapSec.scrollTo({
-      left: activeItem.offsetLeft - filterWrapSec.offsetLeft,
-      behavior: 'smooth'
-    });
-  }
-}
+//   if (activeItem) {
+//     console.log('activeItem',activeItem)
+//     filterWrapSec.scrollTo({
+//       left: activeItem.offsetLeft - filterWrapSec.offsetLeft,
+//       behavior: 'smooth'
+//     });
+//   }
+// }
 
 const categoryFilterWrap = document.querySelector('.filterWrap.catgSpc .categ_filter');
 if (categoryFilterWrap) {
