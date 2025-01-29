@@ -18,6 +18,9 @@ const initializeMapbox = () => {
       zoom: 5,
     });
 
+        // Disable scroll zoom
+    map.scrollZoom.disable();
+
     mapboxgl.setRTLTextPlugin(
       "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js",
       null,
