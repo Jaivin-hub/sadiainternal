@@ -641,7 +641,9 @@ function initializeRecipeFilter() {
   }
 
   function handleResetButtonsClick() {
-    window.location.reload();
+    const url = window.location.origin + window.location.pathname;
+    window.history.pushState({}, document.title, url); // Clear query params
+    location.reload(); // Reload the page without query parameters
   }
 
   
