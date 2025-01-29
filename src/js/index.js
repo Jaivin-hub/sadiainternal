@@ -477,7 +477,27 @@ let preparationStyleData = null;
 
 function initializeRecipeFilter() {
   parseUrlAndSetVariables()
-  scrollActiveButtonToRight();
+  scrollActiveButtonToLeft();
+
+  document.getElementById('toggleButton').addEventListener('click', function () {
+    console.log('Button clicked');
+    
+    // Delay to ensure animations and layout updates
+    setTimeout(() => {
+      const filterWrap = document.querySelector('.filterWrap.categ_filter');
+
+      const parentContainer = document.querySelector('.filterWrap.catgSpc');
+      const activeItem = filterWrap.querySelector('.active');
+      console.log('activeItem',activeItem)
+      // Check if the parent is active
+      if (activeItem) {
+        console.log('Parent is active; scrolling...');
+        scrollActiveButtonToLeft();
+      } else {
+        console.log('Parent not active');
+      }
+    }, 300);
+  });
   // Selected filters
   let selectedMealType = null;
   let selectedCuisine = null;
@@ -651,26 +671,30 @@ function initializeRecipeFilter() {
   }
 
   
-  function scrollActiveButtonToRight() {
+  function scrollActiveButtonToLeft() {
+    console.log('scrollActiveButtonToLeft')
     const filterWrap = document.querySelector('.filterWrap.categ_filter');
-    
     if (filterWrap) {
+      console.log('111')
       const activeItem = filterWrap.querySelector('.btn.active');
-      
-      if (activeItem) {
-        // Calculate scroll position to align the active button to the right side
-        const scrollLeftValue =
-          activeItem.offsetLeft - (filterWrap.offsetWidth - activeItem.offsetWidth);
   
-        // Perform smooth scroll
+      if (activeItem) {
+        console.log('activeItem',activeItem)
+        // Calculate the exact offset for left alignment
+        const filterWrapRect = filterWrap.getBoundingClientRect();
+        const activeItemRect = activeItem.getBoundingClientRect();
+        console.log('filterWrapRect',filterWrapRect)
+        console.log('activeItemRect',activeItemRect)  
+        const offsetToScroll =
+          activeItemRect.left - filterWrapRect.left + filterWrap.scrollLeft;
+          console.log('offsetToScroll',offsetToScroll)
         filterWrap.scrollTo({
-          left: scrollLeftValue,
+          left: offsetToScroll,
           behavior: 'smooth'
         });
       }
     }
   }
-
   // Function to parse URL and set variables
 function parseUrlAndSetVariables() {
   const urlParams = new URLSearchParams(window.location.search);
