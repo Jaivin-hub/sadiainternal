@@ -131,8 +131,6 @@ async function fetchRecipes(templateName, data){
             html += Mustache.render(template, item);
         });
 
-        // Scroll to the top of the page after receiving the response
-        window.scrollTo({ top: 0, behavior: 'smooth' });
 
         const obj = {html, isEmpty, totalCount};
         return obj;

@@ -438,6 +438,8 @@ function toggleRecipeSections() {
       showMoreClicked = false;
       const data = prepareRequestData();
       updateRecipeList(data);
+      // Scroll to the top of the page after receiving the response
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       hideSections();
     });
 
