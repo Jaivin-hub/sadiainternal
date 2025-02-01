@@ -224,6 +224,7 @@ ul{
         overflow: hidden;
         .carousel-item{
             position: relative;
+            height: 755px;
             &::after{
                 position: absolute;
                 left: 0;
@@ -232,11 +233,13 @@ ul{
                 height: 100%;
                 content: " ";
                 display: block;
-                background-color: rgb(0 0 0 / 10%);
+                // background-color: rgb(0 0 0 / 10%);
+                background: linear-gradient(to bottom, #0000001a 0%, #0000004a 100%);
                 z-index: 0;
             }
             img.slider-img {
-                height: 755px;
+                min-height: 755px;
+                height: auto;
                 object-fit: cover;
                 width: 100%;
             }
@@ -298,6 +301,115 @@ ul{
     
 } 
 
+
+@media (max-width: 1420px) {
+
+    .bannerSlider{
+        .carousel{
+            .carousel-item{
+                height: 700px;
+                img{
+                    &.slider-img{
+                        min-height: 700px;
+                    }
+                }
+            }
+       
+        }
+    }
+
+
+}
+@media (max-width: 1320px) {
+
+    .bannerSlider{
+        .carousel{
+            .carousel-item{
+                height: 670px;
+                img{
+                    &.slider-img{
+                        min-height: 670px;
+                    }
+                }
+            }
+       
+        }
+    }
+
+
+}
+@media (max-width: 1260px) {
+
+    .bannerSlider{
+        .carousel{
+            .carousel-item{
+                height: 630px;
+                img{
+                    &.slider-img{
+                        min-height: 630px;
+                    }
+                }
+            }
+       
+        }
+    }
+
+
+}
+@media (max-width: 1180px) {
+
+    .bannerSlider{
+        .carousel{
+            .carousel-item{
+                height: 600px;
+                img{
+                    &.slider-img{
+                        min-height: 600px;
+                    }
+                }
+            }
+       
+        }
+    }
+
+
+}
+@media (max-width: 1130px) {
+
+    .bannerSlider{
+        .carousel{
+            .carousel-item{
+                height: 550px;
+                img{
+                    &.slider-img{
+                        min-height: 550px;
+                    }
+                }
+            }
+       
+        }
+    }
+
+
+}
+@media (max-width: 1080px) {
+
+    .bannerSlider{
+        .carousel{
+            .carousel-item{
+                height: 520px;
+                img{
+                    &.slider-img{
+                        min-height: 520px;
+                    }
+                }
+            }
+       
+        }
+    }
+
+
+}
 @media (max-width: 767px) {
 
     .bannerSlider{
@@ -308,6 +420,8 @@ ul{
                 img{
                     &.slider-img{
                         max-height: 755px;
+                        min-height: 755px;
+                        height: auto;
                     }
                 }
             }
