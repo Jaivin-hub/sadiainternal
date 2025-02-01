@@ -261,7 +261,12 @@
             &.secSpace{
                 padding: 90px 0 30px;
             }
-            
+            .rowDiv {
+                padding: 0 6px;
+            }
+            .partDiv{
+                padding: 0 6px;
+            }
             .col-md-8.partDiv {
                 width: 50%;
             }
@@ -274,11 +279,15 @@
                 .titles{
                     font-size: 21px;
                     line-height: 21px;
-                    font-family: 'gilroyregular';
+                    // font-family: 'gilroyregular';
+                    font-family: 'gilroysemibold';
                     font-weight: 700;
                 }
                 .imgWraper{
                     height: 189px;
+                    border-radius: 8px;
+                    margin-bottom: 12px;
+                    padding: 0px;
                     .bxImg{
                         min-height: 189px;
                     }
