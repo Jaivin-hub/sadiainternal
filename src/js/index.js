@@ -84,7 +84,6 @@ function getProductList(template, url, selectedValue, productTypeId, offset, lim
 function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, keyword) {
   const lang = document.body.getAttribute('umb-lang');
   const url = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}&lang=${lang}`;
-
   fetchOnlineStore(templateName, selectedValue, url)
     .then(obj => {
       const { html, isEmpty, totalCount } = obj;
@@ -93,7 +92,6 @@ function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, k
         console.warn('Container with ID "onlinecontainer" not found.');
         return;
       }
-
       if (showMoreClicked) {
         container.innerHTML += html;
       } else {
@@ -241,7 +239,6 @@ const contactForms = () => {
           return response.json(); // Assuming the server responds with JSON
         })
         .then((data) => {
-          console.log('Form submission successful:', data);
       
           // Hide the form and show the thank you message
           const formElement = document.querySelector('.contactForms');
@@ -480,7 +477,6 @@ function initializeRecipeFilter() {
   scrollActiveButtonToLeft();
 
   document.getElementById('toggleButton').addEventListener('click', function () {
-    console.log('Button clicked');
     
     // Delay to ensure animations and layout updates
     setTimeout(() => {
@@ -488,10 +484,8 @@ function initializeRecipeFilter() {
 
       const parentContainer = document.querySelector('.filterWrap.catgSpc');
       const activeItem = filterWrap.querySelector('.active');
-      console.log('activeItem',activeItem)
       // Check if the parent is active
       if (activeItem) {
-        console.log('Parent is active; scrolling...');
         scrollActiveButtonToLeft();
       } else {
         console.log('Parent not active');
@@ -681,22 +675,16 @@ function initializeRecipeFilter() {
 
   
   function scrollActiveButtonToLeft() {
-    console.log('scrollActiveButtonToLeft')
     const filterWrap = document.querySelector('.filterWrap.categ_filter');
     if (filterWrap) {
-      console.log('111')
       const activeItem = filterWrap.querySelector('.btn.active');
   
       if (activeItem) {
-        console.log('activeItem',activeItem)
         // Calculate the exact offset for left alignment
         const filterWrapRect = filterWrap.getBoundingClientRect();
         const activeItemRect = activeItem.getBoundingClientRect();
-        console.log('filterWrapRect',filterWrapRect)
-        console.log('activeItemRect',activeItemRect)  
         const offsetToScroll =
           activeItemRect.left - filterWrapRect.left + filterWrap.scrollLeft;
-          console.log('offsetToScroll',offsetToScroll)
         filterWrap.scrollTo({
           left: offsetToScroll,
           behavior: 'smooth'
@@ -1139,6 +1127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     subBoxes: document.querySelectorAll('.navBox')
 
   };
+
 
   const oneTrustCookieName = "OptanonConsent";
 
@@ -1598,10 +1587,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDropdownApiCall(type, dropdown, apiEndpoint, buttonElement, searchInput) {
       let limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
       let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
+
+
       function updateAndFetch(keyword = '') {
         const selectedValue = dropdown.value; // Get the latest selected value
         if (type === 'online') {
-          showMoreClicked = true;
           fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
         } else if (type === 'instore') {
           const fullApiUrl = `${apiEndpoint}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
@@ -1646,6 +1636,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const onlineButton = document.querySelector('#onlineShowMore');
     const onlineSearchInput = elements.searchInput;
     setDropdownValue(onlineDropdown);
+    
     updateDropdownApiCall('online', onlineDropdown, onlineApiEndpoint, onlineButton, onlineSearchInput);
 
     // In-Store Dropdown
@@ -1776,7 +1767,6 @@ if (filterWrap) {
 
 const categoryFilterWrap = document.querySelector('.filterWrap.catgSpc .categ_filter');
 if (categoryFilterWrap) {
-  console.log('categoryFilterWrap')
   const filterCategoryButton = categoryFilterWrap.querySelector('.filt-catSpc')
   const activeCategoryItem = categoryFilterWrap.querySelector('a.active');
 
