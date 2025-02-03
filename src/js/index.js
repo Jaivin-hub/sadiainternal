@@ -536,19 +536,28 @@ function initializeRecipeFilter() {
 
   // Helper function to prepare request data
   function prepareRequestData(keyword = '', recipeSelectedValue = '') {
+    let urlParamsData = new URLSearchParams(window.location.search);
+    mealTypeData = urlParamsData.get('meal');
+    selectedDifficultyData = urlParamsData.get('diff');
+    selectedPrepTime = urlParamsData.get('preTime');
+    selectedCuisineData = urlParamsData.get('cuis');
+    selectedDietaryNeedsData = urlParamsData.get('diet');
+    selectedOccasionData = urlParamsData.get('occa');
+    preparationStyleData = urlParamsData.get('preStyle');
+    searchKeywordData = urlParamsData.get('keyword');
     return {
-      mealType: selectedMealType,
-      cuisine: selectedCuisine,
-      difficulty: difficulties,
-      prepTime: timeTaken,
-      dietaryNeeds: selectedDietaryNeeds,
-      occasion: selectedOccasion,
-      preparationStyle: preparationStyle,
+      mealType: mealTypeData?mealTypeData:selectedMealType,
+      cuisine: selectedCuisineData?selectedCuisineData:selectedCuisine,
+      difficulty: selectedDifficultyData?selectedDifficultyData:difficulties,
+      prepTime: selectedPrepTime?selectedPrepTime:timeTaken,
+      dietaryNeeds: selectedDietaryNeedsData?selectedDietaryNeedsData:selectedDietaryNeeds,
+      occasion: selectedOccasionData?selectedOccasionData:selectedOccasion,
+      preparationStyle: preparationStyleData?preparationStyleData:preparationStyle,
       recipeCatId: recipeCatId,
       url,
       limit,
       offset,
-      keyword,
+      keyword:searchKeywordData?searchKeywordData:keyword,
       recipeSelectedValue,
       lang,
     };
