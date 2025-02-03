@@ -265,6 +265,8 @@
         .alignConts{
             text-align: center;
             .contactSect{
+                padding-right: calc(var(--bs-gutter-x)*.5) !important;
+                padding-left: calc(var(--bs-gutter-x)*.5) !important;
                 .contInfo{
                     border-top: 1px solid #ebebeb;
                     padding: 20px 0 0;
