@@ -134,6 +134,13 @@ html[dir="rtl"]{
                 }
             }
         }
+        .catgSpc{
+            .categ_filter{
+                &.justify-content-center{
+                    justify-content: right !important;
+                }
+            }
+        } 
     }
     .card{
         .card-body{
