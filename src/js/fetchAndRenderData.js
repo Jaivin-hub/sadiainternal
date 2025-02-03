@@ -83,17 +83,17 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
     }
 }
 
-async function fetchRecipes(templateName, data){
-    try{
+async function fetchRecipes(templateName, data) {
+    try {
         let isEmpty = false;
         const formdata = {
             "recipeCatId": data.recipeCatId,
-            "mealTypeId": data.mealType == null || data.mealType == undefined || data.mealType == "" ?[]:[Number(data.mealType)],
-            "difficultyLevelId": data.difficulty == null || data.difficulty == undefined || data.difficulty == ""  ? [] : [Number(data.difficulty)],
-            "preparationTime": data.prepTime == null || data.prepTime == undefined || data.prepTime == ""  ? "" : data.prepTime,
-            "cuisineId": data.cuisine == null || data.cuisine == undefined || data.cuisine == ""  ? [] : [Number(data.cuisine)],
-            "dietaryId": data.dietaryNeeds == null || data.dietaryNeeds == undefined || data.dietaryNeeds == ""  ? [] : [Number(data.dietaryNeeds)],
-            "occasionId": data.occasion == null || data.occasion == undefined || data.occasion == ""  ? [] : [Number(data.occasion)],
+            "mealTypeId": data.mealType == null || data.mealType == undefined || data.mealType == "" ? [] : [Number(data.mealType)],
+            "difficultyLevelId": data.difficulty == null || data.difficulty == undefined || data.difficulty == "" ? [] : [Number(data.difficulty)],
+            "preparationTime": data.prepTime == null || data.prepTime == undefined || data.prepTime == "" ? "" : data.prepTime,
+            "cuisineId": data.cuisine == null || data.cuisine == undefined || data.cuisine == "" ? [] : [Number(data.cuisine)],
+            "dietaryId": data.dietaryNeeds == null || data.dietaryNeeds == undefined || data.dietaryNeeds == "" ? [] : [Number(data.dietaryNeeds)],
+            "occasionId": data.occasion == null || data.occasion == undefined || data.occasion == "" ? [] : [Number(data.occasion)],
             "preparationStyleId": data.preparationStyle == null || data.preparationStyle == undefined || data.preparationStyle == "" ? [] : [Number(data.preparationStyle)],
             "filter": data.recipeSelectedValue,
             "keyword": data.keyword,
@@ -117,7 +117,7 @@ async function fetchRecipes(templateName, data){
         const result = await response.json();
         const totalCount = result[0]?.totalCount;
 
-        if(result.length === 0){
+        if (result.length === 0) {
             isEmpty = true;
         }
 
@@ -131,14 +131,18 @@ async function fetchRecipes(templateName, data){
             html += Mustache.render(template, item);
         });
 
+        const obj = { html, isEmpty, totalCount };
 
-        const obj = {html, isEmpty, totalCount};
+        // Smooth scroll to the top after data is fetched
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         return obj;
 
-    } catch(err) {
+    } catch (err) {
         console.error('Error fetching recipes:', err);
     }
 }
+
 
 async function fetchCookingHacks(templateName, data, getProductList){
     try{
