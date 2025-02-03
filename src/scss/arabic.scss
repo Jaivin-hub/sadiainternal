@@ -374,6 +374,7 @@ html[dir="rtl"]{
         }
         .contactSect{
             padding-right: 5% !important;
+            padding-left: calc(var(--bs-gutter-x)*.5) !important;
         }
     }
     .faqWraper{
@@ -887,8 +888,13 @@ html[dir="rtl"]{
                     }
                 }
             }
+            .contactSect{
+                padding-right: calc(var(--bs-gutter-x)*.5) !important;
+                padding-left: calc(var(--bs-gutter-x)*.5) !important;
+            }
            
         }
+       
         .iti--container{
             .iti__country {
                 text-align: right;
