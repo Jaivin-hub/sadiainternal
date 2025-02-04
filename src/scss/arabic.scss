@@ -134,13 +134,6 @@ html[dir="rtl"]{
                 }
             }
         }
-        .catgSpc{
-            .categ_filter{
-                &.justify-content-center{
-                    justify-content: right !important;
-                }
-            }
-        } 
     }
     .card{
         .card-body{
@@ -790,6 +783,18 @@ html[dir="rtl"]{
                 }
             } 
         } 
+        
+        .popular-section{
+            .catgSpc{
+                .categ_filter{
+                    &.justify-content-center{
+                        justify-content: right !important;
+                    }
+                }
+            } 
+        }
+        
+
 
         .campaignBxWraper{
             .contBoxs{
