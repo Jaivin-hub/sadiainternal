@@ -1207,6 +1207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         indicators.forEach(item => item.classList.remove('active'));
         // Add active class to the matching item
         indicator.classList.add('active');
+        indicator.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     });
   }
