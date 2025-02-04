@@ -55,7 +55,7 @@ function getProductList(template, url, selectedValue, productTypeId, offset, lim
   const lang = document.body.getAttribute('umb-lang');
   fetchAndRenderData(template, url, selectedValue, productTypeId, offset, limit, lang, productCatId)
     .then(obj => {
-      const { html, isEmpty, totalCount} = obj;
+      const { html, isEmpty, totalCount } = obj;
       const container = document.querySelector('#cardcontainer');
       if (!container) {
         console.warn('Container #cardcontainer not found.');
@@ -239,19 +239,19 @@ const contactForms = () => {
           return response.json(); // Assuming the server responds with JSON
         })
         .then((data) => {
-      
+
           // Hide the form and show the thank you message
           const formElement = document.querySelector('.contactForms');
           const thankYouElement = document.querySelector('.thanksWraper');
           formElement.style.display = 'none';
           thankYouElement.style.display = 'block';
-      
+
           // Scroll to the thank you message
           thankYouElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         })
         .catch((error) => {
           console.error('Form submission failed:', error);
-      
+
           // Show an error message to the user (optional)
           alert('There was an issue submitting your form. Please try again.');
         });
@@ -471,13 +471,14 @@ let selectedDifficultyData = null;
 let searchKeywordData = null;
 let selectedOccasionData = null;
 let preparationStyleData = null;
+let preparationTime = null;
 
 function initializeRecipeFilter() {
   parseUrlAndSetVariables()
   scrollActiveButtonToLeft();
 
   document.getElementById('toggleButton').addEventListener('click', function () {
-    
+
     // Delay to ensure animations and layout updates
     setTimeout(() => {
       const filterWrap = document.querySelector('.filterWrap.categ_filter');
@@ -506,6 +507,7 @@ function initializeRecipeFilter() {
   // DOM Elements
   const submitButton = document.querySelector('#submit-button');
   const cuisineSelect = document.querySelector('#cuisineselect');
+  console.log('cuisineSelect==',cuisineSelect)
   const dietaryNeedsSelect = document.querySelector('#dietary-needs');
   const occasionSelect = document.querySelector('#occasion');
   const preparationSelect = document.querySelector('#preparation-style');
@@ -533,25 +535,25 @@ function initializeRecipeFilter() {
     let urlParamsData = new URLSearchParams(window.location.search);
     mealTypeData = urlParamsData.get('meal');
     selectedDifficultyData = urlParamsData.get('diff');
-    selectedPrepTime = urlParamsData.get('preTime');
+    preparationTime = urlParamsData.get('preTime');
     selectedCuisineData = urlParamsData.get('cuis');
     selectedDietaryNeedsData = urlParamsData.get('diet');
     selectedOccasionData = urlParamsData.get('occa');
     preparationStyleData = urlParamsData.get('preStyle');
     searchKeywordData = urlParamsData.get('keyword');
     return {
-      mealType: mealTypeData?mealTypeData:selectedMealType,
-      cuisine: selectedCuisineData?selectedCuisineData:selectedCuisine,
-      difficulty: selectedDifficultyData?selectedDifficultyData:difficulties,
-      prepTime: selectedPrepTime?selectedPrepTime:timeTaken,
-      dietaryNeeds: selectedDietaryNeedsData?selectedDietaryNeedsData:selectedDietaryNeeds,
-      occasion: selectedOccasionData?selectedOccasionData:selectedOccasion,
-      preparationStyle: preparationStyleData?preparationStyleData:preparationStyle,
+      mealType: mealTypeData ? mealTypeData : selectedMealType,
+      cuisine: selectedCuisineData ? selectedCuisineData : selectedCuisine,
+      difficulty: selectedDifficultyData ? selectedDifficultyData : difficulties,
+      prepTime: preparationTime ? preparationTime :  selectedPrepTime,
+      dietaryNeeds: selectedDietaryNeedsData ? selectedDietaryNeedsData : selectedDietaryNeeds,
+      occasion: selectedOccasionData ? selectedOccasionData : selectedOccasion,
+      preparationStyle: preparationStyleData ? preparationStyleData : preparationStyle,
       recipeCatId: recipeCatId,
       url,
       limit,
       offset,
-      keyword:searchKeywordData?searchKeywordData:keyword,
+      keyword: searchKeywordData ? searchKeywordData : keyword,
       recipeSelectedValue,
       lang,
     };
@@ -570,7 +572,7 @@ function initializeRecipeFilter() {
       url,
       limit,
       offset,
-      keyword:searchKeywordData,
+      keyword: searchKeywordData,
       recipeSelectedValue,
       lang,
     };
@@ -615,6 +617,7 @@ function initializeRecipeFilter() {
         preparationStyle = value;
         break;
       case 'preparationtime':
+        selectedPrepTime = value;
         break;
       case 'difficulty':
         difficulties = value;
@@ -658,7 +661,7 @@ function initializeRecipeFilter() {
   function initialFetch() {
     offset = 0;
     showMoreClicked = false;
-    updateRecipeList(initialRequestData());
+    updateRecipeList(prepareRequestData());
   }
 
   function handleShowMoreButtonClick() {
@@ -673,12 +676,12 @@ function initializeRecipeFilter() {
     location.reload(); // Reload the page without query parameters
   }
 
-  
+
   function scrollActiveButtonToLeft() {
     const filterWrap = document.querySelector('.filterWrap.categ_filter');
     if (filterWrap) {
       const activeItem = filterWrap.querySelector('.btn.active');
-  
+
       if (activeItem) {
         // Calculate the exact offset for left alignment
         const filterWrapRect = filterWrap.getBoundingClientRect();
@@ -693,61 +696,61 @@ function initializeRecipeFilter() {
     }
   }
   // Function to parse URL and set variables
-function parseUrlAndSetVariables() {
-  const urlParams = new URLSearchParams(window.location.search);
-  mealTypeData = urlParams.get('meal');
-  selectedDifficultyData = urlParams.get('diff');
-  selectedPrepTime = urlParams.get('preTime');
-  selectedCuisineData = urlParams.get('cuis');
-  selectedDietaryNeedsData = urlParams.get('diet');
-  selectedOccasionData = urlParams.get('occa');
-  preparationStyleData = urlParams.get('preStyle');
-  searchKeywordData = urlParams.get('keyword');
+  function parseUrlAndSetVariables() {
+    const urlParams = new URLSearchParams(window.location.search);
+    mealTypeData = urlParams.get('meal');
+    selectedDifficultyData = urlParams.get('diff');
+    selectedPrepTime = urlParams.get('preTime');
+    selectedCuisineData = urlParams.get('cuis');
+    selectedDietaryNeedsData = urlParams.get('diet');
+    selectedOccasionData = urlParams.get('occa');
+    preparationStyleData = urlParams.get('preStyle');
+    searchKeywordData = urlParams.get('keyword');
 
-  // Select Meal Type
-  if (mealTypeData) {
-    document.querySelectorAll('.categ_filter .btn').forEach(btn => {
-      if (btn.dataset.id === mealTypeData) {
-        btn.classList.add('active'); // Highlight selected meal type
-      }
-    });
-  }
+    // Select Meal Type
+    if (mealTypeData) {
+      document.querySelectorAll('.categ_filter .btn').forEach(btn => {
+        if (btn.dataset.id === mealTypeData) {
+          btn.classList.add('active'); // Highlight selected meal type
+        }
+      });
+    }
 
-  // Select Difficulty
-  if (selectedDifficultyData) {
-    document.querySelector(`#difficultySelect option[value="${selectedDifficultyData}"]`)?.setAttribute('selected', 'selected');
-  }
+    // Select Difficulty
+    if (selectedDifficultyData) {
+      document.querySelector(`#difficultySelect option[value="${selectedDifficultyData}"]`)?.setAttribute('selected', 'selected');
+    }
 
-  // Select Preparation Time
-  if (selectedPrepTime) {
-    document.querySelector(`#preparationSelect option[value="${selectedPrepTime}"]`)?.setAttribute('selected', 'selected');
-  }
+    // Select Preparation Time
+    if (selectedPrepTime) {
+      document.querySelector(`#preparationSelect option[value="${selectedPrepTime}"]`)?.setAttribute('selected', 'selected');
+    }
 
-  // Select Cuisine
-  if (selectedCuisineData) {
-    document.querySelector(`#cuisineselect option[value="${selectedCuisineData}"]`)?.setAttribute('selected', 'selected');
-  }
+    // Select Cuisine
+    if (selectedCuisineData) {
+      document.querySelector(`#cuisineselect option[value="${selectedCuisineData}"]`)?.setAttribute('selected', 'selected');
+    }
 
-  // Select Dietary Needs
-  if (selectedDietaryNeedsData) {
-    document.querySelector(`#dietary-needs option[value="${selectedDietaryNeedsData}"]`)?.setAttribute('selected', 'selected');
-  }
+    // Select Dietary Needs
+    if (selectedDietaryNeedsData) {
+      document.querySelector(`#dietary-needs option[value="${selectedDietaryNeedsData}"]`)?.setAttribute('selected', 'selected');
+    }
 
-  // Select Occasion
-  if (selectedOccasionData) {
-    document.querySelector(`#occasion option[value="${selectedOccasionData}"]`)?.setAttribute('selected', 'selected');
-  }
+    // Select Occasion
+    if (selectedOccasionData) {
+      document.querySelector(`#occasion option[value="${selectedOccasionData}"]`)?.setAttribute('selected', 'selected');
+    }
 
-  // Select Preparation Style
-  if (preparationStyleData) {
-    document.querySelector(`#preparation-style option[value="${preparationStyleData}"]`)?.setAttribute('selected', 'selected');
-  }
+    // Select Preparation Style
+    if (preparationStyleData) {
+      document.querySelector(`#preparation-style option[value="${preparationStyleData}"]`)?.setAttribute('selected', 'selected');
+    }
 
-  // Handle Search Keyword (optional)
-  if (searchKeywordData) {
-    console.log(`Search keyword: ${searchKeywordData}`); // Handle as needed
+    // Handle Search Keyword (optional)
+    if (searchKeywordData) {
+      console.log(`Search keyword: ${searchKeywordData}`); // Handle as needed
+    }
   }
-}
 
   // Bind Events
   function bindEvents() {
@@ -1431,14 +1434,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update the `href` attribute of the link
     const updateHref = () => {
-        // Get the selected option
-        const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+      // Get the selected option
+      const selectedOption = countrySelect.options[countrySelect.selectedIndex];
 
-        // Get the data-id attribute of the selected option
-        const dataId = selectedOption.getAttribute('data-id');
+      // Get the data-id attribute of the selected option
+      const dataId = selectedOption.getAttribute('data-id');
 
-        const baseUrl = whereToBuyLink.getAttribute('href').split('?')[0]; // Ensure the base URL remains clean
-        whereToBuyLink.href = `${baseUrl}?country=${encodeURIComponent(dataId)}`;
+      const baseUrl = whereToBuyLink.getAttribute('href').split('?')[0]; // Ensure the base URL remains clean
+      whereToBuyLink.href = `${baseUrl}?country=${encodeURIComponent(dataId)}`;
     };
 
     // Add event listener for dropdown changes
@@ -1446,7 +1449,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize the link on page load
     updateHref();
-}
+  }
 
 
 
@@ -1460,7 +1463,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = elements.productButton.getAttribute('data-api');
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
-    
+
     showMoreClicked = false;
 
     // Function to get the active `productCatId`
@@ -1637,7 +1640,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const onlineButton = document.querySelector('#onlineShowMore');
     const onlineSearchInput = elements.searchInput;
     setDropdownValue(onlineDropdown);
-    
+
     updateDropdownApiCall('online', onlineDropdown, onlineApiEndpoint, onlineButton, onlineSearchInput);
 
     // In-Store Dropdown
@@ -1722,7 +1725,7 @@ document.addEventListener('DOMContentLoaded', () => {
       header.classList.remove('scrolled');
     }
   });
-  
+
 });
 
 
