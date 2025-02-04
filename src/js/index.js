@@ -577,8 +577,8 @@ function initializeRecipeFilter() {
   }
 
   // Helper function to update the recipe list
-  function updateRecipeList(data) {
-    fetchRecipes('recipelist-template', data)
+  function updateRecipeList(data, type) {
+    fetchRecipes('recipelist-template', data, type)
       .then(({ html, isEmpty, totalCount }) => {
         if (showMoreClicked) {
           recipeContainer.innerHTML += html;
@@ -652,7 +652,7 @@ function initializeRecipeFilter() {
   function handleSubmitButtonClick() {
     offset = 0;
     showMoreClicked = false;
-    updateRecipeList(prepareRequestData());
+    updateRecipeList(prepareRequestData(), 'submit');
   }
 
   function initialFetch() {

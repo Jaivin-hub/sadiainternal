@@ -83,7 +83,7 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
     }
 }
 
-async function fetchRecipes(templateName, data) {
+async function fetchRecipes(templateName, data, type) {
     try {
         let isEmpty = false;
         const formdata = {
@@ -134,7 +134,7 @@ async function fetchRecipes(templateName, data) {
         const obj = { html, isEmpty, totalCount };
 
         // Smooth scroll to the top after data is fetched
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if(type == 'submit') window.scrollTo({ top: 0, behavior: 'smooth' });
 
         return obj;
 
