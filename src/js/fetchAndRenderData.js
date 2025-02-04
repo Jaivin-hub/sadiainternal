@@ -70,7 +70,7 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
         // const template = document.getElementById(templateName).innerHTML;
 
         // // // // Generate the HTML for all items
-        const totalCount = data[0]?.totalCount;
+        const totalCount = data[0]?.toTalCount;
         let html = '';
         data.forEach(item => {
             html += Mustache.render(template, item);
