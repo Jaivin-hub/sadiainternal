@@ -299,12 +299,34 @@ function toggleRecipeSections() {
 
   recipeCatId = activeButton ? activeButton.getAttribute('data-umb-id') : 0;
 
-  document.querySelectorAll('.filBtn').forEach(button => {
-    button.addEventListener('click', function () {
-      document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-    });
+  // document.querySelectorAll('.filBtn').forEach(button => {
+  //   button.addEventListener('click', function () {
+  //     document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
+  //     this.classList.add('active');
+  //   });
+  // });
+
+
+  document.addEventListener("click", function (event) {
+    // Ensure the clicked element is a filter button
+    if (!event.target.classList.contains("filBtn")) return;
+
+    // Find the closest parent filter container (either .categ_filter or .filterWrap)
+    let parentFilterSection = event.target.closest(".filterWrap") || event.target.closest(".categ_filter");
+
+    if (!parentFilterSection) return; // Safety check
+
+    // Remove 'active' only from buttons within the clicked section
+    parentFilterSection.querySelectorAll(".filBtn").forEach((btn) => btn.classList.remove("active"));
+
+    // Add 'active' class to the clicked button
+    event.target.classList.add("active");
+
+    // Store the selected filter value (optional)
+    selectedMealType = event.target.getAttribute("data-id") || event.target.getAttribute("data-umb-id");
   });
+
+  
 
   // Helper function to prepare request data
   function prepareRequestData(keyword = '', filter = '') {
