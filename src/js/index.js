@@ -306,13 +306,13 @@ function toggleRecipeSections() {
   //   });
   // });
 
-
   document.addEventListener("click", function (event) {
     // Ensure the clicked element is a filter button
     if (!event.target.classList.contains("filBtn")) return;
 
-    // Find the closest parent filter container (either .categ_filter or .filterWrap)
-    let parentFilterSection = event.target.closest(".filterWrap") || event.target.closest(".categ_filter");
+    // Find the closest parent filter container (either .categ_filter or .categ_filter.filterWrap)
+    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") || 
+                              event.target.closest(".categ_filter");
 
     if (!parentFilterSection) return; // Safety check
 
@@ -323,10 +323,12 @@ function toggleRecipeSections() {
     event.target.classList.add("active");
 
     // Store the selected filter value (optional)
-    selectedMealType = event.target.getAttribute("data-id") || event.target.getAttribute("data-umb-id");
-  });
+    window.selectedMealType = event.target.getAttribute("data-id") || event.target.getAttribute("data-umb-id");
+});
 
-  
+
+
+
 
   // Helper function to prepare request data
   function prepareRequestData(keyword = '', filter = '') {
@@ -617,11 +619,31 @@ function initializeRecipeFilter() {
   }
 
   // Event Handlers
-  function handleFilterButtonClick(event) {
-    document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    selectedMealType = event.target.getAttribute('data-id');
-  }
+  // function handleFilterButtonClick(event) {
+  //   document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
+  //   event.target.classList.add('active');
+  //   selectedMealType = event.target.getAttribute('data-id');
+  // }
+
+  document.addEventListener("click", function (event) {
+    // Ensure the clicked element is a filter button
+    if (!event.target.classList.contains("filBtn")) return;
+
+    // Find the closest parent filter container (either .categ_filter or .categ_filter.filterWrap)
+    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") || 
+                              event.target.closest(".categ_filter");
+
+    if (!parentFilterSection) return; // Safety check
+
+    // Remove 'active' only from buttons within the clicked section
+    parentFilterSection.querySelectorAll(".filBtn").forEach((btn) => btn.classList.remove("active"));
+
+    // Add 'active' class to the clicked button
+    event.target.classList.add("active");
+
+    // Store the selected filter value (optional)
+    window.selectedMealType = event.target.getAttribute("data-id") || event.target.getAttribute("data-umb-id");
+});
 
   function handleDropdownChange(event, type) {
     const value = event.target.value;
