@@ -55,7 +55,7 @@ function getProductList(template, url, selectedValue, productTypeId, offset, lim
   const lang = document.body.getAttribute('umb-lang');
   fetchAndRenderData(template, url, selectedValue, productTypeId, offset, limit, lang, productCatId)
     .then(obj => {
-      const { html, isEmpty, totalCount} = obj;
+      const { html, isEmpty, totalCount } = obj;
       const container = document.querySelector('#cardcontainer');
       if (!container) {
         console.warn('Container #cardcontainer not found.');
@@ -82,24 +82,25 @@ function getProductList(template, url, selectedValue, productTypeId, offset, lim
 }
 
 function fetchOnlineStores(templateName, selectedValue, apiUrl, limit, offset, keyword) {
-  const url = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}`;
-
+  const lang = document.body.getAttribute('umb-lang');
+  const url = `${apiUrl}?countryId=${selectedValue}&limit=${limit}&offset=${offset}&keyword=${encodeURIComponent(keyword)}&lang=${lang}`;
   fetchOnlineStore(templateName, selectedValue, url)
     .then(obj => {
-      const { html, isEmpty } = obj;
+      const { html, isEmpty, totalCount } = obj;
       const container = document.getElementById('onlinecontainers');
       if (!container) {
         console.warn('Container with ID "onlinecontainer" not found.');
         return;
       }
-
       if (showMoreClicked) {
         container.innerHTML += html;
       } else {
         container.innerHTML = html;
       }
       const showMoreButton = document.querySelector('#onlineShowMore');
-      if (isEmpty) {
+      const shopCards = document.querySelectorAll('.card');
+      const shopCardsCount = shopCards.length;
+      if (isEmpty || shopCardsCount == totalCount) {
         showMoreButton.style.visibility = "hidden"; // Hide the button but preserve layout
       } else {
         showMoreButton.style.visibility = "visible"; // Show the button without affecting layout
@@ -233,18 +234,26 @@ const contactForms = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`Server error: ${response.status}`);
           }
-          return response.json();
+          return response.json(); // Assuming the server responds with JSON
         })
         .then((data) => {
-          if (data) {
-            document.querySelector('.contactForms').style.display = 'none';
-            document.querySelector('.thanksWraper').style.display = 'block';
-          }
+
+          // Hide the form and show the thank you message
+          const formElement = document.querySelector('.contactForms');
+          const thankYouElement = document.querySelector('.thanksWraper');
+          formElement.style.display = 'none';
+          thankYouElement.style.display = 'block';
+
+          // Scroll to the thank you message
+          thankYouElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         })
         .catch((error) => {
-          console.error('Error:', error);
+          console.error('Form submission failed:', error);
+
+          // Show an error message to the user (optional)
+          alert('There was an issue submitting your form. Please try again.');
         });
     }
   });
@@ -426,6 +435,8 @@ function toggleRecipeSections() {
       showMoreClicked = false;
       const data = prepareRequestData();
       updateRecipeList(data);
+      // Scroll to the top of the page after receiving the response
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       hideSections();
     });
 
@@ -453,8 +464,35 @@ function toggleRecipeSections() {
   // Initialize
   bindEventListeners();
 }
+let selectedDietaryNeedsData = null;
+let mealTypeData = null;
+let selectedCuisineData = null;
+let selectedDifficultyData = null;
+let searchKeywordData = null;
+let selectedOccasionData = null;
+let preparationStyleData = null;
+let preparationTime = null;
 
 function initializeRecipeFilter() {
+  parseUrlAndSetVariables()
+  scrollActiveButtonToLeft();
+
+  document.getElementById('toggleButton').addEventListener('click', function () {
+
+    // Delay to ensure animations and layout updates
+    setTimeout(() => {
+      const filterWrap = document.querySelector('.filterWrap.categ_filter');
+
+      const parentContainer = document.querySelector('.filterWrap.catgSpc');
+      const activeItem = filterWrap.querySelector('.active');
+      // Check if the parent is active
+      if (activeItem) {
+        scrollActiveButtonToLeft();
+      } else {
+        console.log('Parent not active');
+      }
+    }, 300);
+  });
   // Selected filters
   let selectedMealType = null;
   let selectedCuisine = null;
@@ -469,6 +507,7 @@ function initializeRecipeFilter() {
   // DOM Elements
   const submitButton = document.querySelector('#submit-button');
   const cuisineSelect = document.querySelector('#cuisineselect');
+  console.log('cuisineSelect==',cuisineSelect)
   const dietaryNeedsSelect = document.querySelector('#dietary-needs');
   const occasionSelect = document.querySelector('#occasion');
   const preparationSelect = document.querySelector('#preparation-style');
@@ -493,19 +532,28 @@ function initializeRecipeFilter() {
 
   // Helper function to prepare request data
   function prepareRequestData(keyword = '', recipeSelectedValue = '') {
+    let urlParamsData = new URLSearchParams(window.location.search);
+    mealTypeData = urlParamsData.get('meal');
+    selectedDifficultyData = urlParamsData.get('diff');
+    preparationTime = urlParamsData.get('preTime');
+    selectedCuisineData = urlParamsData.get('cuis');
+    selectedDietaryNeedsData = urlParamsData.get('diet');
+    selectedOccasionData = urlParamsData.get('occa');
+    preparationStyleData = urlParamsData.get('preStyle');
+    searchKeywordData = urlParamsData.get('keyword');
     return {
-      mealType: selectedMealType,
-      cuisine: selectedCuisine,
-      difficulty: difficulties,
-      prepTime: timeTaken,
-      dietaryNeeds: selectedDietaryNeeds,
-      occasion: selectedOccasion,
-      preparationStyle: preparationStyle,
+      mealType: mealTypeData ? mealTypeData : selectedMealType,
+      cuisine: selectedCuisineData ? selectedCuisineData : selectedCuisine,
+      difficulty: selectedDifficultyData ? selectedDifficultyData : difficulties,
+      prepTime: preparationTime ? preparationTime :  selectedPrepTime,
+      dietaryNeeds: selectedDietaryNeedsData ? selectedDietaryNeedsData : selectedDietaryNeeds,
+      occasion: selectedOccasionData ? selectedOccasionData : selectedOccasion,
+      preparationStyle: preparationStyleData ? preparationStyleData : preparationStyle,
       recipeCatId: recipeCatId,
       url,
       limit,
       offset,
-      keyword,
+      keyword: searchKeywordData ? searchKeywordData : keyword,
       recipeSelectedValue,
       lang,
     };
@@ -513,26 +561,26 @@ function initializeRecipeFilter() {
 
   function initialRequestData(keyword = '', recipeSelectedValue = '') {
     return {
-      mealType: selectedMealType,
-      cuisine: selectedCuisine,
-      difficulty: null,
-      prepTime: '',
-      dietaryNeeds: selectedDietaryNeeds,
-      occasion: selectedOccasion,
-      preparationStyle: preparationStyle,
+      mealType: mealTypeData,
+      cuisine: selectedCuisineData,
+      difficulty: selectedDifficultyData,
+      prepTime: selectedPrepTime,
+      dietaryNeeds: selectedDietaryNeedsData,
+      occasion: selectedOccasionData,
+      preparationStyle: preparationStyleData,
       recipeCatId: recipeCatId,
       url,
       limit,
       offset,
-      keyword,
+      keyword: searchKeywordData,
       recipeSelectedValue,
       lang,
     };
   }
 
   // Helper function to update the recipe list
-  function updateRecipeList(data) {
-    fetchRecipes('recipelist-template', data)
+  function updateRecipeList(data, type) {
+    fetchRecipes('recipelist-template', data, type)
       .then(({ html, isEmpty, totalCount }) => {
         if (showMoreClicked) {
           recipeContainer.innerHTML += html;
@@ -569,7 +617,7 @@ function initializeRecipeFilter() {
         preparationStyle = value;
         break;
       case 'preparationtime':
-        timeTaken = value;
+        selectedPrepTime = value;
         break;
       case 'difficulty':
         difficulties = value;
@@ -607,13 +655,13 @@ function initializeRecipeFilter() {
   function handleSubmitButtonClick() {
     offset = 0;
     showMoreClicked = false;
-    updateRecipeList(prepareRequestData());
+    updateRecipeList(prepareRequestData(), 'submit');
   }
 
   function initialFetch() {
     offset = 0;
     showMoreClicked = false;
-    updateRecipeList(initialRequestData());
+    updateRecipeList(prepareRequestData());
   }
 
   function handleShowMoreButtonClick() {
@@ -623,7 +671,85 @@ function initializeRecipeFilter() {
   }
 
   function handleResetButtonsClick() {
-    window.location.reload();
+    const url = window.location.origin + window.location.pathname;
+    window.history.pushState({}, document.title, url); // Clear query params
+    location.reload(); // Reload the page without query parameters
+  }
+
+
+  function scrollActiveButtonToLeft() {
+    const filterWrap = document.querySelector('.filterWrap.categ_filter');
+    if (filterWrap) {
+      const activeItem = filterWrap.querySelector('.btn.active');
+
+      if (activeItem) {
+        // Calculate the exact offset for left alignment
+        const filterWrapRect = filterWrap.getBoundingClientRect();
+        const activeItemRect = activeItem.getBoundingClientRect();
+        const offsetToScroll =
+          activeItemRect.left - filterWrapRect.left + filterWrap.scrollLeft;
+        filterWrap.scrollTo({
+          left: offsetToScroll,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }
+  // Function to parse URL and set variables
+  function parseUrlAndSetVariables() {
+    const urlParams = new URLSearchParams(window.location.search);
+    mealTypeData = urlParams.get('meal');
+    selectedDifficultyData = urlParams.get('diff');
+    selectedPrepTime = urlParams.get('preTime');
+    selectedCuisineData = urlParams.get('cuis');
+    selectedDietaryNeedsData = urlParams.get('diet');
+    selectedOccasionData = urlParams.get('occa');
+    preparationStyleData = urlParams.get('preStyle');
+    searchKeywordData = urlParams.get('keyword');
+
+    // Select Meal Type
+    if (mealTypeData) {
+      document.querySelectorAll('.categ_filter .btn').forEach(btn => {
+        if (btn.dataset.id === mealTypeData) {
+          btn.classList.add('active'); // Highlight selected meal type
+        }
+      });
+    }
+
+    // Select Difficulty
+    if (selectedDifficultyData) {
+      document.querySelector(`#difficultySelect option[value="${selectedDifficultyData}"]`)?.setAttribute('selected', 'selected');
+    }
+
+    // Select Preparation Time
+    if (selectedPrepTime) {
+      document.querySelector(`#preparationSelect option[value="${selectedPrepTime}"]`)?.setAttribute('selected', 'selected');
+    }
+
+    // Select Cuisine
+    if (selectedCuisineData) {
+      document.querySelector(`#cuisineselect option[value="${selectedCuisineData}"]`)?.setAttribute('selected', 'selected');
+    }
+
+    // Select Dietary Needs
+    if (selectedDietaryNeedsData) {
+      document.querySelector(`#dietary-needs option[value="${selectedDietaryNeedsData}"]`)?.setAttribute('selected', 'selected');
+    }
+
+    // Select Occasion
+    if (selectedOccasionData) {
+      document.querySelector(`#occasion option[value="${selectedOccasionData}"]`)?.setAttribute('selected', 'selected');
+    }
+
+    // Select Preparation Style
+    if (preparationStyleData) {
+      document.querySelector(`#preparation-style option[value="${preparationStyleData}"]`)?.setAttribute('selected', 'selected');
+    }
+
+    // Handle Search Keyword (optional)
+    if (searchKeywordData) {
+      console.log(`Search keyword: ${searchKeywordData}`); // Handle as needed
+    }
   }
 
   // Bind Events
@@ -1005,6 +1131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   };
 
+
   const oneTrustCookieName = "OptanonConsent";
 
   // Function to check if a specific cookie exists
@@ -1083,9 +1210,11 @@ document.addEventListener('DOMContentLoaded', () => {
         indicators.forEach(item => item.classList.remove('active'));
         // Add active class to the matching item
         indicator.classList.add('active');
+        indicator.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     });
   }
+
 
 
 
@@ -1305,14 +1434,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to update the `href` attribute of the link
     const updateHref = () => {
-        // Get the selected option
-        const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+      // Get the selected option
+      const selectedOption = countrySelect.options[countrySelect.selectedIndex];
 
-        // Get the data-id attribute of the selected option
-        const dataId = selectedOption.getAttribute('data-id');
+      // Get the data-id attribute of the selected option
+      const dataId = selectedOption.getAttribute('data-id');
 
-        const baseUrl = whereToBuyLink.getAttribute('href').split('?')[0]; // Ensure the base URL remains clean
-        whereToBuyLink.href = `${baseUrl}?country=${encodeURIComponent(dataId)}`;
+      const baseUrl = whereToBuyLink.getAttribute('href').split('?')[0]; // Ensure the base URL remains clean
+      whereToBuyLink.href = `${baseUrl}?country=${encodeURIComponent(dataId)}`;
     };
 
     // Add event listener for dropdown changes
@@ -1320,7 +1449,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize the link on page load
     updateHref();
-}
+  }
 
 
 
@@ -1334,7 +1463,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = elements.productButton.getAttribute('data-api');
     const limit = parseInt(elements.productButton.getAttribute('data-limit'), 10) || 0;
     let offset = parseInt(elements.productButton.getAttribute('data-offset'), 10) || 0;
-    
+
     showMoreClicked = false;
 
     // Function to get the active `productCatId`
@@ -1462,10 +1591,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDropdownApiCall(type, dropdown, apiEndpoint, buttonElement, searchInput) {
       let limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
       let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
+
+
       function updateAndFetch(keyword = '') {
         const selectedValue = dropdown.value; // Get the latest selected value
         if (type === 'online') {
-          showMoreClicked = true;
           fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
         } else if (type === 'instore') {
           const fullApiUrl = `${apiEndpoint}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
@@ -1510,6 +1640,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const onlineButton = document.querySelector('#onlineShowMore');
     const onlineSearchInput = elements.searchInput;
     setDropdownValue(onlineDropdown);
+
     updateDropdownApiCall('online', onlineDropdown, onlineApiEndpoint, onlineButton, onlineSearchInput);
 
     // In-Store Dropdown
@@ -1594,7 +1725,7 @@ document.addEventListener('DOMContentLoaded', () => {
       header.classList.remove('scrolled');
     }
   });
-  
+
 });
 
 
@@ -1624,6 +1755,19 @@ if (filterWrap) {
     });
   }
 }
+
+// const filterWrapSec = document.querySelector('.filterWrap .categ_filter');
+// if (filterWrapSec) {
+//   const activeItem = filterWrapSec.querySelector('.active');
+
+//   if (activeItem) {
+//     console.log('activeItem',activeItem)
+//     filterWrapSec.scrollTo({
+//       left: activeItem.offsetLeft - filterWrapSec.offsetLeft,
+//       behavior: 'smooth'
+//     });
+//   }
+// }
 
 const categoryFilterWrap = document.querySelector('.filterWrap.catgSpc .categ_filter');
 if (categoryFilterWrap) {

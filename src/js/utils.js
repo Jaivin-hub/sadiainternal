@@ -1,203 +1,181 @@
 // Import Mapbox GL JS and CSS
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import { fetchStores } from './api';
-mapboxgl.accessToken = 'pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb3hwY21lY3p1eCJ9.7t6X_NQIGtIsI-FRLNPU6g';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import { fetchStores } from "./api";
+mapboxgl.accessToken =
+  "pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb3hwY21lY3p1eCJ9.7t6X_NQIGtIsI-FRLNPU6g";
 
 // Function to initialize Mapbox map
 const initializeMapbox = () => {
   try {
-    // Initialize the Mapbox map
     const map = new mapboxgl.Map({
-      container: 'mapFrame', // ID of the container element
-      style: 'mapbox://styles/mapbox/dark-v11', // Map style URL
-      attributionControl: false, // Disables the default attribution control
-      zoom: 5, // Starting zoom level
+      container: "mapFrame",
+      style: "mapbox://styles/mapbox/dark-v11",
+      attributionControl: false,
+      zoom: 5,
     });
+
+        // Disable scroll zoom
+    map.scrollZoom.disable();
+
+    mapboxgl.setRTLTextPlugin(
+      "https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js",
+      null,
+      true
+    );
+
+    document.getElementById("mapFrame").style.direction = "ltr";
 
     let markers = [];
 
-    // Function to clear all markers from the map
     const clearMarkers = () => {
-      markers.forEach(marker => marker.remove());
+      markers.forEach((marker) => marker.remove());
       markers = [];
     };
 
-    // Function to add pulsing dot markers
     const addPulsingMarkers = (locations) => {
       locations.forEach((location, index) => {
-        const el = document.createElement('div');
-        el.className = 'pulsing-dot';
-
-        const coordinates = location.split(',').map(Number);
+        const el = document.createElement("div");
+        el.className = "pulsing-dot";
+        const coordinates = location.split(",").map(Number);
         if (isNaN(coordinates[0]) || isNaN(coordinates[1])) {
           console.error(`Invalid coordinates at index ${index}:`, location);
-          return; // Skip invalid coordinates
+          return;
         }
-
-        const marker = new mapboxgl.Marker(el).setLngLat(coordinates).addTo(map);
-        markers.push(marker); // Store marker reference
+        const marker = new mapboxgl.Marker(el)
+          .setLngLat(coordinates)
+          .addTo(map);
+        markers.push(marker);
       });
     };
 
-    // Function to update the map based on selected data
     const updateMap = (data) => {
-      if (!data) {
-        console.error("No data available for the selected option.");
-        return;
-      }
-
-      // Parse location data
+      if (!data) return;
       const locations = data
-        .split(' | ') // Split by city separator
-        .map(city => city.split('-')[1]?.trim()) // Extract coordinates after the hyphen
-        .filter(Boolean); // Remove invalid entries
+        .split(" | ")
+        .map((city) => city.split("-")[1]?.trim())
+        .filter(Boolean);
 
-      if (locations.length === 0) {
-        console.error("No valid locations found.");
-        return;
-      }
-
-      // Clear existing markers and add new ones
       clearMarkers();
       addPulsingMarkers(locations);
 
-      // Center the map on the first location
-      const firstLocation = locations[0].split(',').map(Number);
-      if (!isNaN(firstLocation[0]) && !isNaN(firstLocation[1])) {
+      const firstLocation = locations[0]?.split(",").map(Number);
+      if (!isNaN(firstLocation?.[0]) && !isNaN(firstLocation?.[1])) {
         map.setCenter(firstLocation);
-        console.log("Map centered at:", firstLocation);
-      } else {
-        console.error("Invalid first location for centering:", firstLocation);
       }
     };
 
-    // Initialize the map with the first option's data
-    const countryDropdown = document.querySelector('.countryDrops');
-    if (!countryDropdown) {
-      console.error("Dropdown element not found.");
-      return;
-    }
+    const countryDropdown = document.querySelector(".countryDrops");
+    if (countryDropdown) {
+      const firstOption = countryDropdown.options[0];
+      if (firstOption) {
+        updateMap(firstOption.getAttribute("data"));
+      }
 
-    const firstOption = countryDropdown.options[0];
-    if (firstOption) {
-      const initialLocationsData = firstOption.getAttribute('data');
-      console.log("Initial data:", initialLocationsData); // Debugging
-      updateMap(initialLocationsData);
+      countryDropdown.addEventListener("change", () => {
+        const data =
+          countryDropdown.options[countryDropdown.selectedIndex]?.getAttribute(
+            "data"
+          );
+        updateMap(data);
+      });
     }
-
-    // Listen for dropdown selection changes
-    countryDropdown.addEventListener('change', () => {
-      const selectedOption = countryDropdown.options[countryDropdown.selectedIndex];
-      const data = selectedOption.getAttribute('data');
-      console.log("Selected data:", data); // Debugging
-      updateMap(data);
-    });
   } catch (error) {
-    console.error('Error initializing Mapbox:', error);
+    console.error("Error initializing Mapbox:", error);
   }
 };
 
-
-const priceSliderInitialize = (onUpdate) => {
-
-};
-
-
+const priceSliderInitialize = (onUpdate) => {};
 
 // TAG-SEARCH START
-const tagInput = document.getElementById('tag-input');
-const tagContainer = document.getElementById('tag-container');
+const tagInput = document.getElementById("tag-input");
+const tagContainer = document.getElementById("tag-container");
 
-tagInput?.addEventListener('keydown', function (event) {
-  if (event.key === 'Enter' || event.key === ',') {
+tagInput?.addEventListener("keydown", function (event) {
+  if (event.key === "Enter" || event.key === ",") {
     event.preventDefault();
     const tagText = tagInput.value.trim();
     if (tagText) {
       addTag(tagText);
-      tagInput.value = '';
+      tagInput.value = "";
     }
   }
 });
 
 function addTag(text) {
-  const tag = document.createElement('div');
-  tag.className = 'tag';
+  const tag = document.createElement("div");
+  tag.className = "tag";
   tag.textContent = text;
 
   // Add click event to remove the tag
-  tag.addEventListener('click', () => {
+  tag.addEventListener("click", () => {
     tagContainer.removeChild(tag);
   });
 
   tagContainer.insertBefore(tag, tagInput);
 }
 
-
 // TAG-SEARCH END
 
-
-
 // LANGUAGE-ARABIC START
-document.addEventListener('DOMContentLoaded', () => {
-  const toggleButton = document.getElementById('toggle-lang'); // Single toggle button
-  const englishButton = document.querySelector('.toggle-en'); // Button to switch to English
-  const arabicButton = document.querySelector('.toggle-ar'); // Button to switch to Arabic
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleButton = document.getElementById("toggle-lang"); // Single toggle button
+  const englishButton = document.querySelector(".toggle-en"); // Button to switch to English
+  const arabicButton = document.querySelector(".toggle-ar"); // Button to switch to Arabic
   const html = document.documentElement;
 
   // Initialize language and direction from current HTML attributes
-  let currentLang = html.lang || 'en';
+  let currentLang = html.lang || "en";
 
   const updateLanguage = (lang) => {
-      if (lang === 'ar') {
-          html.lang = 'ar';
-          html.dir = 'rtl';
-          toggleButton.textContent = 'EN';
-          englishButton.textContent = 'English';
-          arabicButton.textContent = 'العربية'; // Arabic remains
-          // Add 'active' class to Arabic button
-          arabicButton.classList.add('active');
-          englishButton.classList.remove('active');
-      } else {
-          html.lang = 'en';
-          html.dir = 'ltr';
-          toggleButton.textContent = 'عربي';
-          englishButton.textContent = 'English'; // English remains
-          arabicButton.textContent = 'عربي';
-          // Add 'active' class to English button
-          englishButton.classList.add('active');
-          arabicButton.classList.remove('active');
-      }
-      currentLang = lang;
+    if (lang === "ar") {
+      html.lang = "ar";
+      html.dir = "rtl";
+      toggleButton.textContent = "EN";
+      englishButton.textContent = "English";
+      arabicButton.textContent = "العربية"; // Arabic remains
+      // Add 'active' class to Arabic button
+      arabicButton.classList.add("active");
+      englishButton.classList.remove("active");
+    } else {
+      html.lang = "en";
+      html.dir = "ltr";
+      toggleButton.textContent = "عربي";
+      englishButton.textContent = "English"; // English remains
+      arabicButton.textContent = "عربي";
+      // Add 'active' class to English button
+      englishButton.classList.add("active");
+      arabicButton.classList.remove("active");
+    }
+    currentLang = lang;
   };
 
   // Toggle language on the single toggle button
-  toggleButton.addEventListener('click', () => {
-      const newLang = currentLang === 'en' ? 'ar' : 'en';
-      updateLanguage(newLang);
+  toggleButton.addEventListener("click", () => {
+    const newLang = currentLang === "en" ? "ar" : "en";
+    updateLanguage(newLang);
   });
 
   // Explicitly switch to English
-  englishButton.addEventListener('click', () => {
-      updateLanguage('en');
-  });
+  if(englishButton){
+    englishButton.addEventListener("click", () => {
+      updateLanguage("en");
+    });
+  }
 
   // Explicitly switch to Arabic
-  arabicButton.addEventListener('click', () => {
-      updateLanguage('ar');
-  });
+  if(arabicButton){
+    arabicButton.addEventListener("click", () => {
+      updateLanguage("ar");
+    });
+  }
+
 });
 
-
 // LANGUAGE-ARABIC END
-
-
-
-
-
 
 // SIDEBAR-COLLPASE START
 
@@ -314,32 +292,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // SIDEBAR-COLLPASE END
 
-
-
-
-
 // FAVOURITE-SECTION Slick sliders
 
 const initializeSlick = () => {
   try {
     // Ensure Slick is loaded
-    if (typeof $.fn.slick === 'undefined') {
-      console.error('Slick is not loaded.');
+    if (typeof $.fn.slick === "undefined") {
+      console.error("Slick is not loaded.");
       return;
     }
 
-
     // NORMAL-CAROUSEL START
 
-    if ($('.whatSlider').length) {
+    if ($(".whatSlider").length) {
       const initWhatSlider = (isRTL) => {
         // Destroy existing slider if initialized
-        if ($('.whatSlider').hasClass('slick-initialized')) {
-          $('.whatSlider').slick('unslick');
+        if ($(".whatSlider").hasClass("slick-initialized")) {
+          $(".whatSlider").slick("unslick");
         }
-    
+
         // Initialize the slider
-        $('.whatSlider').slick({
+        $(".whatSlider").slick({
           dots: false,
           slidesToShow: 3, // Show three main slides at a time
           slidesToScroll: 1,
@@ -361,138 +334,133 @@ const initializeSlick = () => {
           ],
         });
       };
-    
+
       // Initial setup based on current RTL state
-      const isRTL = $('html').attr('dir') === 'rtl';
+      const isRTL = $("html").attr("dir") === "rtl";
       initWhatSlider(isRTL);
-    
+
       // Watch for changes in the <html> dir attribute
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
-          if (mutation.attributeName === 'dir') {
-            const newRTL = $('html').attr('dir') === 'rtl';
+          if (mutation.attributeName === "dir") {
+            const newRTL = $("html").attr("dir") === "rtl";
             initWhatSlider(newRTL); // Reinitialize slider with updated RTL state
           }
         });
       });
-    
+
       // Observe the <html> tag for changes to the dir attribute
       observer.observe(document.documentElement, { attributes: true });
     }
-    
 
-  // NORMAL-CAROUSEL END
+    // NORMAL-CAROUSEL END
 
-  const initSliders = (isRTL) => {
-    // Destroy existing sliders to prevent duplication
-    if ($('.image-slider').hasClass('slick-initialized')) {
-      $('.image-slider').slick('unslick');
-    }
-    if ($('.thumbnail-slider').hasClass('slick-initialized')) {
-      $('.thumbnail-slider').slick('unslick');
-    }
-  
-    // Initialize the image slider
-    $('.image-slider').slick({
-      rtl: isRTL, // Dynamically set RTL mode
-      arrows: false,
-      autoplay: false,
-      infinite: true, // Enable infinite looping
-      speed: 1000,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      fade: false,
-      asNavFor: '.thumbnail-slider', // Link with thumbnail slider
-    });
-  
-    // Initialize the thumbnail slider
-    $('.thumbnail-slider').slick({
-      rtl: isRTL, // Dynamically set RTL mode
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      asNavFor: '.image-slider', // Link with image slider
-      focusOnSelect: true,
-      infinite: true, // Enable infinite looping
-      centerMode: false,
-    });
-  
-    // Initially show the next button and hide the previous button
-    $('.slick-prev').hide();
-    $('.slick-next').show(); // Ensure next button is visible
-  
-    // Handle content activation for image-slider
-    $('.image-slider').on('afterChange', (event, slick, currentSlide) => {
-      // Remove 'active' class from all content items
-      $('.content-item').removeClass('active');
-  
-      // Add 'active' class to the content item corresponding to the current slide
-      const contentSelector = `.content-item[data-slide="${currentSlide}"]`;
-      $(contentSelector).addClass('active');
-    });
-  
-    // Ensure proper active class handling for the thumbnails
-    $('.thumbnail-slider').on('afterChange', (event, slick, currentSlide) => {
-      const slides = $('.thumbnail-slider .slick-slide');
-      slides.removeClass('slick-current slick-active'); // Clear previous active classes
-  
-      // Apply active classes to the current thumbnail
-      const newActive = slides.filter(`[data-slick-index="${currentSlide}"]`);
-      newActive.addClass('slick-current slick-active');
-    });
-  
-    // Show the previous button after the first scroll (forward or backward)
-    $('.thumbnail-slider').on('afterChange', (event, slick, currentSlide) => {
-      const totalSlides = slick.slideCount;
-  
-      // Show/hide the previous button
-      if (currentSlide > 0) {
-        $('.slick-prev').show();
-      } else {
-        $('.slick-prev').hide();
+    const initSliders = (isRTL) => {
+      // Destroy existing sliders to prevent duplication
+      if ($(".image-slider").hasClass("slick-initialized")) {
+        $(".image-slider").slick("unslick");
       }
-  
-      // Remove logic for hiding `.slick-next`
-      $('.slick-next').show(); // Always keep the next button visible
-    });
-  
-    // Handle active class application on first load (initialization)
-    const firstSlideContentSelector = '.content-item[data-slide="0"]';
-    $(firstSlideContentSelector).addClass('active');
-  
-    // Remove duplicate content items
-    $('.content-item').each(function () {
-      if ($(this).hasClass('active')) {
-        $(this).siblings().removeClass('active');
+      if ($(".thumbnail-slider").hasClass("slick-initialized")) {
+        $(".thumbnail-slider").slick("unslick");
       }
+
+      // Initialize the image slider
+      $(".image-slider").slick({
+        rtl: isRTL, // Dynamically set RTL mode
+        arrows: false,
+        autoplay: false,
+        infinite: true, // Enable infinite looping
+        speed: 1000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        fade: false,
+        asNavFor: ".thumbnail-slider", // Link with thumbnail slider
+      });
+
+      // Initialize the thumbnail slider
+      $(".thumbnail-slider").slick({
+        rtl: isRTL, // Dynamically set RTL mode
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: ".image-slider", // Link with image slider
+        focusOnSelect: true,
+        infinite: true, // Enable infinite looping
+        centerMode: false,
+      });
+
+      // Initially show the next button and hide the previous button
+      $(".slick-prev").hide();
+      $(".slick-next").show(); // Ensure next button is visible
+
+      // Handle content activation for image-slider
+      $(".image-slider").on("afterChange", (event, slick, currentSlide) => {
+        // Remove 'active' class from all content items
+        $(".content-item").removeClass("active");
+
+        // Add 'active' class to the content item corresponding to the current slide
+        const contentSelector = `.content-item[data-slide="${currentSlide}"]`;
+        $(contentSelector).addClass("active");
+      });
+
+      // Ensure proper active class handling for the thumbnails
+      $(".thumbnail-slider").on("afterChange", (event, slick, currentSlide) => {
+        const slides = $(".thumbnail-slider .slick-slide");
+        slides.removeClass("slick-current slick-active"); // Clear previous active classes
+
+        // Apply active classes to the current thumbnail
+        const newActive = slides.filter(`[data-slick-index="${currentSlide}"]`);
+        newActive.addClass("slick-current slick-active");
+      });
+
+      // Show the previous button after the first scroll (forward or backward)
+      $(".thumbnail-slider").on("afterChange", (event, slick, currentSlide) => {
+        const totalSlides = slick.slideCount;
+
+        // Show/hide the previous button
+        if (currentSlide > 0) {
+          $(".slick-prev").show();
+        } else {
+          $(".slick-prev").hide();
+        }
+
+        // Remove logic for hiding `.slick-next`
+        $(".slick-next").show(); // Always keep the next button visible
+      });
+
+      // Handle active class application on first load (initialization)
+      const firstSlideContentSelector = '.content-item[data-slide="0"]';
+      $(firstSlideContentSelector).addClass("active");
+
+      // Remove duplicate content items
+      $(".content-item").each(function () {
+        if ($(this).hasClass("active")) {
+          $(this).siblings().removeClass("active");
+        }
+      });
+    };
+
+    // Detect initial direction
+    const isRTL = $("html").attr("dir") === "rtl";
+    initSliders(isRTL);
+
+    // Watch for direction changes dynamically
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "dir") {
+          const newRTL = $("html").attr("dir") === "rtl";
+          initSliders(newRTL); // Reinitialize with updated direction
+        }
+      });
     });
-  };
-  
-  // Detect initial direction
-  const isRTL = $('html').attr('dir') === 'rtl';
-  initSliders(isRTL);
-  
-  // Watch for direction changes dynamically
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === 'dir') {
-        const newRTL = $('html').attr('dir') === 'rtl';
-        initSliders(newRTL); // Reinitialize with updated direction
-      }
-    });
-  });
-  
- // Start observing <html> for changes
- observer.observe(document.documentElement, { attributes: true });
-} catch (error) {
-  console.error('Error initializing Slick sliders:', error);
-}
+
+    // Start observing <html> for changes
+    observer.observe(document.documentElement, { attributes: true });
+  } catch (error) {
+    console.error("Error initializing Slick sliders:", error);
+  }
 };
-  
-
 
 // SLICK-END
-
-
 
 // STORY-SLIDER START
 
@@ -616,7 +584,7 @@ const initializeNewSlider = () => {
         slidesToShow: 3,
         slidesToScroll: 1,
         fade: false,
-        asNavFor: '#new-thumbnail-slider',
+        asNavFor: "#new-thumbnail-slider",
         autoplaySpeed: 3000,
         draggable: true,
         swipe: true,
@@ -638,7 +606,7 @@ const initializeNewSlider = () => {
         rtl: isRTL, // Dynamically set RTL mode
         slidesToShow: 3,
         slidesToScroll: 1,
-        asNavFor: '#new-image-slider',
+        asNavFor: "#new-image-slider",
         focusOnSelect: true,
         infinite: false,
         draggable: true,
@@ -699,9 +667,8 @@ const initializeNewSlider = () => {
 
     // Observe changes to the <html> tag's 'dir' attribute
     observer.observe(document.documentElement, { attributes: true });
-
   } catch (error) {
-    console.error('Error initializing new sliders:', error);
+    console.error("Error initializing new sliders:", error);
   }
 };
 
@@ -713,139 +680,151 @@ const initializeNewSlider = () => {
 
 // STORY-SLIDER END
 
-
-
 // ACCORIDAN-START
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   // Select all accordion containers on the page
-  const accordions = document.querySelectorAll('.accordion');
+  const accordions = document.querySelectorAll(".accordion");
 
-  accordions.forEach(accordion => {
-      const buttons = accordion.querySelectorAll('.accordion-button');
+  accordions.forEach((accordion) => {
+    const buttons = accordion.querySelectorAll(".accordion-button");
 
-      buttons.forEach(button => {
-          button.addEventListener('click', function () {
-              // Get the target panel using the data-target attribute
-              const targetId = this.getAttribute('data-target');
-              const targetPanel = document.querySelector(targetId);
+    buttons.forEach((button) => {
+      button.addEventListener("click", function () {
+        // Get the target panel using the data-target attribute
+        const targetId = this.getAttribute("data-target");
+        const targetPanel = document.querySelector(targetId);
 
-              if (!targetPanel) {
-                  console.error(`Panel with ID "${targetId}" not found.`);
-                  return;
-              }
+        if (!targetPanel) {
+          console.error(`Panel with ID "${targetId}" not found.`);
+          return;
+        }
 
-              // Check if the target panel is already open
-              const isActive = targetPanel.classList.contains('active');
+        // Check if the target panel is already open
+        const isActive = targetPanel.classList.contains("active");
 
-              // Collapse all panels in this accordion
-              accordion.querySelectorAll('.accordion-panel').forEach(panel => {
-                  panel.classList.remove('active');  // Collapse all
-                  panel.style.maxHeight = null;      // Reset the max-height
-                  panel.previousElementSibling.querySelector('.accordion-button').classList.add('collapsed');
-              });
+        // Collapse all panels in this accordion
+        accordion.querySelectorAll(".accordion-panel").forEach((panel) => {
+          panel.classList.remove("active"); // Collapse all
+          panel.style.maxHeight = null; // Reset the max-height
+          panel.previousElementSibling
+            .querySelector(".accordion-button")
+            .classList.add("collapsed");
+        });
 
-              // If the panel was not active, expand it
-              if (!isActive) {
-                  targetPanel.classList.add('active');  // Open the clicked panel
-                  targetPanel.style.maxHeight = targetPanel.scrollHeight + "px"; // Set the height based on content
-                  this.classList.remove('collapsed');  // Change button state to expanded
-              }
-          });
+        // If the panel was not active, expand it
+        if (!isActive) {
+          targetPanel.classList.add("active"); // Open the clicked panel
+          targetPanel.style.maxHeight = targetPanel.scrollHeight + "px"; // Set the height based on content
+          this.classList.remove("collapsed"); // Change button state to expanded
+        }
       });
+    });
   });
 });
 
 // ACCORIDAN-END
 
-
-
 // SHOW-HIDE DIV
 
-  // Add event listener to the close icon
-  const closeIcon = document.getElementById('clsIcon');
-  if (closeIcon) {
-    document.getElementById('clsIcon').addEventListener('click', function () {
-      // Find the parent element of the close icon
-      const searchValueElement = document.querySelector('.searchValues');
-      
-      // Remove the searchValues element from the DOM
-      if (searchValueElement) {
-        searchValueElement.remove();
-      }
-    });
-  }
+// Add event listener to the close icon
+const closeIcon = document.getElementById("clsIcon");
+if (closeIcon) {
+  document.getElementById("clsIcon").addEventListener("click", function () {
+    // Find the parent element of the close icon
+    const searchValueElement = document.querySelector(".searchValues");
+
+    // Remove the searchValues element from the DOM
+    if (searchValueElement) {
+      searchValueElement.remove();
+    }
+  });
+}
 
 // SHOW-HIDE DIV
-
-
-
-
-
-
 
 // CUSTOM-DROP START
 
-$(document).ready(function() {
+$(document).ready(function () {
   // Ensure that the event handler is applied after Handlebars rendering
 
   // Toggle dropdown visibility when .init is clicked
-  $(document).on("click", "ul.ct_dropdown .init", function() {
-      // Toggle visibility of all options inside the closest dropdown
-      $(this).closest("ul.ct_dropdown ").children('li:not(.init)').toggle();
+  $(document).on("click", "ul.ct_dropdown .init", function () {
+    // Toggle visibility of all options inside the closest dropdown
+    $(this).closest("ul.ct_dropdown ").children("li:not(.init)").toggle();
   });
 
   // Handle the selection of an option
-  $(document).on("click", "ul.ct_dropdown li:not(.init)", function() {
-      var parentUl = $(this).closest("ul"); // Get the closest dropdown ul
-      var allOptions = parentUl.children('li:not(.init)'); // Get all the options in the dropdown
+  $(document).on("click", "ul.ct_dropdown li:not(.init)", function () {
+    var parentUl = $(this).closest("ul"); // Get the closest dropdown ul
+    var allOptions = parentUl.children("li:not(.init)"); // Get all the options in the dropdown
 
-      // Remove 'selected' class from all options in the current dropdown
-      allOptions.removeClass('selected');
+    // Remove 'selected' class from all options in the current dropdown
+    allOptions.removeClass("selected");
 
-      // Add 'selected' class to the clicked option
-      $(this).addClass('selected');
+    // Add 'selected' class to the clicked option
+    $(this).addClass("selected");
 
-      // Update the .init text to the selected option
-      parentUl.children('.init').html($(this).html());
+    // Update the .init text to the selected option
+    parentUl.children(".init").html($(this).html());
 
-      // Toggle the options visibility
-      allOptions.toggle();
+    // Toggle the options visibility
+    allOptions.toggle();
   });
 });
 
 // CUSTOM-DROP END
 
-
-
 // MAPBOX-START
 const initializeWhereToBuyMapbox = (url) => {
-  const selectElement = document.querySelector('.form-select.countryDrops');
+  const handleMapResizeOnTabChange = (tabSelector, mapInstance) => {
+    if ($(tabSelector).length) {
+      $(document).on("shown.bs.tab", tabSelector, function () {
+        if (mapInstance) {
+          mapInstance.resize();
+        } else {
+          console.error("Map instance is not initialized.");
+        }
+      });
+    }
+  };
+
+  const selectElement = document.querySelector(".form-select.countryDrops");
   const selectedValue = selectElement.value;
-  const apiEndpoint = url
+  const apiEndpoint = url;
 
   const initializeMapWithData = (storesList) => {
-    const coordinatesArray = storesList.map(store => store.coordinates);
+    const coordinatesArray = storesList.map((store) => store.coordinates);
 
     // Initialize the Mapbox map
     const map = new mapboxgl.Map({
-      container: 'wheretobuyMapframe',
-      style: 'mapbox://styles/mapbox/dark-v11',
+      container: "wheretobuyMapframe",
+      style: "mapbox://styles/mapbox/dark-v11",
       center: [54.3773, 24.4539], // Default position for UAE (Abu Dhabi)
       zoom: 5,
     });
+
+    // Disable scroll zoom
+    map.scrollZoom.disable();
+
+    // Enable scroll zoom on click
+    map.on("click", () => {
+      map.scrollZoom.enable();
+    });
+
+    handleMapResizeOnTabChange(".whereWrapper .locationTabs .filBtn", map);
 
     let markers = [];
 
     // Function to clear all markers from the map
     const clearMarkers = () => {
-      markers.forEach(marker => marker.remove());
+      markers.forEach((marker) => marker.remove());
       markers = [];
     };
 
     // Function to clear all previously opened popups
     const clearPopups = () => {
-      markers.forEach(marker => {
+      markers.forEach((marker) => {
         if (marker.getPopup() && marker.getPopup().isOpen()) {
           marker.getPopup().remove();
         }
@@ -858,7 +837,7 @@ const initializeWhereToBuyMapbox = (url) => {
       clearPopups();
 
       locations.forEach((location, index) => {
-        const coordinates = location.split(',').map(Number);
+        const coordinates = location.split(",").map(Number);
         const store = storesList[index];
 
         // Dynamic popup content from storesList
@@ -876,7 +855,7 @@ const initializeWhereToBuyMapbox = (url) => {
 
         // Create the popup and attach it to the marker
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent);
-        const marker = new mapboxgl.Marker({ color: 'red' })
+        const marker = new mapboxgl.Marker({ color: "red" })
           .setLngLat(coordinates)
           .setPopup(popup)
           .addTo(map);
@@ -886,29 +865,30 @@ const initializeWhereToBuyMapbox = (url) => {
     };
 
     // Add red markers for the initial selection
-    const objData = { "locations": coordinatesArray, "storesList": storesList };
+    const objData = { locations: coordinatesArray, storesList: storesList };
     addRedMarkers(objData);
 
     // Center map on the first location's coordinates
-    const firstLocation = coordinatesArray[0].split(',').map(Number);
+    const firstLocation = coordinatesArray[0].split(",").map(Number);
     map.setCenter(firstLocation);
 
     // Listen for dropdown selection change
-    selectElement.addEventListener('change', () => {
-      const wheretobuyElement = document.querySelector('.form-select#countryDrops');
-      const inStoreApi = wheretobuyElement.getAttribute('data-url');
+    selectElement.addEventListener("change", () => {
+      const wheretobuyElement = document.querySelector(
+        ".form-select#countryDrops"
+      );
+      const inStoreApi = wheretobuyElement.getAttribute("data-url");
       const selectedValue = selectElement.value;
-      const fetchUrl = `${inStoreApi}?countryId=${selectedValue}`
-
+      const fetchUrl = `${inStoreApi}?countryId=${selectedValue}`;
 
       // Fetch new data and update markers
       fetchStores(fetchUrl, selectedValue, (newData) => {
-        const newCoordinatesArray = newData.map(store => store.coordinates);
-        const objData = { "locations": newCoordinatesArray, "storesList": newData };
+        const newCoordinatesArray = newData.map((store) => store.coordinates);
+        const objData = { locations: newCoordinatesArray, storesList: newData };
 
         clearMarkers();
         addRedMarkers(objData);
-        const firstLocation = newCoordinatesArray[0].split(',').map(Number);
+        const firstLocation = newCoordinatesArray[0].split(",").map(Number);
         map.setCenter(firstLocation);
       });
     });

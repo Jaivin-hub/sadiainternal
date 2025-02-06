@@ -384,6 +384,12 @@
 
 // PRODUCT-FILTER START
 
+.filterWrap.categ_filter {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+
 .filterWrap{
     &.catgSpc{
         margin-bottom: 45px;

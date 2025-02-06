@@ -70,11 +70,12 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
         // const template = document.getElementById(templateName).innerHTML;
 
         // // // // Generate the HTML for all items
+        const totalCount = data[0]?.toTalCount;
         let html = '';
         data.forEach(item => {
             html += Mustache.render(template, item);
         });
-        const obj = {html, isEmpty}
+        const obj = {html, isEmpty, totalCount}
         return obj;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -82,25 +83,26 @@ async function fetchOnlineStore(templateName,selectedValue, apiUrl) {
     }
 }
 
-async function fetchRecipes(templateName, data){
-    try{
+async function fetchRecipes(templateName, data, type) {
+    try {
         let isEmpty = false;
         const formdata = {
             "recipeCatId": data.recipeCatId,
-            "mealTypeId": data.mealType == null || data.mealType == undefined || data.mealType == "" ?[]:[Number(data.mealType)],
-            "difficultyLevelId": data.difficulty == null || data.difficulty == undefined || data.difficulty == ""  ? [] : [Number(data.difficulty)],
-            "preparationTime": data.prepTime == null || data.prepTime == undefined || data.prepTime == ""  ? "" : data.prepTime,
-            "cuisineId": data.cuisine == null || data.cuisine == undefined || data.cuisine == ""  ? [] : [Number(data.cuisine)],
-            "dietaryId": data.dietaryNeeds == null || data.dietaryNeeds == undefined || data.dietaryNeeds == ""  ? [] : [Number(data.dietaryNeeds)],
-            "occasionId": data.occasion == null || data.occasion == undefined || data.occasion == ""  ? [] : [Number(data.occasion)],
+            "mealTypeId": data.mealType == null || data.mealType == undefined || data.mealType == "" ? [] : [Number(data.mealType)],
+            "difficultyLevelId": data.difficulty == null || data.difficulty == undefined || data.difficulty == "" ? [] : [Number(data.difficulty)],
+            "preparationTime": data.prepTime == null || data.prepTime == undefined || data.prepTime == "" ? "" : data.prepTime,
+            "cuisineId": data.cuisine == null || data.cuisine == undefined || data.cuisine == "" ? [] : [Number(data.cuisine)],
+            "dietaryId": data.dietaryNeeds == null || data.dietaryNeeds == undefined || data.dietaryNeeds == "" ? [] : [Number(data.dietaryNeeds)],
+            "occasionId": data.occasion == null || data.occasion == undefined || data.occasion == "" ? [] : [Number(data.occasion)],
             "preparationStyleId": data.preparationStyle == null || data.preparationStyle == undefined || data.preparationStyle == "" ? [] : [Number(data.preparationStyle)],
             "filter": data.recipeSelectedValue,
             "keyword": data.keyword,
             "limit": data.limit,
             "offset": data.offset,
-            "lang":data.lang
-          }
-          const response = await fetch(data.url, {
+            "lang": data.lang
+        };
+
+        const response = await fetch(data.url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -115,7 +117,7 @@ async function fetchRecipes(templateName, data){
         const result = await response.json();
         const totalCount = result[0]?.totalCount;
 
-        if(result.length === 0){
+        if (result.length === 0) {
             isEmpty = true;
         }
 
@@ -128,13 +130,19 @@ async function fetchRecipes(templateName, data){
         result.forEach(item => {
             html += Mustache.render(template, item);
         });
-        const obj = {html, isEmpty, totalCount}
+
+        const obj = { html, isEmpty, totalCount };
+
+        // Smooth scroll to the top after data is fetched
+        if(type == 'submit') window.scrollTo({ top: 0, behavior: 'smooth' });
+
         return obj;
-          
-    }catch(err){
+
+    } catch (err) {
         console.error('Error fetching recipes:', err);
     }
 }
+
 
 async function fetchCookingHacks(templateName, data, getProductList){
     try{
