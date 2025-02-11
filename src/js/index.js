@@ -798,9 +798,9 @@ function initializeRecipeFilter() {
 
   // Bind Events
   function bindEvents() {
-    document.querySelectorAll('.filBtn').forEach(button =>
-      button.addEventListener('click', handleFilterButtonClick)
-    );
+    // document.querySelectorAll('.filBtn').forEach(button =>
+    //   button.addEventListener('click', handleFilterButtonClick)
+    // );
 
     cuisineSelect.addEventListener('change', event => handleDropdownChange(event, 'cuisine'));
     dietaryNeedsSelect.addEventListener('change', event => handleDropdownChange(event, 'dietary'));
