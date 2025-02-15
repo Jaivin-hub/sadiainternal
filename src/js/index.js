@@ -1177,70 +1177,116 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const oneTrustCookieName = "OptanonConsent";
-
-  // Function to check if a specific cookie exists
-  function isCookieSet(cookieName) {
-    return document.cookie.split("; ").some((item) => item.startsWith(cookieName + "="));
+  const langPrefCookieName = "langpref";
+  
+  // Function to check if a specific cookie is set and contains a specific value
+  function isCookieValueSet(cookieName, value) {
+    const cookieMatch = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
+    return cookieMatch && cookieMatch[2].includes(value);
   }
-
-  // // Function to handle dropdown visibility
-  // function handleDropdownVisibility() {
-  //   const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
-  //   const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
-
-  //   if (!isCookieSet(oneTrustCookieName)) {
-  //     // Show the dropdown if the cookie is not set
-  //     if (dropdownParent && dropdownMenu) {
-  //       dropdownParent.classList.add("show");
-  //       dropdownMenu.classList.add("show");
-
-  //       const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
-  //       if (dropdownToggle) {
-  //         dropdownToggle.setAttribute("aria-expanded", "true");
-  //       }
-  //     }
-
-  //   } else {
-  //     // Hide the dropdown and set hover behavior if the cookie is set
-  //     if (dropdownParent && dropdownMenu) {
-  //       dropdownParent.classList.remove("show");
-  //       dropdownMenu.classList.remove("show");
-
-  //       const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
-  //       if (dropdownToggle) {
-  //         dropdownToggle.setAttribute("aria-expanded", "false");
-  //       }
-
-  //       // Add hover event to show dropdown
-  //       dropdownParent.addEventListener("mouseenter", () => {
-  //         dropdownParent.classList.add("show");
-  //         dropdownMenu.classList.add("show");
-  //       });
-
-  //       dropdownParent.addEventListener("mouseleave", () => {
-  //         dropdownParent.classList.remove("show");
-  //         dropdownMenu.classList.remove("show");
-  //       });
-  //     }
-  //   }
-  // }
-
-  // // Prevent navigation if the cookie is not set
-  // function preventNavigationIfNoCookie() {
-  //   const links = document.querySelectorAll(".navBox, .moreBtn"); // Select all relevant links
-  //   links.forEach((link) => {
-  //     link.addEventListener("click", function (event) {
-  //       if (!isCookieSet(oneTrustCookieName)) {
-  //         event.preventDefault(); // Prevent navigation
-  //         // alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
-  //       }
-  //     });
-  //   });
-  // }
-
-  // // Initialize
-  // handleDropdownVisibility();
-  // preventNavigationIfNoCookie();
+  
+  // Function to get the value of a specific cookie
+  function getCookieValue(cookieName) {
+    const cookieMatch = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
+    return cookieMatch ? cookieMatch[2] : null;
+  }
+  
+  // Function to set a cookie
+  function setCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/;`;
+  }
+  
+  // Function to handle language redirection
+  function handleLanguageRedirection() {
+    console.log('inside language redirection');
+    if (isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
+      console.log('inside the if condition C0003:1');
+      const langPref = getCookieValue(langPrefCookieName);
+      console.log('langPref:', langPref);
+  
+      // Check if no language slug is in the URL (homepage)
+      const pathname = window.location.pathname;
+      const isHomepage = pathname === '' || pathname === '/' || pathname === '/index.html';
+      console.log('isHomepage', isHomepage);
+  
+      // Redirect dynamically based on langPref
+      if (isHomepage && langPref) {
+        window.location.href = `/${langPref}`;
+      }
+    }
+  }
+  
+  // Function to handle dropdown visibility and navigation
+  function handleDropdownAndNavigation() {
+    const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
+    const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
+  
+    if (!isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
+      // Show the dropdown if cookies are not accepted
+      if (dropdownParent && dropdownMenu) {
+        dropdownParent.classList.add("show");
+        dropdownMenu.classList.add("show");
+  
+        const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+        if (dropdownToggle) {
+          dropdownToggle.setAttribute("aria-expanded", "true");
+        }
+      }
+  
+      // Prevent navigation if cookies are not accepted
+      const links = document.querySelectorAll(".navBox, .moreBtn");
+      links.forEach((link) => {
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+        });
+      });
+    } else {
+      // Hide dropdown and enable hover behavior if cookies are accepted
+      if (dropdownParent && dropdownMenu) {
+        dropdownParent.classList.remove("show");
+        dropdownMenu.classList.remove("show");
+  
+        const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+        if (dropdownToggle) {
+          dropdownToggle.setAttribute("aria-expanded", "false");
+        }
+  
+        dropdownParent.addEventListener("mouseenter", () => {
+          dropdownParent.classList.add("show");
+          dropdownMenu.classList.add("show");
+        });
+  
+        dropdownParent.addEventListener("mouseleave", () => {
+          dropdownParent.classList.remove("show");
+          dropdownMenu.classList.remove("show");
+        });
+      }
+    }
+  }
+  
+  // Function to set langpref on region selection
+  function handleRegionSelection() {
+    const regionLinks = document.querySelectorAll(".dropdown-menu a");
+  
+    regionLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const selectedRegion = link.getAttribute("data-country-code");
+        console.log('selectedRegion',selectedRegion)
+        if (isCookieValueSet(oneTrustCookieName, 'C0001:1')) {
+          setCookie(langPrefCookieName, selectedRegion, 365); // Set langpref for 1 year
+          window.location.href = `/${selectedRegion}`;
+        }
+      });
+    });
+  }
+  
+  // Initialize functions
+  handleLanguageRedirection();
+  handleDropdownAndNavigation();
+  handleRegionSelection();
+  
 
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
