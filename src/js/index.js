@@ -1199,11 +1199,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Function to handle language redirection
   function handleLanguageRedirection() {
-    console.log('inside language redirection');
     if (isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
-      console.log('inside the if condition C0003:1');
       const langPref = getCookieValue(langPrefCookieName);
-      console.log('langPref:', langPref);
   
       // Check if no language slug is in the URL (homepage)
       const pathname = window.location.pathname;
@@ -1222,9 +1219,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
     const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
   
+    // Check if the current page is the homepage
+    const pathname = window.location.pathname;
+    const isHomepage = pathname === '' || pathname === '/' || pathname === '/index.html';
+  
     if (!isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
-      // Show the dropdown if cookies are not accepted
-      if (dropdownParent && dropdownMenu) {
+      // Show the dropdown only if cookies are not accepted AND it's the homepage
+      if (isHomepage && dropdownParent && dropdownMenu) {
         dropdownParent.classList.add("show");
         dropdownMenu.classList.add("show");
   
@@ -1681,48 +1682,56 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDropdownApiCall(type, dropdown, apiEndpoint, buttonElement, searchInput) {
       let limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
       let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
-
-
-      function updateAndFetch(keyword = '') {
-        const selectedValue = dropdown.value; // Get the latest selected value
-        if (type === 'online') {
-          fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
-        } else if (type === 'instore') {
-          const fullApiUrl = `${apiEndpoint}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
-          initializeWhereToBuyMapbox(fullApiUrl);
-        }
+  
+      // Retrieve saved value from localStorage
+      const savedValue = localStorage.getItem('selectedDropdown');
+      if (savedValue) {
+          dropdown.value = savedValue; // Set the saved value as the selected option
       }
-
+  
+      function updateAndFetch(keyword = '') {
+          const selectedValue = dropdown.value; // Get the latest selected value
+          localStorage.setItem('selectedDropdown', selectedValue); // Save to localStorage
+  
+          if (type === 'online') {
+              fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
+          } else if (type === 'instore') {
+              const fullApiUrl = `${apiEndpoint}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
+              initializeWhereToBuyMapbox(fullApiUrl);
+          }
+      }
+  
       // Event listener for dropdown change
       dropdown.addEventListener('change', () => {
-        offset = 0; // Reset offset
-        buttonElement?.setAttribute('data-offset', '0');
-        showMoreClicked = false;
-        updateAndFetch();
-      });
-
-      // Event listener for "Show More" button
-      buttonElement?.addEventListener('click', (event) => {
-        event.preventDefault();
-        showMoreClicked = true;
-        offset += limit;
-        buttonElement.setAttribute('data-offset', offset.toString());
-        updateAndFetch();
-      });
-
-      // Event listener for search input
-      searchInput?.addEventListener('input', () => {
-        if (searchInput.value.length >= 3) {
           offset = 0; // Reset offset
           buttonElement?.setAttribute('data-offset', '0');
           showMoreClicked = false;
-          updateAndFetch(searchInput.value);
-        }
+          updateAndFetch();
       });
-
-      // Initial API call
+  
+      // Event listener for "Show More" button
+      buttonElement?.addEventListener('click', (event) => {
+          event.preventDefault();
+          showMoreClicked = true;
+          offset += limit;
+          buttonElement.setAttribute('data-offset', offset.toString());
+          updateAndFetch();
+      });
+  
+      // Event listener for search input
+      searchInput?.addEventListener('input', () => {
+          if (searchInput.value.length >= 3) {
+              offset = 0; // Reset offset
+              buttonElement?.setAttribute('data-offset', '0');
+              showMoreClicked = false;
+              updateAndFetch(searchInput.value);
+          }
+      });
+  
+      // Initial API call with saved value
       updateAndFetch();
-    }
+  }
+  
 
     // Online Stores Dropdown
     const onlineDropdown = document.querySelector('.form-select#countryselect');
