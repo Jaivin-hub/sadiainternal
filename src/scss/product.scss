@@ -342,7 +342,13 @@
                 margin-top: auto !important;
             }
         }
-    }  
+    } 
+
+    .horizontal-scroll{
+        .card{
+            width: calc(100% / 3);
+        }
+    }   
 
 }
 
@@ -373,13 +379,27 @@
         }
         .horizontal-scroll{
             padding-bottom: 0;
+            .card{
+                flex: 0 0 auto;
+                width: 85%;
+            }
         }
     }
 
 
 }
 
+@media (max-width: 480px) {
 
+    .trendingWraper{
+        .horizontal-scroll{
+            .card {
+                width: 90%;
+            }
+        }
+    }
+    
+}
 
 
 // PRODUCT-FILTER START
