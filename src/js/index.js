@@ -558,6 +558,8 @@ function initializeRecipeFilter() {
   function prepareRequestData(keyword = '', recipeSelectedValue = '') {
     let urlParamsData = new URLSearchParams(window.location.search);
     mealTypeData = urlParamsData.get('meal');
+    console.log('here is the request',mealTypeData);
+    console.log('selectedMealType',selectedMealType)
     selectedDifficultyData = urlParamsData.get('diff');
     preparationTime = urlParamsData.get('preTime');
     selectedCuisineData = urlParamsData.get('cuis');
@@ -619,11 +621,11 @@ function initializeRecipeFilter() {
   }
 
   // Event Handlers
-  // function handleFilterButtonClick(event) {
-  //   document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
-  //   event.target.classList.add('active');
-  //   selectedMealType = event.target.getAttribute('data-id');
-  // }
+  function handleFilterButtonClick(event) {
+    // document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    selectedMealType = event.target.getAttribute('data-id');
+  }
 
   document.addEventListener("click", function (event) {
     // Ensure the clicked element is a filter button
@@ -798,9 +800,9 @@ function initializeRecipeFilter() {
 
   // Bind Events
   function bindEvents() {
-    // document.querySelectorAll('.filBtn').forEach(button =>
-    //   button.addEventListener('click', handleFilterButtonClick)
-    // );
+    document.querySelectorAll('.filBtn').forEach(button =>
+      button.addEventListener('click', handleFilterButtonClick)
+    );
 
     cuisineSelect.addEventListener('change', event => handleDropdownChange(event, 'cuisine'));
     dietaryNeedsSelect.addEventListener('change', event => handleDropdownChange(event, 'dietary'));
@@ -1274,7 +1276,6 @@ document.addEventListener('DOMContentLoaded', () => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const selectedRegion = link.getAttribute("data-country-code");
-        console.log('selectedRegion',selectedRegion)
         if (isCookieValueSet(oneTrustCookieName, 'C0001:1')) {
           setCookie(langPrefCookieName, selectedRegion, 365); // Set langpref for 1 year
           window.location.href = `/${selectedRegion}`;
