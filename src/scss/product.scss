@@ -920,8 +920,14 @@
                         flex-direction: column;
                         justify-content: center;
                         margin-bottom: 15px;
+                        .range-filter{
+                            margin: 0;
+                            padding: 0;
+                            max-width: 76px;
+                            width: 100%;
+                        }
                         .icons{
-                            max-height: 22px;
+                            height: 24px;
                             width: auto;
                         }
                         .titles{
@@ -929,7 +935,7 @@
                             line-height: 22px;
                             color: $black-color;
                             font-weight: 600;
-                            margin: 10px 0 0;
+                            margin: 13px 0 0;
                             font-family: $primary-font;
                             padding: 0;
                         }
@@ -1060,8 +1066,8 @@
 .rldPrdct-slider{
     .scrl_cards{
         .slick-slide {
-            max-width: 28.3vw !important;
-            width: 28.3vw;
+            max-width: 30vw !important;
+            width: 100%;
             margin-right: 20px;
         }
     }
@@ -1097,8 +1103,17 @@
 
 
 
+@media (max-width: 991px) {
 
+    .prdctDetailwrap{
+        .prdctInfo-wrap{
+            padding-left: 0px; 
+            padding-right: 0px; 
 
+        }
+    } 
+
+}
 @media (max-width: 767px) {
     .trendingWraper{
         &.prdctDtl{
@@ -1217,6 +1232,27 @@
 
 }
 
+@media (max-width: 420px) {
 
+    .prdctDetailwrap{
+        .prdctInfo-wrap{
+            &.recipies{
+                .dtlsWraper{
+                    .boxGrids{
+                        .divSect{
+                            width: 33.3% !important;
+                            padding: 0 1.3%;
+                            .titles{
+                                font-family: $title-font;
+                            }
+                        }
+                    }
+                }
+            }
+           
+        }
+    }   
+
+}
 
 // PRODUCT-DETAIL END
