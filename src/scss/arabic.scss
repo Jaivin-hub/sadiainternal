@@ -4,7 +4,14 @@
 
 
 html[dir="rtl"]{
+
     font-size:14px;
+
+    body{
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility
+    }
 
 
     dt {
@@ -375,6 +382,22 @@ html[dir="rtl"]{
         .contactSect{
             padding-right: 5% !important;
             padding-left: calc(var(--bs-gutter-x)*.5) !important;
+            .contInfo{
+                li{
+                    a{
+                        display: inline-block;
+                    }
+                    strong{
+                        direction: ltr;
+                        unicode-bidi: bidi-override;
+                    }
+                    .icons{
+                        .cont-icon{
+                            transform: scaleX(-1);
+                        }
+                    }
+                }
+            }
         }
     }
     .faqWraper{
