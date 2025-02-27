@@ -311,8 +311,8 @@ function toggleRecipeSections() {
     if (!event.target.classList.contains("filBtn")) return;
 
     // Find the closest parent filter container (either .categ_filter or .categ_filter.filterWrap)
-    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") || 
-                              event.target.closest(".categ_filter");
+    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") ||
+      event.target.closest(".categ_filter");
 
     if (!parentFilterSection) return; // Safety check
 
@@ -324,7 +324,7 @@ function toggleRecipeSections() {
 
     // Store the selected filter value (optional)
     window.selectedMealType = event.target.getAttribute("data-id") || event.target.getAttribute("data-umb-id");
-});
+  });
 
 
 
@@ -531,7 +531,7 @@ function initializeRecipeFilter() {
   // DOM Elements
   const submitButton = document.querySelector('#submit-button');
   const cuisineSelect = document.querySelector('#cuisineselect');
-  console.log('cuisineSelect==',cuisineSelect)
+  console.log('cuisineSelect==', cuisineSelect)
   const dietaryNeedsSelect = document.querySelector('#dietary-needs');
   const occasionSelect = document.querySelector('#occasion');
   const preparationSelect = document.querySelector('#preparation-style');
@@ -558,8 +558,8 @@ function initializeRecipeFilter() {
   function prepareRequestData(keyword = '', recipeSelectedValue = '') {
     let urlParamsData = new URLSearchParams(window.location.search);
     mealTypeData = urlParamsData.get('meal');
-    console.log('here is the request',mealTypeData);
-    console.log('selectedMealType',selectedMealType)
+    console.log('here is the request', mealTypeData);
+    console.log('selectedMealType', selectedMealType)
     selectedDifficultyData = urlParamsData.get('diff');
     preparationTime = urlParamsData.get('preTime');
     selectedCuisineData = urlParamsData.get('cuis');
@@ -571,7 +571,7 @@ function initializeRecipeFilter() {
       mealType: mealTypeData ? mealTypeData : selectedMealType,
       cuisine: selectedCuisineData ? selectedCuisineData : selectedCuisine,
       difficulty: selectedDifficultyData ? selectedDifficultyData : difficulties,
-      prepTime: preparationTime ? preparationTime :  selectedPrepTime,
+      prepTime: preparationTime ? preparationTime : selectedPrepTime,
       dietaryNeeds: selectedDietaryNeedsData ? selectedDietaryNeedsData : selectedDietaryNeeds,
       occasion: selectedOccasionData ? selectedOccasionData : selectedOccasion,
       preparationStyle: preparationStyleData ? preparationStyleData : preparationStyle,
@@ -632,8 +632,8 @@ function initializeRecipeFilter() {
     if (!event.target.classList.contains("filBtn")) return;
 
     // Find the closest parent filter container (either .categ_filter or .categ_filter.filterWrap)
-    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") || 
-                              event.target.closest(".categ_filter");
+    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") ||
+      event.target.closest(".categ_filter");
 
     if (!parentFilterSection) return; // Safety check
 
@@ -645,7 +645,7 @@ function initializeRecipeFilter() {
 
     // Store the selected filter value (optional)
     window.selectedMealType = event.target.getAttribute("data-id") || event.target.getAttribute("data-umb-id");
-});
+  });
 
   function handleDropdownChange(event, type) {
     const value = event.target.value;
@@ -1178,130 +1178,130 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
-  const oneTrustCookieName = "OptanonConsent";
-  const langPrefCookieName = "langpref";
-  
-  // Function to check if a specific cookie is set and contains a specific value
-  function isCookieValueSet(cookieName, value) {
-    const cookieMatch = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
-    return cookieMatch && cookieMatch[2].includes(value);
-  }
-  
-  // Function to get the value of a specific cookie
-  function getCookieValue(cookieName) {
-    const cookieMatch = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
-    return cookieMatch ? cookieMatch[2] : null;
-  }
-  
-  // Function to set a cookie
-  function setCookie(name, value, days) {
-    const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
-    document.cookie = `${name}=${value}; expires=${expires}; path=/; Secure; SameSite=Strict`;
-}
+  // const oneTrustCookieName = "OptanonConsent";
+  // const langPrefCookieName = "langpref";
 
-  
-  // Function to handle language redirection
-  function handleLanguageRedirection() {
-    if (isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
-      const langPref = getCookieValue(langPrefCookieName);
-  
-      // Check if no language slug is in the URL (homepage)
-      const pathname = window.location.pathname;
-      const isHomepage = pathname === '' || pathname === '/' || pathname === '/index.html';
-      console.log('isHomepage', isHomepage);
-  
-      // Redirect dynamically based on langPref
-      if (isHomepage && langPref) {
-        window.location.href = `/${langPref}`;
-      }
-    }
-  }
-  
-  // Function to handle dropdown visibility and navigation
-  function handleDropdownAndNavigation() {
-    const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
-    const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
-  
-    // Check if the current page is the homepage
-    const pathname = window.location.pathname;
-    const isHomepage = pathname === '' || pathname === '/' || pathname === '/index.html';
-  
-    if (!isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
-      // Show the dropdown only if cookies are not accepted AND it's the homepage
-      if (isHomepage && dropdownParent && dropdownMenu) {
-        dropdownParent.classList.add("show");
-        dropdownMenu.classList.add("show");
-  
-        const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
-        if (dropdownToggle) {
-          dropdownToggle.setAttribute("aria-expanded", "true");
-        }
-      }
-  
-      // Prevent navigation if cookies are not accepted
-      const links = document.querySelectorAll(".navBox, .moreBtn");
-      links.forEach((link) => {
-        link.addEventListener("click", function (event) {
-          event.preventDefault();
-        });
-      });
-    } else {
-      // Hide dropdown and enable hover behavior if cookies are accepted
-      if (dropdownParent && dropdownMenu) {
-        dropdownParent.classList.remove("show");
-        dropdownMenu.classList.remove("show");
-  
-        const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
-        if (dropdownToggle) {
-          dropdownToggle.setAttribute("aria-expanded", "false");
-        }
-  
-        dropdownParent.addEventListener("mouseenter", () => {
-          dropdownParent.classList.add("show");
-          dropdownMenu.classList.add("show");
-        });
-  
-        dropdownParent.addEventListener("mouseleave", () => {
-          dropdownParent.classList.remove("show");
-          dropdownMenu.classList.remove("show");
-        });
-      }
-    }
-  }
-  
-  // Function to set langpref on region selection
-  function handleRegionSelection() {
-    const regionLinks = document.querySelectorAll(".dropdown-menu a");
-  
-    regionLinks.forEach((link) => {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        const selectedRegion = link.getAttribute("data-country-code");
-        if (isCookieValueSet(oneTrustCookieName, 'C0001:1')) {
-          setCookie(langPrefCookieName, selectedRegion, 365); // Set langpref for 1 year
-          window.location.href = `/${selectedRegion}`;
-        }
-      });
-    });
-  }
-  
-  // Initialize functions
-  handleLanguageRedirection();
-  handleDropdownAndNavigation();
-  handleRegionSelection();
-  
+  // // Function to check if a specific cookie is set and contains a specific value
+  // function isCookieValueSet(cookieName, value) {
+  //   const cookieMatch = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
+  //   return cookieMatch && cookieMatch[2].includes(value);
+  // }
+
+  // // Function to get the value of a specific cookie
+  // function getCookieValue(cookieName) {
+  //   const cookieMatch = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
+  //   return cookieMatch ? cookieMatch[2] : null;
+  // }
+
+  // // Function to set a cookie
+  // function setCookie(name, value, days) {
+  //   const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+  //   document.cookie = `${name}=${value}; expires=${expires}; path=/; Secure; SameSite=Strict`;
+  // }
+
+
+  // // Function to handle language redirection
+  // function handleLanguageRedirection() {
+  //   if (isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
+  //     const langPref = getCookieValue(langPrefCookieName);
+
+  //     // Check if no language slug is in the URL (homepage)
+  //     const pathname = window.location.pathname;
+  //     const isHomepage = pathname === '' || pathname === '/' || pathname === '/index.html';
+  //     console.log('isHomepage', isHomepage);
+
+  //     // Redirect dynamically based on langPref
+  //     if (isHomepage && langPref) {
+  //       window.location.href = `/${langPref}`;
+  //     }
+  //   }
+  // }
+
+  // // Function to handle dropdown visibility and navigation
+  // function handleDropdownAndNavigation() {
+  //   const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
+  //   const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
+
+  //   // Check if the current page is the homepage
+  //   const pathname = window.location.pathname;
+  //   const isHomepage = pathname === '' || pathname === '/' || pathname === '/index.html';
+
+  //   if (!isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
+  //     // Show the dropdown only if cookies are not accepted AND it's the homepage
+  //     if (isHomepage && dropdownParent && dropdownMenu) {
+  //       dropdownParent.classList.add("show");
+  //       dropdownMenu.classList.add("show");
+
+  //       const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+  //       if (dropdownToggle) {
+  //         dropdownToggle.setAttribute("aria-expanded", "true");
+  //       }
+  //     }
+
+  //     // Prevent navigation if cookies are not accepted
+  //     const links = document.querySelectorAll(".navBox, .moreBtn");
+  //     links.forEach((link) => {
+  //       link.addEventListener("click", function (event) {
+  //         event.preventDefault();
+  //       });
+  //     });
+  //   } else {
+  //     // Hide dropdown and enable hover behavior if cookies are accepted
+  //     if (dropdownParent && dropdownMenu) {
+  //       dropdownParent.classList.remove("show");
+  //       dropdownMenu.classList.remove("show");
+
+  //       const dropdownToggle = dropdownParent.querySelector("[data-bs-toggle='dropdown']");
+  //       if (dropdownToggle) {
+  //         dropdownToggle.setAttribute("aria-expanded", "false");
+  //       }
+
+  //       dropdownParent.addEventListener("mouseenter", () => {
+  //         dropdownParent.classList.add("show");
+  //         dropdownMenu.classList.add("show");
+  //       });
+
+  //       dropdownParent.addEventListener("mouseleave", () => {
+  //         dropdownParent.classList.remove("show");
+  //         dropdownMenu.classList.remove("show");
+  //       });
+  //     }
+  //   }
+  // }
+
+  // // Function to set langpref on region selection
+  // function handleRegionSelection() {
+  //   const regionLinks = document.querySelectorAll(".dropdown-menu a");
+
+  //   regionLinks.forEach((link) => {
+  //     link.addEventListener("click", (event) => {
+  //       event.preventDefault();
+  //       const selectedRegion = link.getAttribute("data-country-code");
+  //       if (isCookieValueSet(oneTrustCookieName, 'C0001:1')) {
+  //         setCookie(langPrefCookieName, selectedRegion, 365); // Set langpref for 1 year
+  //         window.location.href = `/${selectedRegion}`;
+  //       }
+  //     });
+  //   });
+  // }
+
+  // // Initialize functions
+  // handleLanguageRedirection();
+  // handleDropdownAndNavigation();
+  // handleRegionSelection();
+
 
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
   const carouselItems = document.querySelectorAll('.carousel-inner .carousel-item');
-  console.log('indicators',indicators)
-  console.log('carouselItems',carouselItems)
+  console.log('indicators', indicators)
+  console.log('carouselItems', carouselItems)
   if (indicators.length > 0 && carouselItems.length > 0) {
     const idFromUrl = window.location.hash.substring(1);
-    console.log('idFromUrl',idFromUrl)
+    console.log('idFromUrl', idFromUrl)
     indicators.forEach((indicator, index) => {
       const dataKey = indicator.getAttribute('data-key');
-      console.log('dataKey',dataKey)
+      console.log('dataKey', dataKey)
       if (dataKey === idFromUrl) {
         console.log('inside the function')
         // Remove 'active' class from all indicators and carousel items
@@ -1696,56 +1696,56 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDropdownApiCall(type, dropdown, apiEndpoint, buttonElement, searchInput) {
       let limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
       let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
-  
+
       // Retrieve saved value from localStorage
       const savedValue = localStorage.getItem('selectedDropdown');
       if (savedValue) {
-          dropdown.value = savedValue; // Set the saved value as the selected option
+        dropdown.value = savedValue; // Set the saved value as the selected option
       }
-  
+
       function updateAndFetch(keyword = '') {
-          const selectedValue = dropdown.value; // Get the latest selected value
-          localStorage.setItem('selectedDropdown', selectedValue); // Save to localStorage
-  
-          if (type === 'online') {
-              fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
-          } else if (type === 'instore') {
-              const fullApiUrl = `${apiEndpoint}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
-              initializeWhereToBuyMapbox(fullApiUrl);
-          }
+        const selectedValue = dropdown.value; // Get the latest selected value
+        localStorage.setItem('selectedDropdown', selectedValue); // Save to localStorage
+
+        if (type === 'online') {
+          fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
+        } else if (type === 'instore') {
+          const fullApiUrl = `${apiEndpoint}?countryId=${selectedValue}&keyword=${encodeURIComponent(keyword)}`;
+          initializeWhereToBuyMapbox(fullApiUrl);
+        }
       }
-  
+
       // Event listener for dropdown change
       dropdown.addEventListener('change', () => {
+        offset = 0; // Reset offset
+        buttonElement?.setAttribute('data-offset', '0');
+        showMoreClicked = false;
+        updateAndFetch();
+      });
+
+      // Event listener for "Show More" button
+      buttonElement?.addEventListener('click', (event) => {
+        event.preventDefault();
+        showMoreClicked = true;
+        offset += limit;
+        buttonElement.setAttribute('data-offset', offset.toString());
+        updateAndFetch();
+      });
+
+      // Event listener for search input
+      searchInput?.addEventListener('input', () => {
+        if (searchInput.value.length >= 3) {
           offset = 0; // Reset offset
           buttonElement?.setAttribute('data-offset', '0');
           showMoreClicked = false;
-          updateAndFetch();
+          updateAndFetch(searchInput.value);
+        }
       });
-  
-      // Event listener for "Show More" button
-      buttonElement?.addEventListener('click', (event) => {
-          event.preventDefault();
-          showMoreClicked = true;
-          offset += limit;
-          buttonElement.setAttribute('data-offset', offset.toString());
-          updateAndFetch();
-      });
-  
-      // Event listener for search input
-      searchInput?.addEventListener('input', () => {
-          if (searchInput.value.length >= 3) {
-              offset = 0; // Reset offset
-              buttonElement?.setAttribute('data-offset', '0');
-              showMoreClicked = false;
-              updateAndFetch(searchInput.value);
-          }
-      });
-  
+
       // Initial API call with saved value
       updateAndFetch();
-  }
-  
+    }
+
 
     // Online Stores Dropdown
     const onlineDropdown = document.querySelector('.form-select#countryselect');
