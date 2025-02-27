@@ -1196,8 +1196,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to set a cookie
   function setCookie(name, value, days) {
     const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
-    document.cookie = `${name}=${value}; expires=${expires}; path=/;`;
-  }
+    document.cookie = `${name}=${value}; expires=${expires}; path=/; Secure; SameSite=Strict`;
+}
+
   
   // Function to handle language redirection
   function handleLanguageRedirection() {
@@ -1292,16 +1293,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
-  if (indicators) {
+  const carouselItems = document.querySelectorAll('.carousel-inner .carousel-item');
+  console.log('indicators',indicators)
+  console.log('carouselItems',carouselItems)
+  if (indicators.length > 0 && carouselItems.length > 0) {
     const idFromUrl = window.location.hash.substring(1);
-    // Loop through indicators to find the matching data-key
-    indicators.forEach(indicator => {
+    console.log('idFromUrl',idFromUrl)
+    indicators.forEach((indicator, index) => {
       const dataKey = indicator.getAttribute('data-key');
+      console.log('dataKey',dataKey)
       if (dataKey === idFromUrl) {
-        // Remove active class from all items
+        console.log('inside the function')
+        // Remove 'active' class from all indicators and carousel items
         indicators.forEach(item => item.classList.remove('active'));
-        // Add active class to the matching item
+        carouselItems.forEach(item => item.classList.remove('active'));
+
+        // Add 'active' class to the matching indicator and carousel item
         indicator.classList.add('active');
+        if (carouselItems[index]) { // Ensure the item exists before accessing classList
+          carouselItems[index].classList.add('active');
+        }
+
+        // Scroll to the selected indicator smoothly
         indicator.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     });
