@@ -531,7 +531,6 @@ function initializeRecipeFilter() {
   // DOM Elements
   const submitButton = document.querySelector('#submit-button');
   const cuisineSelect = document.querySelector('#cuisineselect');
-  console.log('cuisineSelect==', cuisineSelect)
   const dietaryNeedsSelect = document.querySelector('#dietary-needs');
   const occasionSelect = document.querySelector('#occasion');
   const preparationSelect = document.querySelector('#preparation-style');
@@ -558,8 +557,6 @@ function initializeRecipeFilter() {
   function prepareRequestData(keyword = '', recipeSelectedValue = '') {
     let urlParamsData = new URLSearchParams(window.location.search);
     mealTypeData = urlParamsData.get('meal');
-    console.log('here is the request', mealTypeData);
-    console.log('selectedMealType', selectedMealType)
     selectedDifficultyData = urlParamsData.get('diff');
     preparationTime = urlParamsData.get('preTime');
     selectedCuisineData = urlParamsData.get('cuis');
@@ -1294,16 +1291,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
   const carouselItems = document.querySelectorAll('.carousel-inner .carousel-item');
-  console.log('indicators', indicators)
-  console.log('carouselItems', carouselItems)
   if (indicators.length > 0 && carouselItems.length > 0) {
     const idFromUrl = window.location.hash.substring(1);
-    console.log('idFromUrl', idFromUrl)
     indicators.forEach((indicator, index) => {
       const dataKey = indicator.getAttribute('data-key');
-      console.log('dataKey', dataKey)
       if (dataKey === idFromUrl) {
-        console.log('inside the function')
         // Remove 'active' class from all indicators and carousel items
         indicators.forEach(item => item.classList.remove('active'));
         carouselItems.forEach(item => item.classList.remove('active'));

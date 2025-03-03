@@ -12,16 +12,20 @@
                             </div>
                         </a>
                         <div class="moreDtls">
+                            \{{#preparationTime}}
                             <div class="icCont">
                                 <span class="icons"><img src="./assets/images/icons/clock.svg" loading="lazy"
                                         class="img-fluid" alt="clock"></span>
                                 <p>\{{preparationTime}}</p>
                             </div>
+                            \{{/preparationTime}}
+                            \{{#serving}}
                             <div class="icCont">
                                 <span class="icons"><img src="./assets/images/icons/people-group.svg" loading="lazy"
                                         class="img-fluid" alt="clock"></span>
                                 <p>\{{serving}}</p>
                             </div>
+                            \{{/serving}}
                         </div>
                     </div>
                 </div>
