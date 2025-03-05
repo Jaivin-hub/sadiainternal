@@ -8,6 +8,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Arabic Meta Tags -->
+<meta name="title" content="وصفات رمضان وعروض حصرية | استمتع بمذاق مميز مع ساديا">
+<meta name="description" content="اكتشف أشهى وصفات رمضان، وأفكار وجبات الإفطار والسحور، مع عروض حصرية لجعل مائدتك مميزة">
+<meta property="og:title" content="وصفات رمضان وعروض حصرية | استمتع بمذاق مميز مع ساديا">
+<meta property="og:description" content="اكتشف أشهى وصفات رمضان، وأفكار وجبات الإفطار والسحور، مع عروض حصرية لجعل مائدتك مميزة">
+<meta property="og:locale" content="ar_AR">
+<meta name="twitter:title" content="وصفات رمضان وعروض حصرية | استمتع بمذاق مميز مع ساديا">
+<meta name="twitter:description" content="اكتشف أشهى وصفات رمضان، وأفكار وجبات الإفطار والسحور، مع عروض حصرية لجعل مائدتك مميزة">
+
+<!-- English Meta Tags -->
+<meta name="title" content="Delicious Ramadan Recipes & Exclusive Offers | Savour the Taste with Sadia">
+<meta name="description" content="Explore a variety of flavourful Ramadan recipes, from Iftar to Suhoor, enjoy exclusive offers to make every meal special and share the joy of Ramadan with your loved ones.">
+<meta property="og:title" content="Delicious Ramadan Recipes & Exclusive Offers | Savour the Taste with Sadia">
+<meta property="og:description" content="Explore a variety of flavourful Ramadan recipes, from Iftar to Suhoor, enjoy exclusive offers to make every meal special and share the joy of Ramadan with your loved ones.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="Delicious Ramadan Recipes & Exclusive Offers | Savour the Taste with Sadia">
+<meta name="twitter:description" content="Explore a variety of flavourful Ramadan recipes, from Iftar to Suhoor, enjoy exclusive offers to make every meal special and share the joy of Ramadan with your loved ones.">
+
+<!-- Open Graph (OG) Common Tags -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourwebsite.com">
+<meta property="og:image" content="https://yourwebsite.com/images/ramadan-banner.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yourwebsite.com/images/ramadan-banner.jpg">
 
   {{!-- FONT START --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,7 +88,7 @@
       const date = new Date();
       date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000); // Convert days to milliseconds
       const expires = "expires=" + date.toUTCString();
-      document.cookie = `${name}=${value}; ${expires}; path=/; Secure; SameSite=Strict`;
+      document.cookie = `${name}=${value}; expires=${new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()}; path=/; Secure; SameSite=Strict`;
     }
   </script>
 

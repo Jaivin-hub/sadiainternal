@@ -414,7 +414,7 @@ const initializeSlick = () => {
 
       // Show the previous button after the first scroll (forward or backward)
       $(".thumbnail-slider").on("afterChange", (event, slick, currentSlide) => {
-        const totalSlides = slick.slideCount;
+        const totalSlides = slick?.slideCount;
 
         // Show/hide the previous button
         if (currentSlide > 0) {
@@ -628,7 +628,7 @@ const initializeNewSlider = () => {
 
       // Arrow state logic
       $mainSlider.on('afterChange', function (event, slick, currentSlide) {
-        const totalSlides = slick.slideCount;
+        const totalSlides = slick?.slideCount;
         const lastSlideIndex = totalSlides - 1; // Last slide index (for 2020)
         const slidesToShow = slick.options.slidesToShow;
 

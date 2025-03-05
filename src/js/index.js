@@ -311,8 +311,8 @@ function toggleRecipeSections() {
     if (!event.target.classList.contains("filBtn")) return;
 
     // Find the closest parent filter container (either .categ_filter or .categ_filter.filterWrap)
-    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") || 
-                              event.target.closest(".categ_filter");
+    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") ||
+      event.target.closest(".categ_filter");
 
     if (!parentFilterSection) return; // Safety check
 
@@ -324,7 +324,7 @@ function toggleRecipeSections() {
 
     // Store the selected filter value (optional)
     window.selectedMealType = event.target.getAttribute("data-id") || event.target.getAttribute("data-umb-id");
-});
+  });
 
 
 
@@ -531,7 +531,6 @@ function initializeRecipeFilter() {
   // DOM Elements
   const submitButton = document.querySelector('#submit-button');
   const cuisineSelect = document.querySelector('#cuisineselect');
-  console.log('cuisineSelect==',cuisineSelect)
   const dietaryNeedsSelect = document.querySelector('#dietary-needs');
   const occasionSelect = document.querySelector('#occasion');
   const preparationSelect = document.querySelector('#preparation-style');
@@ -569,7 +568,7 @@ function initializeRecipeFilter() {
       mealType: mealTypeData ? mealTypeData : selectedMealType,
       cuisine: selectedCuisineData ? selectedCuisineData : selectedCuisine,
       difficulty: selectedDifficultyData ? selectedDifficultyData : difficulties,
-      prepTime: preparationTime ? preparationTime :  selectedPrepTime,
+      prepTime: preparationTime ? preparationTime : selectedPrepTime,
       dietaryNeeds: selectedDietaryNeedsData ? selectedDietaryNeedsData : selectedDietaryNeeds,
       occasion: selectedOccasionData ? selectedOccasionData : selectedOccasion,
       preparationStyle: preparationStyleData ? preparationStyleData : preparationStyle,
@@ -619,19 +618,19 @@ function initializeRecipeFilter() {
   }
 
   // Event Handlers
-  // function handleFilterButtonClick(event) {
-  //   document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
-  //   event.target.classList.add('active');
-  //   selectedMealType = event.target.getAttribute('data-id');
-  // }
+  function handleFilterButtonClick(event) {
+    // document.querySelectorAll('.filBtn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    selectedMealType = event.target.getAttribute('data-id');
+  }
 
   document.addEventListener("click", function (event) {
     // Ensure the clicked element is a filter button
     if (!event.target.classList.contains("filBtn")) return;
 
     // Find the closest parent filter container (either .categ_filter or .categ_filter.filterWrap)
-    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") || 
-                              event.target.closest(".categ_filter");
+    let parentFilterSection = event.target.closest(".categ_filter.filterWrap") ||
+      event.target.closest(".categ_filter");
 
     if (!parentFilterSection) return; // Safety check
 
@@ -643,7 +642,7 @@ function initializeRecipeFilter() {
 
     // Store the selected filter value (optional)
     window.selectedMealType = event.target.getAttribute("data-id") || event.target.getAttribute("data-umb-id");
-});
+  });
 
   function handleDropdownChange(event, type) {
     const value = event.target.value;
@@ -1176,21 +1175,57 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
-  const oneTrustCookieName = "OptanonConsent";
+  // const oneTrustCookieName = "OptanonConsent";
+  // const langPrefCookieName = "langpref";
 
-  // Function to check if a specific cookie exists
-  function isCookieSet(cookieName) {
-    return document.cookie.split("; ").some((item) => item.startsWith(cookieName + "="));
-  }
+  // // Function to check if a specific cookie is set and contains a specific value
+  // function isCookieValueSet(cookieName, value) {
+  //   const cookieMatch = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
+  //   return cookieMatch && cookieMatch[2].includes(value);
+  // }
 
-  // // Function to handle dropdown visibility
-  // function handleDropdownVisibility() {
+  // // Function to get the value of a specific cookie
+  // function getCookieValue(cookieName) {
+  //   const cookieMatch = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
+  //   return cookieMatch ? cookieMatch[2] : null;
+  // }
+
+  // // Function to set a cookie
+  // function setCookie(name, value, days) {
+  //   const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+  //   document.cookie = `${name}=${value}; expires=${expires}; path=/; Secure; SameSite=Strict`;
+  // }
+
+
+  // // Function to handle language redirection
+  // function handleLanguageRedirection() {
+  //   if (isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
+  //     const langPref = getCookieValue(langPrefCookieName);
+
+  //     // Check if no language slug is in the URL (homepage)
+  //     const pathname = window.location.pathname;
+  //     const isHomepage = pathname === '' || pathname === '/' || pathname === '/index.html';
+  //     console.log('isHomepage', isHomepage);
+
+  //     // Redirect dynamically based on langPref
+  //     if (isHomepage && langPref) {
+  //       window.location.href = `/${langPref}`;
+  //     }
+  //   }
+  // }
+
+  // // Function to handle dropdown visibility and navigation
+  // function handleDropdownAndNavigation() {
   //   const dropdownParent = document.querySelector(".nav-item.dropdown.target-dropdown");
   //   const dropdownMenu = dropdownParent?.querySelector(".dropdown-menu");
 
-  //   if (!isCookieSet(oneTrustCookieName)) {
-  //     // Show the dropdown if the cookie is not set
-  //     if (dropdownParent && dropdownMenu) {
+  //   // Check if the current page is the homepage
+  //   const pathname = window.location.pathname;
+  //   const isHomepage = pathname === '' || pathname === '/' || pathname === '/index.html';
+
+  //   if (!isCookieValueSet(oneTrustCookieName, 'C0003:1')) {
+  //     // Show the dropdown only if cookies are not accepted AND it's the homepage
+  //     if (isHomepage && dropdownParent && dropdownMenu) {
   //       dropdownParent.classList.add("show");
   //       dropdownMenu.classList.add("show");
 
@@ -1200,8 +1235,15 @@ document.addEventListener('DOMContentLoaded', () => {
   //       }
   //     }
 
+  //     // Prevent navigation if cookies are not accepted
+  //     const links = document.querySelectorAll(".navBox, .moreBtn");
+  //     links.forEach((link) => {
+  //       link.addEventListener("click", function (event) {
+  //         event.preventDefault();
+  //       });
+  //     });
   //   } else {
-  //     // Hide the dropdown and set hover behavior if the cookie is set
+  //     // Hide dropdown and enable hover behavior if cookies are accepted
   //     if (dropdownParent && dropdownMenu) {
   //       dropdownParent.classList.remove("show");
   //       dropdownMenu.classList.remove("show");
@@ -1211,7 +1253,6 @@ document.addEventListener('DOMContentLoaded', () => {
   //         dropdownToggle.setAttribute("aria-expanded", "false");
   //       }
 
-  //       // Add hover event to show dropdown
   //       dropdownParent.addEventListener("mouseenter", () => {
   //         dropdownParent.classList.add("show");
   //         dropdownMenu.classList.add("show");
@@ -1225,35 +1266,47 @@ document.addEventListener('DOMContentLoaded', () => {
   //   }
   // }
 
-  // // Prevent navigation if the cookie is not set
-  // function preventNavigationIfNoCookie() {
-  //   const links = document.querySelectorAll(".navBox, .moreBtn"); // Select all relevant links
-  //   links.forEach((link) => {
-  //     link.addEventListener("click", function (event) {
-  //       if (!isCookieSet(oneTrustCookieName)) {
-  //         event.preventDefault(); // Prevent navigation
-  //         // alert("Please accept cookies to continue."); // Optional: Show an alert or custom modal
+  // // Function to set langpref on region selection
+  // function handleRegionSelection() {
+  //   const regionLinks = document.querySelectorAll(".dropdown-menu a");
+
+  //   regionLinks.forEach((link) => {
+  //     link.addEventListener("click", (event) => {
+  //       event.preventDefault();
+  //       const selectedRegion = link.getAttribute("data-country-code");
+  //       if (isCookieValueSet(oneTrustCookieName, 'C0001:1')) {
+  //         setCookie(langPrefCookieName, selectedRegion, 365); // Set langpref for 1 year
+  //         window.location.href = `/${selectedRegion}`;
   //       }
   //     });
   //   });
   // }
 
-  // // Initialize
-  // handleDropdownVisibility();
-  // preventNavigationIfNoCookie();
+  // // Initialize functions
+  // handleLanguageRedirection();
+  // handleDropdownAndNavigation();
+  // handleRegionSelection();
+
 
 
   const indicators = document.querySelectorAll('.carousel-indicators li');
-  if (indicators) {
+  const carouselItems = document.querySelectorAll('.carousel-inner .carousel-item');
+  if (indicators.length > 0 && carouselItems.length > 0) {
     const idFromUrl = window.location.hash.substring(1);
-    // Loop through indicators to find the matching data-key
-    indicators.forEach(indicator => {
+    indicators.forEach((indicator, index) => {
       const dataKey = indicator.getAttribute('data-key');
       if (dataKey === idFromUrl) {
-        // Remove active class from all items
+        // Remove 'active' class from all indicators and carousel items
         indicators.forEach(item => item.classList.remove('active'));
-        // Add active class to the matching item
+        carouselItems.forEach(item => item.classList.remove('active'));
+
+        // Add 'active' class to the matching indicator and carousel item
         indicator.classList.add('active');
+        if (carouselItems[index]) { // Ensure the item exists before accessing classList
+          carouselItems[index].classList.add('active');
+        }
+
+        // Scroll to the selected indicator smoothly
         indicator.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
     });
@@ -1636,9 +1689,16 @@ document.addEventListener('DOMContentLoaded', () => {
       let limit = parseInt(buttonElement?.getAttribute('data-limit'), 10) || 0;
       let offset = parseInt(buttonElement?.getAttribute('data-offset'), 10) || 0;
 
+      // Retrieve saved value from localStorage
+      const savedValue = localStorage.getItem('selectedDropdown');
+      if (savedValue) {
+        dropdown.value = savedValue; // Set the saved value as the selected option
+      }
 
       function updateAndFetch(keyword = '') {
         const selectedValue = dropdown.value; // Get the latest selected value
+        localStorage.setItem('selectedDropdown', selectedValue); // Save to localStorage
+
         if (type === 'online') {
           fetchOnlineStores('online-template', selectedValue, apiEndpoint, limit, offset, keyword);
         } else if (type === 'instore') {
@@ -1674,9 +1734,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // Initial API call
+      // Initial API call with saved value
       updateAndFetch();
     }
+
 
     // Online Stores Dropdown
     const onlineDropdown = document.querySelector('.form-select#countryselect');
