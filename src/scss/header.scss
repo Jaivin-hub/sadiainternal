@@ -96,7 +96,7 @@ header {
 					border: 1px solid transparent;
 					min-height: 124px;
 					&.active{
-						background-color: transparent;
+						background-color: transparent !important;
 						color: $black-color;
 						border: 1px solid #DB3E44 !important;
 					}
@@ -104,14 +104,14 @@ header {
 						background-color: $border-color;
 						color: $black-color;
 						border: 1px solid $border-color;
-						h6{
+						h6, p{
 							color: $black-color;
 						}
 						img{
 							filter: inherit;
 						}
 					}
-					h6{
+					h6, p{
 						margin-top: 27px;
 					}
 				}
@@ -201,7 +201,7 @@ header {
 					img{
 						filter: brightness(0) invert(1);
 					}
-					h6 {
+					h6, p {
 						color: $white-color;
 					}
 				}
@@ -210,7 +210,7 @@ header {
 					max-height: 64px;
 					transition: all ease 0.3s;
 				}
-				h6{
+				h6, p{
 					text-align: center;
 					font-family: $title-font;
 					font-size: 21px;
@@ -425,7 +425,7 @@ header {
 					display: none;
 				}
 				.navBox{
-					h6{
+					h6, p{
 						font-size: 21px;
 						line-height: 21px;
 					}
