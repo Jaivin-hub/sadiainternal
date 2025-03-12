@@ -1316,7 +1316,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   initializeNewSlider()
-  const searchBar = document.getElementById('searchBar');
+  const searchBar = document.getElementById('searchBarMobile');
+  const searchBarDesktop = document.getElementById('searchBarDesktop');
+
   const searchForm = document.querySelector('.search-form');
   const searchInputElement = document.getElementById('search-Bar');  // Input field for search with a different ID
   const searchResultsForm = document.querySelector('.search-results-form');  // Form element for search results
@@ -1335,16 +1337,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle Enter key for desktop search bar
-    searchBar.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent form submission
-        const baseUrl = searchBar.getAttribute('data-url');
-        const searchQuery = searchBar.value.trim(); // Get the input value
-        if (searchQuery) {
-          window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+    if(searchBar){
+      searchBar.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevent form submission
+          const baseUrl = searchBar.getAttribute('data-url');
+          const searchQuery = searchBar.value.trim(); // Get the input value
+          if (searchQuery) {
+            window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+          }
         }
-      }
-    });
+      });
+    }
+
+    if(searchBarDesktop){
+      searchBarDesktop.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevent form submission
+          const baseUrl = searchBarDesktop.getAttribute('data-url');
+          const searchQuery = searchBarDesktop.value.trim(); // Get the input value
+          if (searchQuery) {
+            window.location.href = `${baseUrl}?keyword=${encodeURIComponent(searchQuery)}`;
+          }
+        }
+      });
+    }
+    
 
     if (searchResultsForm) {
       const searchIcon = document.querySelector('.serBtn img');
@@ -1474,7 +1492,14 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.search-form').removeClass('expanded');
     $('.close-button').hide();
     $('.search-button').show();
-    $('#searchBar').val('');
+    $('#searchBarMobile').val('');
+  });
+
+  $('.close-button').on('click', () => {
+    $('.search-form').removeClass('expanded');
+    $('.close-button').hide();
+    $('.search-button').show();
+    $('#searchBarDesktop').val('');
   });
 
   // Location Search Expand/Collapse Handlers
