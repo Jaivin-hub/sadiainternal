@@ -887,6 +887,9 @@ ul {
                             border-bottom: 1px solid #D6D6D6;
                             padding-top: 15px;
                             padding-bottom: 15px;
+                            &:last-child{
+                                white-space: nowrap;
+                            }
                         }
                         tr{
                             &:last-child{

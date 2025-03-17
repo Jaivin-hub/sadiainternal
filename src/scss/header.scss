@@ -46,7 +46,8 @@ header {
 				box-shadow: inherit !important;
 				outline: 0 !important;
 				img{
-					max-width: 120px;
+					max-width: 150px;
+					max-height: 60px;
 				}
 			}
 		}
@@ -435,6 +436,17 @@ header {
 		
 		
 
+	}
+
+	.mobileHeader{
+		.navbar-brand{
+			&.headerLogo{
+				img{
+					max-width: 150px;
+					max-height: 60px;
+				}
+			}
+		}
 	}
 
 
