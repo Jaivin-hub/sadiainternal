@@ -528,9 +528,10 @@
             justify-content: center;
             img{
                 object-fit: cover;
-                height: 212px;
+                max-height: 212px;
                 max-width: 261px;
                 width: auto;
+                height: auto;
             }
         }
         .prdctCont{
@@ -570,6 +571,21 @@
         }
     } 
 }
+
+
+.rldPrdct-slider{
+    .productList{
+        .list_prdct{
+            .pdctImg {
+                img{
+                    max-height: 280px;
+                    max-width: 300px;
+                }
+            }
+        }
+    }
+}
+
 
 #commonclass{
     visibility:hidden;
@@ -921,6 +937,7 @@
                         flex-direction: column;
                         justify-content: center;
                         margin-bottom: 15px;
+                        padding: 0 3px;
                         .range-filter{
                             margin: 0;
                             padding: 0;
@@ -939,6 +956,7 @@
                             margin: 13px 0 0;
                             font-family: $primary-font;
                             padding: 0;
+                            text-align: center;
                         }
                         .subtitles{
                             font-size: 16px;
