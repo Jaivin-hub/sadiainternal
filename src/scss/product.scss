@@ -528,8 +528,9 @@
             justify-content: center;
             img{
                 object-fit: cover;
-                height: 220px;
-                width: 261px;
+                height: 212px;
+                max-width: 261px;
+                width: auto;
             }
         }
         .prdctCont{

@@ -6,7 +6,9 @@
 html[dir="rtl"]{
 
     font-size:14px;
-
+    b, strong {
+        font-weight: 600;
+    }
     body{
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -555,6 +557,7 @@ html[dir="rtl"]{
                 li{
                     padding-right: 50px;
                     padding-left: 0px;
+                    font-weight: 400;
                     &::before{
                         left: inherit;
                         right: 0;
@@ -968,15 +971,23 @@ html[dir="rtl"]{
             }
             
         }
-        .footer-socials.col-md-4.col-lg-3.order-3 ul {
-            display: flex;
-            gap: 30px;
-          
-            li {
-              margin: 0;
+        .footer-socials.col-md-4.col-lg-3.order-3{
+            ul{
+                display: flex;
+                gap: 30px;
+                li {
+                    margin: 0;
+                }
             }
-          }
-          
+        }
+        .prdctDetailwrap{
+            .directions{
+                .subTitles{
+                    text-align: right !important;
+                }
+            }
+
+        }
 
     }
     
