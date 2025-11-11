@@ -6,7 +6,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { fetchStores } from "./api";
 mapboxgl.accessToken =
-  "pk.eyJ1IjoicmFqc3Jpc2h0aXMiLCJhIjoiY20yYTNkOTJzMGJtZDJpb3hwY21lY3p1eCJ9.7t6X_NQIGtIsI-FRLNPU6g";
+  "pk.eyJ1IjoicmlnaHRyZW1vdGV0ZWFtIiwiYSI6ImNtaHQ2aGZtcjBxemIybHF6YzhzZm8xdDAifQ.gtSyTaT3TxvnpOLa9030cw";
 
 // Function to initialize Mapbox map
 const initializeMapbox = () => {
